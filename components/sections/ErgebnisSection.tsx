@@ -15,8 +15,8 @@ const proofKarten = [
   {
     name: 'Markus R.',
     meta: 'Selbstständiger · 43 Jahre',
-    bildVorher: null,
-    bildNachher: null,
+    bildVorher: '/images/thomas-vorher.png',
+    bildNachher: '/images/thomas-nachher.png',
     kennzahl: '−9 kg',
     zeitraum: 'Körperfett abgebaut',
     fakten: [
