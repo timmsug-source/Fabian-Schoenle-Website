@@ -100,7 +100,7 @@ export default function Hero() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
 
           {/* VSL Placeholder */}
-          <div className="relative w-full rounded-xl overflow-hidden" style={{ border: '1px solid rgba(201, 154, 61, 0.25)', minHeight: '300px' }}>
+          <div className="relative rounded-xl overflow-hidden w-full aspect-video md:aspect-auto md:min-h-[400px]" style={{ border: '1px solid rgba(201, 154, 61, 0.25)' }}>
             <Image
               src="/images/vsl-placeholder.png"
               alt="Fabian Schönle – Performance Coaching"
