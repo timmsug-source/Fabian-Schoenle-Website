@@ -2,8 +2,8 @@ const proofKarten = [
   {
     name: 'Thomas K.',
     meta: 'Unternehmer · 38 Jahre',
-    bildVorher: null,
-    bildNachher: null,
+    bildVorher: '/images/thomas-vorher.png',
+    bildNachher: '/images/thomas-nachher.png',
     kennzahl: '−14 kg',
     zeitraum: 'in 16 Wochen',
     fakten: [
@@ -223,26 +223,44 @@ export default function ErgebnisSection() {
               }}
             >
               {/* Vorher / Nachher Bildbereich */}
-              <div className="relative flex" style={{ height: 200 }}>
+              <div className="relative flex" style={{ height: 240 }}>
                 {/* Vorher */}
                 <div
-                  className="flex-1 flex flex-col items-center justify-center gap-2"
+                  className="flex-1 relative overflow-hidden"
                   style={{ background: 'rgba(0,0,0,0.3)', borderRight: '1px solid rgba(255,255,255,0.06)' }}
                 >
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.15)" strokeWidth="1">
-                    <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
-                  </svg>
-                  <span className="font-inter text-xs font-semibold uppercase tracking-widest" style={{ color: 'rgba(255,255,255,0.2)' }}>Vorher</span>
+                  {k.bildVorher ? (
+                    <>
+                      <img src={k.bildVorher} alt="Vorher" className="absolute inset-0 w-full h-full object-cover object-top" />
+                      <span className="absolute bottom-2 left-0 right-0 text-center font-inter text-xs font-semibold uppercase tracking-widest" style={{ color: 'rgba(255,255,255,0.7)' }}>Vorher</span>
+                    </>
+                  ) : (
+                    <div className="flex flex-col items-center justify-center h-full gap-2">
+                      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.15)" strokeWidth="1">
+                        <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
+                      </svg>
+                      <span className="font-inter text-xs font-semibold uppercase tracking-widest" style={{ color: 'rgba(255,255,255,0.2)' }}>Vorher</span>
+                    </div>
+                  )}
                 </div>
                 {/* Nachher */}
                 <div
-                  className="flex-1 flex flex-col items-center justify-center gap-2"
+                  className="flex-1 relative overflow-hidden"
                   style={{ background: 'rgba(52,211,153,0.03)' }}
                 >
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="rgba(52,211,153,0.2)" strokeWidth="1">
-                    <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
-                  </svg>
-                  <span className="font-inter text-xs font-semibold uppercase tracking-widest" style={{ color: 'rgba(52,211,153,0.35)' }}>Nachher</span>
+                  {k.bildNachher ? (
+                    <>
+                      <img src={k.bildNachher} alt="Nachher" className="absolute inset-0 w-full h-full object-cover object-top" />
+                      <span className="absolute bottom-2 left-0 right-0 text-center font-inter text-xs font-semibold uppercase tracking-widest" style={{ color: 'rgba(52,211,153,0.85)' }}>Nachher</span>
+                    </>
+                  ) : (
+                    <div className="flex flex-col items-center justify-center h-full gap-2">
+                      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="rgba(52,211,153,0.2)" strokeWidth="1">
+                        <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
+                      </svg>
+                      <span className="font-inter text-xs font-semibold uppercase tracking-widest" style={{ color: 'rgba(52,211,153,0.35)' }}>Nachher</span>
+                    </div>
+                  )}
                 </div>
                 {/* Trennlinie mit Pfeil */}
                 {!k.platzhalter && (
