@@ -224,7 +224,7 @@ export default function LoesungsSection() {
           </div>
 
           {/* Fabian portrait */}
-          <div className="relative flex-shrink-0 self-end" style={{ width: 260, height: 380, marginTop: -100, marginRight: 16 }}>
+          <div className="relative flex-shrink-0 self-end hidden md:block" style={{ width: 260, height: 380, marginTop: -100, marginRight: 16 }}>
             <Image
               src="/images/Fabian-Schönle-ohne-Hintergrund.png"
               alt="Fabian Schönle"
