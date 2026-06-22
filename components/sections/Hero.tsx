@@ -66,6 +66,9 @@ export default function Hero() {
 
         {/* H1 + Subheadline — volle Breite */}
         <div className="mb-8 md:mb-16">
+          <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-5" style={{ color: '#C99A3D' }}>
+            High-Performance Coaching
+          </p>
           <h1
             className="font-barlow font-bold text-4xl md:text-5xl lg:text-6xl leading-[1.05] mb-6"
             style={{ color: '#E6E8EB' }}

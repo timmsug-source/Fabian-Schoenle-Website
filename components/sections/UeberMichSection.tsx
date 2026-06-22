@@ -22,7 +22,7 @@ const absaetze = [
   'Genau das war mein Ausgangspunkt.',
   'Ich habe Chemie studiert — auf PhD-Niveau. Ich habe gelernt, komplexe Systeme zu analysieren, Zusammenhänge zu verstehen und Lösungen zu entwickeln, die auf Daten basieren, nicht auf Annahmen. Irgendwann habe ich angefangen, denselben Blick auf meinen eigenen Körper zu richten.',
   'Was ich dabei verstanden habe: Die meisten Menschen scheitern nicht an Disziplin. Sie scheitern daran, dass niemand je gemessen hat, was ihr System wirklich braucht. Kein Arzt. Kein Trainer. Kein Coach.',
-  'Aus dieser Erkenntnis ist FS-Performance entstanden. Ein Ansatz, der den Körper so behandelt, wie du dein Business behandelst — datenbasiert, strategisch und mit klarem Ziel.',
+  'Aus dieser Erkenntnis ist FS-Performance entstanden — ein High-Performance Coaching, das den Körper so behandelt, wie du dein Business behandelst: datenbasiert, strategisch und mit klarem Ziel.',
 ]
 
 export default function UeberMichSection() {

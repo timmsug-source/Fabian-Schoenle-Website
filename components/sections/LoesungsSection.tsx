@@ -100,7 +100,7 @@ export default function LoesungsSection() {
 
         <div className="mb-6 animate-fade-up">
           <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-4" style={{ color: '#C99A3D' }}>
-            Die Lösung
+            High-Performance Coaching
           </p>
           <h2 className="font-barlow font-bold text-3xl md:text-5xl leading-tight mb-4" style={{ color: '#E6E8EB' }}>
             Kein Programm von der Stange —<br className="hidden md:block" /> sondern dein System, präzise eingestellt

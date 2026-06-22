@@ -79,9 +79,12 @@ export default function VergleichSection() {
           <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-4" style={{ color: '#C99A3D' }}>
             Der Unterschied
           </p>
-          <h2 className="font-barlow font-bold text-3xl md:text-5xl leading-tight" style={{ color: '#E6E8EB' }}>
+          <h2 className="font-barlow font-bold text-3xl md:text-5xl leading-tight mb-4" style={{ color: '#E6E8EB' }}>
             Andere verkaufen dir einen Plan.<br className="hidden md:block" /> Ich stelle dein System ein.
           </h2>
+          <p className="font-inter text-base leading-relaxed max-w-xl" style={{ color: '#5B6773' }}>
+            Was High-Performance Coaching von klassischem Fitness-Coaching unterscheidet.
+          </p>
         </div>
 
         {/* Karten-Duo */}

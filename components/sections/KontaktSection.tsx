@@ -57,7 +57,7 @@ export default function KontaktSection() {
           {/* Linke Spalte — Text + Trust */}
           <div className="animate-fade-up lg:sticky lg:top-28 lg:self-start">
             <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-4" style={{ color: '#C99A3D' }}>
-              Jetzt starten
+              High-Performance Coaching starten
             </p>
             <h2 className="font-barlow font-bold text-3xl md:text-5xl leading-tight mb-5" style={{ color: '#E6E8EB' }}>
               Finde heraus, was dein System gerade limitiert.
