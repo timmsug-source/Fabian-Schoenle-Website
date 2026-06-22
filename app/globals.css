@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-navy:      #182A3A;
+  --color-navy-dark: #0D1721;
+  --color-navy-mid:  #2A3A4A;
+  --color-gold:      #C99A3D;
+  --color-gold-light:#F2D27A;
+  --color-gold-dark: #8A5D1F;
+  --color-neutral-1: #5B6773;
+  --color-neutral-2: #A1A9B3;
+  --color-neutral-3: #E6E8EB;
+}
+
+body {
+  background: var(--color-navy-dark);
+  color: var(--color-neutral-3);
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-up {
+  animation: fadeUp 0.6s ease forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-up { animation: none; }
+}
+
+/* Ergebnis-Kästchen: nur auf Desktop nach oben/unten herausstehen */
+.ergebnis-raised {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+@media (min-width: 768px) {
+  .ergebnis-raised {
+    margin-top: -16px;
+    margin-bottom: -16px;
+  }
+}
