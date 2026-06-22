@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { buildMetadata } from '@/lib/metadata'
-import Hero from '@/components/sections/Hero'
+import PageHero from '@/components/sections/PageHero'
 import CTASection from '@/components/sections/CTASection'
 import PersonSchema from '@/components/schema/PersonSchema'
 
@@ -16,7 +16,7 @@ export default function UeberMichPage() {
     <>
       <PersonSchema />
 
-      <Hero
+      <PageHero
         label="Über mich"
         headline="Wissenschaft trifft Praxis."
         body="Fabian Schönle ist Performance Coach mit PhD-Hintergrund in Chemie. Er spezialisiert sich auf metabolische Optimierung für Männer ab 30 — datenbasiert, individuell, ohne Hype."

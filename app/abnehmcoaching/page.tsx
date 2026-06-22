@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { buildMetadata } from '@/lib/metadata'
-import Hero from '@/components/sections/Hero'
+import PageHero from '@/components/sections/PageHero'
 import SolutionSection from '@/components/sections/SolutionSection'
 import ComparisonTable from '@/components/sections/ComparisonTable'
 import FAQ from '@/components/sections/FAQ'
@@ -37,7 +37,7 @@ export default function AbnehmcoachingPage() {
     <>
       <FAQSchema items={faqItems} />
 
-      <Hero
+      <PageHero
         label="Abnehmcoaching"
         headline="Kein Jo-Jo. Kein Verzicht. Ein System."
         subheadline="Körperfettreduktion für Männer ab 30 — datenbasiert."

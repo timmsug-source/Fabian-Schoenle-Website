@@ -56,7 +56,7 @@ export default function SocialSection() {
               style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)' }}
             >
               <p className="font-inter text-sm leading-relaxed" style={{ color: '#C8CDD4' }}>
-                „Die meisten Männer ab 30 trainieren nicht zu wenig — sie trainieren am falschen Hebel. Was dein Blutbild dir über dein Training verrät, was kein Trainer jemals misst."
+                &bdquo;Die meisten Männer ab 30 trainieren nicht zu wenig — sie trainieren am falschen Hebel. Was dein Blutbild dir über dein Training verrät, was kein Trainer jemals misst.&ldquo;
               </p>
               <p className="font-inter text-xs mt-3" style={{ color: '#3A4A5A' }}>Beispiel-Post · LinkedIn</p>
             </div>

@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { buildMetadata } from '@/lib/metadata'
-import Hero from '@/components/sections/Hero'
+import PageHero from '@/components/sections/PageHero'
 import SolutionSection from '@/components/sections/SolutionSection'
 import FAQ from '@/components/sections/FAQ'
 import CTASection from '@/components/sections/CTASection'
@@ -38,7 +38,7 @@ export default function ErnaehrungsberatungKarlsruhePage() {
       <LocalBusinessSchema />
       <FAQSchema items={faqItems} />
 
-      <Hero
+      <PageHero
         label="Ernährungsberatung Karlsruhe"
         headline="Keine Diät. Ein System."
         subheadline="Ernährungsberatung in Karlsruhe — basierend auf deinen Blutwerten."

@@ -204,7 +204,7 @@ export default function LoesungsSection() {
               className="font-barlow font-bold text-7xl leading-none select-none mb-2"
               style={{ color: '#C99A3D', opacity: 0.35, lineHeight: 1 }}
             >
-              "
+              &ldquo;
             </span>
             <p
               className="font-barlow font-bold text-2xl md:text-3xl leading-snug mb-6"

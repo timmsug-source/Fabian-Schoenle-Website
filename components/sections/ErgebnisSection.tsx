@@ -181,7 +181,7 @@ export default function ErgebnisSection() {
             className="font-barlow font-bold text-5xl leading-none select-none"
             style={{ color: '#C99A3D', opacity: 0.3, display: 'block', lineHeight: 1, marginBottom: '-8px' }}
           >
-            "
+            &ldquo;
           </span>
           <p
             className="font-barlow font-bold text-xl md:text-2xl leading-snug max-w-3xl mx-auto"

@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import { CALENDLY_URL } from '@/lib/constants'
 
 const faqs = [
   {
@@ -61,7 +60,7 @@ export default function FAQSection() {
         </div>
 
         {/* Accordion */}
-        <div className="flex flex-col divide-y animate-fade-up" style={{ borderTop: '1px solid rgba(255,255,255,0.07)', borderBottom: '1px solid rgba(255,255,255,0.07)', divideColor: 'rgba(255,255,255,0.07)', animationDelay: '60ms' }}>
+        <div className="flex flex-col animate-fade-up" style={{ borderTop: '1px solid rgba(255,255,255,0.07)', borderBottom: '1px solid rgba(255,255,255,0.07)', animationDelay: '60ms' }}>
           {faqs.map((faq, i) => (
             <div key={i} style={{ borderColor: 'rgba(255,255,255,0.07)' }}>
               <button

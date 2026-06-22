@@ -61,6 +61,7 @@ function HConnector() {
   )
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function VConnectors() {
   return (
     <div className="hidden md:grid" style={{ gridColumn: '1 / -1', display: 'grid', gridTemplateColumns: '1fr 28px 1fr 28px 1fr 28px 1fr', height: 28 }}>

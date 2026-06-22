@@ -1,5 +1,7 @@
 'use client'
 
+import Image from 'next/image'
+
 const tickerItems = [
   { name: 'Markus R.', role: 'Unternehmer', result: '−11 kg Körperfett in 10 Wochen' },
   { name: 'Stefan K.', role: 'Geschäftsführer', result: 'Energie endlich wieder stabil den ganzen Tag' },
@@ -96,10 +98,12 @@ export default function Hero() {
 
           {/* VSL Placeholder */}
           <div className="relative w-full rounded-xl overflow-hidden" style={{ border: '1px solid rgba(201, 154, 61, 0.25)', minHeight: '300px' }}>
-            <img
+            <Image
               src="/images/vsl-placeholder.png"
               alt="Fabian Schönle – Performance Coaching"
-              className="absolute inset-0 w-full h-full object-cover"
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 50vw"
             />
             <div className="absolute inset-0 flex items-center justify-center" style={{ background: 'rgba(13, 23, 33, 0.35)' }}>
               <div

@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { buildMetadata } from '@/lib/metadata'
-import Hero from '@/components/sections/Hero'
+import PageHero from '@/components/sections/PageHero'
 import SolutionSection from '@/components/sections/SolutionSection'
 import Testimonials from '@/components/sections/Testimonials'
 import FAQ from '@/components/sections/FAQ'
@@ -37,7 +37,7 @@ export default function PersonalCoachingOnlinePage() {
     <>
       <FAQSchema items={faqItems} />
 
-      <Hero
+      <PageHero
         label="Personal Coaching online"
         headline="Ort spielt keine Rolle. Ergebnisse schon."
         subheadline="Datenbasiertes Personal Coaching — komplett online."
