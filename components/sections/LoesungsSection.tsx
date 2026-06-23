@@ -226,15 +226,15 @@ export default function LoesungsSection() {
           {/* Fabian portrait */}
           <div
             className="relative flex-shrink-0 self-center md:self-end mx-auto md:mx-0"
-            style={{ width: 220, height: 320, marginTop: 8, marginBottom: -8 }}
+            style={{ width: 200, height: 240, marginTop: 8, marginBottom: 8 }}
           >
-            <div className="md:hidden absolute inset-0" style={{ width: 220, height: 320 }}>
+            <div className="md:hidden absolute inset-0" style={{ width: 200, height: 240 }}>
               <Image
                 src="/images/Fabian-Schönle-ohne-Hintergrund.png"
                 alt="Fabian Schönle"
                 fill
-                className="object-contain object-bottom"
-                sizes="220px"
+                className="object-contain object-top"
+                sizes="200px"
               />
             </div>
             <div
