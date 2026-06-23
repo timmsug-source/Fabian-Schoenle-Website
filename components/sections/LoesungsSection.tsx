@@ -223,32 +223,32 @@ export default function LoesungsSection() {
             </div>
           </div>
 
-          {/* Fabian portrait */}
+          {/* Fabian portrait — Mobile */}
           <div
-            className="relative flex-shrink-0 self-center md:self-end mx-auto md:mx-0"
+            className="md:hidden relative flex-shrink-0 self-center mx-auto"
             style={{ width: 200, height: 240, marginTop: 8, marginBottom: 8 }}
           >
-            <div className="md:hidden absolute inset-0" style={{ width: 200, height: 240 }}>
-              <Image
-                src="/images/Fabian-Schönle-ohne-Hintergrund.png"
-                alt="Fabian Schönle"
-                fill
-                className="object-contain object-top"
-                sizes="200px"
-              />
-            </div>
-            <div
-              className="hidden md:block absolute"
-              style={{ width: 260, height: 380, marginTop: -100, marginRight: 16, bottom: 0 }}
-            >
-              <Image
-                src="/images/Fabian-Schönle-ohne-Hintergrund.png"
-                alt="Fabian Schönle"
-                fill
-                className="object-contain object-bottom"
-                sizes="280px"
-              />
-            </div>
+            <Image
+              src="/images/Fabian-Schönle-ohne-Hintergrund.png"
+              alt="Fabian Schönle"
+              fill
+              className="object-contain object-top"
+              sizes="200px"
+            />
+          </div>
+
+          {/* Fabian portrait — Desktop (original) */}
+          <div
+            className="hidden md:block relative flex-shrink-0 self-end"
+            style={{ width: 260, height: 380, marginTop: -100, marginRight: 16 }}
+          >
+            <Image
+              src="/images/Fabian-Schönle-ohne-Hintergrund.png"
+              alt="Fabian Schönle"
+              fill
+              className="object-contain object-bottom"
+              sizes="280px"
+            />
           </div>
         </div>
 
