@@ -43,8 +43,8 @@ export default function Header() {
       <header
         className="rounded-xl overflow-hidden"
         style={{
-          background: '#182A3A',
-          border: '1px solid rgba(201, 154, 61, 0.25)',
+          background: '#091122',
+          border: '1px solid rgba(201, 168, 76, 0.25)',
         }}
       >
         {/* Hauptzeile */}
@@ -59,9 +59,8 @@ export default function Header() {
               height={34}
               className="rounded-sm object-contain"
             />
-            <span className="font-barlow font-semibold text-base md:text-lg tracking-wide">
-              <span style={{ color: '#E6E8EB' }}>Fabian </span>
-              <span style={{ color: '#C99A3D' }}>Schönle</span>
+            <span className="font-barlow font-semibold text-base md:text-lg tracking-wide" style={{ color: '#E6E8EB' }}>
+              Fabian Schönle
             </span>
           </Link>
 
@@ -84,16 +83,16 @@ export default function Header() {
             href={CALENDLY_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden md:flex items-center gap-2 font-inter font-semibold text-sm px-6 h-11 rounded-lg transition-opacity hover:opacity-90"
+            className="btn-shine hidden md:flex items-center gap-2 font-inter font-semibold text-sm px-6 h-11 rounded-lg transition-opacity hover:opacity-90"
             style={{
-              background: 'linear-gradient(135deg, #C99A3D 0%, #F2D27A 50%, #C99A3D 100%)',
-              color: '#0D1721',
+              background: 'radial-gradient(circle, #C9A84C, #E8D49A)',
+              color: '#060E1F',
             }}
           >
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <path d="M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/>
             </svg>
-            Erstgespräch buchen
+            Performance Analyse buchen
           </a>
 
           {/* Mobile Hamburger */}
@@ -131,7 +130,7 @@ export default function Header() {
           className="md:hidden overflow-hidden transition-all duration-300"
           style={{
             maxHeight: menuOpen ? '300px' : '0',
-            borderTop: menuOpen ? '1px solid rgba(201,154,61,0.15)' : '1px solid transparent',
+            borderTop: menuOpen ? '1px solid rgba(201,168,76,0.15)' : '1px solid transparent',
           }}
         >
           <nav className="flex flex-col px-4 py-4 gap-1">
@@ -141,7 +140,7 @@ export default function Header() {
                 href={link.href}
                 onClick={() => setMenuOpen(false)}
                 className="font-inter text-sm py-3 transition-colors"
-                style={{ color: '#A1A9B3', borderBottom: '1px solid rgba(201,154,61,0.08)' }}
+                style={{ color: '#A1A9B3', borderBottom: '1px solid rgba(201,168,76,0.08)' }}
               >
                 {link.label}
               </a>
@@ -151,16 +150,16 @@ export default function Header() {
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setMenuOpen(false)}
-              className="mt-3 flex items-center justify-center gap-2 font-inter font-semibold text-sm h-11 rounded-lg"
+              className="btn-shine mt-3 flex items-center justify-center gap-2 font-inter font-semibold text-sm h-11 rounded-lg"
               style={{
-                background: 'linear-gradient(135deg, #C99A3D 0%, #F2D27A 50%, #C99A3D 100%)',
-                color: '#0D1721',
+                background: 'radial-gradient(circle, #C9A84C, #E8D49A)',
+                color: '#060E1F',
               }}
             >
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/>
               </svg>
-              Erstgespräch buchen
+              Performance Analyse buchen
             </a>
           </nav>
         </div>

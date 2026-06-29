@@ -10,10 +10,10 @@ type PageHeroProps = {
 
 export default function PageHero({ label, headline, subheadline, body, ctaLabel }: PageHeroProps) {
   return (
-    <section className="relative" style={{ background: '#0D1721', paddingTop: 120 }}>
+    <section className="relative" style={{ background: '#060E1F', paddingTop: 120 }}>
       <div className="max-w-4xl mx-auto px-4 md:px-8 py-20 md:py-28">
         {label && (
-          <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-4" style={{ color: '#C99A3D' }}>
+          <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-4" style={{ background: 'linear-gradient(#C9A84C, #E8D49A)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
             {label}
           </p>
         )}
@@ -36,12 +36,12 @@ export default function PageHero({ label, headline, subheadline, body, ctaLabel 
           rel="noopener noreferrer"
           className="inline-flex items-center gap-2 px-7 py-4 rounded-xl font-inter font-semibold text-sm"
           style={{
-            background: 'linear-gradient(135deg, #8A5D1F 0%, #C99A3D 50%, #F2D27A 100%)',
-            color: '#0D1721',
-            boxShadow: '0 4px 24px rgba(201,154,61,0.25)',
+            background: 'radial-gradient(circle, #C9A84C, #E8D49A)',
+            color: '#060E1F',
+            boxShadow: '0 4px 24px rgba(201,168,76,0.25)',
           }}
         >
-          {ctaLabel ?? 'Kostenloses Erstgespräch buchen'}
+          {ctaLabel ?? 'Performance Analyse buchen'}
         </a>
       </div>
     </section>

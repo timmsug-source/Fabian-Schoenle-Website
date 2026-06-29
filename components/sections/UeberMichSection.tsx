@@ -3,15 +3,40 @@ import { CALENDLY_URL } from '@/lib/constants'
 
 const credentials = [
   {
-    icon: '🎓',
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs><linearGradient id="uc0" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#C9A84C"/><stop offset="100%" stopColor="#E8D49A"/></linearGradient></defs>
+        <path d="M18 4 L4 11 L18 18 L32 11 Z" fill="url(#uc0)"/>
+        <path d="M8 15 L8 24 C8 24 12 29 18 29 C24 29 28 24 28 24 L28 15" stroke="url(#uc0)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+        <line x1="32" y1="11" x2="32" y2="22" stroke="url(#uc0)" strokeWidth="2.5" strokeLinecap="round"/>
+        <circle cx="32" cy="24" r="2.5" fill="url(#uc0)"/>
+      </svg>
+    ),
     text: 'PhD-Hintergrund in Chemie',
   },
   {
-    icon: '📊',
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs><linearGradient id="uc1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#C9A84C"/><stop offset="100%" stopColor="#E8D49A"/></linearGradient></defs>
+        <rect x="2" y="30" width="32" height="3" rx="1.5" fill="url(#uc1)"/>
+        <rect x="2" y="4" width="3" height="26" rx="1.5" fill="url(#uc1)"/>
+        <rect x="7" y="20" width="5" height="10" rx="2" fill="url(#uc1)"/>
+        <rect x="15" y="13" width="5" height="17" rx="2" fill="url(#uc1)"/>
+        <rect x="23" y="7" width="5" height="23" rx="2" fill="url(#uc1)"/>
+      </svg>
+    ),
     text: 'Datenbasierte Methode — entwickelt aus Wissenschaft und eigener Erfahrung',
   },
   {
-    icon: '👥',
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs><linearGradient id="uc2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#C9A84C"/><stop offset="100%" stopColor="#E8D49A"/></linearGradient></defs>
+        <circle cx="13" cy="12" r="6" fill="url(#uc2)"/>
+        <circle cx="26" cy="14" r="4.5" fill="url(#uc2)"/>
+        <path d="M2 30 C2 22 8 18 13 18 C18 18 24 22 24 30" fill="url(#uc2)"/>
+        <path d="M24 20 C27 20 32 23 32 30" stroke="url(#uc2)" strokeWidth="3" strokeLinecap="round"/>
+      </svg>
+    ),
     text: 'Selbstständige & Unternehmer ab 30 — meine einzige Zielgruppe',
   },
 ]
@@ -27,11 +52,11 @@ const absaetze = [
 
 export default function UeberMichSection() {
   return (
-    <section id="ueber-mich" className="relative" style={{ background: '#101C28' }}>
+    <section id="ueber-mich" className="relative" style={{ background: '#060E1F' }}>
       <div className="relative max-w-7xl mx-auto px-4 md:px-8 py-24 md:py-32">
 
         {/* Label */}
-        <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-4 animate-fade-up" style={{ color: '#C99A3D' }}>
+        <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-4 animate-fade-up" style={{ background: 'linear-gradient(#C9A84C, #E8D49A)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
           Wer steckt dahinter?
         </p>
 
@@ -63,16 +88,13 @@ export default function UeberMichSection() {
             <div
               className="mt-10 rounded-2xl p-6 flex flex-col gap-4"
               style={{
-                background: 'linear-gradient(135deg, #182A3A 0%, #0D1F2D 100%)',
-                border: '1px solid rgba(201,154,61,0.15)',
+                background: 'linear-gradient(135deg, #0D1829 0%, #0B1525 100%)',
+                border: '1px solid rgba(201,168,76,0.15)',
               }}
             >
               {credentials.map((c, i) => (
                 <div key={i} className="flex items-start gap-3">
-                  <span
-                    className="flex-shrink-0 w-9 h-9 rounded-xl flex items-center justify-center text-base"
-                    style={{ background: 'rgba(201,154,61,0.08)', border: '1px solid rgba(201,154,61,0.15)' }}
-                  >
+                  <span className="flex-shrink-0 mt-1">
                     {c.icon}
                   </span>
                   <p className="font-inter text-sm leading-relaxed pt-2" style={{ color: '#8A96A3' }}>
@@ -86,12 +108,12 @@ export default function UeberMichSection() {
             <div
               className="mt-8 rounded-2xl px-6 py-5"
               style={{
-                background: 'rgba(201,154,61,0.04)',
-                border: '1px solid rgba(201,154,61,0.2)',
-                borderLeft: '3px solid rgba(201,154,61,0.6)',
+                background: 'rgba(201,168,76,0.04)',
+                border: '1px solid rgba(201,168,76,0.2)',
+                borderLeft: '3px solid rgba(201,168,76,0.6)',
               }}
             >
-              <p className="font-inter text-sm leading-relaxed" style={{ color: '#A89060' }}>
+              <p className="font-inter text-sm leading-relaxed" style={{ background: 'linear-gradient(#C9A84C, #E8D49A)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
                 Ich arbeite nicht mit jedem. Aber wenn du weißt, dass dein Körper mehr kann als er gerade zeigt — dann lass uns herausfinden, was ihn aufhält.
               </p>
             </div>
@@ -101,14 +123,14 @@ export default function UeberMichSection() {
               href={CALENDLY_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-8 inline-flex items-center gap-2 px-6 py-3.5 rounded-lg font-inter font-semibold text-sm transition-opacity hover:opacity-80"
+              className="btn-shine mt-8 inline-flex items-center gap-2 px-6 py-3.5 rounded-lg font-inter font-semibold text-sm transition-opacity hover:opacity-80"
               style={{
-                background: 'linear-gradient(135deg, #8A5D1F 0%, #C99A3D 50%, #F2D27A 100%)',
-                color: '#0D1721',
-                boxShadow: '0 4px 24px rgba(201,154,61,0.25)',
+                background: 'radial-gradient(circle, #C9A84C, #E8D49A)',
+                color: '#060E1F',
+                boxShadow: '0 4px 24px rgba(201,168,76,0.25)',
               }}
             >
-              Kostenloses Erstgespräch buchen
+              Performance Analyse buchen
               <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
                 <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
@@ -117,24 +139,42 @@ export default function UeberMichSection() {
 
           {/* Rechte Spalte — Bild */}
           <div className="relative animate-fade-up lg:sticky lg:top-28 lg:self-start" style={{ animationDelay: '120ms' }}>
+          <div className="relative" style={{ maxWidth: 434, width: '100%', paddingBottom: 14, paddingRight: 14 }}>
+
             {/* Hintergrund-Glow */}
             <div
-              className="absolute inset-0 rounded-3xl blur-3xl"
-              style={{ background: 'radial-gradient(ellipse at center, rgba(201,154,61,0.08) 0%, transparent 70%)' }}
+              className="absolute rounded-3xl blur-3xl"
+              style={{ inset: 0, background: 'radial-gradient(ellipse at center, rgba(201,168,76,0.1) 0%, transparent 70%)' }}
             />
 
+            {/* Versetzter äußerer Gold-Akzentrahmen — gleiche Größe wie Bild, 14px nach unten-rechts verschoben */}
+            <div
+              className="absolute rounded-3xl"
+              style={{
+                top: 14,
+                left: 14,
+                right: 0,
+                bottom: 0,
+                border: '1px solid rgba(201,168,76,0.4)',
+                background: 'transparent',
+                zIndex: 0,
+              }}
+            />
+
+            {/* Haupt-Bildcontainer */}
             <div
               className="relative rounded-3xl overflow-hidden"
               style={{
                 width: '100%',
                 maxWidth: 420,
                 aspectRatio: '3/4',
-                border: '1px solid rgba(201,154,61,0.15)',
-                background: 'linear-gradient(135deg, #182A3A 0%, #0D1F2D 100%)',
+                border: '1px solid rgba(201,168,76,0.25)',
+                background: 'linear-gradient(135deg, #0D1829 0%, #0B1525 100%)',
+                zIndex: 1,
               }}
             >
               <Image
-                src="/images/Fabian-Schönle-Medaillie.jpg"
+                src="/images/Fabian-Schönle-Farbe-Triathlon.JPG"
                 alt="Fabian Schönle — Performance Coach"
                 fill
                 className="object-cover object-top"
@@ -156,6 +196,8 @@ export default function UeberMichSection() {
                 <p className="font-inter text-xs mt-0.5" style={{ color: '#5B6773' }}>Performance Coach · PhD Chemie</p>
               </div>
             </div>
+
+          </div>
           </div>
 
         </div>

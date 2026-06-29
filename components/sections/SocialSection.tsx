@@ -11,7 +11,7 @@ const instaImages = [
 
 export default function SocialSection() {
   return (
-    <section style={{ background: '#101C28' }}>
+    <section style={{ background: '#060E1F' }}>
       <div className="max-w-7xl mx-auto px-4 md:px-8 py-16 md:py-20">
 
         {/* Header */}
@@ -33,7 +33,7 @@ export default function SocialSection() {
           {/* LinkedIn */}
           <div
             className="flex flex-col rounded-2xl p-6"
-            style={{ background: 'linear-gradient(135deg, #182A3A 0%, #0D1F2D 100%)', border: '1px solid rgba(255,255,255,0.08)' }}
+            style={{ background: 'linear-gradient(135deg, #0D1829 0%, #0B1525 100%)', border: '1px solid rgba(255,255,255,0.08)' }}
           >
             <div className="flex items-center gap-3 mb-5">
               <span
@@ -78,7 +78,7 @@ export default function SocialSection() {
           {/* Instagram */}
           <div
             className="flex flex-col rounded-2xl p-6"
-            style={{ background: 'linear-gradient(135deg, #182A3A 0%, #0D1F2D 100%)', border: '1px solid rgba(255,255,255,0.08)' }}
+            style={{ background: 'linear-gradient(135deg, #0D1829 0%, #0B1525 100%)', border: '1px solid rgba(255,255,255,0.08)' }}
           >
             <div className="flex items-center gap-3 mb-5">
               <span

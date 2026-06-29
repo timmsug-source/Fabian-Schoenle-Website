@@ -5,17 +5,36 @@ import { CALENDLY_URL } from '@/lib/constants'
 
 const punkte = [
   {
-    icon: '✅',
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs><linearGradient id="kk0" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#C9A84C"/><stop offset="100%" stopColor="#E8D49A"/></linearGradient></defs>
+        <circle cx="18" cy="18" r="16" fill="url(#kk0)"/>
+        <path d="M10 18 L15 24 L26 12" stroke="#060E1F" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
+    ),
     titel: 'Kostenlos & unverbindlich',
     text: 'Kein Druck, keine versteckten Kosten. Du entscheidest danach, ob wir zusammenarbeiten.',
   },
   {
-    icon: '⏱',
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs><linearGradient id="kk1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#C9A84C"/><stop offset="100%" stopColor="#E8D49A"/></linearGradient></defs>
+        <circle cx="18" cy="18" r="14" stroke="url(#kk1)" strokeWidth="3.5"/>
+        <path d="M18 10 L18 18 L24 22" stroke="url(#kk1)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
+    ),
     titel: '30 Minuten — kein Stunden-Call',
     text: 'Respekt für deine Zeit. Wir kommen schnell auf den Punkt.',
   },
   {
-    icon: '🌐',
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs><linearGradient id="kk2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#C9A84C"/><stop offset="100%" stopColor="#E8D49A"/></linearGradient></defs>
+        <circle cx="18" cy="18" r="14" stroke="url(#kk2)" strokeWidth="3.5"/>
+        <ellipse cx="18" cy="18" rx="6" ry="14" stroke="url(#kk2)" strokeWidth="2.5"/>
+        <line x1="4" y1="18" x2="32" y2="18" stroke="url(#kk2)" strokeWidth="2.5"/>
+      </svg>
+    ),
     titel: 'Online — von überall',
     text: 'Kein Anfahrtsweg. Kein Termin vor Ort. Einfach buchen und fertig.',
   },
@@ -44,11 +63,11 @@ export default function KontaktSection() {
   }, [])
 
   return (
-    <section className="relative" style={{ background: '#0D1721' }}>
+    <section className="relative" style={{ background: '#060E1F' }}>
       {/* Subtiler Gold-Glow oben */}
       <div
         className="absolute top-0 left-0 right-0 h-px"
-        style={{ background: 'linear-gradient(to right, transparent, rgba(201,154,61,0.4), transparent)' }}
+        style={{ background: 'linear-gradient(to right, transparent, rgba(201,168,76,0.4), transparent)' }}
       />
 
       <div className="max-w-7xl mx-auto px-4 md:px-8 py-24 md:py-32">
@@ -56,7 +75,7 @@ export default function KontaktSection() {
 
           {/* Linke Spalte — Text + Trust */}
           <div className="animate-fade-up lg:sticky lg:top-28 lg:self-start">
-            <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-4" style={{ color: '#C99A3D' }}>
+            <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-4" style={{ background: 'linear-gradient(#C9A84C, #E8D49A)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
               High-Performance Coaching starten
             </p>
             <h2 className="font-barlow font-bold text-3xl md:text-5xl leading-tight mb-5" style={{ color: '#E6E8EB' }}>
@@ -73,7 +92,7 @@ export default function KontaktSection() {
             <div className="flex flex-col gap-3 mb-10">
               {punkte.map((p, i) => (
                 <div key={i} className="flex items-start gap-3">
-                  <span className="text-base flex-shrink-0 mt-0.5">{p.icon}</span>
+                  <span className="flex-shrink-0 mt-0.5">{p.icon}</span>
                   <div>
                     <p className="font-inter text-sm font-semibold" style={{ color: '#E6E8EB' }}>{p.titel}</p>
                     <p className="font-inter text-xs leading-relaxed mt-0.5" style={{ color: '#5B6773' }}>{p.text}</p>
@@ -87,22 +106,27 @@ export default function KontaktSection() {
               href={CALENDLY_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 px-7 py-4 rounded-xl font-inter font-semibold text-sm transition-opacity hover:opacity-90 mb-4"
+              className="btn-shine inline-flex items-center gap-3 px-7 py-4 rounded-xl font-inter font-semibold text-sm transition-opacity hover:opacity-90 mb-4"
               style={{
-                background: 'linear-gradient(135deg, #8A5D1F 0%, #C99A3D 50%, #F2D27A 100%)',
-                color: '#0D1721',
-                boxShadow: '0 4px 24px rgba(201,154,61,0.25)',
+                background: 'radial-gradient(circle, #C9A84C, #E8D49A)',
+                color: '#060E1F',
+                boxShadow: '0 4px 24px rgba(201,168,76,0.25)',
               }}
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
               </svg>
-              Jetzt kostenloses Erstgespräch buchen
+              Performance Analyse buchen
             </a>
 
             {/* Vertrauensanker */}
             <p className="font-inter text-xs block" style={{ color: '#3A4A5A' }}>
-              🔒 Deine Daten werden vertraulich behandelt. Kein Spam, kein Newsletter.
+              <svg width="12" height="12" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ display: 'inline', marginRight: 6, verticalAlign: 'middle' }}>
+                <defs><linearGradient id="klock" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#C9A84C"/><stop offset="100%" stopColor="#E8D49A"/></linearGradient></defs>
+                <rect x="8" y="16" width="20" height="16" rx="3" fill="url(#klock)"/>
+                <path d="M12 16 L12 12 C12 7.6 24 7.6 24 12 L24 16" stroke="url(#klock)" strokeWidth="3" strokeLinecap="round"/>
+              </svg>
+              Deine Daten werden vertraulich behandelt. Kein Spam, kein Newsletter.
             </p>
           </div>
 
@@ -116,7 +140,7 @@ export default function KontaktSection() {
           >
             <div
               className="calendly-inline-widget"
-              data-url={`${CALENDLY_URL}?hide_event_type_details=1&hide_gdpr_banner=1&background_color=0D1721&text_color=E6E8EB&primary_color=4A6741`}
+              data-url={`${CALENDLY_URL}?hide_event_type_details=1&hide_gdpr_banner=1&background_color=091122&text_color=E6E8EB&primary_color=4A6741`}
               style={{ minWidth: 320, height: widgetHeight }}
             />
           </div>

@@ -40,12 +40,17 @@ const proofKarten = [
 const saeulen = [
   {
     icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M4.5 12.75l6 6 9-13.5" />
+      <svg width="28" height="28" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs><linearGradient id="es0" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#C9A84C"/><stop offset="100%" stopColor="#E8D49A"/></linearGradient></defs>
+        {/* Körper/Silhouette */}
+        <circle cx="18" cy="8" r="5" fill="url(#es0)"/>
+        <path d="M8 34 L8 20 C8 15 12 12 18 12 C24 12 28 15 28 20 L28 34" fill="url(#es0)"/>
+        <rect x="6" y="19" width="5" height="14" rx="2.5" fill="url(#es0)"/>
+        <rect x="25" y="19" width="5" height="14" rx="2.5" fill="url(#es0)"/>
       </svg>
     ),
     label: 'Körperlich',
-    farbe: '#34D399',
+    farbe: '#C9A84C',
     punkte: [
       'Deutlicher Fettabbau — vor allem am Bauch',
       'Mehr Muskeldefinition ohne exzessives Training',
@@ -56,13 +61,15 @@ const saeulen = [
   },
   {
     icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="12" r="10" />
-        <path d="M12 8v4l3 3" />
+      <svg width="28" height="28" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs><linearGradient id="es1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#C9A84C"/><stop offset="100%" stopColor="#E8D49A"/></linearGradient></defs>
+        {/* Gehirn */}
+        <path d="M18 4 C11 4 6 9 6 15 C6 19 8 22 11 24 L11 28 L25 28 L25 24 C28 22 30 19 30 15 C30 9 25 4 18 4Z" fill="url(#es1)"/>
+        <path d="M20 10 L15 18 L19 18 L16 26 L22 16 L18 16 L20 10Z" fill="#060E1F" opacity="0.3"/>
       </svg>
     ),
     label: 'Mental',
-    farbe: '#60A5FA',
+    farbe: '#C9A84C',
     punkte: [
       'Klarer Kopf — auch unter hoher Belastung',
       'Stabilere Stimmung, weniger Schwankungen',
@@ -73,12 +80,14 @@ const saeulen = [
   },
   {
     icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+      <svg width="28" height="28" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs><linearGradient id="es2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#C9A84C"/><stop offset="100%" stopColor="#E8D49A"/></linearGradient></defs>
+        {/* Blitz / Energie */}
+        <path d="M22 3 L10 20 L17 20 L14 33 L26 16 L19 16 L22 3Z" fill="url(#es2)"/>
       </svg>
     ),
     label: 'Beruflich',
-    farbe: '#C99A3D',
+    farbe: '#C9A84C',
     punkte: [
       'Höhere Leistungsfähigkeit über den gesamten Tag',
       'Bessere Präsenz in Meetings und Gesprächen',
@@ -88,27 +97,30 @@ const saeulen = [
   },
 ]
 
-function Check({ farbe }: { farbe: string }) {
+function Check() {
   return (
-    <span
-      className="flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center mt-0.5"
-      style={{ background: `${farbe}20`, border: `1px solid ${farbe}55` }}
-    >
-      <svg width="8" height="8" viewBox="0 0 8 8" fill="none">
-        <path d="M1 4l2 2 4-4" stroke={farbe} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    </span>
+    <svg width="20" height="20" viewBox="0 0 38 38" fill="none" className="flex-shrink-0 mt-0.5">
+      <defs>
+        <linearGradient id="check-gold" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#B8832A" />
+          <stop offset="45%" stopColor="#C9A84C" />
+          <stop offset="75%" stopColor="#F2D27A" />
+          <stop offset="100%" stopColor="#C9A84C" />
+        </linearGradient>
+      </defs>
+      <polygon points="5,21 10.38,24.62 14,27.5 22.55,18.18 33,8 24.45,19.82 14,32.5 8.62,26.38" fill="url(#check-gold)" />
+    </svg>
   )
 }
 
 export default function ErgebnisSection() {
   return (
-    <section id="ergebnisse" className="relative" style={{ background: '#0D1721' }}>
+    <section id="ergebnisse" className="relative" style={{ background: '#060E1F' }}>
       <div className="max-w-7xl mx-auto px-4 md:px-8 py-24 md:py-32">
 
         {/* Header */}
         <div className="mb-16 animate-fade-up">
-          <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-4" style={{ color: '#C99A3D' }}>
+          <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-4" style={{ background: 'linear-gradient(#C9A84C, #E8D49A)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
             Ergebnisse
           </p>
           <h2 className="font-barlow font-bold text-3xl md:text-5xl leading-tight mb-5" style={{ color: '#E6E8EB' }}>
@@ -126,18 +138,15 @@ export default function ErgebnisSection() {
               key={i}
               className="relative flex flex-col rounded-2xl p-7"
               style={{
-                background: 'linear-gradient(135deg, #182A3A 0%, #0D1F2D 100%)',
-                border: `1px solid ${s.farbe}60`,
-                boxShadow: `0 0 40px ${s.farbe}25, 0 0 80px ${s.farbe}10, 0 20px 60px rgba(0,0,0,0.5)`,
+                background: 'linear-gradient(135deg, #0D1829 0%, #0B1525 100%)',
+                border: '1px solid rgba(201,168,76,0.35)',
+                boxShadow: '0 0 30px rgba(201,168,76,0.08), 0 20px 60px rgba(0,0,0,0.4)',
                 animationDelay: `${i * 60 + 80}ms`,
               }}
             >
               {/* Icon + Label */}
               <div className="flex items-center gap-3 mb-6">
-                <span
-                  className="flex items-center justify-center w-10 h-10 rounded-xl flex-shrink-0"
-                  style={{ background: `${s.farbe}18`, color: s.farbe }}
-                >
+                <span className="flex-shrink-0">
                   {s.icon}
                 </span>
                 <h3 className="font-barlow font-bold text-xl" style={{ color: '#E6E8EB' }}>
@@ -149,16 +158,16 @@ export default function ErgebnisSection() {
               <ul className="flex flex-col gap-3">
                 {s.punkte.map((p, j) => (
                   <li key={j} className="flex items-start gap-2.5">
-                    <Check farbe={s.farbe} />
+                    <Check />
                     <span className="font-inter text-sm leading-relaxed" style={{ color: '#8A96A3' }}>{p}</span>
                   </li>
                 ))}
               </ul>
 
-              {/* Subtiler Farbstreifen oben */}
+              {/* Subtiler Goldstreifen oben */}
               <div
                 className="absolute top-0 left-6 right-6 h-px rounded-full"
-                style={{ background: `linear-gradient(to right, transparent, ${s.farbe}55, transparent)` }}
+                style={{ background: 'linear-gradient(to right, transparent, rgba(201,168,76,0.4), transparent)' }}
               />
             </div>
           ))}
@@ -168,29 +177,24 @@ export default function ErgebnisSection() {
         <div
           className="relative rounded-2xl px-8 py-10 md:px-12 text-center animate-fade-up"
           style={{
-            background: 'linear-gradient(135deg, #182A3A 0%, #0D1F2D 100%)',
-            border: '1px solid rgba(201,154,61,0.2)',
+            background: 'linear-gradient(135deg, #0D1829 0%, #0B1525 100%)',
+            border: '1px solid rgba(201,168,76,0.2)',
             animationDelay: '240ms',
           }}
         >
           <div
             className="absolute top-0 left-16 right-16 h-px"
-            style={{ background: 'linear-gradient(to right, transparent, rgba(201,154,61,0.4), transparent)' }}
+            style={{ background: 'linear-gradient(to right, transparent, rgba(201,168,76,0.4), transparent)' }}
           />
           <span
             className="font-barlow font-bold text-5xl leading-none select-none"
-            style={{ color: '#C99A3D', opacity: 0.3, display: 'block', lineHeight: 1, marginBottom: '-8px' }}
+            style={{ color: '#C9A84C', opacity: 0.3, display: 'block', lineHeight: 1, marginBottom: '-8px' }}
           >
             &ldquo;
           </span>
           <p
             className="font-barlow font-bold text-xl md:text-2xl leading-snug max-w-3xl mx-auto"
-            style={{
-              background: 'linear-gradient(to top, #8A5D1F 0%, #C99A3D 40%, #F2D27A 75%, #C99A3D 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
-            }}
+            style={{ background: 'linear-gradient(#C9A84C, #E8D49A)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}
           >
             Das Ziel ist nicht nur ein besserer Körper. Das Ziel ist, dass du wieder auf dem Niveau performst, das du von dir selbst erwartest.
           </p>
@@ -204,7 +208,7 @@ export default function ErgebnisSection() {
           <p className="font-barlow font-bold text-2xl md:text-3xl" style={{ color: '#E6E8EB' }}>
             Das sind keine Versprechen.
           </p>
-          <p className="font-barlow font-bold text-2xl md:text-3xl" style={{ color: '#C99A3D' }}>
+          <p className="font-barlow font-bold text-2xl md:text-3xl" style={{ background: 'linear-gradient(#C9A84C, #E8D49A)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
             Das sind Ergebnisse.
           </p>
         </div>
@@ -216,9 +220,9 @@ export default function ErgebnisSection() {
               key={i}
               className="flex flex-col rounded-2xl overflow-hidden"
               style={{
-                background: 'linear-gradient(135deg, #182A3A 0%, #0D1F2D 100%)',
-                border: k.platzhalter ? '1px dashed rgba(255,255,255,0.08)' : '1px solid rgba(52,211,153,0.25)',
-                boxShadow: k.platzhalter ? 'none' : '0 0 24px rgba(52,211,153,0.1), 0 0 60px rgba(52,211,153,0.05)',
+                background: 'linear-gradient(135deg, #0D1829 0%, #0B1525 100%)',
+                border: k.platzhalter ? '1px dashed rgba(255,255,255,0.08)' : '1px solid rgba(201,168,76,0.25)',
+                boxShadow: k.platzhalter ? 'none' : '0 0 24px rgba(201,168,76,0.08), 0 0 60px rgba(0,0,0,0.3)',
                 opacity: k.platzhalter ? 0.45 : 1,
               }}
             >
@@ -251,14 +255,14 @@ export default function ErgebnisSection() {
                   {k.bildNachher ? (
                     <>
                       <img src={k.bildNachher} alt="Nachher" className="absolute inset-0 w-full h-full object-cover object-top" />
-                      <span className="absolute bottom-2 left-0 right-0 text-center font-inter text-xs font-semibold uppercase tracking-widest" style={{ color: 'rgba(52,211,153,0.85)' }}>Nachher</span>
+                      <span className="absolute bottom-2 left-0 right-0 text-center font-inter text-xs font-semibold uppercase tracking-widest" style={{ color: 'rgba(201,168,76,0.85)' }}>Nachher</span>
                     </>
                   ) : (
                     <div className="flex flex-col items-center justify-center h-full gap-2">
-                      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="rgba(52,211,153,0.2)" strokeWidth="1">
+                      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="rgba(201,168,76,0.2)" strokeWidth="1">
                         <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
                       </svg>
-                      <span className="font-inter text-xs font-semibold uppercase tracking-widest" style={{ color: 'rgba(52,211,153,0.35)' }}>Nachher</span>
+                      <span className="font-inter text-xs font-semibold uppercase tracking-widest" style={{ color: 'rgba(201,168,76,0.35)' }}>Nachher</span>
                     </div>
                   )}
                 </div>
@@ -267,10 +271,10 @@ export default function ErgebnisSection() {
                   <div className="absolute inset-y-0 left-1/2 -translate-x-1/2 flex items-center justify-center z-10">
                     <div
                       className="w-7 h-7 rounded-full flex items-center justify-center"
-                      style={{ background: '#0D1721', border: '1px solid rgba(52,211,153,0.35)' }}
+                      style={{ background: '#060E1F', border: '1px solid rgba(201,168,76,0.35)' }}
                     >
                       <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                        <path d="M2 6h8M6 2l4 4-4 4" stroke="#34D399" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                        <path d="M2 6h8M6 2l4 4-4 4" stroke="#C9A84C" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                       </svg>
                     </div>
                   </div>
@@ -287,7 +291,7 @@ export default function ErgebnisSection() {
                 {k.kennzahl && (
                   <div
                     className="flex items-baseline gap-2 py-2 px-3 rounded-lg"
-                    style={{ background: 'rgba(52,211,153,0.08)', border: '1px solid rgba(52,211,153,0.2)' }}
+                    style={{ background: 'rgba(201,168,76,0.08)', border: '1px solid rgba(201,168,76,0.2)' }}
                   >
                     <span className="font-barlow font-bold text-2xl" style={{ color: '#34D399' }}>{k.kennzahl}</span>
                     <span className="font-inter text-xs" style={{ color: '#5B6773' }}>{k.zeitraum}</span>
@@ -298,8 +302,9 @@ export default function ErgebnisSection() {
                   <ul className="flex flex-col gap-2">
                     {k.fakten.map((f, j) => (
                       <li key={j} className="flex items-start gap-2">
-                        <svg className="flex-shrink-0 mt-0.5" width="12" height="12" viewBox="0 0 12 12" fill="none">
-                          <path d="M2 6l3 3 5-6" stroke="#34D399" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                        <svg className="flex-shrink-0 mt-0.5" width="16" height="16" viewBox="0 0 38 38" fill="none">
+                          <defs><linearGradient id="check-gold-f" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#B8832A"/><stop offset="45%" stopColor="#C9A84C"/><stop offset="75%" stopColor="#F2D27A"/><stop offset="100%" stopColor="#C9A84C"/></linearGradient></defs>
+                          <polygon points="5,21 10.38,24.62 14,27.5 22.55,18.18 33,8 24.45,19.82 14,32.5 8.62,26.38" fill="url(#check-gold-f)" />
                         </svg>
                         <span className="font-inter text-sm" style={{ color: '#8A96A3' }}>{f}</span>
                       </li>

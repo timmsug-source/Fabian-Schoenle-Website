@@ -5,12 +5,11 @@ export default function Footer() {
   const year = new Date().getFullYear()
 
   return (
-    <footer style={{ background: '#0D1721', borderTop: '1px solid rgba(201, 154, 61, 0.25)' }}>
+    <footer style={{ background: '#060E1F', borderTop: '1px solid rgba(201, 168, 76, 0.25)' }}>
       <div className="max-w-7xl mx-auto px-4 md:px-8 py-12 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
         <div>
-          <p className="font-barlow font-semibold text-base tracking-wide mb-1">
-            <span style={{ color: '#E6E8EB' }}>Fabian </span>
-            <span style={{ color: '#C99A3D' }}>Schönle</span>
+          <p className="font-barlow font-semibold text-base tracking-wide mb-1" style={{ color: '#E6E8EB' }}>
+            Fabian Schönle
           </p>
           <p className="text-xs font-inter" style={{ color: '#5B6773' }}>Karlsruhe, Deutschland</p>
         </div>
@@ -23,7 +22,7 @@ export default function Footer() {
           </Link>
         </div>
       </div>
-      <div style={{ borderTop: '1px solid rgba(201, 154, 61, 0.15)' }}>
+      <div style={{ borderTop: '1px solid rgba(201, 168, 76, 0.15)' }}>
         <p className="max-w-7xl mx-auto px-4 md:px-8 py-4 text-xs font-inter" style={{ color: '#5B6773' }}>
           © {year} {SITE_NAME} — Fabian Schönle
         </p>

@@ -1,12 +1,16 @@
+'use client'
+
+import { useRef, useState } from 'react'
 import { CALENDLY_URL } from '@/lib/constants'
 
 const fallstudien = [
   {
-    name: 'Markus',
+    name: 'Robert',
     alter: '42 Jahre',
     beruf: 'Geschäftsführer',
     instagram: '@markus_ceo',
-    problem: 'Markus arbeitet <strong>60+ Stunden pro Woche</strong>. Sein Körper hat auf die jahrelange Kombination aus <strong>Dauerstress, schlechtem Schlaf</strong> und unregelmäßiger Ernährung reagiert: 14 kg zugenommen, permanent müde, nachmittags kaum noch handlungsfähig.',
+    video: '/videos/Robert_Testimonial_final.mov',
+    problem: 'Robert arbeitet <strong>60+ Stunden pro Woche</strong>. Sein Körper hat auf die jahrelange Kombination aus <strong>Dauerstress, schlechtem Schlaf</strong> und unregelmäßiger Ernährung reagiert: 14 kg zugenommen, permanent müde, nachmittags kaum noch handlungsfähig.',
     ziel: 'Er will wieder die <strong>Energie haben, die er mit Anfang 30 hatte</strong> — leistungsfähig durch den ganzen Tag, ohne auf Koffein angewiesen zu sein. Und er will, dass sein Körper wieder seinem eigenen Anspruch entspricht.',
     loesung: 'Blutbild und Hormonstatus zeigten <strong>deutlich erhöhte Cortisolwerte</strong> und eine beginnende Insulinresistenz. Wir haben Ernährung, Schlafprotokoll und Trainingsreize präzise auf seinen Stoffwechsel abgestimmt — ohne seinen Alltag auf den Kopf zu stellen.',
     vorher: { gewicht: '98 kg', punkte: ['Permanent erschöpft trotz 7 Stunden Schlaf', 'Konzentration bricht nachmittags komplett ein', 'Bauchfett trotz gelegentlichem Sport'] },
@@ -36,9 +40,46 @@ const fallstudien = [
   },
 ]
 
+function VideoPlayer({ src }: { src: string }) {
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const [playing, setPlaying] = useState(false)
+
+  function handlePlay() {
+    videoRef.current?.play()
+    setPlaying(true)
+  }
+
+  return (
+    <div className="relative aspect-video overflow-hidden" style={{ background: 'rgba(0,0,0,0.4)' }}>
+      <video
+        ref={videoRef}
+        className="absolute inset-0 w-full h-full object-cover"
+        controls={playing}
+        playsInline
+        preload="metadata"
+      >
+        <source src={src} type="video/mp4" />
+      </video>
+      {!playing && (
+        <div
+          className="absolute inset-0 flex items-center justify-center cursor-pointer"
+          onClick={handlePlay}
+        >
+          <div
+            className="flex items-center justify-center rounded-full transition-transform hover:scale-105"
+            style={{ width: 56, height: 56, background: 'rgba(201,168,76,0.2)', border: '1px solid rgba(201,168,76,0.4)', backdropFilter: 'blur(4px)' }}
+          >
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="#C9A84C"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
+
 export default function FallstudienSection() {
   return (
-    <section id="rezensionen" className="relative overflow-hidden" style={{ background: '#0D1721' }}>
+    <section id="rezensionen" className="relative overflow-hidden" style={{ background: '#060E1F' }}>
       {/* SVG Rastermuster */}
       <svg className="absolute inset-0 w-full h-full pointer-events-none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="none">
         <defs>
@@ -61,14 +102,14 @@ export default function FallstudienSection() {
           transform: 'translateX(-50%)',
           width: '80%',
           height: '60%',
-          background: 'radial-gradient(ellipse at center, rgba(201,154,61,0.07) 0%, transparent 70%)',
+          background: 'radial-gradient(ellipse at center, rgba(201,168,76,0.07) 0%, transparent 70%)',
         }}
       />
       <div className="relative max-w-7xl mx-auto px-4 md:px-8 py-24 md:py-32">
 
         {/* Header */}
         <div className="mb-12 animate-fade-up">
-          <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-4" style={{ color: '#C99A3D' }}>
+          <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-4" style={{ background: 'linear-gradient(#C9A84C, #E8D49A)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
             Echte Ergebnisse
           </p>
           <h2 className="font-barlow font-bold text-3xl md:text-5xl leading-tight" style={{ color: '#E6E8EB' }}>
@@ -83,8 +124,8 @@ export default function FallstudienSection() {
               key={idx}
               className="rounded-3xl overflow-hidden animate-fade-up"
               style={{
-                background: 'linear-gradient(135deg, #1A2E40 0%, #0F2030 100%)',
-                border: '1px solid rgba(201,154,61,0.2)',
+                background: '#091122',
+                border: '1px solid rgba(201,168,76,0.2)',
                 boxShadow: '0 24px 60px rgba(0,0,0,0.4)',
                 animationDelay: `${idx * 100}ms`,
               }}
@@ -92,10 +133,10 @@ export default function FallstudienSection() {
               {/* Card Header */}
               <div
                 className="px-8 py-3.5 flex items-center gap-3"
-                style={{ borderBottom: '1px solid rgba(201,154,61,0.12)', background: 'rgba(201,154,61,0.04)' }}
+                style={{ borderBottom: '1px solid rgba(201,168,76,0.12)', background: 'rgba(201,168,76,0.04)' }}
               >
-                <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#C99A3D' }} />
-                <p className="font-inter text-xs font-semibold uppercase tracking-widest" style={{ color: '#C99A3D' }}>
+                <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#C9A84C' }} />
+                <p className="font-inter text-xs font-semibold uppercase tracking-widest" style={{ background: 'linear-gradient(#C9A84C, #E8D49A)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
                   Fallstudie: {fs.name}
                 </p>
               </div>
@@ -110,7 +151,7 @@ export default function FallstudienSection() {
                     { label: 'Lösung',  text: fs.loesung },
                   ].map(({ label, text }) => (
                     <div key={label}>
-                      <p className="font-barlow font-bold text-sm uppercase tracking-wider mb-1.5" style={{ color: '#C99A3D' }}>
+                      <p className="font-barlow font-bold text-sm uppercase tracking-wider mb-1.5" style={{ background: 'linear-gradient(#C9A84C, #E8D49A)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
                         {label}:
                       </p>
                       <p
@@ -125,11 +166,15 @@ export default function FallstudienSection() {
                 {/* Rechte Spalte: Media & Profil */}
                 <div className="lg:col-span-5">
                   <div className="rounded-2xl overflow-hidden flex flex-col" style={{ background: 'rgba(0,0,0,0.25)', border: '1px solid rgba(255,255,255,0.07)' }}>
-                    <div className="relative aspect-video overflow-hidden flex items-center justify-center" style={{ background: 'rgba(0,0,0,0.4)' }}>
-                      <div className="flex items-center justify-center rounded-full" style={{ width: 56, height: 56, background: 'rgba(201,154,61,0.2)', border: '1px solid rgba(201,154,61,0.4)', backdropFilter: 'blur(4px)' }}>
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="#C99A3D"><path d="M8 5v14l11-7z"/></svg>
+                    {'video' in fs && fs.video ? (
+                      <VideoPlayer src={fs.video} />
+                    ) : (
+                      <div className="relative aspect-video overflow-hidden flex items-center justify-center" style={{ background: 'rgba(0,0,0,0.4)' }}>
+                        <div className="flex items-center justify-center rounded-full" style={{ width: 56, height: 56, background: 'rgba(201,168,76,0.2)', border: '1px solid rgba(201,168,76,0.4)', backdropFilter: 'blur(4px)' }}>
+                          <svg width="22" height="22" viewBox="0 0 24 24" fill="#C9A84C"><path d="M8 5v14l11-7z"/></svg>
+                        </div>
                       </div>
-                    </div>
+                    )}
                     <div className="px-5 py-4 text-center flex flex-col gap-1">
                       <p className="font-barlow font-bold text-xl" style={{ color: '#E6E8EB' }}>{fs.name}</p>
                       <p className="font-inter text-sm" style={{ color: '#5B6773' }}>{fs.alter} · {fs.beruf}</p>
@@ -145,7 +190,7 @@ export default function FallstudienSection() {
               </div>
 
               {/* ── Untere Sektion: Transformation Duo ── */}
-              <div className="p-8 md:p-10 pt-0" style={{ borderTop: '1px solid rgba(201,154,61,0.1)' }}>
+              <div className="p-8 md:p-10 pt-0" style={{ borderTop: '1px solid rgba(201,168,76,0.1)' }}>
                 <div className="grid grid-cols-1 md:grid-cols-2 relative mt-8 items-center" style={{ gap: '12px' }}>
 
                   {/* Ausgangssituation */}
@@ -167,7 +212,7 @@ export default function FallstudienSection() {
                   </div>
 
                   {/* Ergebnis */}
-                  <div className="ergebnis-raised p-8 md:p-10 flex flex-col gap-4 relative overflow-hidden rounded-2xl" style={{ background: '#0a3347', border: '1px solid rgba(52,211,153,0.35)', boxShadow: '0 0 32px rgba(52,211,153,0.15), 0 0 8px rgba(52,211,153,0.1)' }}>
+                  <div className="ergebnis-raised p-8 md:p-10 flex flex-col gap-4 relative overflow-hidden rounded-2xl" style={{ background: '#091122', border: '1px solid rgba(52,211,153,0.35)', boxShadow: '0 0 32px rgba(52,211,153,0.15), 0 0 8px rgba(52,211,153,0.1)' }}>
                     <span className="absolute right-4 bottom-2 font-barlow font-bold select-none pointer-events-none" style={{ fontSize: 96, lineHeight: 1, color: 'rgba(255,255,255,0.04)', letterSpacing: '-2px' }}>FS</span>
                     <div className="relative flex items-center gap-3 flex-wrap">
                       <span className="font-barlow font-bold text-base uppercase tracking-wide text-white">Ergebnis</span>
@@ -186,7 +231,7 @@ export default function FallstudienSection() {
                   </div>
 
                   {/* Pfeil-Badge */}
-                  <div className="hidden md:flex absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 items-center justify-center w-10 h-10 rounded-full z-10" style={{ background: '#0D1721', border: '1px solid rgba(201,154,61,0.3)', boxShadow: '0 4px 16px rgba(0,0,0,0.4)' }}>
+                  <div className="hidden md:flex absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 items-center justify-center w-10 h-10 rounded-full z-10" style={{ background: '#060E1F', border: '1px solid rgba(201,168,76,0.3)', boxShadow: '0 4px 16px rgba(0,0,0,0.4)' }}>
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="#34D399" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
                   </div>
 
@@ -202,8 +247,8 @@ export default function FallstudienSection() {
             href={CALENDLY_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-7 py-3.5 rounded-lg font-inter font-semibold text-sm"
-            style={{ background: 'linear-gradient(135deg, #8A5D1F 0%, #C99A3D 50%, #F2D27A 100%)', color: '#0D1721', boxShadow: '0 4px 24px rgba(201,154,61,0.25)' }}
+            className="btn-shine inline-flex items-center gap-2 px-7 py-3.5 rounded-lg font-inter font-semibold text-sm"
+            style={{ background: 'radial-gradient(circle, #C9A84C, #E8D49A)', color: '#060E1F', boxShadow: '0 4px 24px rgba(201,168,76,0.25)' }}
           >
             Kostenlose Performance-Analyse buchen
             <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>

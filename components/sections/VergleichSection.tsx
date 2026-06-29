@@ -48,35 +48,43 @@ const ichItems = [
 
 function XIcon() {
   return (
-    <span className="flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center mt-0.5"
-      style={{ background: 'rgba(239,68,68,0.15)', border: '1px solid rgba(239,68,68,0.3)' }}>
-      <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-        <path d="M2 2l6 6M8 2l-6 6" stroke="#EF4444" strokeWidth="1.5" strokeLinecap="round" />
-      </svg>
-    </span>
+    <svg width="22" height="22" viewBox="0 0 38 38" fill="none" className="flex-shrink-0 mt-0.5">
+      <defs>
+        <linearGradient id="x-gold" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#C9A84C" />
+          <stop offset="100%" stopColor="#E8D49A" />
+        </linearGradient>
+      </defs>
+      <path d="M8 8L30 30M30 8L8 30" stroke="url(#x-gold)" strokeWidth="4" strokeLinecap="round" />
+    </svg>
   )
 }
 
 function CheckIcon() {
   return (
-    <span className="flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center mt-0.5"
-      style={{ background: 'rgba(52,211,153,0.15)', border: '1px solid rgba(52,211,153,0.35)' }}>
-      <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-        <path d="M1.5 5l2.5 2.5 4.5-4.5" stroke="#34D399" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    </span>
+    <svg width="22" height="22" viewBox="0 0 38 38" fill="none" className="flex-shrink-0 mt-0.5">
+      <defs>
+        <linearGradient id="check-gold-v" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#B8832A" />
+          <stop offset="45%" stopColor="#C9A84C" />
+          <stop offset="75%" stopColor="#F2D27A" />
+          <stop offset="100%" stopColor="#C9A84C" />
+        </linearGradient>
+      </defs>
+      <polygon points="5,21 10.38,24.62 14,27.5 22.55,18.18 33,8 24.45,19.82 14,32.5 8.62,26.38" fill="url(#check-gold-v)" />
+    </svg>
   )
 }
 
 export default function VergleichSection() {
   return (
-    <section className="relative overflow-hidden" style={{ background: '#101C28' }}>
+    <section className="relative overflow-hidden" style={{ background: '#060E1F' }}>
 
       <div className="relative max-w-7xl mx-auto px-4 md:px-8 py-24 md:py-32">
 
         {/* Header */}
         <div className="mb-16 animate-fade-up">
-          <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-4" style={{ color: '#C99A3D' }}>
+          <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-4" style={{ background: 'linear-gradient(#C9A84C, #E8D49A)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
             Der Unterschied
           </p>
           <h2 className="font-barlow font-bold text-3xl md:text-5xl leading-tight mb-4" style={{ color: '#E6E8EB' }}>
@@ -161,17 +169,17 @@ export default function VergleichSection() {
               href={CALENDLY_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-8 flex items-center justify-center gap-2.5 w-full py-4 rounded-xl font-inter font-semibold text-sm transition-opacity hover:opacity-90"
+              className="btn-shine mt-8 flex items-center justify-center gap-2.5 w-full py-4 rounded-xl font-inter font-semibold text-sm transition-opacity hover:opacity-90"
               style={{
-                background: 'linear-gradient(135deg, #8A5D1F 0%, #C99A3D 50%, #F2D27A 100%)',
-                color: '#0D1721',
-                boxShadow: '0 4px 24px rgba(201,154,61,0.25)',
+                background: 'radial-gradient(circle, #C9A84C, #E8D49A)',
+                color: '#060E1F',
+                boxShadow: '0 4px 24px rgba(201,168,76,0.25)',
               }}
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
               </svg>
-              Jetzt Erstgespräch buchen
+              Performance Analyse buchen
             </a>
           </div>
 

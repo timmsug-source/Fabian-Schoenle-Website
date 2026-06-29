@@ -4,7 +4,7 @@
 
 :root {
   --color-navy:      #182A3A;
-  --color-navy-dark: #0D1721;
+  --color-navy-dark: #060E1F;
   --color-navy-mid:  #2A3A4A;
   --color-gold:      #C99A3D;
   --color-gold-light:#F2D27A;
@@ -30,6 +30,40 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   .animate-fade-up { animation: none; }
+}
+
+/* Metallischer Shine-Effekt auf Buttons */
+@keyframes shine {
+  0%,  78% { transform: translateX(-100%) skewX(-15deg); opacity: 0; }
+  80%       { opacity: 1; }
+  100%      { transform: translateX(250%) skewX(-15deg); opacity: 0; }
+}
+
+.btn-shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-shine::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 55%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255,255,255,0.12) 25%,
+    rgba(255,255,255,0.42) 50%,
+    rgba(255,255,255,0.12) 75%,
+    transparent 100%
+  );
+  opacity: 0;
+  transform: translateX(-100%) skewX(-15deg);
+  animation: shine 4.5s ease-in-out infinite;
+  animation-delay: 1.5s;
+  pointer-events: none;
 }
 
 /* Ergebnis-Kästchen: nur auf Desktop nach oben/unten herausstehen */

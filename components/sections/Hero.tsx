@@ -1,6 +1,7 @@
 'use client'
 
 import Image from 'next/image'
+import { useRef, useState } from 'react'
 
 const tickerItems = [
   { name: 'Markus R.', role: 'Unternehmer', result: '−11 kg Körperfett in 10 Wochen' },
@@ -29,6 +30,14 @@ const bullets = [
 ]
 
 export default function Hero() {
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const [playing, setPlaying] = useState(false)
+
+  function handlePlay() {
+    videoRef.current?.play()
+    setPlaying(true)
+  }
+
   return (
     <div className="relative overflow-hidden">
 
@@ -41,19 +50,19 @@ export default function Hero() {
       >
         <defs>
           <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
-            <path d="M 60 0 L 0 0 0 60" fill="none" stroke="rgba(201,154,61,0.08)" strokeWidth="1" />
+            <path d="M 60 0 L 0 0 0 60" fill="none" stroke="rgba(201,168,76,0.08)" strokeWidth="1" />
           </pattern>
           <pattern id="diagonal" width="60" height="60" patternUnits="userSpaceOnUse">
-            <line x1="0" y1="60" x2="60" y2="0" stroke="rgba(201,154,61,0.04)" strokeWidth="1" />
+            <line x1="0" y1="60" x2="60" y2="0" stroke="rgba(201,168,76,0.04)" strokeWidth="1" />
           </pattern>
           <radialGradient id="glow-left" cx="20%" cy="20%" r="55%">
-            <stop offset="0%" stopColor="rgba(201,154,61,0.18)" />
-            <stop offset="60%" stopColor="rgba(201,154,61,0.05)" />
-            <stop offset="100%" stopColor="rgba(201,154,61,0)" />
+            <stop offset="0%" stopColor="rgba(201,168,76,0.18)" />
+            <stop offset="60%" stopColor="rgba(201,168,76,0.05)" />
+            <stop offset="100%" stopColor="rgba(201,168,76,0)" />
           </radialGradient>
           <radialGradient id="glow-right" cx="85%" cy="10%" r="40%">
-            <stop offset="0%" stopColor="rgba(201,154,61,0.1)" />
-            <stop offset="100%" stopColor="rgba(201,154,61,0)" />
+            <stop offset="0%" stopColor="rgba(201,168,76,0.1)" />
+            <stop offset="100%" stopColor="rgba(201,168,76,0)" />
           </radialGradient>
         </defs>
         <rect width="100%" height="100%" fill="url(#grid)" />
@@ -65,8 +74,8 @@ export default function Hero() {
       <section className="relative max-w-7xl mx-auto px-4 md:px-8 pt-24 md:pt-36 pb-0">
 
         {/* H1 + Subheadline — volle Breite */}
-        <div className="mb-8 md:mb-16">
-          <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-5" style={{ color: '#C99A3D' }}>
+        <div className="mb-8 md:mb-16 text-center">
+          <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-5" style={{ background: 'linear-gradient(#C9A84C, #E8D49A)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
             High-Performance Coaching
           </p>
           <h1
@@ -77,17 +86,12 @@ export default function Hero() {
             <br className="hidden md:block" />
             weil du älter bist —
             <br />
-            <span style={{
-              background: 'linear-gradient(to top, #8A5D1F 0%, #C99A3D 35%, #F2D27A 70%, #C99A3D 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
-            }}>
+            <span style={{ background: 'linear-gradient(#C9A84C, #E8D49A)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
               sondern weil dein System es zulässt.
             </span>
           </h1>
           <p
-            className="font-inter text-lg md:text-xl leading-relaxed max-w-3xl"
+            className="font-inter text-lg md:text-xl leading-relaxed max-w-5xl mx-auto"
             style={{ color: '#A1A9B3' }}
           >
             Ich helfe Selbstständigen und Unternehmern ab 30, ihr metabolisches System so einzustellen,
@@ -99,25 +103,37 @@ export default function Hero() {
         {/* Video links — Bullets rechts */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
 
-          {/* VSL Placeholder */}
-          <div className="relative rounded-xl overflow-hidden w-full aspect-video md:aspect-auto md:min-h-[400px]" style={{ border: '1px solid rgba(201, 154, 61, 0.25)' }}>
-            <Image
-              src="/images/vsl-placeholder.png"
-              alt="Fabian Schönle – Performance Coaching"
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 100vw, 50vw"
-            />
-            <div className="absolute inset-0 flex items-center justify-center" style={{ background: 'rgba(13, 23, 33, 0.35)' }}>
+          {/* VSL */}
+          <div className="relative rounded-xl overflow-hidden w-full aspect-video md:aspect-auto md:min-h-[400px]" style={{ border: '1px solid rgba(201, 168, 76, 0.25)', background: '#060E1F' }}>
+            <video
+              ref={videoRef}
+              className="absolute inset-0 w-full h-full object-cover"
+              controls={playing}
+              playsInline
+              preload="metadata"
+            >
+              <source src="/videos/vsl.mov" type="video/mp4" />
+            </video>
+            {!playing && (
               <div
-                className="w-16 h-16 rounded-full flex items-center justify-center"
-                style={{ border: '1px solid rgba(201, 154, 61, 0.6)', background: 'rgba(13, 23, 33, 0.5)' }}
+                className="absolute inset-0 flex items-center justify-center cursor-pointer"
+                style={{ background: 'rgba(13, 23, 33, 0.35)' }}
+                onClick={handlePlay}
               >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="#C99A3D">
-                  <polygon points="5,3 19,12 5,21" />
-                </svg>
+                <div
+                  className="w-20 h-20 rounded-full flex items-center justify-center transition-transform hover:scale-105"
+                  style={{
+                    border: '1.5px solid rgba(201, 168, 76, 0.7)',
+                    background: 'rgba(13, 23, 33, 0.6)',
+                    boxShadow: '0 0 40px rgba(201,168,76,0.2)',
+                  }}
+                >
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="#C9A84C">
+                    <polygon points="6,3 20,12 6,21" />
+                  </svg>
+                </div>
               </div>
-            </div>
+            )}
           </div>
 
           {/* Bullet Points + CTA */}
@@ -129,10 +145,10 @@ export default function Hero() {
                     <svg width="32" height="32" className="md:w-[38px] md:h-[38px]" viewBox="0 0 38 38" fill="none">
                       <defs>
                         <linearGradient id={`gold-${i}`} x1="0%" y1="0%" x2="100%" y2="100%">
-                          <stop offset="0%" stopColor="#8A5D1F" />
-                          <stop offset="45%" stopColor="#C99A3D" />
+                          <stop offset="0%" stopColor="#B8832A" />
+                          <stop offset="45%" stopColor="#C9A84C" />
                           <stop offset="75%" stopColor="#F2D27A" />
-                          <stop offset="100%" stopColor="#C99A3D" />
+                          <stop offset="100%" stopColor="#C9A84C" />
                         </linearGradient>
                       </defs>
                       <polygon
@@ -157,19 +173,19 @@ export default function Hero() {
             <div className="mt-8 md:pl-[54px]">
               <a
                 href="#"
-                className="inline-flex items-center gap-3 px-7 py-4 rounded-xl font-barlow font-semibold text-lg"
+                className="btn-shine inline-flex items-center gap-3 px-7 py-4 rounded-xl font-barlow font-semibold text-lg"
                 style={{
-                  background: 'linear-gradient(135deg, #8A5D1F 0%, #C99A3D 50%, #F2D27A 100%)',
-                  color: '#0D1721',
-                  boxShadow: '0 4px 24px rgba(201,154,61,0.25)',
+                  background: 'radial-gradient(circle, #C9A84C, #E8D49A)',
+                  color: '#060E1F',
+                  boxShadow: '0 4px 24px rgba(201,168,76,0.25)',
                   transition: 'box-shadow 0.2s ease, transform 0.2s ease',
                 }}
                 onMouseEnter={e => {
-                  (e.currentTarget as HTMLElement).style.boxShadow = '0 6px 32px rgba(201,154,61,0.4)'
+                  (e.currentTarget as HTMLElement).style.boxShadow = '0 6px 32px rgba(201,168,76,0.4)'
                   ;(e.currentTarget as HTMLElement).style.transform = 'translateY(-1px)'
                 }}
                 onMouseLeave={e => {
-                  (e.currentTarget as HTMLElement).style.boxShadow = '0 4px 24px rgba(201,154,61,0.25)'
+                  (e.currentTarget as HTMLElement).style.boxShadow = '0 4px 24px rgba(201,168,76,0.25)'
                   ;(e.currentTarget as HTMLElement).style.transform = 'translateY(0)'
                 }}
               >
@@ -179,7 +195,7 @@ export default function Hero() {
                   <line x1="8" y1="2" x2="8" y2="6" />
                   <line x1="3" y1="10" x2="21" y2="10" />
                 </svg>
-                Kostenloses Erstgespräch buchen
+                Performance Analyse buchen
               </a>
               <p className="mt-3 font-inter text-xs" style={{ color: '#5B6773' }}>
                 Kein Risiko · Keine Verpflichtung · 30 Minuten
@@ -192,29 +208,29 @@ export default function Hero() {
         {/* Testimonial Ticker — innerhalb des Hero-Hintergrunds */}
         <div className="mt-16 -mx-4 md:-mx-8 relative overflow-hidden py-5"
           style={{
-            borderTop: '1px solid rgba(201,154,61,0.07)',
-            borderBottom: '1px solid rgba(201,154,61,0.07)',
-            background: 'linear-gradient(to bottom, rgba(201,154,61,0.03), transparent)',
+            borderTop: '1px solid rgba(201,168,76,0.07)',
+            borderBottom: '1px solid rgba(201,168,76,0.07)',
+            background: 'linear-gradient(to bottom, rgba(201,168,76,0.03), transparent)',
           }}
         >
           {/* Fade links */}
           <div className="absolute left-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
-            style={{ background: 'linear-gradient(to right, #0D1721, transparent)' }} />
+            style={{ background: 'linear-gradient(to right, #060E1F, transparent)' }} />
           {/* Fade rechts */}
           <div className="absolute right-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
-            style={{ background: 'linear-gradient(to left, #0D1721, transparent)' }} />
+            style={{ background: 'linear-gradient(to left, #060E1F, transparent)' }} />
 
           <div className="flex gap-12 whitespace-nowrap animate-ticker">
             {[...tickerItems, ...tickerItems].map((item, i) => (
               <div key={i} className="flex items-center gap-3 flex-shrink-0">
-                <span style={{ color: '#C99A3D', fontSize: '14px' }}>◆</span>
+                <span style={{ color: '#C9A84C', fontSize: '14px' }}>◆</span>
                 <span className="font-barlow font-semibold text-base" style={{ color: '#E6E8EB' }}>
                   {item.name}
                 </span>
                 <span className="font-inter text-sm" style={{ color: '#5B6773' }}>
                   {item.role}
                 </span>
-                <span className="font-inter text-sm" style={{ color: '#C99A3D' }}>
+                <span className="font-inter text-sm" style={{ background: 'linear-gradient(#C9A84C, #E8D49A)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
                   — {item.result}
                 </span>
               </div>
@@ -245,7 +261,7 @@ export default function Hero() {
       {/* Smooth Fade zum nächsten Abschnitt */}
       <div
         className="pointer-events-none h-20"
-        style={{ background: 'linear-gradient(to bottom, transparent 0%, #0D1721 100%)' }}
+        style={{ background: 'linear-gradient(to bottom, transparent 0%, #060E1F 100%)' }}
       />
     </div>
   )

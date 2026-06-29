@@ -10,14 +10,14 @@ const paragraphs = [
 
 export default function HypotheseSection() {
   return (
-    <section style={{ background: '#101C28' }}>
+    <section style={{ background: '#091122' }}>
       <div className="max-w-7xl mx-auto px-4 md:px-8 py-24 md:py-32">
 
         <div className="animate-fade-up flex flex-col lg:flex-row lg:items-stretch gap-16 lg:gap-24">
 
           {/* Left: Text */}
           <div className="flex-1 min-w-0">
-            <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-6" style={{ color: '#C99A3D' }}>
+            <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-6" style={{ background: 'linear-gradient(#C9A84C, #E8D49A)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
               Die Wahrheit
             </p>
 
@@ -27,7 +27,7 @@ export default function HypotheseSection() {
 
             <div
               className="mb-10"
-              style={{ height: 1, background: 'linear-gradient(to right, rgba(201,154,61,0.4), transparent)' }}
+              style={{ height: 1, background: 'linear-gradient(to right, rgba(201,168,76,0.4), transparent)' }}
             />
 
             <div className="flex flex-col gap-5">
@@ -50,17 +50,17 @@ export default function HypotheseSection() {
             <div
               className="w-full rounded-2xl px-6 py-6 text-center mb-3"
               style={{
-                background: 'linear-gradient(135deg, #D4A84B 0%, #8A5D1F 100%)',
-                boxShadow: '0 0 40px rgba(201,154,61,0.35), 0 4px 20px rgba(0,0,0,0.3)',
+                background: 'radial-gradient(circle, #C9A84C, #E8D49A)',
+                boxShadow: '0 0 40px rgba(180,140,40,0.3), 0 4px 20px rgba(0,0,0,0.3)',
               }}
             >
-              <p className="font-barlow font-bold text-2xl tracking-wide" style={{ color: '#0D1721' }}>Dein System</p>
+              <p className="font-barlow font-bold text-2xl tracking-wide" style={{ color: '#060E1F' }}>Dein System</p>
               <p className="font-inter text-sm mt-1 font-medium" style={{ color: 'rgba(13,23,33,0.6)' }}>Das eigentliche Fundament</p>
             </div>
 
             {/* Connector line */}
             <div className="flex flex-col items-center mb-3">
-              <div style={{ width: 2, height: 20, background: 'linear-gradient(to bottom, rgba(201,154,61,0.6), rgba(201,154,61,0.2))' }} />
+              <div style={{ width: 2, height: 20, background: 'linear-gradient(to bottom, rgba(201,168,76,0.6), rgba(201,168,76,0.2))' }} />
             </div>
 
             {/* Blue component boxes */}
@@ -77,8 +77,8 @@ export default function HypotheseSection() {
                   key={i}
                   className="rounded-xl px-5 py-4"
                   style={{
-                    background: 'linear-gradient(135deg, #182A3A 0%, #0D1F2D 100%)',
-                    border: '1px solid rgba(201,154,61,0.15)',
+                    background: 'linear-gradient(135deg, #0D1829 0%, #0B1525 100%)',
+                    border: '1px solid rgba(201,168,76,0.15)',
                   }}
                 >
                   <p className="font-barlow font-semibold text-lg" style={{ color: '#E6E8EB' }}>{item.label}</p>
