@@ -202,9 +202,10 @@ export default function FallstudienSection() {
                     <ul className="flex flex-col gap-3">
                       {fs.vorher.punkte.map((p, i) => (
                         <li key={i} className="flex items-start gap-3 font-inter text-sm" style={{ color: '#8A96A3' }}>
-                          <span className="flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center mt-0.5" style={{ background: 'rgba(192,57,43,0.2)', border: '1px solid rgba(192,57,43,0.4)' }}>
-                            <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 2l6 6M8 2l-6 6" stroke="#E05555" strokeWidth="1.5" strokeLinecap="round"/></svg>
-                          </span>
+                          <svg width="18" height="18" viewBox="0 0 38 38" fill="none" className="flex-shrink-0 mt-0.5">
+                            <defs><linearGradient id={`fx-${i}`} x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#C9A84C"/><stop offset="100%" stopColor="#E8D49A"/></linearGradient></defs>
+                            <path d="M8 8L30 30M30 8L8 30" stroke={`url(#fx-${i})`} strokeWidth="4" strokeLinecap="round"/>
+                          </svg>
                           {p}
                         </li>
                       ))}
@@ -212,18 +213,19 @@ export default function FallstudienSection() {
                   </div>
 
                   {/* Ergebnis */}
-                  <div className="ergebnis-raised p-8 md:p-10 flex flex-col gap-4 relative overflow-hidden rounded-2xl" style={{ background: '#091122', border: '1px solid rgba(52,211,153,0.35)', boxShadow: '0 0 32px rgba(52,211,153,0.15), 0 0 8px rgba(52,211,153,0.1)' }}>
+                  <div className="ergebnis-raised p-8 md:p-10 flex flex-col gap-4 relative overflow-hidden rounded-2xl" style={{ background: '#091122', border: '1px solid rgba(201,168,76,0.35)', boxShadow: '0 0 32px rgba(201,168,76,0.08), 0 0 8px rgba(201,168,76,0.05)' }}>
                     <span className="absolute right-4 bottom-2 font-barlow font-bold select-none pointer-events-none" style={{ fontSize: 96, lineHeight: 1, color: 'rgba(255,255,255,0.04)', letterSpacing: '-2px' }}>FS</span>
                     <div className="relative flex items-center gap-3 flex-wrap">
                       <span className="font-barlow font-bold text-base uppercase tracking-wide text-white">Ergebnis</span>
-                      <span className="font-inter text-xs font-bold px-3 py-1 rounded-md" style={{ background: 'rgba(52,211,153,0.15)', color: '#34D399', border: '1px solid rgba(52,211,153,0.3)' }}>{fs.nachher.gewicht}</span>
+                      <span className="font-inter text-xs font-bold px-3 py-1 rounded-md" style={{ background: 'rgba(201,168,76,0.15)', color: '#C9A84C', border: '1px solid rgba(201,168,76,0.3)' }}>{fs.nachher.gewicht}</span>
                     </div>
                     <ul className="relative flex flex-col gap-3">
                       {fs.nachher.punkte.map((p, i) => (
                         <li key={i} className="flex items-start gap-3 font-inter text-sm text-white/70">
-                          <span className="flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center mt-0.5" style={{ background: 'rgba(52,211,153,0.15)', border: '1px solid rgba(52,211,153,0.35)' }}>
-                            <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke="#34D399" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                          </span>
+                          <svg width="18" height="18" viewBox="0 0 38 38" fill="none" className="flex-shrink-0 mt-0.5">
+                            <defs><linearGradient id={`fck-${i}`} x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#B8832A"/><stop offset="45%" stopColor="#C9A84C"/><stop offset="75%" stopColor="#F2D27A"/><stop offset="100%" stopColor="#C9A84C"/></linearGradient></defs>
+                            <polygon points="5,21 10.38,24.62 14,27.5 22.55,18.18 33,8 24.45,19.82 14,32.5 8.62,26.38" fill={`url(#fck-${i})`}/>
+                          </svg>
                           {p}
                         </li>
                       ))}
@@ -232,7 +234,7 @@ export default function FallstudienSection() {
 
                   {/* Pfeil-Badge */}
                   <div className="hidden md:flex absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 items-center justify-center w-10 h-10 rounded-full z-10" style={{ background: '#060E1F', border: '1px solid rgba(201,168,76,0.3)', boxShadow: '0 4px 16px rgba(0,0,0,0.4)' }}>
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="#34D399" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="#C9A84C" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
                   </div>
 
                 </div>
