@@ -37,3 +37,4 @@ next-env.d.ts
 public/videos/*.mov
 public/videos/*.mp4
 !public/videos/vsl.mp4
+!public/videos/Robert_Testimonial_final.mp4
