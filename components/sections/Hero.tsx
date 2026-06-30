@@ -3,14 +3,12 @@
 import { useRef, useState } from 'react'
 
 const tickerItems = [
-  { name: 'Markus R.', role: 'Unternehmer', result: '−11 kg Körperfett in 10 Wochen' },
-  { name: 'Stefan K.', role: 'Geschäftsführer', result: 'Energie endlich wieder stabil den ganzen Tag' },
-  { name: 'Jonas M.', role: 'Selbstständiger', result: '+7 kg Muskelmasse in 4 Monaten' },
-  { name: 'Tobias W.', role: 'Führungskraft', result: 'Bauchfett weg, das seit Jahren da war' },
-  { name: 'Felix B.', role: 'Unternehmer', result: 'Schlafen besser als mit 25' },
-  { name: 'Daniel H.', role: 'CEO', result: 'Testosteron auf Optimalniveau gebracht' },
-  { name: 'Michael S.', role: 'Selbstständiger', result: '−9 kg in 8 Wochen ohne Verzicht' },
-  { name: 'Lukas P.', role: 'Geschäftsführer', result: 'Mentale Klarheit auf einem neuen Level' },
+  { name: 'Matthias K.', role: 'Director Global Aftermarket', result: '−6 kg + Trainingsoptimierung' },
+  { name: 'Hagen F.', role: 'Unternehmer', result: '−13 kg' },
+  { name: 'Gregory N.', role: 'Wealth Management', result: '−13 kg trotz 70-h-Woche' },
+  { name: 'Axel K.', role: 'Geschäftsführer', result: '−4 kg + Ernährungsoptimierung für Wettkampf' },
+  { name: 'Robert R.', role: 'Unternehmer', result: '−16 kg, mehr Energie & Fokus im Alltag' },
+  { name: 'Michael C.', role: 'Selbstständiger', result: '−8 kg + Trainingsoptimierung' },
 ]
 
 const bullets = [
@@ -204,34 +202,41 @@ export default function Hero() {
 
         </div>
 
-        {/* Testimonial Ticker — innerhalb des Hero-Hintergrunds */}
-        <div className="mt-16 -mx-4 md:-mx-8 relative overflow-hidden py-5"
+        {/* Testimonial Ticker — Mini-Karten */}
+        <div className="mt-16 -mx-4 md:-mx-8 relative overflow-hidden py-6"
           style={{
-            borderTop: '1px solid rgba(201,168,76,0.07)',
-            borderBottom: '1px solid rgba(201,168,76,0.07)',
-            background: 'linear-gradient(to bottom, rgba(201,168,76,0.03), transparent)',
+            borderTop: '1px solid rgba(201,168,76,0.1)',
+            borderBottom: '1px solid rgba(201,168,76,0.1)',
+            background: 'linear-gradient(to bottom, rgba(201,168,76,0.04), transparent)',
           }}
         >
           {/* Fade links */}
-          <div className="absolute left-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
+          <div className="absolute left-0 top-0 bottom-0 w-32 z-10 pointer-events-none"
             style={{ background: 'linear-gradient(to right, #060E1F, transparent)' }} />
           {/* Fade rechts */}
-          <div className="absolute right-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
+          <div className="absolute right-0 top-0 bottom-0 w-32 z-10 pointer-events-none"
             style={{ background: 'linear-gradient(to left, #060E1F, transparent)' }} />
 
-          <div className="flex gap-12 whitespace-nowrap animate-ticker">
+          <div className="flex gap-4 animate-ticker" style={{ width: 'max-content' }}>
             {[...tickerItems, ...tickerItems].map((item, i) => (
-              <div key={i} className="flex items-center gap-3 flex-shrink-0">
-                <span style={{ color: '#C9A84C', fontSize: '14px' }}>◆</span>
-                <span className="font-barlow font-semibold text-base" style={{ color: '#E6E8EB' }}>
+              <div
+                key={i}
+                className="flex-shrink-0 flex flex-col justify-center px-5 py-4"
+                style={{
+                  borderLeft: '3px solid rgba(201,168,76,0.7)',
+                  minWidth: 220,
+                  maxWidth: 260,
+                }}
+              >
+                <p className="font-barlow font-bold text-base leading-tight mb-0.5" style={{ color: '#E6E8EB' }}>
                   {item.name}
-                </span>
-                <span className="font-inter text-sm" style={{ color: '#5B6773' }}>
+                </p>
+                <p className="font-inter text-xs mb-2" style={{ color: '#5B6773' }}>
                   {item.role}
-                </span>
-                <span className="font-inter text-sm" style={{ background: 'linear-gradient(#C9A84C, #E8D49A)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-                  — {item.result}
-                </span>
+                </p>
+                <p className="font-inter text-sm font-semibold" style={{ background: 'linear-gradient(90deg, #C9A84C, #E8D49A)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+                  {item.result}
+                </p>
               </div>
             ))}
           </div>
@@ -242,15 +247,10 @@ export default function Hero() {
               100% { transform: translateX(-50%); }
             }
             .animate-ticker {
-              animation: ticker 20s linear infinite;
+              animation: ticker 30s linear infinite;
             }
             .animate-ticker:hover {
               animation-play-state: paused;
-            }
-            @media (min-width: 768px) {
-              .animate-ticker {
-                animation-duration: 35s;
-              }
             }
           `}</style>
         </div>
