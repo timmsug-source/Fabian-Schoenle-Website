@@ -228,7 +228,6 @@ export default function Hero() {
                 style={{
                   background: 'rgba(201,168,76,0.04)',
                   border: '2px solid rgba(201,168,76,0.35)',
-                  borderLeft: '4px solid rgba(201,168,76,0.75)',
                   boxShadow: '0 0 20px rgba(201,168,76,0.22)',
                   minWidth: 220,
                   maxWidth: 260,
