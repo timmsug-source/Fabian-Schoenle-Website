@@ -215,12 +215,12 @@ export default function Hero() {
             {[...tickerItems, ...tickerItems].map((item, i) => (
               <div
                 key={i}
-                className="card-shine flex-shrink-0 flex flex-col justify-center px-5 py-4 rounded-xl"
+                className="flex-shrink-0 flex flex-col justify-center px-5 py-4 rounded-xl"
                 style={{
                   background: 'rgba(201,168,76,0.04)',
                   border: '2px solid rgba(201,168,76,0.35)',
                   borderLeft: '4px solid rgba(201,168,76,0.75)',
-                  boxShadow: '0 0 12px rgba(201,168,76,0.12)',
+                  boxShadow: '0 0 20px rgba(201,168,76,0.22)',
                   minWidth: 220,
                   maxWidth: 260,
                 }}
