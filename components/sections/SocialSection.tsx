@@ -16,7 +16,7 @@ export default function SocialSection() {
 
         {/* Header */}
         <div className="mb-10">
-          <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: '#4A6741' }}>
+          <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-3" style={{ background: 'linear-gradient(#C9A84C, #E8D49A)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
             Folg mir
           </p>
           <h2 className="font-barlow font-bold text-2xl md:text-3xl mb-3" style={{ color: '#E6E8EB' }}>
