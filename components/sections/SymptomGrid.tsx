@@ -182,9 +182,7 @@ function VConnectors() {
 
 export default function SymptomGrid() {
   return (
-    <section className="relative" style={{ background: 'transparent' }}>
-      {/* Fade unten — Grid läuft sanft in nächste Sektion */}
-      <div className="absolute bottom-0 left-0 right-0 pointer-events-none" style={{ height: '30%', background: 'linear-gradient(to bottom, transparent, #060E1F)', zIndex: 1 }} />
+    <section style={{ background: 'transparent' }}>
       <div className="max-w-7xl mx-auto px-4 md:px-8 py-24 md:py-32">
 
         {/* Header */}

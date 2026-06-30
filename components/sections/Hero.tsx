@@ -61,9 +61,18 @@ export default function Hero() {
             <stop offset="0%" stopColor="rgba(201,168,76,0.1)" />
             <stop offset="100%" stopColor="rgba(201,168,76,0)" />
           </radialGradient>
+          <linearGradient id="grid-fade" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="60%" stopColor="white" stopOpacity="1" />
+            <stop offset="100%" stopColor="white" stopOpacity="0" />
+          </linearGradient>
+          <mask id="fade-mask">
+            <rect width="100%" height="100%" fill="url(#grid-fade)" />
+          </mask>
         </defs>
-        <rect width="100%" height="100%" fill="url(#grid)" />
-        <rect width="100%" height="100%" fill="url(#diagonal)" />
+        <g mask="url(#fade-mask)">
+          <rect width="100%" height="100%" fill="url(#grid)" />
+          <rect width="100%" height="100%" fill="url(#diagonal)" />
+        </g>
         <rect width="100%" height="100%" fill="url(#glow-left)" />
         <rect width="100%" height="100%" fill="url(#glow-right)" />
       </svg>
