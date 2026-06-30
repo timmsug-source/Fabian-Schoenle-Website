@@ -111,7 +111,7 @@ export default function Hero() {
               playsInline
               preload="metadata"
             >
-              <source src="/videos/vsl.mov" type="video/mp4" />
+              <source src="/videos/vsl.mp4" type="video/mp4" />
             </video>
             {!playing && (
               <div
