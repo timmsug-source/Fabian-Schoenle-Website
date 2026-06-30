@@ -203,13 +203,7 @@ export default function Hero() {
         </div>
 
         {/* Testimonial Ticker — Mini-Karten */}
-        <div className="mt-16 -mx-4 md:-mx-8 relative overflow-hidden py-6"
-          style={{
-            borderTop: '1px solid rgba(201,168,76,0.1)',
-            borderBottom: '1px solid rgba(201,168,76,0.1)',
-            background: 'linear-gradient(to bottom, rgba(201,168,76,0.04), transparent)',
-          }}
-        >
+        <div className="mt-16 -mx-4 md:-mx-8 relative overflow-hidden py-6">
           {/* Fade links */}
           <div className="absolute left-0 top-0 bottom-0 w-32 z-10 pointer-events-none"
             style={{ background: 'linear-gradient(to right, #060E1F, transparent)' }} />
@@ -221,8 +215,10 @@ export default function Hero() {
             {[...tickerItems, ...tickerItems].map((item, i) => (
               <div
                 key={i}
-                className="flex-shrink-0 flex flex-col justify-center px-5 py-4"
+                className="flex-shrink-0 flex flex-col justify-center px-5 py-4 rounded-xl"
                 style={{
+                  background: 'rgba(201,168,76,0.04)',
+                  border: '1px solid rgba(201,168,76,0.18)',
                   borderLeft: '3px solid rgba(201,168,76,0.7)',
                   minWidth: 220,
                   maxWidth: 260,
