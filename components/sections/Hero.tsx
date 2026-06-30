@@ -117,7 +117,7 @@ export default function Hero() {
               controls={playing}
               playsInline
               preload="none"
-              poster="/images/vsl-placeholder.png"
+              poster="/images/vsl-poster.jpg"
             >
               <source src="/videos/vsl.mp4" type="video/mp4" />
             </video>

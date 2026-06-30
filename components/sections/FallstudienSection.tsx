@@ -8,7 +8,7 @@ const fallstudien = [
     name: 'Robert',
     alter: '42 Jahre',
     beruf: 'Geschäftsführer',
-    instagram: '@markus_ceo',
+    instagram: '@robert',
     video: '/videos/Robert_Testimonial_final.mp4',
     problem: 'Robert arbeitet <strong>60+ Stunden pro Woche</strong>. Sein Körper hat auf die jahrelange Kombination aus <strong>Dauerstress, schlechtem Schlaf</strong> und unregelmäßiger Ernährung reagiert: 14 kg zugenommen, permanent müde, nachmittags kaum noch handlungsfähig.',
     ziel: 'Er will wieder die <strong>Energie haben, die er mit Anfang 30 hatte</strong> — leistungsfähig durch den ganzen Tag, ohne auf Koffein angewiesen zu sein. Und er will, dass sein Körper wieder seinem eigenen Anspruch entspricht.',
