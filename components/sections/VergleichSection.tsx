@@ -128,9 +128,9 @@ export default function VergleichSection() {
           <div
             className="relative flex-1 rounded-2xl flex flex-col p-8 md:p-10 mt-4 lg:mt-0 lg:-ml-4 lg:z-10"
             style={{
-              background: 'linear-gradient(135deg, #1A2E40 0%, #0F2030 100%)',
-              border: '1px solid rgba(52,211,153,0.25)',
-              boxShadow: '0 0 60px rgba(52,211,153,0.08), 0 24px 60px rgba(0,0,0,0.5)',
+              background: 'linear-gradient(135deg, #0D1829 0%, #091122 100%)',
+              border: '1px solid rgba(201,168,76,0.3)',
+              boxShadow: '0 0 60px rgba(201,168,76,0.06), 0 24px 60px rgba(0,0,0,0.5)',
               transform: 'scale(1.03)',
               transformOrigin: 'right center',
             }}
