@@ -1,15 +1,39 @@
 import Image from 'next/image'
 
 const LINKEDIN_URL = 'https://www.linkedin.com/in/fabian-sch%C3%B6nle-a273a8363/'
-const INSTAGRAM_URL = 'https://www.instagram.com/fuelbyfabian/'
+const YOUTUBE_URL = 'https://www.youtube.com/@FuelByFabian'
+const YOUTUBE_CHANNEL_ID = 'UC6pwxF5Ngw8kYbJgjd-eqMg'
 
-const instaImages = [
-  '/images/Fabian-Schönle-Medaillie.jpg',
-  '/images/IMG_1537.JPG',
-  '/images/Fabian-Schönle-ohne-Hintergrund.png',
-]
+interface YTVideo {
+  id: string
+  title: string
+}
 
-export default function SocialSection() {
+async function getLatestVideos(): Promise<YTVideo[]> {
+  try {
+    const res = await fetch(
+      `https://www.youtube.com/feeds/videos.xml?channel_id=${YOUTUBE_CHANNEL_ID}`,
+      { next: { revalidate: 3600 } }
+    )
+    if (!res.ok) return []
+    const xml = await res.text()
+    const entries = [...xml.matchAll(/<entry>([\s\S]*?)<\/entry>/g)]
+    return entries.slice(0, 2).map((m) => {
+      const idMatch = m[1].match(/<yt:videoId>([^<]+)<\/yt:videoId>/)
+      const titleMatch = m[1].match(/<title>([^<]+)<\/title>/)
+      return {
+        id: idMatch?.[1] ?? '',
+        title: titleMatch?.[1] ?? '',
+      }
+    }).filter((v) => v.id)
+  } catch {
+    return []
+  }
+}
+
+export default async function SocialSection() {
+  const videos = await getLatestVideos()
+
   return (
     <section style={{ background: '#060E1F' }}>
       <div className="max-w-7xl mx-auto px-4 md:px-8 py-16 md:py-20">
@@ -23,7 +47,7 @@ export default function SocialSection() {
             Täglich Insights zu Performance, Ernährung und Mindset
           </h2>
           <p className="font-inter text-sm leading-relaxed max-w-2xl" style={{ color: '#5B6773' }}>
-            Auf LinkedIn und Instagram teile ich regelmäßig, was wirklich funktioniert — aus der Praxis, nicht aus dem Lehrbuch. Kein Motivationsspam. Sondern konkrete Impulse für Männer, die mehr aus ihrem Körper herausholen wollen.
+            Auf LinkedIn und YouTube teile ich regelmäßig, was wirklich funktioniert — aus der Praxis, nicht aus dem Lehrbuch. Kein Motivationsspam. Sondern konkrete Impulse für Männer, die mehr aus ihrem Körper herausholen wollen.
           </p>
         </div>
 
@@ -75,7 +99,7 @@ export default function SocialSection() {
             </a>
           </div>
 
-          {/* Instagram */}
+          {/* YouTube */}
           <div
             className="flex flex-col rounded-2xl p-6"
             style={{ background: 'linear-gradient(135deg, #0D1829 0%, #0B1525 100%)', border: '1px solid rgba(255,255,255,0.08)' }}
@@ -83,47 +107,70 @@ export default function SocialSection() {
             <div className="flex items-center gap-3 mb-5">
               <span
                 className="flex items-center justify-center w-9 h-9 rounded-lg flex-shrink-0"
-                style={{ background: 'linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%)' }}
+                style={{ background: '#FF0000' }}
               >
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
-                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+                  <path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
                 </svg>
               </span>
               <div>
-                <p className="font-inter font-semibold text-sm" style={{ color: '#E6E8EB' }}>@fuelbyfabian</p>
-                <p className="font-inter text-xs" style={{ color: '#5B6773' }}>instagram.com/fuelbyfabian</p>
+                <p className="font-inter font-semibold text-sm" style={{ color: '#E6E8EB' }}>FuelByFabian</p>
+                <p className="font-inter text-xs" style={{ color: '#5B6773' }}>youtube.com/@FuelByFabian</p>
               </div>
             </div>
 
-            {/* Bild-Kacheln */}
-            <div className="grid grid-cols-3 gap-2 flex-1 mb-5">
-              {instaImages.map((src, i) => (
-                <div key={i} className="relative aspect-square rounded-lg overflow-hidden">
-                  <Image
-                    src={src}
-                    alt={`Fabian Schönle Instagram ${i + 1}`}
-                    fill
-                    className="object-cover"
-                    sizes="150px"
-                  />
-                </div>
-              ))}
-            </div>
+            {/* Video-Grid */}
+            {videos.length > 0 ? (
+              <div className="flex-1 grid grid-cols-2 gap-2 mb-5">
+                {videos.map((video) => (
+                  <a
+                    key={video.id}
+                    href={`https://www.youtube.com/watch?v=${video.id}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group relative block rounded-lg overflow-hidden"
+                    style={{ aspectRatio: '16/9' }}
+                  >
+                    <Image
+                      src={`https://img.youtube.com/vi/${video.id}/mqdefault.jpg`}
+                      alt={video.title}
+                      fill
+                      className="object-cover transition-transform duration-200 group-hover:scale-105"
+                      sizes="200px"
+                      unoptimized
+                    />
+                    {/* Play-Overlay */}
+                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200" style={{ background: 'rgba(0,0,0,0.45)' }}>
+                      <div className="w-8 h-8 rounded-full flex items-center justify-center" style={{ background: 'rgba(255,0,0,0.9)' }}>
+                        <svg width="10" height="10" viewBox="0 0 10 10" fill="white">
+                          <polygon points="2,1 9,5 2,9" />
+                        </svg>
+                      </div>
+                    </div>
+                    {/* Titel-Tooltip am unteren Rand */}
+                    <div className="absolute bottom-0 left-0 right-0 px-2 py-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.85), transparent)' }}>
+                      <p className="font-inter text-[10px] leading-tight line-clamp-2" style={{ color: '#E6E8EB' }}>{video.title}</p>
+                    </div>
+                  </a>
+                ))}
+              </div>
+            ) : (
+              <div className="flex-1 rounded-xl p-4 mb-5 flex items-center justify-center" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)' }}>
+                <p className="font-inter text-sm" style={{ color: '#5B6773' }}>Videos werden geladen…</p>
+              </div>
+            )}
 
             <a
-              href={INSTAGRAM_URL}
+              href={YOUTUBE_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 w-full py-3 rounded-xl font-inter font-semibold text-sm transition-opacity hover:opacity-80"
-              style={{
-                background: 'linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%)',
-                color: '#FFFFFF',
-              }}
+              style={{ background: '#FF0000', color: '#FFFFFF' }}
             >
               <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+                <path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
               </svg>
-              Auf Instagram folgen
+              Auf YouTube folgen
             </a>
           </div>
 

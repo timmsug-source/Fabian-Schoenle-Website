@@ -61,7 +61,7 @@ export default function UeberMichSection() {
         </p>
 
         {/* Haupt-Grid: Text links, Bild rechts */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-12 lg:gap-16 items-start">
 
           {/* Linke Spalte — Text */}
           <div className="animate-fade-up" style={{ animationDelay: '60ms' }}>
@@ -93,11 +93,11 @@ export default function UeberMichSection() {
               }}
             >
               {credentials.map((c, i) => (
-                <div key={i} className="flex items-start gap-3">
-                  <span className="flex-shrink-0 mt-1">
+                <div key={i} className="flex items-center gap-3">
+                  <span className="flex-shrink-0">
                     {c.icon}
                   </span>
-                  <p className="font-inter text-sm leading-relaxed pt-2" style={{ color: '#8A96A3' }}>
+                  <p className="font-inter text-sm leading-relaxed" style={{ color: '#8A96A3' }}>
                     {c.text}
                   </p>
                 </div>
@@ -139,7 +139,7 @@ export default function UeberMichSection() {
 
           {/* Rechte Spalte — Bild */}
           <div className="relative animate-fade-up lg:sticky lg:top-28 lg:self-start" style={{ animationDelay: '120ms' }}>
-          <div className="relative" style={{ maxWidth: 434, width: '100%', paddingBottom: 14, paddingRight: 14 }}>
+          <div className="relative lg:ml-auto" style={{ maxWidth: 434, width: '100%', paddingBottom: 14, paddingRight: 14 }}>
 
             {/* Hintergrund-Glow */}
             <div

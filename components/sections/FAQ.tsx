@@ -24,26 +24,54 @@ export default function FAQ({ label, headline, items }: FAQProps) {
           <SectionLabel>{label}</SectionLabel>
         </div>
       )}
-      <h2 className="text-3xl md:text-5xl font-bold font-barlow text-dark mb-12">
+      <h2 className="text-3xl md:text-5xl font-bold font-barlow mb-12" style={{ color: '#E6E8EB' }}>
         {headline}
       </h2>
-      <dl className="max-w-3xl divide-y divide-mid">
+      <dl className="max-w-3xl flex flex-col gap-3">
         {items.map((item, i) => (
-          <div key={i} className="py-5">
+          <div
+            key={i}
+            className="rounded-xl overflow-hidden"
+            style={{
+              background: 'linear-gradient(135deg, #0D1829 0%, #091122 100%)',
+              border: `1px solid ${openIndex === i ? 'rgba(201,168,76,0.5)' : 'rgba(201,168,76,0.2)'}`,
+              boxShadow: openIndex === i ? '0 0 24px rgba(201,168,76,0.08)' : 'none',
+              transition: 'border-color 0.2s ease, box-shadow 0.2s ease',
+            }}
+          >
             <dt>
               <button
-                className="flex w-full items-start justify-between text-left font-inter font-semibold text-text"
+                className="flex w-full items-center justify-between text-left px-5 py-4"
                 onClick={() => setOpenIndex(openIndex === i ? null : i)}
                 aria-expanded={openIndex === i}
               >
-                <span>{item.question}</span>
-                <span className="ml-4 text-accent text-xl leading-none">
-                  {openIndex === i ? '−' : '+'}
+                <span className="font-inter font-semibold text-sm md:text-base pr-4" style={{ color: '#E6E8EB' }}>
+                  {item.question}
+                </span>
+                <span className="flex-shrink-0">
+                  <svg width="22" height="22" viewBox="0 0 38 38" fill="none">
+                    <defs>
+                      <linearGradient id={`faq-gold-${i}`} x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#B8832A" />
+                        <stop offset="45%" stopColor="#C9A84C" />
+                        <stop offset="75%" stopColor="#F2D27A" />
+                        <stop offset="100%" stopColor="#C9A84C" />
+                      </linearGradient>
+                    </defs>
+                    {openIndex === i ? (
+                      <line x1="8" y1="19" x2="30" y2="19" stroke={`url(#faq-gold-${i})`} strokeWidth="3" strokeLinecap="round" />
+                    ) : (
+                      <>
+                        <line x1="19" y1="8" x2="19" y2="30" stroke={`url(#faq-gold-${i})`} strokeWidth="3" strokeLinecap="round" />
+                        <line x1="8" y1="19" x2="30" y2="19" stroke={`url(#faq-gold-${i})`} strokeWidth="3" strokeLinecap="round" />
+                      </>
+                    )}
+                  </svg>
                 </span>
               </button>
             </dt>
             {openIndex === i && (
-              <dd className="mt-4 font-inter text-text leading-relaxed pr-8">
+              <dd className="px-5 pb-5 font-inter text-sm md:text-base leading-relaxed" style={{ color: '#A1A9B3' }}>
                 {item.answer}
               </dd>
             )}

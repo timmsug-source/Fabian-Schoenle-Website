@@ -144,7 +144,7 @@ export default function FallstudienSection() {
               {/* ── Obere Sektion: 7 / 5 Grid ── */}
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 p-8 md:p-10">
                 {/* Linke Spalte: Story */}
-                <div className="lg:col-span-7 flex flex-col gap-6">
+                <div className="lg:col-span-6 flex flex-col gap-6">
                   {[
                     { label: 'Problem', text: fs.problem },
                     { label: 'Ziel',    text: fs.ziel },
@@ -164,7 +164,7 @@ export default function FallstudienSection() {
                 </div>
 
                 {/* Rechte Spalte: Media & Profil */}
-                <div className="lg:col-span-5">
+                <div className="lg:col-span-6">
                   <div className="rounded-2xl overflow-hidden flex flex-col" style={{ background: 'rgba(0,0,0,0.25)', border: '1px solid rgba(201,168,76,0.5)', boxShadow: '0 0 40px rgba(201,168,76,0.25), 0 0 12px rgba(201,168,76,0.15)' }}>
                     {'video' in fs && fs.video ? (
                       <VideoPlayer src={fs.video} />
@@ -202,7 +202,7 @@ export default function FallstudienSection() {
                     <ul className="flex flex-col gap-3">
                       {fs.vorher.punkte.map((p, i) => (
                         <li key={i} className="flex items-start gap-3 font-inter text-sm" style={{ color: '#8A96A3' }}>
-                          <svg width="18" height="18" viewBox="0 0 38 38" fill="none" className="flex-shrink-0 mt-0.5">
+                          <svg width="24" height="24" viewBox="0 0 38 38" fill="none" className="flex-shrink-0 mt-0.5">
                             <defs><linearGradient id={`fx-${i}`} x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#C9A84C"/><stop offset="100%" stopColor="#E8D49A"/></linearGradient></defs>
                             <path d="M8 8L30 30M30 8L8 30" stroke={`url(#fx-${i})`} strokeWidth="4" strokeLinecap="round"/>
                           </svg>
@@ -213,7 +213,7 @@ export default function FallstudienSection() {
                   </div>
 
                   {/* Ergebnis */}
-                  <div className="ergebnis-raised p-8 md:p-10 flex flex-col gap-4 relative overflow-hidden rounded-2xl" style={{ background: '#091122', border: '1px solid rgba(201,168,76,0.35)', boxShadow: '0 0 32px rgba(201,168,76,0.08), 0 0 8px rgba(201,168,76,0.05)' }}>
+                  <div className="ergebnis-raised p-8 md:p-10 flex flex-col gap-4 relative overflow-hidden rounded-2xl" style={{ background: '#091122', border: '1px solid rgba(201,168,76,0.7)', boxShadow: '0 0 32px rgba(201,168,76,0.08), 0 0 8px rgba(201,168,76,0.05)' }}>
                     <span className="absolute right-4 bottom-2 font-barlow font-bold select-none pointer-events-none" style={{ fontSize: 96, lineHeight: 1, color: 'rgba(255,255,255,0.04)', letterSpacing: '-2px' }}>FS</span>
                     <div className="relative flex items-center gap-3 flex-wrap">
                       <span className="font-barlow font-bold text-base uppercase tracking-wide text-white">Ergebnis</span>
@@ -222,7 +222,7 @@ export default function FallstudienSection() {
                     <ul className="relative flex flex-col gap-3">
                       {fs.nachher.punkte.map((p, i) => (
                         <li key={i} className="flex items-start gap-3 font-inter text-sm text-white/70">
-                          <svg width="18" height="18" viewBox="0 0 38 38" fill="none" className="flex-shrink-0 mt-0.5">
+                          <svg width="24" height="24" viewBox="0 0 38 38" fill="none" className="flex-shrink-0 mt-0.5">
                             <defs><linearGradient id={`fck-${i}`} x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#B8832A"/><stop offset="45%" stopColor="#C9A84C"/><stop offset="75%" stopColor="#F2D27A"/><stop offset="100%" stopColor="#C9A84C"/></linearGradient></defs>
                             <polygon points="5,21 10.38,24.62 14,27.5 22.55,18.18 33,8 24.45,19.82 14,32.5 8.62,26.38" fill={`url(#fck-${i})`}/>
                           </svg>

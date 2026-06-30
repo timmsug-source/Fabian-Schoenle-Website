@@ -146,6 +146,112 @@ export default function KontaktSection() {
           </div>
 
         </div>
+
+        {/* Ablauf — neues 2er Grid */}
+        <div
+          className="relative mt-20 pt-16 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center overflow-hidden"
+          style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}
+        >
+          {/* Links — Überschrift + Bild + Button */}
+          <div className="flex flex-col">
+            <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-0.5 text-center" style={{ background: 'linear-gradient(#C9A84C, #E8D49A)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+              So läuft es ab
+            </p>
+            <h3 className="font-barlow font-bold text-3xl md:text-5xl leading-tight text-center" style={{ color: '#E6E8EB', marginBottom: 0 }}>
+              Drei Schritte bis zu deinem Plan
+            </h3>
+            <img
+              src="/images/Fabian-Schoenle-Mockup-Ablauf.webp"
+              alt="Fabian Schönle"
+              className="w-full h-auto"
+              style={{ marginTop: '-7%' }}
+            />
+            <div style={{ marginTop: '0.5%' }} className="flex justify-center">
+              <a
+                href={CALENDLY_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-shine inline-flex items-center gap-3 px-7 py-4 rounded-xl font-inter font-semibold text-sm transition-opacity hover:opacity-90"
+                style={{
+                  background: 'radial-gradient(circle, #C9A84C, #E8D49A)',
+                  color: '#060E1F',
+                  boxShadow: '0 4px 24px rgba(201,168,76,0.25)',
+                }}
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+                </svg>
+                Jetzt kostenlosen Termin sichern
+              </a>
+            </div>
+          </div>
+
+          {/* Rechts — 3 Schritte mit Icons */}
+          <div className="flex flex-col justify-center">
+            <div className="flex flex-col">
+              {[
+                {
+                  icon: (
+                    <svg width="40" height="40" viewBox="0 0 36 36" fill="none">
+                      <defs><linearGradient id="abl-g0" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#C9A84C"/><stop offset="100%" stopColor="#E8D49A"/></linearGradient></defs>
+                      <circle cx="18" cy="18" r="16" fill="url(#abl-g0)"/>
+                      <path d="M10 18 L15 24 L26 12" stroke="#060E1F" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  ),
+                  titel: 'Termin sichern',
+                  text: 'Wähle einen freien Slot direkt im Kalender — 30 Minuten, online, ohne Vorgespräch. Kein Verkaufsgespräch, kein Smalltalk. Du buchst einen konkreten Analysetermin.',
+                },
+                {
+                  icon: (
+                    <svg width="40" height="40" viewBox="0 0 36 36" fill="none">
+                      <defs><linearGradient id="abl-g1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#C9A84C"/><stop offset="100%" stopColor="#E8D49A"/></linearGradient></defs>
+                      <circle cx="18" cy="18" r="16" fill="url(#abl-g1)"/>
+                      <path d="M25 22.92v2a1.5 1.5 0 0 1-1.64 1.5 14.85 14.85 0 0 1-6.47-2.3A14.62 14.62 0 0 1 12.4 19a14.85 14.85 0 0 1-2.3-6.5A1.5 1.5 0 0 1 11.57 11h2a1.5 1.5 0 0 1 1.5 1.29c.1.72.27 1.43.52 2.11a1.5 1.5 0 0 1-.34 1.58l-.68.68a12 12 0 0 0 4.62 4.62l.68-.68a1.5 1.5 0 0 1 1.58-.34c.68.25 1.39.42 2.11.52A1.5 1.5 0 0 1 25 22.92z" stroke="#060E1F" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  ),
+                  titel: 'Analyse-Call',
+                  text: 'Wir schauen gemeinsam, was dein System gerade limitiert. Keine Floskeln — echte Analyse auf Basis deiner Daten. Du redest, ich höre zu und stelle die richtigen Fragen.',
+                },
+                {
+                  icon: (
+                    <svg width="40" height="40" viewBox="0 0 36 36" fill="none">
+                      <defs><linearGradient id="abl-g2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#C9A84C"/><stop offset="100%" stopColor="#E8D49A"/></linearGradient></defs>
+                      <circle cx="18" cy="18" r="16" fill="url(#abl-g2)"/>
+                      <rect x="10" y="11" width="16" height="14" rx="2" stroke="#060E1F" strokeWidth="2" strokeLinecap="round"/>
+                      <line x1="22" y1="9" x2="22" y2="13" stroke="#060E1F" strokeWidth="2" strokeLinecap="round"/>
+                      <line x1="14" y1="9" x2="14" y2="13" stroke="#060E1F" strokeWidth="2" strokeLinecap="round"/>
+                      <line x1="10" y1="17" x2="26" y2="17" stroke="#060E1F" strokeWidth="2" strokeLinecap="round"/>
+                    </svg>
+                  ),
+                  titel: 'Dein individueller Plan',
+                  text: 'Du bekommst Klarheit über den nächsten konkreten Schritt — und wie eine Zusammenarbeit aussehen würde. Kein Druck, keine Verpflichtung. Du entscheidest danach in Ruhe.',
+                },
+              ].map((schritt, i, arr) => (
+                <div key={i} className="flex gap-5">
+                  <div className="flex flex-col items-center">
+                    <div className="flex-shrink-0 w-14 h-14 md:w-16 md:h-16 flex items-center justify-center">
+                      {schritt.icon}
+                    </div>
+                    {i < arr.length - 1 && (
+                      <div className="w-px flex-1 my-2" style={{ background: 'rgba(201,168,76,0.25)', minHeight: 36 }} />
+                    )}
+                  </div>
+                  <div className={i < arr.length - 1 ? 'pb-8' : ''}>
+                    <div className="flex items-center" style={{ minHeight: '3.5rem' }}>
+                      <h3 className="font-barlow font-bold text-2xl md:text-3xl leading-tight" style={{ color: '#E6E8EB' }}>
+                        {schritt.titel}
+                      </h3>
+                    </div>
+                    <p className="font-inter text-base leading-relaxed mt-1" style={{ color: '#5B6773' }}>
+                      {schritt.text}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
   )

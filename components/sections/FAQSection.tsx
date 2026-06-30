@@ -55,44 +55,52 @@ export default function FAQSection() {
             Häufige Fragen
           </p>
           <h2 className="font-barlow font-bold text-3xl md:text-5xl leading-tight" style={{ color: '#E6E8EB' }}>
-            Was Männer wie du<br className="hidden md:block" /> vorher wissen wollen
+            Fragen, die in der<br className="hidden md:block" /> Vergangenheit gestellt wurden
           </h2>
         </div>
 
         {/* Accordion */}
-        <div className="flex flex-col animate-fade-up" style={{ borderTop: '1px solid rgba(255,255,255,0.07)', borderBottom: '1px solid rgba(255,255,255,0.07)', animationDelay: '60ms' }}>
+        <div className="flex flex-col gap-3 animate-fade-up" style={{ animationDelay: '60ms' }}>
           {faqs.map((faq, i) => (
-            <div key={i} style={{ borderColor: 'rgba(255,255,255,0.07)' }}>
+            <div
+              key={i}
+              className="rounded-xl overflow-hidden"
+              style={{
+                background: 'linear-gradient(135deg, #0D1829 0%, #091122 100%)',
+                border: `1px solid ${offen === i ? 'rgba(201,168,76,0.5)' : 'rgba(201,168,76,0.2)'}`,
+                boxShadow: offen === i ? '0 0 24px rgba(201,168,76,0.08)' : 'none',
+                transition: 'border-color 0.2s ease, box-shadow 0.2s ease',
+              }}
+            >
               <button
                 onClick={() => setOffen(offen === i ? null : i)}
-                className="w-full flex items-center gap-4 py-5 text-left"
+                className="w-full flex items-center gap-4 px-5 py-4 text-left"
               >
-                {/* Plus/Minus */}
-                <span
-                  className="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center transition-colors"
-                  style={{
-                    background: offen === i ? 'rgba(201,168,76,0.15)' : 'rgba(255,255,255,0.05)',
-                    border: offen === i ? '1px solid rgba(201,168,76,0.4)' : '1px solid rgba(255,255,255,0.1)',
-                  }}
-                >
-                  <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-                    <path d="M5 1v8M1 5h8" stroke={offen === i ? '#E8C84A' : '#5B6773'} strokeWidth="1.5" strokeLinecap="round"
-                      style={{ transform: offen === i ? 'rotate(45deg)' : 'none', transformOrigin: 'center', transition: 'transform 0.2s' }}
-                    />
-                  </svg>
-                </span>
-
                 <span
                   className="font-inter font-semibold text-base leading-snug flex-1"
                   style={{ color: offen === i ? '#E6E8EB' : '#A0A8B4' }}
                 >
                   {faq.frage}
                 </span>
+
+                {/* Gold Plus/Minus */}
+                <span className="flex-shrink-0">
+                  <svg width="22" height="22" viewBox="0 0 38 38" fill="none">
+                    {offen === i ? (
+                      <line x1="8" y1="19" x2="30" y2="19" stroke="#C9A84C" strokeWidth="3" strokeLinecap="round" />
+                    ) : (
+                      <>
+                        <line x1="19" y1="8" x2="19" y2="30" stroke="#C9A84C" strokeWidth="3" strokeLinecap="round" />
+                        <line x1="8" y1="19" x2="30" y2="19" stroke="#C9A84C" strokeWidth="3" strokeLinecap="round" />
+                      </>
+                    )}
+                  </svg>
+                </span>
               </button>
 
               {/* Antwort */}
               {offen === i && (
-                <div className="pb-5 pl-10">
+                <div className="px-5 pb-5">
                   <p className="font-inter text-sm leading-relaxed" style={{ color: '#8A96A3' }}>
                     {faq.antwort}
                   </p>
@@ -113,7 +121,7 @@ export default function FAQSection() {
             style={{
               background: 'rgba(201,168,76,0.06)',
               border: '1px solid rgba(201,168,76,0.4)',
-              color: '#C9A84C',
+              color: '#E8D49A',
             }}
           >
             Schreib mir direkt

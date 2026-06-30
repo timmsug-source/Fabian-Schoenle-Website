@@ -45,22 +45,22 @@ export default function HypotheseSection() {
           </div>
 
           {/* Right: System Pyramid */}
-          <div className="flex flex-col items-center w-full lg:w-96 flex-shrink-0">
+          <div className="flex flex-col items-center w-full lg:w-80 flex-shrink-0">
             {/* Gold top box */}
             <div
-              className="w-full rounded-2xl px-6 py-6 text-center mb-3"
+              className="w-full rounded-2xl px-5 py-4 text-center mb-2.5"
               style={{
                 background: 'radial-gradient(circle, #C9A84C, #E8D49A)',
                 boxShadow: '0 0 40px rgba(180,140,40,0.3), 0 4px 20px rgba(0,0,0,0.3)',
               }}
             >
-              <p className="font-barlow font-bold text-2xl tracking-wide" style={{ color: '#060E1F' }}>Dein System</p>
-              <p className="font-inter text-sm mt-1 font-medium" style={{ color: 'rgba(13,23,33,0.6)' }}>Das eigentliche Fundament</p>
+              <p className="font-barlow font-bold text-xl tracking-wide" style={{ color: '#060E1F' }}>Dein System</p>
+              <p className="font-inter text-xs mt-0.5 font-medium" style={{ color: 'rgba(13,23,33,0.6)' }}>Das eigentliche Fundament</p>
             </div>
 
             {/* Connector line */}
-            <div className="flex flex-col items-center mb-3">
-              <div style={{ width: 2, height: 20, background: 'linear-gradient(to bottom, rgba(201,168,76,0.6), rgba(201,168,76,0.2))' }} />
+            <div className="flex flex-col items-center mb-2.5">
+              <div style={{ width: 2, height: 16, background: 'linear-gradient(to bottom, rgba(201,168,76,0.6), rgba(201,168,76,0.2))' }} />
             </div>
 
             {/* Blue component boxes */}
@@ -75,14 +75,14 @@ export default function HypotheseSection() {
               ].map((item, i) => (
                 <div
                   key={i}
-                  className="rounded-xl px-5 py-4"
+                  className="rounded-xl px-4 py-3"
                   style={{
                     background: 'linear-gradient(135deg, #0D1829 0%, #0B1525 100%)',
                     border: '1px solid rgba(201,168,76,0.15)',
                   }}
                 >
-                  <p className="font-barlow font-semibold text-lg" style={{ color: '#E6E8EB' }}>{item.label}</p>
-                  <p className="font-inter text-sm leading-relaxed mt-0.5" style={{ color: '#5B6773' }}>{item.sub}</p>
+                  <p className="font-barlow font-semibold text-base" style={{ color: '#E6E8EB' }}>{item.label}</p>
+                  <p className="font-inter text-xs leading-relaxed mt-0.5" style={{ color: '#5B6773' }}>{item.sub}</p>
                 </div>
               ))}
             </div>

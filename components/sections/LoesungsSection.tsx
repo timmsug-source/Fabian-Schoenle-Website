@@ -273,7 +273,7 @@ export default function LoesungsSection() {
             style={{ width: 200, height: 240, marginTop: 8, marginBottom: 8 }}
           >
             <Image
-              src="/images/Fabian-Schönle-ohne-Hintergrund.png"
+              src="/images/Fabian-Schoenle-Zitat-Bild.png"
               alt="Fabian Schönle"
               fill
               className="object-contain object-top"
@@ -287,7 +287,7 @@ export default function LoesungsSection() {
             style={{ width: 260, height: 380, marginTop: -100, marginRight: 16 }}
           >
             <Image
-              src="/images/Fabian-Schönle-ohne-Hintergrund.png"
+              src="/images/Fabian-Schoenle-Zitat-Bild.png"
               alt="Fabian Schönle"
               fill
               className="object-contain object-bottom"

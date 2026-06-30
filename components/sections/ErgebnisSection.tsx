@@ -1,3 +1,9 @@
+'use client'
+
+import { useState } from 'react'
+import Image from 'next/image'
+import { CALENDLY_URL } from '@/lib/constants'
+
 const proofKarten = [
   {
     name: 'Thomas K.',
@@ -99,7 +105,7 @@ const saeulen = [
 
 function Check() {
   return (
-    <svg width="20" height="20" viewBox="0 0 38 38" fill="none" className="flex-shrink-0 mt-0.5">
+    <svg width="24" height="24" viewBox="0 0 38 38" fill="none" className="flex-shrink-0 mt-0.5">
       <defs>
         <linearGradient id="check-gold" x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" stopColor="#B8832A" />
@@ -114,6 +120,7 @@ function Check() {
 }
 
 export default function ErgebnisSection() {
+  const [alleZeigen, setAlleZeigen] = useState(false)
   return (
     <section id="ergebnisse" className="relative" style={{ background: '#060E1F' }}>
       <div className="max-w-7xl mx-auto px-4 md:px-8 py-24 md:py-32">
@@ -175,150 +182,163 @@ export default function ErgebnisSection() {
 
         {/* Abschluss-Statement */}
         <div
-          className="relative rounded-2xl px-8 py-10 md:px-12 text-center animate-fade-up"
+          className="relative rounded-2xl overflow-hidden flex flex-col md:flex-row md:items-end animate-fade-up"
           style={{
             background: 'linear-gradient(135deg, #0D1829 0%, #0B1525 100%)',
-            border: '1px solid rgba(201,168,76,0.2)',
+            border: '1px solid rgba(201,168,76,0.3)',
+            boxShadow: '0 0 40px rgba(201,168,76,0.08), inset 0 0 30px rgba(201,168,76,0.04)',
             animationDelay: '240ms',
           }}
         >
-          <div
-            className="absolute top-0 left-16 right-16 h-px"
-            style={{ background: 'linear-gradient(to right, transparent, rgba(201,168,76,0.4), transparent)' }}
-          />
-          <span
-            className="font-barlow font-bold text-5xl leading-none select-none"
-            style={{ color: '#C9A84C', opacity: 0.3, display: 'block', lineHeight: 1, marginBottom: '-8px' }}
-          >
-            &ldquo;
-          </span>
-          <p
-            className="font-barlow font-bold text-xl md:text-2xl leading-snug max-w-3xl mx-auto"
-            style={{ background: 'linear-gradient(#C9A84C, #E8D49A)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}
-          >
-            Das Ziel ist nicht nur ein besserer Körper. Das Ziel ist, dass du wieder auf dem Niveau performst, das du von dir selbst erwartest.
-          </p>
-          <p className="font-inter text-sm mt-5" style={{ color: '#5B6773' }}>
-            Fabian Schönle · Performance Coach · PhD Chemie
-          </p>
+          {/* Grid-Hintergrund */}
+          <svg className="absolute inset-0 w-full h-full pointer-events-none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="none">
+            <defs>
+              <pattern id="es-grid" width="60" height="60" patternUnits="userSpaceOnUse">
+                <path d="M 60 0 L 0 0 0 60" fill="none" stroke="rgba(201,168,76,0.06)" strokeWidth="1" />
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#es-grid)" />
+          </svg>
+
+          {/* Text */}
+          <div className="relative flex-1 flex flex-col justify-center px-8 py-8 md:px-10 md:py-8">
+            <span
+              className="font-barlow font-bold text-7xl leading-none select-none mb-2"
+              style={{ color: '#C9A84C', opacity: 0.35, lineHeight: 1 }}
+            >
+              &ldquo;
+            </span>
+            <p
+              className="font-barlow font-bold text-2xl md:text-3xl leading-snug mb-6"
+              style={{ background: 'linear-gradient(#C9A84C, #E8D49A)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}
+            >
+              Das Ziel ist nicht nur ein besserer Körper. Das Ziel ist, dass du wieder auf dem Niveau performst, das du von dir selbst erwartest.
+            </p>
+            <div className="mt-5">
+              <p className="font-barlow font-bold text-base" style={{ color: '#E6E8EB' }}>Fabian Schönle</p>
+              <p className="font-inter text-sm" style={{ color: '#5B6773' }}>Performance Coach · PhD Chemie</p>
+            </div>
+          </div>
+
+          {/* Bild — Mobile */}
+          <div className="md:hidden relative flex-shrink-0 self-center" style={{ width: 200, height: 240 }}>
+            <Image
+              src="/images/Fabian-Schoenle-Zitat-Bild.png"
+              alt="Fabian Schönle"
+              fill
+              className="object-contain object-top"
+              sizes="200px"
+            />
+          </div>
+
+          {/* Bild — Desktop */}
+          <div className="hidden md:block relative flex-shrink-0 self-end" style={{ width: 260, height: 340, marginTop: -60, marginRight: 16 }}>
+            <Image
+              src="/images/Fabian-Schoenle-Zitat-Bild.png"
+              alt="Fabian Schönle"
+              fill
+              className="object-contain object-bottom"
+              sizes="280px"
+            />
+          </div>
         </div>
 
-        {/* Brücke */}
+        {/* Bewertungen */}
         <div className="mt-20 mb-10 text-center animate-fade-up" style={{ animationDelay: '300ms' }}>
           <p className="font-barlow font-bold text-2xl md:text-3xl" style={{ color: '#E6E8EB' }}>
             Das sind keine Versprechen.
           </p>
           <p className="font-barlow font-bold text-2xl md:text-3xl" style={{ background: 'linear-gradient(#C9A84C, #E8D49A)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-            Das sind Ergebnisse.
+            Das sind echte Bewertungen.
           </p>
         </div>
 
-        {/* Proof Grid — 3 Karten */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 animate-fade-up" style={{ animationDelay: '360ms' }}>
-          {proofKarten.map((k, i) => (
+        <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 animate-fade-up" style={{ animationDelay: '360ms' }}>
+          {[
+            '/images/Bewertung-LinkedIn.png',
+            '/images/Bewertungen 2026-06-24 um 12.44.32.png',
+            '/images/Bewertungen 2026-06-24 um 12.45.57.png',
+            '/images/Bewertungen 2026-06-24 um 12.46.24.png',
+            '/images/Bewertungen 2026-06-24 um 12.47.39.png',
+            '/images/Bewertungen 2026-06-24 um 12.47.52.png',
+            '/images/Bewertungen 2026-06-24 um 12.48.33.png',
+            '/images/Bewertungen 2026-06-24 um 12.48.47.png',
+            '/images/Bewertungen 2026-06-24 um 12.48.57.png',
+            '/images/Bewertungen 2026-06-28 um 09.50.14.png',
+            '/images/Bewertungen 2026-06-28 um 09.50.28.png',
+          ].map((src, i) => (
             <div
               key={i}
-              className="flex flex-col rounded-2xl overflow-hidden"
-              style={{
-                background: 'linear-gradient(135deg, #0D1829 0%, #0B1525 100%)',
-                border: k.platzhalter ? '1px dashed rgba(255,255,255,0.08)' : '1px solid rgba(201,168,76,0.25)',
-                boxShadow: k.platzhalter ? 'none' : '0 0 24px rgba(201,168,76,0.08), 0 0 60px rgba(0,0,0,0.3)',
-                opacity: k.platzhalter ? 0.45 : 1,
-              }}
+              className={`break-inside-avoid mb-4 rounded-2xl overflow-hidden ${i > 2 && !alleZeigen ? 'hidden sm:block' : ''}`}
+              style={{ border: '1px solid rgba(201,168,76,0.25)', boxShadow: '0 4px 20px rgba(0,0,0,0.3)' }}
             >
-              {/* Vorher / Nachher Bildbereich */}
-              <div className="relative flex" style={{ height: 240 }}>
-                {/* Vorher */}
-                <div
-                  className="flex-1 relative overflow-hidden"
-                  style={{ background: 'rgba(0,0,0,0.3)', borderRight: '1px solid rgba(255,255,255,0.06)' }}
-                >
-                  {k.bildVorher ? (
-                    <>
-                      <img src={k.bildVorher} alt="Vorher" className="absolute inset-0 w-full h-full object-cover object-top" />
-                      <span className="absolute bottom-2 left-0 right-0 text-center font-inter text-xs font-semibold uppercase tracking-widest" style={{ color: 'rgba(255,255,255,0.7)' }}>Vorher</span>
-                    </>
-                  ) : (
-                    <div className="flex flex-col items-center justify-center h-full gap-2">
-                      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.15)" strokeWidth="1">
-                        <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
-                      </svg>
-                      <span className="font-inter text-xs font-semibold uppercase tracking-widest" style={{ color: 'rgba(255,255,255,0.2)' }}>Vorher</span>
-                    </div>
-                  )}
-                </div>
-                {/* Nachher */}
-                <div
-                  className="flex-1 relative overflow-hidden"
-                  style={{ background: 'rgba(52,211,153,0.03)' }}
-                >
-                  {k.bildNachher ? (
-                    <>
-                      <img src={k.bildNachher} alt="Nachher" className="absolute inset-0 w-full h-full object-cover object-top" />
-                      <span className="absolute bottom-2 left-0 right-0 text-center font-inter text-xs font-semibold uppercase tracking-widest" style={{ color: 'rgba(201,168,76,0.85)' }}>Nachher</span>
-                    </>
-                  ) : (
-                    <div className="flex flex-col items-center justify-center h-full gap-2">
-                      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="rgba(201,168,76,0.2)" strokeWidth="1">
-                        <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
-                      </svg>
-                      <span className="font-inter text-xs font-semibold uppercase tracking-widest" style={{ color: 'rgba(201,168,76,0.35)' }}>Nachher</span>
-                    </div>
-                  )}
-                </div>
-                {/* Trennlinie mit Pfeil */}
-                {!k.platzhalter && (
-                  <div className="absolute inset-y-0 left-1/2 -translate-x-1/2 flex items-center justify-center z-10">
-                    <div
-                      className="w-7 h-7 rounded-full flex items-center justify-center"
-                      style={{ background: '#060E1F', border: '1px solid rgba(201,168,76,0.35)' }}
-                    >
-                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                        <path d="M2 6h8M6 2l4 4-4 4" stroke="#C9A84C" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              {/* Fakten */}
-              <div className="p-5 flex flex-col gap-3">
-                <div>
-                  <p className="font-barlow font-bold text-lg" style={{ color: '#E6E8EB' }}>{k.name}</p>
-                  <p className="font-inter text-xs mt-0.5" style={{ color: '#5B6773' }}>{k.meta}</p>
-                </div>
-
-                {k.kennzahl && (
-                  <div
-                    className="flex items-baseline gap-2 py-2 px-3 rounded-lg"
-                    style={{ background: 'rgba(201,168,76,0.08)', border: '1px solid rgba(201,168,76,0.2)' }}
-                  >
-                    <span className="font-barlow font-bold text-2xl" style={{ color: '#34D399' }}>{k.kennzahl}</span>
-                    <span className="font-inter text-xs" style={{ color: '#5B6773' }}>{k.zeitraum}</span>
-                  </div>
-                )}
-
-                {k.fakten.length > 0 && (
-                  <ul className="flex flex-col gap-2">
-                    {k.fakten.map((f, j) => (
-                      <li key={j} className="flex items-start gap-2">
-                        <svg className="flex-shrink-0 mt-0.5" width="16" height="16" viewBox="0 0 38 38" fill="none">
-                          <defs><linearGradient id="check-gold-f" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#B8832A"/><stop offset="45%" stopColor="#C9A84C"/><stop offset="75%" stopColor="#F2D27A"/><stop offset="100%" stopColor="#C9A84C"/></linearGradient></defs>
-                          <polygon points="5,21 10.38,24.62 14,27.5 22.55,18.18 33,8 24.45,19.82 14,32.5 8.62,26.38" fill="url(#check-gold-f)" />
-                        </svg>
-                        <span className="font-inter text-sm" style={{ color: '#8A96A3' }}>{f}</span>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-
-                {k.platzhalter && (
-                  <p className="font-inter text-sm text-center py-4" style={{ color: '#3A4A5A' }}>Weitere Ergebnisse folgen</p>
-                )}
-              </div>
+              <img
+                src={src}
+                alt={`Bewertung ${i + 1}`}
+                className="w-full h-auto block"
+              />
             </div>
           ))}
+
+          {/* CTA-Kachel — läuft im Grid mit */}
+          <div
+            className="break-inside-avoid mb-4 rounded-2xl overflow-hidden px-6 py-7 text-center"
+            style={{
+              background: 'linear-gradient(155deg, #16213A 0%, #0D1829 60%, #091122 100%)',
+              border: '1px solid rgba(201,168,76,0.5)',
+              boxShadow: '0 0 0 1px rgba(201,168,76,0.25), 0 0 24px rgba(201,168,76,0.3), 0 0 48px rgba(201,168,76,0.15), 0 4px 20px rgba(0,0,0,0.3)',
+            }}
+          >
+            <div className="flex justify-center mb-4">
+              <svg width="48" height="48" viewBox="0 0 36 36" fill="none">
+                <defs><linearGradient id="es-cta" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#C9A84C"/><stop offset="100%" stopColor="#E8D49A"/></linearGradient></defs>
+                <circle cx="18" cy="18" r="16" fill="url(#es-cta)"/>
+                <rect x="10" y="11" width="16" height="14" rx="2" stroke="#060E1F" strokeWidth="2" strokeLinecap="round"/>
+                <line x1="22" y1="9" x2="22" y2="13" stroke="#060E1F" strokeWidth="2" strokeLinecap="round"/>
+                <line x1="14" y1="9" x2="14" y2="13" stroke="#060E1F" strokeWidth="2" strokeLinecap="round"/>
+                <line x1="10" y1="17" x2="26" y2="17" stroke="#060E1F" strokeWidth="2" strokeLinecap="round"/>
+              </svg>
+            </div>
+            <p className="font-barlow font-bold text-xl leading-snug mb-2" style={{ color: '#E6E8EB' }}>
+              Werde die nächste Bewertung.
+            </p>
+            <p className="font-inter text-sm leading-relaxed mb-6" style={{ color: '#8A96A3' }}>
+              Im kostenlosen Erstgespräch finden wir heraus, was dein System gerade limitiert — unverbindlich und ohne Druck.
+            </p>
+            <a
+              href={CALENDLY_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-shine inline-flex items-center gap-2 px-6 py-3 rounded-xl font-inter font-semibold text-sm transition-opacity hover:opacity-90"
+              style={{
+                background: 'radial-gradient(circle, #C9A84C, #E8D49A)',
+                color: '#060E1F',
+                boxShadow: '0 4px 24px rgba(201,168,76,0.3)',
+              }}
+            >
+              Performance Analyse buchen
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </a>
+          </div>
         </div>
+
+        {/* Mehr ansehen — nur Mobile */}
+        {!alleZeigen && (
+          <div className="sm:hidden mt-6 flex justify-center">
+            <button
+              onClick={() => setAlleZeigen(true)}
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-inter font-semibold text-sm transition-opacity hover:opacity-80"
+              style={{ background: 'rgba(201,168,76,0.06)', border: '1px solid rgba(201,168,76,0.4)', color: '#E8D49A' }}
+            >
+              Mehr Bewertungen ansehen
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                <path d="M4 6l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </button>
+          </div>
+        )}
 
       </div>
     </section>
