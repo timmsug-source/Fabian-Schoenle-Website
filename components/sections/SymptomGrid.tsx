@@ -186,14 +186,14 @@ export default function SymptomGrid() {
       <div className="max-w-7xl mx-auto px-4 md:px-8 py-24 md:py-32">
 
         {/* Header */}
-        <div className="mb-16 animate-fade-up">
+        <div className="mb-16 animate-fade-up text-center">
           <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-4" style={{ background: 'linear-gradient(#C9A84C, #E8D49A)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
             Kennst du das?
           </p>
           <h2 className="font-barlow font-bold text-3xl md:text-5xl leading-tight mb-4" style={{ color: '#E6E8EB' }}>
             Wenn dein Körper nicht mehr so<br className="hidden md:block" /> reagiert wie früher
           </h2>
-          <p className="font-inter text-base leading-relaxed max-w-2xl" style={{ color: '#5B6773' }}>
+          <p className="font-inter text-base leading-relaxed max-w-2xl mx-auto" style={{ color: '#5B6773' }}>
             Diese Symptome begegnen mir im High-Performance Coaching immer wieder — kein Zufall, sondern Signale eines Systems, das neu kalibriert werden muss.
           </p>
         </div>
