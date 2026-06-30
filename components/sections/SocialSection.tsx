@@ -17,7 +17,7 @@ async function getLatestVideos(): Promise<YTVideo[]> {
     )
     if (!res.ok) return []
     const xml = await res.text()
-    const entries = [...xml.matchAll(/<entry>([\s\S]*?)<\/entry>/g)]
+    const entries = Array.from(xml.matchAll(/<entry>([\s\S]*?)<\/entry>/g))
     return entries.slice(0, 2).map((m) => {
       const idMatch = m[1].match(/<yt:videoId>([^<]+)<\/yt:videoId>/)
       const titleMatch = m[1].match(/<title>([^<]+)<\/title>/)

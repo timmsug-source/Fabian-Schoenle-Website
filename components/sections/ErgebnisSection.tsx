@@ -4,45 +4,6 @@ import { useState } from 'react'
 import Image from 'next/image'
 import { CALENDLY_URL } from '@/lib/constants'
 
-const proofKarten = [
-  {
-    name: 'Thomas K.',
-    meta: 'Unternehmer · 38 Jahre',
-    bildVorher: '/images/thomas-vorher.png',
-    bildNachher: '/images/thomas-nachher.png',
-    kennzahl: '−14 kg',
-    zeitraum: 'in 16 Wochen',
-    fakten: [
-      'Stabilere Energie über den Tag',
-      'Bessere Blutwerte — messbar',
-      'Bauchfett deutlich reduziert',
-    ],
-  },
-  {
-    name: 'Markus R.',
-    meta: 'Selbstständiger · 43 Jahre',
-    bildVorher: '/images/thomas-vorher.png',
-    bildNachher: '/images/thomas-nachher.png',
-    kennzahl: '−9 kg',
-    zeitraum: 'Körperfett abgebaut',
-    fakten: [
-      'Fokus und Antrieb zurück',
-      'Leistungsfähigkeit gestiegen',
-      'Training endlich mit Wirkung',
-    ],
-  },
-  {
-    name: 'Demnächst',
-    meta: 'Nächste Fallstudie folgt',
-    bildVorher: null,
-    bildNachher: null,
-    kennzahl: null,
-    zeitraum: null,
-    fakten: [],
-    platzhalter: true,
-  },
-]
-
 const saeulen = [
   {
     icon: (

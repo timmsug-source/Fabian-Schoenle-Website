@@ -116,7 +116,8 @@ export default function Hero() {
               className="absolute inset-0 w-full h-full object-cover"
               controls={playing}
               playsInline
-              preload="metadata"
+              preload="none"
+              poster="/images/vsl-placeholder.png"
             >
               <source src="/videos/vsl.mp4" type="video/mp4" />
             </video>
