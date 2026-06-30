@@ -50,7 +50,7 @@ function VideoPlayer({ src }: { src: string }) {
   }
 
   return (
-    <div className="relative aspect-video overflow-hidden" style={{ background: 'rgba(0,0,0,0.4)' }}>
+    <div className="relative aspect-video overflow-hidden rounded-xl" style={{ background: 'rgba(0,0,0,0.4)', border: '1px solid rgba(201,168,76,0.4)', boxShadow: '0 0 24px rgba(201,168,76,0.1)' }}>
       <video
         ref={videoRef}
         className="absolute inset-0 w-full h-full object-cover"
