@@ -165,7 +165,7 @@ export default function FallstudienSection() {
 
                 {/* Rechte Spalte: Media & Profil */}
                 <div className="lg:col-span-5">
-                  <div className="rounded-2xl overflow-hidden flex flex-col" style={{ background: 'rgba(0,0,0,0.25)', border: '1px solid rgba(255,255,255,0.07)' }}>
+                  <div className="rounded-2xl overflow-hidden flex flex-col" style={{ background: 'rgba(0,0,0,0.25)', border: '1px solid rgba(201,168,76,0.4)', boxShadow: '0 0 24px rgba(201,168,76,0.08)' }}>
                     {'video' in fs && fs.video ? (
                       <VideoPlayer src={fs.video} />
                     ) : (
