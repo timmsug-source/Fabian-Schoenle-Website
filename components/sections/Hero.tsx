@@ -220,6 +220,7 @@ export default function Hero() {
                   background: 'rgba(201,168,76,0.04)',
                   border: '1.5px solid rgba(201,168,76,0.28)',
                   borderLeft: '4px solid rgba(201,168,76,0.75)',
+                  boxShadow: '0 0 12px rgba(201,168,76,0.12)',
                   minWidth: 220,
                   maxWidth: 260,
                 }}
