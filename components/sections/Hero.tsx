@@ -218,7 +218,7 @@ export default function Hero() {
                 className="card-shine flex-shrink-0 flex flex-col justify-center px-5 py-4 rounded-xl"
                 style={{
                   background: 'rgba(201,168,76,0.04)',
-                  border: '1.5px solid rgba(201,168,76,0.28)',
+                  border: '2px solid rgba(201,168,76,0.35)',
                   borderLeft: '4px solid rgba(201,168,76,0.75)',
                   boxShadow: '0 0 12px rgba(201,168,76,0.12)',
                   minWidth: 220,
