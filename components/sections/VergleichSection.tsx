@@ -1,4 +1,4 @@
-import { CALENDLY_URL } from '@/lib/constants'
+import Image from 'next/image'
 
 const rows = [
   { feature: 'Individueller Trainingsplan',        fs: true,  generic: false, online: true,  selbst: false },
@@ -73,13 +73,13 @@ export default function VergleichSection() {
       <div className="relative max-w-7xl mx-auto px-4 md:px-8 py-24 md:py-32">
 
         {/* Header */}
-        <div className="mb-20 animate-fade-up">
-          <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-4" style={{ background: 'linear-gradient(#C9A84C, #E8D49A)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+        <div className="mb-20 animate-fade-up text-center">
+          <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-4" style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
             Der Unterschied
           </p>
           <h2 className="font-barlow font-bold text-3xl md:text-5xl leading-tight" style={{ color: '#E6E8EB' }}>
             Andere verkaufen dir einen Plan.<br className="hidden md:block" />{' '}
-            <span style={{ background: 'linear-gradient(#C9A84C, #E8D49A)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+            <span style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
               Ich stelle dein System ein.
             </span>
           </h2>
@@ -107,19 +107,19 @@ export default function VergleichSection() {
                     boxShadow: `${FS_GLOW}, 0 -12px 32px rgba(201,168,76,0.14)`,
                   }}
                 >
-                  <span className="font-inter font-semibold text-base leading-tight" style={{ color: '#E8D49A' }}>
-                    FS Performance Lab
+                  <span className="flex justify-center">
+                    <Image src="/images/FS-Logo-60x60-transparenter-Hintergrund.png" alt="FS Performance Lab" width={44} height={44} className="rounded-lg object-contain" />
                   </span>
                 </th>
 
                 <th className="pb-6 text-center px-3" style={{ width: '15%' }}>
-                  <span className="font-inter font-semibold text-base" style={{ color: '#fff' }}>Generisches<br />Coaching</span>
+                  <span className="font-inter font-semibold text-base" style={{ color: '#fff' }}>Personal-<br />trainer</span>
                 </th>
                 <th className="pb-6 text-center px-3" style={{ width: '15%' }}>
-                  <span className="font-inter font-semibold text-base" style={{ color: '#fff' }}>Online-<br />Programme</span>
+                  <span className="font-inter font-semibold text-base" style={{ color: '#fff' }}>Gruppen-<br />coaching</span>
                 </th>
                 <th className="pb-6 text-center px-3" style={{ width: '15%' }}>
-                  <span className="font-inter font-semibold text-base" style={{ color: '#fff' }}>Selbst/<br />Alleine</span>
+                  <span className="font-inter font-semibold text-base" style={{ color: '#fff' }}>AI-<br />Coach</span>
                 </th>
               </tr>
             </thead>
@@ -163,14 +163,13 @@ export default function VergleichSection() {
                 </tr>
               ))}
 
-              {/* CTA-Zeile — Kachel-Boden */}
+              {/* Kachel-Boden — gerundete Kante */}
               <tr>
-                <td style={{ borderTop: ROW_LINE, boxShadow: '0 -1px 6px rgba(255,255,255,0.04)', paddingTop: '1.5rem', paddingBottom: '0.5rem' }} />
+                <td style={{ borderTop: ROW_LINE, boxShadow: '0 -1px 6px rgba(255,255,255,0.04)' }} />
                 <td
                   className="px-4"
                   style={{
-                    paddingTop: '1rem',
-                    paddingBottom: '1.5rem',
+                    height: '1rem',
                     background: FS_BG,
                     borderLeft: FS_SIDES,
                     borderRight: FS_SIDES,
@@ -179,21 +178,7 @@ export default function VergleichSection() {
                     borderRadius: '0 0 12px 12px',
                     boxShadow: `${FS_GLOW}, 0 16px 40px rgba(201,168,76,0.18)`,
                   }}
-                >
-                  <a
-                    href={CALENDLY_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn-shine flex items-center justify-center gap-2 py-3 px-2 rounded-xl font-inter font-semibold text-xs transition-opacity hover:opacity-90"
-                    style={{
-                      background: 'radial-gradient(circle, #C9A84C, #E8D49A)',
-                      color: '#060E1F',
-                      boxShadow: '0 4px 24px rgba(201,168,76,0.35)',
-                    }}
-                  >
-                    Jetzt buchen
-                  </a>
-                </td>
+                />
                 <td style={{ borderTop: ROW_LINE }} />
                 <td style={{ borderTop: ROW_LINE }} />
                 <td style={{ borderTop: ROW_LINE }} />
@@ -219,16 +204,18 @@ export default function VergleichSection() {
                   className="text-center px-0.5 pt-3 pb-2 align-bottom"
                   style={{ background: FS_BG, borderTop: FS_SIDES, borderLeft: FS_SIDES, borderRight: FS_SIDES, borderRadius: '10px 10px 0 0', boxShadow: `${FS_GLOW}, 0 -10px 24px rgba(201,168,76,0.12)` }}
                 >
-                  <span className="font-inter font-semibold text-[10px] leading-tight block" style={{ color: '#E8D49A' }}>FS<br />Lab</span>
+                  <span className="flex justify-center">
+                    <Image src="/images/FS-Logo-60x60-transparenter-Hintergrund.png" alt="FS Performance Lab" width={28} height={28} className="rounded-md object-contain" />
+                  </span>
                 </th>
                 <th className="text-center px-0.5 pb-2 align-bottom">
-                  <span className="font-inter font-semibold text-[10px] leading-tight block" style={{ color: '#fff' }}>Gene-<br />risch</span>
+                  <span className="font-inter font-semibold text-[10px] leading-tight block" style={{ color: '#fff' }}>Personal-<br />trainer</span>
                 </th>
                 <th className="text-center px-0.5 pb-2 align-bottom">
-                  <span className="font-inter font-semibold text-[10px] leading-tight block" style={{ color: '#fff' }}>On-<br />line</span>
+                  <span className="font-inter font-semibold text-[10px] leading-tight block" style={{ color: '#fff' }}>Gruppen-<br />coaching</span>
                 </th>
                 <th className="text-center px-0.5 pb-2 align-bottom">
-                  <span className="font-inter font-semibold text-[10px] leading-tight block" style={{ color: '#fff' }}>Selbst</span>
+                  <span className="font-inter font-semibold text-[10px] leading-tight block" style={{ color: '#fff' }}>AI-<br />Coach</span>
                 </th>
               </tr>
             </thead>
@@ -261,17 +248,6 @@ export default function VergleichSection() {
               })}
             </tbody>
           </table>
-
-          {/* CTA */}
-          <a
-            href={CALENDLY_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-shine flex items-center justify-center gap-2 py-4 px-4 rounded-xl font-inter font-semibold text-sm transition-opacity hover:opacity-90 mt-8"
-            style={{ background: 'radial-gradient(circle, #C9A84C, #E8D49A)', color: '#060E1F', boxShadow: '0 4px 24px rgba(201,168,76,0.35)' }}
-          >
-            Jetzt Performance Analyse buchen
-          </a>
         </div>
 
       </div>

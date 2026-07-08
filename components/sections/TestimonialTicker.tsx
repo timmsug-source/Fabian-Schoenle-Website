@@ -42,7 +42,7 @@ export default function TestimonialTicker() {
             <span className="font-inter text-sm" style={{ color: '#5B6773' }}>
               {item.role}
             </span>
-            <span className="font-inter text-sm" style={{ background: 'linear-gradient(#C9A84C, #E8D49A)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+            <span className="font-inter text-sm" style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
               — {item.result}
             </span>
           </div>

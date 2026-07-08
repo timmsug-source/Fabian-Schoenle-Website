@@ -5,18 +5,6 @@ const credentials = [
   {
     icon: (
       <svg width="18" height="18" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <defs><linearGradient id="uc0" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#C9A84C"/><stop offset="100%" stopColor="#E8D49A"/></linearGradient></defs>
-        <path d="M18 4 L4 11 L18 18 L32 11 Z" fill="url(#uc0)"/>
-        <path d="M8 15 L8 24 C8 24 12 29 18 29 C24 29 28 24 28 24 L28 15" stroke="url(#uc0)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
-        <line x1="32" y1="11" x2="32" y2="22" stroke="url(#uc0)" strokeWidth="2.5" strokeLinecap="round"/>
-        <circle cx="32" cy="24" r="2.5" fill="url(#uc0)"/>
-      </svg>
-    ),
-    text: 'PhD-Hintergrund in Chemie',
-  },
-  {
-    icon: (
-      <svg width="18" height="18" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
         <defs><linearGradient id="uc1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#C9A84C"/><stop offset="100%" stopColor="#E8D49A"/></linearGradient></defs>
         <rect x="2" y="30" width="32" height="3" rx="1.5" fill="url(#uc1)"/>
         <rect x="2" y="4" width="3" height="26" rx="1.5" fill="url(#uc1)"/>
@@ -25,19 +13,28 @@ const credentials = [
         <rect x="23" y="7" width="5" height="23" rx="2" fill="url(#uc1)"/>
       </svg>
     ),
-    text: 'Datenbasierte Methode — entwickelt aus Wissenschaft und eigener Erfahrung',
+    text: 'Performance Experte',
+  },
+  {
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs><linearGradient id="uc0" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#C9A84C"/><stop offset="100%" stopColor="#E8D49A"/></linearGradient></defs>
+        <path d="M18 4 L4 11 L18 18 L32 11 Z" fill="url(#uc0)"/>
+        <path d="M8 15 L8 24 C8 24 12 29 18 29 C24 29 28 24 28 24 L28 15" stroke="url(#uc0)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+        <line x1="32" y1="11" x2="32" y2="22" stroke="url(#uc0)" strokeWidth="2.5" strokeLinecap="round"/>
+        <circle cx="32" cy="24" r="2.5" fill="url(#uc0)"/>
+      </svg>
+    ),
+    text: 'M.Sc Chemie',
   },
   {
     icon: (
       <svg width="18" height="18" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
         <defs><linearGradient id="uc2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#C9A84C"/><stop offset="100%" stopColor="#E8D49A"/></linearGradient></defs>
-        <circle cx="13" cy="12" r="6" fill="url(#uc2)"/>
-        <circle cx="26" cy="14" r="4.5" fill="url(#uc2)"/>
-        <path d="M2 30 C2 22 8 18 13 18 C18 18 24 22 24 30" fill="url(#uc2)"/>
-        <path d="M24 20 C27 20 32 23 32 30" stroke="url(#uc2)" strokeWidth="3" strokeLinecap="round"/>
+        <path d="M2 20 L9 20 L13 8 L19 30 L23 16 L26 22 L34 22" stroke="url(#uc2)" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round"/>
       </svg>
     ),
-    text: 'Selbstständige & Unternehmer ab 30 — meine einzige Zielgruppe',
+    text: 'Leidenschaftlicher Triathlet',
   },
 ]
 
@@ -56,7 +53,7 @@ export default function UeberMichSection() {
       <div className="relative max-w-7xl mx-auto px-4 md:px-8 py-24 md:py-32">
 
         {/* Label */}
-        <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-4 animate-fade-up" style={{ background: 'linear-gradient(#C9A84C, #E8D49A)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+        <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-4 animate-fade-up" style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
           Wer steckt dahinter?
         </p>
 
@@ -86,7 +83,7 @@ export default function UeberMichSection() {
 
             {/* Credentials */}
             <div
-              className="mt-10 rounded-2xl p-6 flex flex-col gap-4"
+              className="mt-10 rounded-2xl px-7 py-6 flex flex-col gap-4 self-start w-fit pr-24"
               style={{
                 background: 'linear-gradient(135deg, #0D1829 0%, #0B1525 100%)',
                 border: '1px solid rgba(201,168,76,0.15)',
@@ -104,31 +101,12 @@ export default function UeberMichSection() {
               ))}
             </div>
 
-            {/* Abschluss-Statement */}
-            <div
-              className="mt-8 rounded-2xl px-6 py-5"
-              style={{
-                background: 'rgba(201,168,76,0.04)',
-                border: '1px solid rgba(201,168,76,0.2)',
-                borderLeft: '3px solid rgba(201,168,76,0.6)',
-              }}
-            >
-              <p className="font-inter text-sm leading-relaxed" style={{ background: 'linear-gradient(#C9A84C, #E8D49A)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-                Ich arbeite nicht mit jedem. Aber wenn du weißt, dass dein Körper mehr kann als er gerade zeigt — dann lass uns herausfinden, was ihn aufhält.
-              </p>
-            </div>
-
             {/* CTA */}
             <a
               href={CALENDLY_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-shine mt-8 inline-flex items-center gap-2 px-6 py-3.5 rounded-lg font-inter font-semibold text-sm transition-opacity hover:opacity-80"
-              style={{
-                background: 'radial-gradient(circle, #C9A84C, #E8D49A)',
-                color: '#060E1F',
-                boxShadow: '0 4px 24px rgba(201,168,76,0.25)',
-              }}
+              className="cta-metal mt-8 inline-flex items-center gap-2 px-6 py-3.5 rounded-lg font-inter font-semibold text-sm transition-transform hover:-translate-y-0.5"
             >
               Performance Analyse buchen
               <svg width="14" height="14" viewBox="0 0 16 16" fill="none">

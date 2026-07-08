@@ -24,6 +24,14 @@ export const metadata: Metadata = {
   },
   description: 'Datenbasiertes Performance Coaching — basierend auf DNA- und Blutanalyse. Für Männer, die körperlich und mental auf Maximum performen wollen.',
   metadataBase: new URL('https://fabianschoenle.de'),
+  icons: {
+    icon: '/favicon.ico',
+    apple: [
+      { url: '/images/apple-touch-icon-180x180.png', sizes: '180x180' },
+      { url: '/images/apple-touch-icon-152x152.png', sizes: '152x152' },
+      { url: '/images/apple-touch-icon-120x120.png', sizes: '120x120' },
+    ],
+  },
 }
 
 export default function RootLayout({

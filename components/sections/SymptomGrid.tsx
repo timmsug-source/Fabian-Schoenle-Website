@@ -1,129 +1,199 @@
 import Image from 'next/image'
 import { CALENDLY_URL } from '@/lib/constants'
 
+const GOLD = 'url(#ico-gold)'
+
 const symptoms = [
-  { headline: 'Bauchfett, das bleibt',        body: 'Hartnäckig — egal was du isst oder wie oft du trainierst.' },
-  { headline: 'Energie bricht weg',            body: 'Nachmittags ist der Fokus weg. Du funktionierst auf Sparflamme.' },
-  { headline: 'Schlaf erholt nicht',           body: 'Du schläfst — aber wachst morgens nicht ausgeruht auf.' },
-  { headline: 'Training ohne Fortschritt',     body: 'Du investierst Zeit, aber der Körper reagiert kaum noch.' },
-  { headline: 'Mentale Leistung lässt nach',   body: 'Fokus und Drive fühlen sich nicht mehr wie früher an.' },
-  { headline: 'Antrieb schwankt',              body: 'Manche Tage läuft es — andere nicht. Kein verlässliches Niveau.' },
-  { headline: 'Körper fühlt sich fremd an',    body: 'Der Spiegel zeigt jemanden, der nicht deinem Anspruch entspricht.' },
-  { headline: 'Nichts wirkt dauerhaft',        body: 'Du hast vieles versucht — kein Ansatz hat sich festgesetzt.' },
+  {
+    headline: 'Hartnäckiges Bauchfett',
+    icon: (
+      <>
+        <circle cx="14" cy="14" r="9" />
+        <circle cx="14" cy="14" r="3.2" />
+      </>
+    ),
+  },
+  {
+    headline: 'Fehlende Energie',
+    icon: (
+      <>
+        <rect x="3" y="8" width="18" height="12" rx="2.5" />
+        <line x1="23" y1="12" x2="23" y2="16" />
+        <line x1="7" y1="11" x2="7" y2="17" />
+      </>
+    ),
+  },
+  {
+    headline: 'Unerholsamer Schlaf',
+    icon: (
+      <>
+        <path d="M20 15.5A8 8 0 0 1 10.5 6 8 8 0 1 0 20 15.5Z" />
+        <path d="M20 4l0.6 1.8L22.4 6l-1.8 0.6L20 8.4l-0.6-1.8L17.6 6l1.8-0.2Z" />
+      </>
+    ),
+  },
+  {
+    headline: 'Jo-Jo-Effekt',
+    icon: (
+      <>
+        <path d="M22 5a10 10 0 1 0 2.5 8" />
+        <polyline points="24.5 5 24.5 11 18.5 11" />
+      </>
+    ),
+  },
+  {
+    headline: 'Langsamer Muskelaufbau',
+    icon: (
+      <>
+        <path d="M4 10v8M8 8v12M20 8v12M24 10v8" />
+        <line x1="8" y1="14" x2="20" y2="14" />
+      </>
+    ),
+  },
+  {
+    headline: 'Schlechtes Körpergefühl',
+    icon: (
+      <>
+        <rect x="8" y="3" width="12" height="17" rx="6" />
+        <line x1="14" y1="20" x2="14" y2="25" />
+      </>
+    ),
+  },
+  {
+    headline: 'Stimmungsschwankungen',
+    icon: <path d="M2 14h4l3-8 5 16 3-10 2 4h7" />,
+  },
+  {
+    headline: 'Brainfog',
+    icon: (
+      <>
+        <path d="M14 4a6 6 0 0 0-6 6c-2 1-2 4 0 5v4a3 3 0 0 0 6 0" />
+        <path d="M14 4a6 6 0 0 1 6 6c2 1 2 4 0 5v4a3 3 0 0 1-6 0" />
+        <line x1="14" y1="4" x2="14" y2="24" />
+      </>
+    ),
+  },
 ]
+
+// Streu-Positionen der Pills rund um das Bild (Desktop)
+const positions = [
+  { top: '4%', left: '2%' },
+  { top: '30%', left: '-2%' },
+  { top: '56%', left: '-2%' },
+  { top: '82%', left: '9%' },
+  { top: '4%', right: '2%' },
+  { top: '30%', right: '-2%' },
+  { top: '56%', right: '-2%' },
+  { top: '82%', right: '9%' },
+]
+
+function Pill({ item }: { item: (typeof symptoms)[0] }) {
+  return (
+    <div className="symptom-pill inline-flex items-center gap-3 rounded-full pl-4 pr-6 py-3">
+      <svg width="26" height="26" viewBox="0 0 28 28" fill="none" stroke={GOLD} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="flex-shrink-0">
+        {item.icon}
+      </svg>
+      <span className="font-barlow font-semibold text-lg md:text-xl whitespace-nowrap" style={{ color: '#E6E8EB' }}>
+        {item.headline}
+      </span>
+    </div>
+  )
+}
 
 export default function SymptomGrid() {
   return (
     <section style={{ background: 'transparent' }}>
+      {/* Gemeinsamer Gold-Verlauf für alle Icons */}
+      <svg width="0" height="0" className="absolute" aria-hidden="true">
+        <defs>
+          <linearGradient id="ico-gold" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#C9A84C" />
+            <stop offset="100%" stopColor="#E8D49A" />
+          </linearGradient>
+        </defs>
+      </svg>
+
       <div className="max-w-7xl mx-auto px-4 md:px-8 pt-12 md:pt-16 pb-24 md:pb-32">
 
         {/* Header */}
-        <div className="mb-16 animate-fade-up text-center">
-          <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-4" style={{ background: 'linear-gradient(#C9A84C, #E8D49A)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+        <div className="mb-14 animate-fade-up text-center">
+          <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-4" style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
             Kennst du das?
           </p>
           <h2 className="font-barlow font-bold text-3xl md:text-5xl leading-tight mb-4" style={{ color: '#E6E8EB' }}>
-            Wenn dein Körper nicht mehr so<br className="hidden md:block" /> reagiert wie früher
+            Wenn dein Körper nicht mehr so<br className="hidden md:block" /> belastbar ist wie früher
           </h2>
           <p className="font-inter text-base leading-relaxed max-w-2xl mx-auto" style={{ color: '#5B6773' }}>
-            Diese Symptome begegnen mir im High-Performance Coaching immer wieder — kein Zufall, sondern Signale eines Systems, das neu kalibriert werden muss.
+            Diese Symptome sind kein Zufall, sondern ein Signal deines Körpers, welches du nicht ignorieren solltest.
           </p>
         </div>
 
-        {/* Split Layout — relativer Container für Hintergrund-Raster */}
-        <div className="relative flex flex-col md:flex-row gap-8 animate-fade-up" style={{ animationDelay: '100ms' }}>
+        {/* Radiales Layout — Bild mittig, Pills drumherum */}
+        <div className="animate-fade-up" style={{ animationDelay: '100ms' }}>
 
-          {/* Hintergrund-Rastermuster — wie Hero, Wölbung zur Mitte */}
-          <svg className="absolute inset-0 w-full h-full pointer-events-none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="none">
-            <defs>
-              <pattern id="sg-grid" width="90" height="90" patternUnits="userSpaceOnUse">
-                <path d="M 90 0 L 0 0 0 90" fill="none" stroke="rgba(201,168,76,0.1)" strokeWidth="1" />
-              </pattern>
-              <pattern id="sg-diagonal" width="90" height="90" patternUnits="userSpaceOnUse">
-                <line x1="0" y1="90" x2="90" y2="0" stroke="rgba(201,168,76,0.05)" strokeWidth="1" />
-              </pattern>
-              {/* Radiale Maske: Mitte voll sichtbar, Ränder ausgeblendet */}
-              <radialGradient id="sg-bulge" cx="50%" cy="50%" r="72%">
-                <stop offset="0%"   stopColor="white" stopOpacity="1" />
-                <stop offset="55%"  stopColor="white" stopOpacity="0.85" />
-                <stop offset="80%"  stopColor="white" stopOpacity="0.4" />
-                <stop offset="100%" stopColor="white" stopOpacity="0" />
-              </radialGradient>
-              <mask id="sg-mask">
-                <rect width="100%" height="100%" fill="url(#sg-bulge)" />
-              </mask>
-              <radialGradient id="sg-glow" cx="50%" cy="50%" r="55%">
-                <stop offset="0%"   stopColor="rgba(201,168,76,0.16)" />
-                <stop offset="100%" stopColor="rgba(201,168,76,0)" />
-              </radialGradient>
-            </defs>
-            <g mask="url(#sg-mask)">
-              <rect width="100%" height="100%" fill="url(#sg-grid)" />
-              <rect width="100%" height="100%" fill="url(#sg-diagonal)" />
-            </g>
-            <rect width="100%" height="100%" fill="url(#sg-glow)" />
-          </svg>
-
-          {/* 2-spaltige Kästchen links — 50% + CTA darunter */}
-          <div className="w-full md:w-1/2 relative flex flex-col gap-3">
-            <div className="grid grid-cols-2 gap-3">
-              {symptoms.map((item, i) => (
-                <div
-                  key={i}
-                  className="flex flex-col gap-2 rounded-2xl px-5 py-5"
-                  style={{
-                    background: 'linear-gradient(135deg, rgba(13,24,41,0.82) 0%, rgba(11,21,37,0.76) 100%)',
-                    border: '1.5px solid rgba(201,168,76,0.22)',
-                    boxShadow: 'inset 0 1px 0 rgba(232,212,154,0.06)',
-                    backdropFilter: 'blur(2px)',
-                  }}
-                >
-                  <span
-                    className="font-barlow font-bold text-sm"
-                    style={{ background: 'linear-gradient(#C9A84C, #E8D49A)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}
-                  >
-                    {String(i + 1).padStart(2, '0')}
-                  </span>
-                  <h3 className="font-barlow font-bold text-lg leading-snug" style={{ color: '#E6E8EB' }}>
-                    {item.headline}
-                  </h3>
-                  <p className="font-inter text-xs leading-relaxed" style={{ color: '#7A8898' }}>
-                    {item.body}
-                  </p>
-                </div>
-              ))}
+          {/* Desktop: absolute Streuung */}
+          <div className="hidden lg:block relative mx-auto" style={{ maxWidth: 1100, height: 620 }}>
+            {/* Zentrales Bild mit Glow */}
+            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center">
+              <div className="absolute -inset-16 rounded-full" style={{ background: 'radial-gradient(circle, rgba(201,168,76,0.22) 0%, rgba(201,168,76,0) 68%)' }} />
+              <div
+                className="relative overflow-hidden rounded-2xl"
+                style={{ width: 500, border: '1.5px solid rgba(201,168,76,0.35)', boxShadow: '0 0 60px rgba(201,168,76,0.2)' }}
+              >
+                <Image
+                  src="/images/FS-Waage.png"
+                  alt="Die Waage des Lebens — Gleichgewicht aus Ernährung, Training und Regeneration"
+                  width={1200}
+                  height={750}
+                  className="w-full h-auto"
+                  sizes="500px"
+                />
+              </div>
             </div>
 
-            {/* Gold CTA */}
+            {/* Pills */}
+            {symptoms.map((item, i) => (
+              <div key={i} className="absolute" style={positions[i]}>
+                <Pill item={item} />
+              </div>
+            ))}
+          </div>
+
+          {/* Mobile / Tablet: Bild oben, Pills als Wrap */}
+          <div className="lg:hidden flex flex-col items-center gap-8">
+            <div className="relative flex items-center justify-center">
+              <div className="absolute -inset-8 rounded-full" style={{ background: 'radial-gradient(circle, rgba(201,168,76,0.2) 0%, rgba(201,168,76,0) 70%)' }} />
+              <div
+                className="relative overflow-hidden rounded-2xl w-full max-w-md"
+                style={{ border: '1.5px solid rgba(201,168,76,0.35)', boxShadow: '0 0 40px rgba(201,168,76,0.18)' }}
+              >
+                <Image
+                  src="/images/FS-Waage.png"
+                  alt="Die Waage des Lebens"
+                  width={1200}
+                  height={750}
+                  className="w-full h-auto"
+                  sizes="100vw"
+                />
+              </div>
+            </div>
+            <div className="flex flex-wrap justify-center gap-3">
+              {symptoms.map((item, i) => (
+                <Pill key={i} item={item} />
+              ))}
+            </div>
+          </div>
+
+          {/* CTA */}
+          <div className="mt-12 lg:mt-10 flex justify-center">
             <a
               href={CALENDLY_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-shine flex items-center justify-center gap-2 w-full py-4 mt-2 rounded-xl font-inter font-semibold text-sm"
-              style={{ background: 'radial-gradient(circle, #C9A84C, #E8D49A)', color: '#060E1F' }}
+              className="cta-metal inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-inter font-semibold text-sm transition-transform hover:-translate-y-0.5"
             >
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/>
-              </svg>
               Performance Analyse buchen
             </a>
-          </div>
-
-          {/* Fabian-Bild rechts — etwas länger als Kästchen + CTA */}
-          <div className="hidden md:block w-1/2 flex-shrink-0 relative self-stretch">
-            <div
-              className="relative overflow-hidden rounded-2xl"
-              style={{ border: '1.5px solid rgba(201,168,76,0.22)', background: '#060E1F', position: 'absolute', inset: 0 }}
-            >
-              <Image
-                src="/images/Fabian-Schoenle-Blick-Kamera.webp"
-                alt="Fabian Schönle — Performance Coach"
-                fill
-                className="object-cover"
-                style={{ objectPosition: 'center 20%' }}
-                sizes="50vw"
-              />
-            </div>
           </div>
 
         </div>

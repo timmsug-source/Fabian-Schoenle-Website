@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { CALENDLY_URL } from '@/lib/constants'
+import NachrichtCTA from './NachrichtCTA'
 
 const punkte = [
   {
@@ -75,7 +76,7 @@ export default function KontaktSection() {
 
           {/* Linke Spalte — Text + Trust */}
           <div className="animate-fade-up lg:sticky lg:top-28 lg:self-start">
-            <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-4" style={{ background: 'linear-gradient(#C9A84C, #E8D49A)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+            <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-4" style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
               High-Performance Coaching starten
             </p>
             <h2 className="font-barlow font-bold text-3xl md:text-5xl leading-tight mb-5" style={{ color: '#E6E8EB' }}>
@@ -106,12 +107,7 @@ export default function KontaktSection() {
               href={CALENDLY_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-shine inline-flex items-center gap-3 px-7 py-4 rounded-xl font-inter font-semibold text-sm transition-opacity hover:opacity-90 mb-4"
-              style={{
-                background: 'radial-gradient(circle, #C9A84C, #E8D49A)',
-                color: '#060E1F',
-                boxShadow: '0 4px 24px rgba(201,168,76,0.25)',
-              }}
+              className="cta-metal inline-flex items-center gap-3 px-7 py-4 rounded-xl font-inter font-semibold text-sm transition-transform hover:-translate-y-0.5 mb-4"
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
@@ -119,9 +115,14 @@ export default function KontaktSection() {
               Performance Analyse buchen
             </a>
 
+            {/* Zweiter CTA — Direktnachricht */}
+            <div className="mb-6">
+              <NachrichtCTA />
+            </div>
+
             {/* Vertrauensanker */}
-            <p className="font-inter text-xs block" style={{ color: '#3A4A5A' }}>
-              <svg width="12" height="12" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ display: 'inline', marginRight: 6, verticalAlign: 'middle' }}>
+            <p className="font-inter text-xs flex items-center gap-1.5" style={{ color: '#3A4A5A' }}>
+              <svg width="12" height="12" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" className="flex-shrink-0">
                 <defs><linearGradient id="klock" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#C9A84C"/><stop offset="100%" stopColor="#E8D49A"/></linearGradient></defs>
                 <rect x="8" y="16" width="20" height="16" rx="3" fill="url(#klock)"/>
                 <path d="M12 16 L12 12 C12 7.6 24 7.6 24 12 L24 16" stroke="url(#klock)" strokeWidth="3" strokeLinecap="round"/>
@@ -154,7 +155,7 @@ export default function KontaktSection() {
         >
           {/* Links — Überschrift + Bild + Button */}
           <div className="flex flex-col">
-            <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-0.5 text-center" style={{ background: 'linear-gradient(#C9A84C, #E8D49A)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+            <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-0.5 text-center" style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
               So läuft es ab
             </p>
             <h3 className="font-barlow font-bold text-3xl md:text-5xl leading-tight text-center" style={{ color: '#E6E8EB', marginBottom: 0 }}>
@@ -171,12 +172,7 @@ export default function KontaktSection() {
                 href={CALENDLY_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-shine inline-flex items-center gap-3 px-7 py-4 rounded-xl font-inter font-semibold text-sm transition-opacity hover:opacity-90"
-                style={{
-                  background: 'radial-gradient(circle, #C9A84C, #E8D49A)',
-                  color: '#060E1F',
-                  boxShadow: '0 4px 24px rgba(201,168,76,0.25)',
-                }}
+                className="cta-metal inline-flex items-center gap-3 px-7 py-4 rounded-xl font-inter font-semibold text-sm transition-transform hover:-translate-y-0.5"
               >
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>

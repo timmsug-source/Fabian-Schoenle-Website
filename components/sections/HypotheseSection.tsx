@@ -1,4 +1,4 @@
-'use client'
+import Image from 'next/image'
 
 const paragraphs = [
   'Mehr Disziplin. Strengere Diät. Noch ein Fitnessprogramm. Noch eine App. Für Selbstständige und Unternehmer ab 30 ist das der typische Weg — und er führt fast immer in dieselbe Sackgasse.',
@@ -10,19 +10,19 @@ const paragraphs = [
 
 export default function HypotheseSection() {
   return (
-    <section style={{ background: '#091122' }}>
+    <section style={{ background: 'transparent' }}>
       <div className="max-w-7xl mx-auto px-4 md:px-8 py-24 md:py-32">
 
         <div className="animate-fade-up flex flex-col lg:flex-row lg:items-stretch gap-16 lg:gap-24">
 
           {/* Left: Text */}
           <div className="flex-1 min-w-0">
-            <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-6" style={{ background: 'linear-gradient(#C9A84C, #E8D49A)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+            <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-6" style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
               Die Wahrheit
             </p>
 
             <h2 className="font-barlow font-bold text-3xl md:text-5xl leading-tight mb-10" style={{ color: '#E6E8EB' }}>
-              Die meisten probieren mehr —<br className="hidden md:block" /> und kommen trotzdem nicht weiter
+              Warum deine Ansätze bisher<br className="hidden md:block" /> keine Ergebnisse lieferten
             </h2>
 
             <div
@@ -44,47 +44,38 @@ export default function HypotheseSection() {
 
           </div>
 
-          {/* Right: System Pyramid */}
-          <div className="flex flex-col items-center w-full lg:w-80 flex-shrink-0">
-            {/* Gold top box */}
+          {/* Right: Kreislauf-Grafik + Text */}
+          <div className="flex flex-col justify-center w-full lg:w-[460px] flex-shrink-0">
             <div
-              className="w-full rounded-2xl px-5 py-4 text-center mb-2.5"
+              className="relative overflow-hidden rounded-2xl"
+              style={{ border: '1.5px solid rgba(201,168,76,0.35)', boxShadow: '0 0 60px rgba(201,168,76,0.18)' }}
+            >
+              <Image
+                src="/images/FS-Kreislauf.png"
+                alt="Der Teufelskreis: Mehr Disziplin, radikale Ansätze, Heißhunger, Jo-Jo-Effekt, Frustration, Stress und hormonelle Disbalance"
+                width={1254}
+                height={1254}
+                className="w-full h-auto"
+                sizes="(max-width: 1024px) 100vw, 460px"
+              />
+            </div>
+
+            <div
+              className="mt-6 rounded-2xl px-6 py-6"
               style={{
-                background: 'radial-gradient(circle, #C9A84C, #E8D49A)',
-                boxShadow: '0 0 40px rgba(180,140,40,0.3), 0 4px 20px rgba(0,0,0,0.3)',
+                background: 'linear-gradient(135deg, rgba(13,24,41,0.82) 0%, rgba(11,21,37,0.76) 100%)',
+                border: '1.5px solid rgba(201,168,76,0.3)',
+                boxShadow: '0 0 40px rgba(201,168,76,0.1)',
               }}
             >
-              <p className="font-barlow font-bold text-xl tracking-wide" style={{ color: '#060E1F' }}>Dein System</p>
-              <p className="font-inter text-xs mt-0.5 font-medium" style={{ color: 'rgba(13,23,33,0.6)' }}>Das eigentliche Fundament</p>
-            </div>
-
-            {/* Connector line */}
-            <div className="flex flex-col items-center mb-2.5">
-              <div style={{ width: 2, height: 16, background: 'linear-gradient(to bottom, rgba(201,168,76,0.6), rgba(201,168,76,0.2))' }} />
-            </div>
-
-            {/* Blue component boxes */}
-            <div className="w-full flex flex-col flex-1 justify-between gap-2">
-              {[
-                { label: 'Hormone', sub: 'Testosteron, Cortisol, Schilddrüse' },
-                { label: 'Stoffwechsel', sub: 'Insulinsensitivität, Glukose' },
-                { label: 'Schlaf & Regeneration', sub: 'Tiefschlaf, HRV, Erholung' },
-                { label: 'Stresssystem', sub: 'Cortisol-Rhythmus, Nervensystem' },
-                { label: 'Ernährung', sub: 'Mikronährstoffe, Makros, Timing' },
-                { label: 'Training', sub: 'Reiz, Volumen, Belastungssteuerung' },
-              ].map((item, i) => (
-                <div
-                  key={i}
-                  className="rounded-xl px-4 py-3"
-                  style={{
-                    background: 'linear-gradient(135deg, #0D1829 0%, #0B1525 100%)',
-                    border: '1px solid rgba(201,168,76,0.15)',
-                  }}
-                >
-                  <p className="font-barlow font-semibold text-base" style={{ color: '#E6E8EB' }}>{item.label}</p>
-                  <p className="font-inter text-xs leading-relaxed mt-0.5" style={{ color: '#5B6773' }}>{item.sub}</p>
-                </div>
-              ))}
+              <p className="font-inter text-sm md:text-base leading-relaxed" style={{ color: '#8A96A3' }}>
+                Leistungsorientierte Menschen wollen ihr Problem mit mehr Disziplin lösen, weil sie das aus
+                ihrem beruflichen Leben gewohnt sind. Dadurch wählen sie radikale Ansätze, die zu Heißhunger
+                und Jo-Jo-Effekt führen — und dann entsteht Frustration, die sich durch mehr Stress und damit
+                ein hormonelles Ungleichgewicht (Testosteron sinkt usw.) äußert. Die meisten lassen dann einige
+                Monate vergehen und fangen mit dem nächsten Motivationsschub und noch mehr Disziplin wieder von
+                vorne an…
+              </p>
             </div>
           </div>
 

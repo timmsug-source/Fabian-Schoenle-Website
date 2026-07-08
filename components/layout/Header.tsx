@@ -53,14 +53,19 @@ export default function Header() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 md:gap-3" onClick={() => setMenuOpen(false)}>
             <Image
-              src="/images/logo.jpeg"
-              alt="FS Performance"
-              width={34}
-              height={34}
-              className="rounded-sm object-contain"
+              src="/images/FS-Logo-60x60.png"
+              alt="FS Performance Lab"
+              width={52}
+              height={52}
+              className="rounded-lg object-contain"
             />
-            <span className="font-barlow font-semibold text-base md:text-lg tracking-wide" style={{ color: '#E6E8EB' }}>
-              Fabian Schönle
+            <span className="flex flex-col leading-none">
+              <span className="font-barlow font-semibold text-base md:text-lg tracking-wide" style={{ color: '#E6E8EB' }}>
+                Fabian Schönle
+              </span>
+              <span className="font-inter text-[10px] font-semibold uppercase tracking-[0.18em] mt-0.5" style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+                FS Performance Lab
+              </span>
             </span>
           </Link>
 
@@ -83,11 +88,7 @@ export default function Header() {
             href={CALENDLY_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-shine hidden md:flex items-center gap-2 font-inter font-semibold text-sm px-6 h-11 rounded-lg transition-opacity hover:opacity-90"
-            style={{
-              background: 'radial-gradient(circle, #C9A84C, #E8D49A)',
-              color: '#060E1F',
-            }}
+            className="cta-metal hidden md:flex items-center gap-2 font-inter font-semibold text-sm px-6 h-11 rounded-lg transition-transform hover:-translate-y-0.5"
           >
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <path d="M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/>
@@ -150,11 +151,7 @@ export default function Header() {
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setMenuOpen(false)}
-              className="btn-shine mt-3 flex items-center justify-center gap-2 font-inter font-semibold text-sm h-11 rounded-lg"
-              style={{
-                background: 'radial-gradient(circle, #C9A84C, #E8D49A)',
-                color: '#060E1F',
-              }}
+              className="cta-metal mt-3 flex items-center justify-center gap-2 font-inter font-semibold text-sm h-11 rounded-lg"
             >
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/>

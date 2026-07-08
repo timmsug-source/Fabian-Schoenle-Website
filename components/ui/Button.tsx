@@ -19,10 +19,10 @@ export default function Button({
   className = '',
   external = false,
 }: ButtonProps) {
-  const base = 'inline-flex items-center justify-center font-inter font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold'
+  const base = 'inline-flex items-center justify-center rounded-xl font-inter font-semibold transition-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold'
 
   const variants = {
-    primary:   'bg-gold text-navy-dark hover:bg-gold-light',
+    primary:   'cta-metal hover:-translate-y-0.5',
     secondary: 'border border-gold text-gold hover:bg-gold hover:text-navy-dark',
     ghost:     'text-neutral-2 hover:text-gold',
   }

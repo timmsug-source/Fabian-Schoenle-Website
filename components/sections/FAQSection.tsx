@@ -51,7 +51,7 @@ export default function FAQSection() {
 
         {/* Header */}
         <div className="mb-12 animate-fade-up">
-          <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-4" style={{ background: 'linear-gradient(#C9A84C, #E8D49A)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+          <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-4" style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
             Häufige Fragen
           </p>
           <h2 className="font-barlow font-bold text-3xl md:text-5xl leading-tight" style={{ color: '#E6E8EB' }}>
@@ -160,7 +160,7 @@ export default function FAQSection() {
 
               {!gesendet ? (
                 <>
-                  <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-2" style={{ background: 'linear-gradient(#C9A84C, #E8D49A)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Direkte Nachricht</p>
+                  <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-2" style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Direkte Nachricht</p>
                   <h3 className="font-barlow font-bold text-2xl mb-6" style={{ color: '#E6E8EB' }}>Stell deine Frage</h3>
                   <div className="flex flex-col gap-3">
                     <input
@@ -182,8 +182,7 @@ export default function FAQSection() {
                     <button
                       onClick={() => setGesendet(true)}
                       disabled={!email || !nachricht}
-                      className="w-full py-3 rounded-xl font-inter font-semibold text-sm transition-opacity hover:opacity-90 disabled:opacity-40"
-                      style={{ background: 'radial-gradient(circle, #C9A84C, #E8D49A)', color: '#060E1F' }}
+                      className="cta-metal w-full py-3 rounded-xl font-inter font-semibold text-sm transition-transform hover:-translate-y-0.5 disabled:opacity-40"
                     >
                       Frage absenden
                     </button>

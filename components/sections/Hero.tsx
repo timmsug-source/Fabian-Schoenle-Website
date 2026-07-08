@@ -3,26 +3,26 @@
 import { useRef, useState } from 'react'
 
 const tickerItems = [
-  { name: 'Matthias K.', role: 'Director Global Aftermarket', result: '−6 kg + Trainingsoptimierung' },
-  { name: 'Hagen F.', role: 'Unternehmer', result: '−13 kg' },
-  { name: 'Gregory N.', role: 'Wealth Management', result: '−13 kg trotz 70-h-Woche' },
-  { name: 'Axel K.', role: 'Geschäftsführer', result: '−4 kg + Ernährungsoptimierung für Wettkampf' },
-  { name: 'Robert R.', role: 'Unternehmer', result: '−16 kg, mehr Energie & Fokus im Alltag' },
-  { name: 'Michael C.', role: 'Selbstständiger', result: '−8 kg + Trainingsoptimierung' },
+  { name: 'Matthias K.', role: 'Director Global Aftermarket', result: '6 kg' },
+  { name: 'Hagen F.', role: 'Unternehmer', result: '13 kg' },
+  { name: 'Gregory N.', role: 'Wealth Management', result: '13 kg' },
+  { name: 'Axel K.', role: 'Geschäftsführer', result: '4 kg' },
+  { name: 'Robert R.', role: 'Unternehmer', result: '16 kg' },
+  { name: 'Michael C.', role: 'Selbstständiger', result: '8 kg' },
 ]
 
 const bullets = [
   {
-    headline: 'DNA- & Blutanalyse statt Bauchgefühl',
-    body: 'Wir messen exakt, was dein System gerade limitiert, und bauen darauf eine Strategie, die wirklich zu dir passt.',
+    headline: 'Datenbasierte Strategie',
+    body: 'Durch individuelle DNA- & Blutwerte identifizieren wir die Hebel, die bei dir wirklich entscheidend sind.',
   },
   {
-    headline: 'Individueller Plan, kein generisches Programm',
-    body: 'Ernährung, Training und Regeneration werden präzise auf deine Biologie abgestimmt, nicht auf einen Durchschnittswert.',
+    headline: 'Erlange deine körperliche & mentale Bestform',
+    body: 'Durch individuelle Trainings- und Ernährungsansätze spürst du, wie sich deine Fitness kontinuierlich verbessert.',
   },
   {
-    headline: 'Ergebnisse in Monaten, nicht Jahren',
-    body: 'Weil wir nicht raten, sondern am richtigen Hebel ansetzen und Fortschritt kontinuierlich tracken.',
+    headline: 'Erziele nachhaltige Ergebnisse',
+    body: 'Durch eine logisch nachvollziehbare Methode entstehen Ergebnisse, die langfristig bestehen.',
   },
 ]
 
@@ -81,28 +81,25 @@ export default function Hero() {
 
         {/* H1 + Subheadline — volle Breite */}
         <div className="mb-8 md:mb-16 text-center">
-          <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-5" style={{ background: 'linear-gradient(#C9A84C, #E8D49A)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+          <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-5" style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
             High-Performance Coaching
           </p>
           <h1
             className="font-barlow font-bold text-4xl md:text-5xl lg:text-6xl leading-[1.05] mb-6"
             style={{ color: '#E6E8EB' }}
           >
-            Dein Körper läuft nicht schlechter,{' '}
-            <br className="hidden md:block" />
-            weil du älter bist —
-            <br />
-            <span style={{ background: 'linear-gradient(#C9A84C, #E8D49A)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-              sondern weil dein System es zulässt.
-            </span>
+            Als leistungsorientierter Mann trotz vollem Kalender{' '}
+            <span style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+              mentale und körperliche Bestform
+            </span>{' '}
+            erreichen
           </h1>
           <p
             className="font-inter text-lg md:text-xl leading-relaxed max-w-5xl mx-auto"
             style={{ color: '#A1A9B3' }}
           >
-            Ich helfe Selbstständigen und Unternehmern ab 30, ihr metabolisches System so einzustellen,
-            dass Fettabbau, stabile Energie und mentale Klarheit keine Frage der Disziplin mehr sind —
-            sondern das Ergebnis der richtigen Daten.
+            Ich verhelfe dir zu mehr Energie und Fokus im Alltag und lasse dich wieder mit einem
+            selbstbewussten Blick in den Spiegel schauen.
           </p>
         </div>
 
@@ -147,31 +144,31 @@ export default function Hero() {
           <div className="flex flex-col">
             <ul className="flex flex-col gap-4 md:gap-6">
               {bullets.map((item, i) => (
-                <li key={i} className="flex gap-3 md:gap-4 items-start">
-                  <span className="mt-1 flex-shrink-0">
-                    <svg width="32" height="32" className="md:w-[38px] md:h-[38px]" viewBox="0 0 38 38" fill="none">
-                      <defs>
-                        <linearGradient id={`gold-${i}`} x1="0%" y1="0%" x2="100%" y2="100%">
-                          <stop offset="0%" stopColor="#B8832A" />
-                          <stop offset="45%" stopColor="#C9A84C" />
-                          <stop offset="75%" stopColor="#F2D27A" />
-                          <stop offset="100%" stopColor="#C9A84C" />
-                        </linearGradient>
-                      </defs>
-                      <polygon
-                        points="5,21 10.38,24.62 14,27.5 22.55,18.18 33,8 24.45,19.82 14,32.5 8.62,26.38"
-                        fill={`url(#gold-${i})`}
-                      />
-                    </svg>
-                  </span>
-                  <div>
-                    <p className="font-barlow font-semibold text-xl md:text-2xl mb-1 md:mb-2" style={{ color: '#E6E8EB' }}>
+                <li key={i}>
+                  <div className="flex gap-3 md:gap-4 items-center">
+                    <span className="flex-shrink-0">
+                      <svg width="32" height="32" className="md:w-[38px] md:h-[38px]" viewBox="0 0 38 38" fill="none">
+                        <defs>
+                          <linearGradient id={`gold-${i}`} x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stopColor="#B8832A" />
+                            <stop offset="45%" stopColor="#C9A84C" />
+                            <stop offset="75%" stopColor="#F2D27A" />
+                            <stop offset="100%" stopColor="#C9A84C" />
+                          </linearGradient>
+                        </defs>
+                        <polygon
+                          points="5,21 10.38,24.62 14,27.5 22.55,18.18 33,8 24.45,19.82 14,32.5 8.62,26.38"
+                          fill={`url(#gold-${i})`}
+                        />
+                      </svg>
+                    </span>
+                    <p className="font-barlow font-semibold text-xl md:text-2xl" style={{ color: '#E6E8EB' }}>
                       {item.headline}
                     </p>
-                    <p className="font-inter text-sm md:text-base leading-relaxed" style={{ color: '#A1A9B3' }}>
-                      {item.body}
-                    </p>
                   </div>
+                  <p className="font-inter text-sm md:text-base leading-relaxed mt-1 md:mt-2 pl-[44px] md:pl-[54px]" style={{ color: '#A1A9B3' }}>
+                    {item.body}
+                  </p>
                 </li>
               ))}
             </ul>
@@ -180,21 +177,7 @@ export default function Hero() {
             <div className="mt-8 md:pl-[54px]">
               <a
                 href="#"
-                className="btn-shine inline-flex items-center gap-3 px-7 py-4 rounded-xl font-barlow font-semibold text-lg"
-                style={{
-                  background: 'radial-gradient(circle, #C9A84C, #E8D49A)',
-                  color: '#060E1F',
-                  boxShadow: '0 4px 24px rgba(201,168,76,0.25)',
-                  transition: 'box-shadow 0.2s ease, transform 0.2s ease',
-                }}
-                onMouseEnter={e => {
-                  (e.currentTarget as HTMLElement).style.boxShadow = '0 6px 32px rgba(201,168,76,0.4)'
-                  ;(e.currentTarget as HTMLElement).style.transform = 'translateY(-1px)'
-                }}
-                onMouseLeave={e => {
-                  (e.currentTarget as HTMLElement).style.boxShadow = '0 4px 24px rgba(201,168,76,0.25)'
-                  ;(e.currentTarget as HTMLElement).style.transform = 'translateY(0)'
-                }}
+                className="cta-metal inline-flex items-center gap-3 px-7 py-4 rounded-xl font-barlow font-semibold text-lg transition-transform hover:-translate-y-0.5"
               >
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
@@ -205,7 +188,7 @@ export default function Hero() {
                 Performance Analyse buchen
               </a>
               <p className="mt-3 font-inter text-xs" style={{ color: '#5B6773' }}>
-                Kein Risiko · Keine Verpflichtung · 30 Minuten
+                Call mit mir persönlich · 30 Minuten
               </p>
             </div>
           </div>
@@ -225,24 +208,29 @@ export default function Hero() {
             {[...tickerItems, ...tickerItems].map((item, i) => (
               <div
                 key={i}
-                className="flex-shrink-0 flex flex-col justify-center px-5 py-4 rounded-xl"
+                className="flex-shrink-0 flex items-center gap-3 px-4 py-3 rounded-xl"
                 style={{
                   background: 'rgba(201,168,76,0.04)',
                   border: '2px solid rgba(201,168,76,0.35)',
                   boxShadow: '0 0 20px rgba(201,168,76,0.22)',
-                  minWidth: 220,
-                  maxWidth: 260,
+                  minWidth: 190,
                 }}
               >
-                <p className="font-barlow font-bold text-base leading-tight mb-0.5" style={{ color: '#E6E8EB' }}>
-                  {item.name}
-                </p>
-                <p className="font-inter text-xs mb-2" style={{ color: '#5B6773' }}>
-                  {item.role}
-                </p>
-                <p className="font-inter text-sm font-semibold" style={{ background: 'linear-gradient(90deg, #C9A84C, #E8D49A)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+                <span className="flex items-center gap-1 font-barlow font-bold text-lg leading-none" style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M12 5v14M5 12l7 7 7-7" />
+                  </svg>
                   {item.result}
-                </p>
+                </span>
+                <span className="w-px self-stretch" style={{ background: 'rgba(201,168,76,0.25)' }} />
+                <span className="flex flex-col min-w-0">
+                  <span className="font-barlow font-bold text-sm leading-tight truncate" style={{ color: '#E6E8EB' }}>
+                    {item.name}
+                  </span>
+                  <span className="font-inter text-[11px] leading-tight truncate" style={{ color: '#5B6773' }}>
+                    {item.role}
+                  </span>
+                </span>
               </div>
             ))}
           </div>

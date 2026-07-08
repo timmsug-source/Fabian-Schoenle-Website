@@ -17,10 +17,12 @@ const fallstudien = [
     nachher: { gewicht: '84 kg', punkte: ['Stabile Energie ohne Koffein-Spitzen', 'Klarer Kopf bis in den Abend', '−14 kg Körpergewicht in 5 Monaten'] },
   },
   {
-    name: 'Stefan',
+    name: 'Axel',
     alter: '38 Jahre',
     beruf: 'Selbstständiger Unternehmer',
-    instagram: '@stefan_builds',
+    instagram: 'Axel Krupp',
+    link: 'https://www.linkedin.com/in/axelkrupp1968/',
+    bild: '/images/19d177bf-4006-4bc2-8fb4-b7e6f8c9719e.jpg',
     problem: 'Stefan hat in den letzten 3 Jahren eine Firma aufgebaut. Sein Körper ist dabei auf der Strecke geblieben: <strong>Schlafprobleme, ständige Stimmungsschwankungen</strong> — und trotz regelmäßigem Training kein sichtbarer Fortschritt.',
     ziel: 'Er will verstehen, <strong>warum sein Körper nicht mehr reagiert</strong>. Und er will konkrete Ergebnisse — kein weiteres Ausprobieren, keine Diäten, kein Rätselraten.',
     loesung: 'Die DNA-Analyse zeigte, dass Stefan <strong>genetisch bedingt stark auf Blutzuckerschwankungen reagiert</strong>. Gleichzeitig lag sein Testosteron im unteren Normbereich. Mit gezielter Anpassung hat der Körper wieder reagiert.',
@@ -50,7 +52,7 @@ function VideoPlayer({ src }: { src: string }) {
   }
 
   return (
-    <div className="relative aspect-video overflow-hidden rounded-xl" style={{ background: 'rgba(0,0,0,0.4)', border: '1px solid rgba(201,168,76,0.4)', boxShadow: '0 0 24px rgba(201,168,76,0.1)' }}>
+    <div className="relative aspect-video overflow-hidden rounded-t-xl" style={{ background: 'rgba(0,0,0,0.4)', border: '1px solid rgba(201,168,76,0.4)', boxShadow: '0 0 24px rgba(201,168,76,0.1)' }}>
       <video
         ref={videoRef}
         className="absolute inset-0 w-full h-full object-cover"
@@ -108,18 +110,18 @@ export default function FallstudienSection() {
       <div className="relative max-w-7xl mx-auto px-4 md:px-8 py-24 md:py-32">
 
         {/* Header */}
-        <div className="mb-12 animate-fade-up">
-          <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-4" style={{ background: 'linear-gradient(#C9A84C, #E8D49A)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+        <div className="mb-12 animate-fade-up text-center">
+          <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-4" style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
             Echte Ergebnisse
           </p>
           <h2 className="font-barlow font-bold text-3xl md:text-5xl leading-tight" style={{ color: '#E6E8EB' }}>
-            Was passiert, wenn das System<br className="hidden md:block" /> richtig eingestellt ist
+            So fühlt es sich an, wenn man sich<br className="hidden md:block" /> die Kontrolle zurückholt
           </h2>
         </div>
 
         {/* ── Alle Fallstudien untereinander ── */}
         <div className="flex flex-col gap-10">
-          {fallstudien.map((fs, idx) => (
+          {fallstudien.slice(0, 2).map((fs, idx) => (
             <div
               key={idx}
               className="rounded-3xl overflow-hidden animate-fade-up"
@@ -136,7 +138,7 @@ export default function FallstudienSection() {
                 style={{ borderBottom: '1px solid rgba(201,168,76,0.12)', background: 'rgba(201,168,76,0.04)' }}
               >
                 <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#C9A84C' }} />
-                <p className="font-inter text-xs font-semibold uppercase tracking-widest" style={{ background: 'linear-gradient(#C9A84C, #E8D49A)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+                <p className="font-inter text-xs font-semibold uppercase tracking-widest" style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
                   Fallstudie: {fs.name}
                 </p>
               </div>
@@ -151,7 +153,7 @@ export default function FallstudienSection() {
                     { label: 'Lösung',  text: fs.loesung },
                   ].map(({ label, text }) => (
                     <div key={label}>
-                      <p className="font-barlow font-bold text-sm uppercase tracking-wider mb-1.5" style={{ background: 'linear-gradient(#C9A84C, #E8D49A)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+                      <p className="font-barlow font-bold text-sm uppercase tracking-wider mb-1.5" style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
                         {label}:
                       </p>
                       <p
@@ -168,6 +170,10 @@ export default function FallstudienSection() {
                   <div className="rounded-2xl overflow-hidden flex flex-col" style={{ background: 'rgba(0,0,0,0.25)', border: '1px solid rgba(201,168,76,0.5)', boxShadow: '0 0 40px rgba(201,168,76,0.25), 0 0 12px rgba(201,168,76,0.15)' }}>
                     {'video' in fs && fs.video ? (
                       <VideoPlayer src={fs.video} />
+                    ) : 'bild' in fs && fs.bild ? (
+                      <div className="relative aspect-video overflow-hidden rounded-t-xl" style={{ border: '1px solid rgba(201,168,76,0.4)' }}>
+                        <img src={fs.bild} alt={fs.name} className="absolute inset-0 w-full h-full object-cover" style={{ objectPosition: 'center 22%' }} />
+                      </div>
                     ) : (
                       <div className="relative aspect-video overflow-hidden flex items-center justify-center" style={{ background: 'rgba(0,0,0,0.4)' }}>
                         <div className="flex items-center justify-center rounded-full" style={{ width: 56, height: 56, background: 'rgba(201,168,76,0.2)', border: '1px solid rgba(201,168,76,0.4)', backdropFilter: 'blur(4px)' }}>
@@ -178,12 +184,21 @@ export default function FallstudienSection() {
                     <div className="px-5 py-4 text-center flex flex-col gap-1">
                       <p className="font-barlow font-bold text-xl" style={{ color: '#E6E8EB' }}>{fs.name}</p>
                       <p className="font-inter text-sm" style={{ color: '#5B6773' }}>{fs.alter} · {fs.beruf}</p>
-                      <div className="flex items-center justify-center gap-1.5 mt-1">
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#5B6773" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
-                        </svg>
-                        <span className="font-inter text-xs font-medium" style={{ color: '#5B6773' }}>{fs.instagram}</span>
-                      </div>
+                      {'link' in fs && fs.link ? (
+                        <a href={fs.link} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-1.5 mt-1 transition-colors hover:text-white" style={{ color: '#5B6773' }}>
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.44-2.13 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/>
+                          </svg>
+                          <span className="font-inter text-xs font-medium">{fs.instagram}</span>
+                        </a>
+                      ) : (
+                        <div className="flex items-center justify-center gap-1.5 mt-1">
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#5B6773" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                          </svg>
+                          <span className="font-inter text-xs font-medium" style={{ color: '#5B6773' }}>{fs.instagram}</span>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -244,17 +259,36 @@ export default function FallstudienSection() {
         </div>
 
         {/* CTA */}
-        <div className="mt-10 text-center animate-fade-up" style={{ animationDelay: '200ms' }}>
-          <a
-            href={CALENDLY_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-shine inline-flex items-center gap-2 px-7 py-3.5 rounded-lg font-inter font-semibold text-sm"
-            style={{ background: 'radial-gradient(circle, #C9A84C, #E8D49A)', color: '#060E1F', boxShadow: '0 4px 24px rgba(201,168,76,0.25)' }}
+        <div className="mt-12 flex justify-center animate-fade-up" style={{ animationDelay: '200ms' }}>
+          <div
+            className="relative w-full max-w-3xl rounded-2xl px-8 py-10 md:px-12 md:py-12 text-center overflow-hidden"
+            style={{
+              background: 'linear-gradient(135deg, #0D1829 0%, #0B1525 100%)',
+              border: '1px solid rgba(201,168,76,0.4)',
+              boxShadow: '0 0 50px rgba(201,168,76,0.12), inset 0 0 40px rgba(201,168,76,0.05)',
+            }}
           >
-            Kostenlose Performance-Analyse buchen
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-          </a>
+            {/* Goldstreifen oben */}
+            <div
+              className="absolute top-0 left-10 right-10 h-px"
+              style={{ background: 'linear-gradient(to right, transparent, rgba(201,168,76,0.6), transparent)' }}
+            />
+            <h3 className="font-barlow font-bold text-2xl md:text-3xl leading-snug mb-6 max-w-xl mx-auto" style={{ color: '#E6E8EB' }}>
+              Lass uns jetzt gemeinsam herausfinden,{' '}
+              <span style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+                wie deine eigene Strategie aussieht
+              </span>
+            </h3>
+            <a
+              href={CALENDLY_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="cta-metal inline-flex items-center gap-2 px-7 py-3.5 rounded-lg font-inter font-semibold text-sm transition-transform hover:-translate-y-0.5"
+            >
+              Kostenlose Performance-Analyse buchen
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            </a>
+          </div>
         </div>
 
       </div>

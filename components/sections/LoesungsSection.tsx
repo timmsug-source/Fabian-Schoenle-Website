@@ -152,28 +152,28 @@ export default function LoesungsSection() {
     <section id="methode" style={{ background: '#060E1F' }}>
       <div ref={sectionRef} className="max-w-7xl mx-auto px-4 md:px-8 py-24 md:py-32">
 
-        <div className="mb-6 animate-fade-up">
-          <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-4" style={{ background: 'linear-gradient(#C9A84C, #E8D49A)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+        <div className="mb-6 animate-fade-up text-center">
+          <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-4" style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
             High-Performance Coaching
           </p>
           <h2 className="font-barlow font-bold text-3xl md:text-5xl leading-tight mb-4" style={{ color: '#E6E8EB' }}>
-            Kein Programm von der Stange —<br className="hidden md:block" /> sondern dein System, präzise eingestellt
+            Eine datenbasierte Strategie —<br className="hidden md:block" /> durch einen präzisen und individuellen Ansatz
           </h2>
-          <p className="font-inter text-lg md:text-xl leading-relaxed max-w-3xl" style={{ color: '#8A96A3' }}>
+          <p className="font-inter text-lg md:text-xl leading-relaxed max-w-3xl mx-auto" style={{ color: '#8A96A3' }}>
             Ich analysiere, was deinen Körper gerade limitiert. Und stelle dann genau die Hebel ein, die wirklich einen Unterschied machen.
           </p>
         </div>
 
         <div
-          className="mb-10"
+          className="mb-10 mx-auto max-w-3xl"
           style={{
             height: 1,
-            background: 'linear-gradient(to right, rgba(201,168,76,0.4), transparent)',
+            background: 'linear-gradient(to right, transparent, rgba(201,168,76,0.4), transparent)',
           }}
         />
 
         <p
-          className="font-inter text-base md:text-lg leading-relaxed max-w-3xl mb-16"
+          className="font-inter text-base md:text-lg leading-relaxed max-w-3xl mx-auto text-center mb-16"
           style={{ color: '#8A96A3' }}
         >
           Die meisten Coaching-Ansätze arbeiten mit Annahmen. Ich arbeite mit Daten. Bevor wir irgendetwas an Ernährung, Training oder Alltag verändern, verstehen wir erst, wie dein biologisches System gerade wirklich funktioniert.
@@ -184,10 +184,9 @@ export default function LoesungsSection() {
           {pillars.map((pillar, i) => (
             <div
               key={i}
-              className="flex flex-col rounded-2xl overflow-hidden animate-fade-up"
+              className="symptom-card flex flex-col rounded-2xl overflow-hidden animate-fade-up"
               style={{
                 background: 'linear-gradient(135deg, #0D1829 0%, #0B1525 100%)',
-                border: '1px solid rgba(201,168,76,0.15)',
                 animationDelay: `${i * 60}ms`,
               }}
             >
@@ -236,6 +235,7 @@ export default function LoesungsSection() {
             border: '1px solid rgba(201,168,76,0.3)',
             boxShadow: '0 0 40px rgba(201,168,76,0.08), inset 0 0 30px rgba(201,168,76,0.04)',
             animationDelay: '400ms',
+            overflow: 'visible',
           }}
         >
           <svg className="absolute inset-0 w-full h-full pointer-events-none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="none">
@@ -248,7 +248,7 @@ export default function LoesungsSection() {
           </svg>
 
           {/* Quote */}
-          <div className="relative flex-1 flex flex-col justify-center px-8 py-8 md:px-10 md:py-8">
+          <div className="relative flex-1 flex flex-col justify-center px-8 py-8 md:px-10 md:py-8 md:pr-[280px]">
             <span
               className="font-barlow font-bold text-7xl leading-none select-none mb-2"
               style={{ color: '#C9A84C', opacity: 0.35, lineHeight: 1 }}
@@ -257,9 +257,9 @@ export default function LoesungsSection() {
             </span>
             <p
               className="font-barlow font-bold text-2xl md:text-3xl leading-snug mb-6"
-              style={{ background: 'linear-gradient(#C9A84C, #E8D49A)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}
+              style={{ color: '#E8D49A' }}
             >
-              Wenn alle Hebel richtig eingestellt sind, arbeitet dein Körper nicht mehr gegen dich — sondern mit dir.
+              Wir nutzen die uns zur Verfügung stehenden Ressourcen, um neben Job, Familie und Alltag das Beste rauszuholen.
             </p>
             <div>
               <p className="font-barlow font-bold text-base" style={{ color: '#E6E8EB' }}>Fabian Schönle</p>
@@ -281,10 +281,10 @@ export default function LoesungsSection() {
             />
           </div>
 
-          {/* Fabian portrait — Desktop (original) */}
+          {/* Fabian portrait — Desktop (ragt oben aus dem Kasten) */}
           <div
-            className="hidden md:block relative flex-shrink-0 self-end"
-            style={{ width: 260, height: 380, marginTop: -100, marginRight: 16 }}
+            className="hidden md:block absolute"
+            style={{ width: 280, height: 400, right: 24, bottom: 0 }}
           >
             <Image
               src="/images/Fabian-Schoenle-Zitat-Bild.png"
