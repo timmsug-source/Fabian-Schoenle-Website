@@ -59,8 +59,9 @@ export default function NotFound() {
             className="font-barlow font-bold leading-none"
             style={{
               fontSize: 'clamp(6rem, 20vw, 12rem)',
-              backgroundImage: 'linear-gradient(180deg, #FFF7D8 0%, #E8D49A 35%, #C9A84C 70%, #9F7622 100%)',
+              backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)',
               backgroundSize: '100% 1em',
+              backgroundRepeat: 'repeat-y',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               backgroundClip: 'text',
