@@ -9,9 +9,8 @@ const unterseiten = [
 
 const rezensionen = [
   '/images/FS-Rezension-Gregory.jpg',
-  '/images/FS-Rezension-Robert.jpg',
   '/images/FS-Rezension-Matthias.jpg',
-  '/images/FS-Rezension-Hans-Herbert.jpg',
+  '/images/FS-Rezension-Robert.jpg',
 ]
 
 export default function NotFound() {
@@ -135,7 +134,7 @@ export default function NotFound() {
           <h2 className="font-barlow font-bold text-2xl md:text-3xl text-center mb-8" style={{ color: '#E6E8EB' }}>
             Das sagen meine Kunden
           </h2>
-          <div className="columns-1 sm:columns-2 lg:columns-4 gap-4">
+          <div className="columns-1 sm:columns-2 lg:columns-3 gap-4">
             {rezensionen.map((src, i) => (
               <div
                 key={i}
