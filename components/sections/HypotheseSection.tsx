@@ -89,7 +89,7 @@ export default function HypotheseSection() {
           }}
         >
           {/* Quote */}
-          <div className="relative flex-1 flex flex-col justify-center px-8 py-8 md:px-10 md:py-8 md:pr-[280px]">
+          <div className="relative flex flex-col md:flex-1 md:justify-center px-8 py-8 md:px-10 md:py-8 md:pr-[280px]">
             <span
               className="font-barlow font-bold text-7xl leading-none select-none mb-2"
               style={{ color: '#C9A84C', opacity: 0.35, lineHeight: 1 }}
