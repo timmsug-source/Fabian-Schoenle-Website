@@ -81,9 +81,8 @@ export default function HypotheseSection() {
 
         {/* Zitatmodul (testweise aus der Lösungssektion übernommen) — transparenter Hintergrund */}
         <div
-          className="relative rounded-2xl animate-fade-up flex flex-col md:flex-row md:items-end mt-16 md:mt-24"
+          className="relative rounded-2xl animate-fade-up flex flex-col md:flex-row md:items-end mt-16 md:mt-24 bg-[#0D1829] md:bg-transparent"
           style={{
-            background: 'transparent',
             border: '1px solid rgba(201,168,76,0.45)',
             boxShadow: '0 0 30px rgba(201,168,76,0.28), 0 0 12px rgba(201,168,76,0.2), inset 0 0 30px rgba(201,168,76,0.05)',
             overflow: 'visible',

@@ -162,9 +162,9 @@ export default function LoesungsSection() {
     }, 4500)
   }, [])
 
-  const ctaKachel = (
+  const ctaKachel = (extraClass = '') => (
     <div
-      className="break-inside-avoid mb-6 rounded-2xl overflow-hidden px-6 py-8 text-center"
+      className={`break-inside-avoid mb-6 rounded-2xl overflow-hidden px-6 py-8 text-center ${extraClass}`}
       style={{
         background: 'linear-gradient(155deg, #16213A 0%, #0D1829 60%, #091122 100%)',
         border: '1px solid rgba(201,168,76,0.5)',
@@ -279,9 +279,13 @@ export default function LoesungsSection() {
                 </p>
               </div>
             </div>
-            {i === 1 && ctaKachel}
+            {/* Desktop: CTA unten in der linken Spalte (nach DNA-Analyse) */}
+            {i === 1 && ctaKachel('hidden md:block')}
             </React.Fragment>
           ))}
+
+          {/* Mobil: CTA erst nach allen Lösungskarten */}
+          {ctaKachel('md:hidden')}
         </div>
 
       </div>

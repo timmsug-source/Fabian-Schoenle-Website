@@ -229,8 +229,8 @@ export default function FallstudienSection() {
                     </div>
                     <ul className="flex flex-col gap-3">
                       {fs.vorher.punkte.map((p, i) => (
-                        <li key={i} className="flex items-start gap-3 font-inter text-sm" style={{ color: '#A6B0BA' }}>
-                          <svg width="24" height="24" viewBox="0 0 38 38" fill="none" className="flex-shrink-0 mt-0.5">
+                        <li key={i} className="flex items-center gap-3 font-inter text-sm" style={{ color: '#A6B0BA' }}>
+                          <svg width="24" height="24" viewBox="0 0 38 38" fill="none" className="flex-shrink-0">
                             <defs><linearGradient id={`fx-${i}`} x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#C9A84C"/><stop offset="100%" stopColor="#E8D49A"/></linearGradient></defs>
                             <path d="M8 8L30 30M30 8L8 30" stroke={`url(#fx-${i})`} strokeWidth="4" strokeLinecap="round"/>
                           </svg>
@@ -249,8 +249,8 @@ export default function FallstudienSection() {
                     </div>
                     <ul className="relative flex flex-col gap-3">
                       {fs.nachher.punkte.map((p, i) => (
-                        <li key={i} className="flex items-start gap-3 font-inter text-sm text-white/70">
-                          <svg width="24" height="24" viewBox="0 0 38 38" fill="none" className="flex-shrink-0 mt-0.5">
+                        <li key={i} className="flex items-center gap-3 font-inter text-sm text-white/70">
+                          <svg width="24" height="24" viewBox="0 0 38 38" fill="none" className="flex-shrink-0">
                             <defs><linearGradient id={`fck-${i}`} x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#0E9E6E"/><stop offset="45%" stopColor="#34D399"/><stop offset="75%" stopColor="#A7F3D0"/><stop offset="100%" stopColor="#34D399"/></linearGradient></defs>
                             <polygon points="5,21 10.38,24.62 14,27.5 22.55,18.18 33,8 24.45,19.82 14,32.5 8.62,26.38" fill={`url(#fck-${i})`}/>
                           </svg>
