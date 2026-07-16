@@ -10,6 +10,8 @@ type Pillar = {
   image?: string
   imgW?: number
   imgH?: number
+  /** Leichtes Reinzoomen des Bildes (schneidet z. B. einen Rahmen weg) */
+  zoom?: number
 }
 
 const pillars: Pillar[] = [
@@ -23,6 +25,7 @@ const pillars: Pillar[] = [
       </svg>
     ),
     headline: 'Blutanalyse',
+    image: '/images/Blutanalyse-Uebersicht.png', imgW: 1440, imgH: 300,
     body: 'Wir schauen rein, was wirklich passiert — Hormonstatus, Mikronährstoffe, Entzündungsmarker. Keine Vermutungen, sondern Fakten.',
   },
   {
@@ -82,7 +85,7 @@ const pillars: Pillar[] = [
       </svg>
     ),
     headline: 'Schlaf & Regeneration',
-    image: '/images/IMG_0548.PNG', imgW: 1206, imgH: 1071,
+    image: '/images/IMG_0548.PNG', imgW: 1206, imgH: 1071, zoom: 1.07,
     body: 'Schlechter Schlaf sabotiert alles andere. Wir identifizieren, was deine Regeneration blockiert — und beheben es systematisch.',
   },
   {
@@ -227,13 +230,14 @@ export default function LoesungsSection() {
             >
               {pillar.image ? (
                 /* Statisches Bild — vollständig sichtbar, natürliche Höhe */
-                <div className="relative w-full">
+                <div className="relative w-full overflow-hidden">
                   <Image
                     src={pillar.image}
                     alt={pillar.headline}
                     width={pillar.imgW}
                     height={pillar.imgH}
                     className="w-full h-auto block"
+                    style={pillar.zoom ? { transform: `scale(${pillar.zoom})` } : undefined}
                     sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   />
                   {/* Sanfter Gradient-Übergang zum Karten-Hintergrund */}
