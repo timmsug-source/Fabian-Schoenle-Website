@@ -152,7 +152,7 @@ export default function UeberMichPage() {
               {/* Pull-Quote */}
               <div className="mt-10 rounded-2xl px-7 py-6" style={{ background: 'rgba(201,168,76,0.05)', borderLeft: '3px solid rgba(201,168,76,0.7)', border: '1px solid rgba(201,168,76,0.2)', borderLeftWidth: 3 }}>
                 <p className="font-barlow font-bold text-xl md:text-2xl leading-snug" style={{ color: '#E8D49A' }}>
-                  „Ich war selbst da, wo du gerade stehst."
+                  {'„Ich war selbst da, wo du gerade stehst.“'}
                 </p>
               </div>
             </div>
