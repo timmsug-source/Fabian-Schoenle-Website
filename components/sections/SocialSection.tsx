@@ -74,14 +74,14 @@ export default async function SocialSection() {
             <h2 className="font-barlow font-bold text-3xl md:text-5xl leading-tight mb-6" style={{ color: '#E6E8EB' }}>
               YouTube
             </h2>
-            <p className="font-inter text-base md:text-lg leading-relaxed mb-8 max-w-md" style={{ color: '#8A96A3' }}>
+            <p className="font-inter text-base md:text-lg leading-relaxed mb-8 max-w-md" style={{ color: '#A6B0BA' }}>
               Auf meinem YouTube-Kanal siehst du regelmäßig wertvolle Studieneinblicke und Diskussionen rund um das Thema Gesundheit &amp; Ernährung.
             </p>
             <a
               href={YOUTUBE_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="cta-metal inline-flex items-center gap-2.5 px-8 py-4 rounded-xl font-inter font-semibold text-sm transition-transform hover:-translate-y-0.5"
+              className="cta-metal inline-flex items-center gap-2.5 px-8 py-4 rounded-xl font-inter font-semibold text-sm transition-transform"
             >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
@@ -117,18 +117,18 @@ export default async function SocialSection() {
         {/* ── LinkedIn ── */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           {/* Text */}
-          <div className="animate-fade-up lg:order-2">
+          <div className="animate-fade-up">
             <h2 className="font-barlow font-bold text-3xl md:text-5xl leading-tight mb-6" style={{ color: '#E6E8EB' }}>
               LinkedIn
             </h2>
-            <p className="font-inter text-base md:text-lg leading-relaxed mb-8 max-w-md" style={{ color: '#8A96A3' }}>
+            <p className="font-inter text-base md:text-lg leading-relaxed mb-8 max-w-md" style={{ color: '#A6B0BA' }}>
               Auf LinkedIn teile ich regelmäßig, was in der Praxis wirklich funktioniert — konkrete Impulse zu Performance, Ernährung und Mindset. Kein Motivationsspam.
             </p>
             <a
               href={LINKEDIN_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="cta-metal inline-flex items-center gap-2.5 px-8 py-4 rounded-xl font-inter font-semibold text-sm transition-transform hover:-translate-y-0.5"
+              className="cta-metal inline-flex items-center gap-2.5 px-8 py-4 rounded-xl font-inter font-semibold text-sm transition-transform"
             >
               <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
@@ -142,7 +142,7 @@ export default async function SocialSection() {
             href={LINKEDIN_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="group relative block overflow-hidden rounded-2xl animate-fade-up lg:order-1"
+            className="group relative block overflow-hidden rounded-2xl animate-fade-up"
             style={MEDIA_FRAME}
           >
             <Image

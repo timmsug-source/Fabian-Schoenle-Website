@@ -11,7 +11,7 @@ const H2 = ({ children }: { children: React.ReactNode }) => (
   <h2 className="font-barlow font-bold text-xl md:text-2xl mt-10 mb-3" style={{ color: '#E6E8EB' }}>{children}</h2>
 )
 const P = ({ children }: { children: React.ReactNode }) => (
-  <p className="font-inter text-sm md:text-base leading-relaxed mb-4" style={{ color: '#8A96A3' }}>{children}</p>
+  <p className="font-inter text-sm md:text-base leading-relaxed mb-4" style={{ color: '#A6B0BA' }}>{children}</p>
 )
 
 export default function DatenschutzPage() {
@@ -59,7 +59,7 @@ export default function DatenschutzPage() {
 
         <H2>7. Deine Rechte</H2>
         <P>Du hast das Recht auf:</P>
-        <ul className="font-inter text-sm md:text-base leading-relaxed mb-4 list-disc pl-6 flex flex-col gap-1" style={{ color: '#8A96A3' }}>
+        <ul className="font-inter text-sm md:text-base leading-relaxed mb-4 list-disc pl-6 flex flex-col gap-1" style={{ color: '#A6B0BA' }}>
           <li>Auskunft über deine gespeicherten Daten</li>
           <li>Löschung deiner Daten, falls sie nicht mehr benötigt werden</li>
           <li>Widerspruch gegen die Nutzung deiner Daten</li>

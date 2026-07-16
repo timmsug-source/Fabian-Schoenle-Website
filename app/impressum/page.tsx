@@ -14,7 +14,7 @@ const H3 = ({ children }: { children: React.ReactNode }) => (
   <h3 className="font-barlow font-semibold text-lg md:text-xl mt-8 mb-2" style={{ color: '#E6E8EB' }}>{children}</h3>
 )
 const P = ({ children }: { children: React.ReactNode }) => (
-  <p className="font-inter text-sm md:text-base leading-relaxed mb-4" style={{ color: '#8A96A3' }}>{children}</p>
+  <p className="font-inter text-sm md:text-base leading-relaxed mb-4" style={{ color: '#A6B0BA' }}>{children}</p>
 )
 
 export default function ImpressumPage() {
@@ -30,13 +30,13 @@ export default function ImpressumPage() {
 
         <div className="font-inter text-sm md:text-base leading-relaxed mb-8" style={{ color: '#E6E8EB' }}>
           <p className="font-semibold">Fabian Schönle</p>
-          <p style={{ color: '#8A96A3' }}>Coaching mit FuelByFabian</p>
-          <p style={{ color: '#8A96A3' }}>Werderstraße 59</p>
-          <p style={{ color: '#8A96A3' }}>76137 Karlsruhe</p>
+          <p style={{ color: '#A6B0BA' }}>Coaching mit FuelByFabian</p>
+          <p style={{ color: '#A6B0BA' }}>Werderstraße 59</p>
+          <p style={{ color: '#A6B0BA' }}>76137 Karlsruhe</p>
         </div>
 
         <H3>Kontakt</H3>
-        <div className="font-inter text-sm md:text-base leading-relaxed" style={{ color: '#8A96A3' }}>
+        <div className="font-inter text-sm md:text-base leading-relaxed" style={{ color: '#A6B0BA' }}>
           <p>Telefon: <a href="tel:+4915901603800" className="hover:text-white transition-colors">0159 01603800</a></p>
           <p>E-Mail: <a href="mailto:coaching@fabianschoenle.de" className="hover:text-white transition-colors">coaching@fabianschoenle.de</a></p>
         </div>

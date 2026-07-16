@@ -3,7 +3,16 @@
 import React, { useRef, useCallback, useEffect, useState } from 'react'
 import Image from 'next/image'
 
-const pillars = [
+type Pillar = {
+  icon: React.ReactNode
+  headline: string
+  body: string
+  image?: string
+  imgW?: number
+  imgH?: number
+}
+
+const pillars: Pillar[] = [
   {
     icon: (
       <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -26,6 +35,7 @@ const pillars = [
       </svg>
     ),
     headline: 'DNA-Analyse',
+    image: '/images/IMG_0551.PNG', imgW: 997, imgH: 562,
     body: 'Deine Genetik bestimmt, wie dein Körper auf Ernährung, Training und Stress reagiert. Wir nutzen das als Grundlage — nicht als Ausrede.',
   },
   {
@@ -41,6 +51,7 @@ const pillars = [
       </svg>
     ),
     headline: 'Ernährung',
+    image: '/images/IMG_0550.PNG', imgW: 1099, imgH: 1077,
     body: 'Kein Verbotskatalog. Kein Kalorienrechner. Sondern ein Ernährungsansatz, der auf deinen Stoffwechsel, deinen Alltag und deine Ziele abgestimmt ist.',
   },
   {
@@ -56,6 +67,7 @@ const pillars = [
       </svg>
     ),
     headline: 'Training',
+    image: '/images/IMG_0547.PNG', imgW: 1206, imgH: 1190,
     body: 'Wie viel, wie oft, welche Reize — abgestimmt auf dein Hormonsystem und deine Regenerationsfähigkeit. Nicht mehr als nötig, aber genau das Richtige.',
   },
   {
@@ -70,6 +82,7 @@ const pillars = [
       </svg>
     ),
     headline: 'Schlaf & Regeneration',
+    image: '/images/IMG_0548.PNG', imgW: 1206, imgH: 1071,
     body: 'Schlechter Schlaf sabotiert alles andere. Wir identifizieren, was deine Regeneration blockiert — und beheben es systematisch.',
   },
   {
@@ -86,6 +99,7 @@ const pillars = [
       </svg>
     ),
     headline: 'Tracking & Anpassung',
+    image: '/images/IMG_0549.PNG', imgW: 1088, imgH: 1017,
     body: 'Über eine App verfolgen wir kontinuierlich deine wichtigsten Parameter. Was funktioniert, wird verstärkt. Was nicht funktioniert, wird angepasst.',
   },
 ]
@@ -148,71 +162,111 @@ export default function LoesungsSection() {
     }, 4500)
   }, [])
 
+  const ctaKachel = (
+    <div
+      className="break-inside-avoid mb-6 rounded-2xl overflow-hidden px-6 py-8 text-center"
+      style={{
+        background: 'linear-gradient(155deg, #16213A 0%, #0D1829 60%, #091122 100%)',
+        border: '1px solid rgba(201,168,76,0.5)',
+        boxShadow: '0 0 0 1px rgba(201,168,76,0.25), 0 0 24px rgba(201,168,76,0.3), 0 0 48px rgba(201,168,76,0.15), 0 4px 20px rgba(0,0,0,0.3)',
+      }}
+    >
+      <div className="flex justify-center mb-4">
+        <svg width="48" height="48" viewBox="0 0 36 36" fill="none">
+          <defs><linearGradient id="ls-cta-g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#C9A84C"/><stop offset="100%" stopColor="#E8D49A"/></linearGradient></defs>
+          <circle cx="18" cy="18" r="16" fill="url(#ls-cta-g)"/>
+          <rect x="10" y="11" width="16" height="14" rx="2" stroke="#060E1F" strokeWidth="2" strokeLinecap="round"/>
+          <line x1="22" y1="9" x2="22" y2="13" stroke="#060E1F" strokeWidth="2" strokeLinecap="round"/>
+          <line x1="14" y1="9" x2="14" y2="13" stroke="#060E1F" strokeWidth="2" strokeLinecap="round"/>
+          <line x1="10" y1="17" x2="26" y2="17" stroke="#060E1F" strokeWidth="2" strokeLinecap="round"/>
+        </svg>
+      </div>
+      <p className="font-barlow font-bold text-xl leading-snug mb-2" style={{ color: '#E6E8EB' }}>
+        Bereit, dein System einzustellen?
+      </p>
+      <p className="font-inter text-sm leading-relaxed mb-6" style={{ color: '#A6B0BA' }}>
+        Im kostenlosen Erstgespräch finden wir heraus, wo bei dir der größte Hebel liegt — unverbindlich und ohne Druck.
+      </p>
+      <button
+        type="button"
+        data-open-form="true"
+        className="cta-metal inline-flex items-center gap-2 px-6 py-3 rounded-xl font-inter font-semibold text-sm transition-transform"
+      >
+        Performance Analyse buchen
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
+      </button>
+    </div>
+  )
+
   return (
     <section id="methode" style={{ background: '#060E1F' }}>
       <div ref={sectionRef} className="max-w-7xl mx-auto px-4 md:px-8 py-24 md:py-32">
 
-        <div className="mb-6 animate-fade-up text-center">
+        <div className="mb-16 animate-fade-up text-center">
           <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-4" style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
             High-Performance Coaching
           </p>
           <h2 className="font-barlow font-bold text-3xl md:text-5xl leading-tight mb-4" style={{ color: '#E6E8EB' }}>
             Eine datenbasierte Strategie —<br className="hidden md:block" /> durch einen präzisen und individuellen Ansatz
           </h2>
-          <p className="font-inter text-lg md:text-xl leading-relaxed max-w-3xl mx-auto" style={{ color: '#8A96A3' }}>
+          <p className="font-inter text-lg md:text-xl leading-relaxed max-w-3xl mx-auto" style={{ color: '#A6B0BA' }}>
             Ich analysiere, was deinen Körper gerade limitiert. Und stelle dann genau die Hebel ein, die wirklich einen Unterschied machen.
           </p>
         </div>
 
-        <div
-          className="mb-10 mx-auto max-w-3xl"
-          style={{
-            height: 1,
-            background: 'linear-gradient(to right, transparent, rgba(201,168,76,0.4), transparent)',
-          }}
-        />
-
-        <p
-          className="font-inter text-base md:text-lg leading-relaxed max-w-3xl mx-auto text-center mb-16"
-          style={{ color: '#8A96A3' }}
-        >
-          Die meisten Coaching-Ansätze arbeiten mit Annahmen. Ich arbeite mit Daten. Bevor wir irgendetwas an Ernährung, Training oder Alltag verändern, verstehen wir erst, wie dein biologisches System gerade wirklich funktioniert.
-        </p>
-
-        {/* 2×3 Grid — Animation als Preview-Thumbnail oben, Text darunter */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+        {/* Masonry — Bild/Animation oben, Text darunter; unterschiedliche Höhen greifen ineinander */}
+        <div className="columns-1 md:columns-2 lg:columns-3 gap-6 mb-16">
           {pillars.map((pillar, i) => (
+            <React.Fragment key={i}>
             <div
-              key={i}
-              className="symptom-card flex flex-col rounded-2xl overflow-hidden animate-fade-up"
+              className="symptom-card break-inside-avoid mb-6 flex flex-col rounded-2xl overflow-hidden animate-fade-up"
               style={{
                 background: 'linear-gradient(135deg, #0D1829 0%, #0B1525 100%)',
                 animationDelay: `${i * 60}ms`,
               }}
             >
-              {/* Animation-Thumbnail oben — 16:9 iframe, dann auf ~60% Höhe gecroppt */}
-              <div className="relative flex-shrink-0 overflow-hidden" style={{ height: 180 }}>
-                <iframe
-                  ref={i === 0 ? iframeRef : undefined}
-                  src={iframesVisible ? '/animations/Blutanalyse.html' : undefined}
-                  onLoad={i === 0 ? handleIframeLoad : undefined}
-                  style={{
-                    display: 'block',
-                    position: 'absolute', top: 0, left: 0,
-                    width: '100%',
-                    aspectRatio: '16/9',
-                    border: 'none', pointerEvents: 'none',
-                  }}
-                  title={pillar.headline}
-                />
-                {/* Sanfter Gradient-Übergang zum Karten-Hintergrund */}
-                <div
-                  style={{
-                    position: 'absolute', bottom: 0, left: 0, right: 0, height: '50%',
-                    background: 'linear-gradient(to bottom, transparent, #0D1829)',
-                  }}
-                />
-              </div>
+              {pillar.image ? (
+                /* Statisches Bild — vollständig sichtbar, natürliche Höhe */
+                <div className="relative w-full">
+                  <Image
+                    src={pillar.image}
+                    alt={pillar.headline}
+                    width={pillar.imgW}
+                    height={pillar.imgH}
+                    className="w-full h-auto block"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  />
+                  {/* Sanfter Gradient-Übergang zum Karten-Hintergrund */}
+                  <div
+                    className="absolute bottom-0 left-0 right-0 pointer-events-none"
+                    style={{ height: 100, background: 'linear-gradient(to bottom, transparent, #0D1829)' }}
+                  />
+                </div>
+              ) : (
+                /* Animation-Thumbnail oben — 16:9 iframe, dann auf ~60% Höhe gecroppt */
+                <div className="relative flex-shrink-0 overflow-hidden" style={{ height: 180 }}>
+                  <iframe
+                    ref={i === 0 ? iframeRef : undefined}
+                    src={iframesVisible ? '/animations/Blutanalyse.html' : undefined}
+                    onLoad={i === 0 ? handleIframeLoad : undefined}
+                    style={{
+                      display: 'block',
+                      position: 'absolute', top: 0, left: 0,
+                      width: '100%',
+                      aspectRatio: '16/9',
+                      border: 'none', pointerEvents: 'none',
+                    }}
+                    title={pillar.headline}
+                  />
+                  {/* Sanfter Gradient-Übergang zum Karten-Hintergrund */}
+                  <div
+                    style={{
+                      position: 'absolute', bottom: 0, left: 0, right: 0, height: '50%',
+                      background: 'linear-gradient(to bottom, transparent, #0D1829)',
+                    }}
+                  />
+                </div>
+              )}
 
               {/* Text unten */}
               <div className="flex flex-col gap-2 px-5 py-4">
@@ -220,80 +274,14 @@ export default function LoesungsSection() {
                   <span className="flex-shrink-0">{pillar.icon}</span>
                   <h3 className="font-barlow font-bold text-lg" style={{ color: '#E6E8EB' }}>{pillar.headline}</h3>
                 </div>
-                <p className="font-inter text-sm leading-relaxed" style={{ color: '#7A8898' }}>
+                <p className="font-inter text-sm leading-relaxed" style={{ color: '#98A4B1' }}>
                   {pillar.body}
                 </p>
               </div>
             </div>
+            {i === 1 && ctaKachel}
+            </React.Fragment>
           ))}
-        </div>
-
-        <div
-          className="relative rounded-2xl animate-fade-up flex flex-col md:flex-row md:items-end"
-          style={{
-            background: 'linear-gradient(135deg, #0D1829 0%, #0B1525 100%)',
-            border: '1px solid rgba(201,168,76,0.3)',
-            boxShadow: '0 0 40px rgba(201,168,76,0.08), inset 0 0 30px rgba(201,168,76,0.04)',
-            animationDelay: '400ms',
-            overflow: 'visible',
-          }}
-        >
-          <svg className="absolute inset-0 w-full h-full pointer-events-none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="none">
-            <defs>
-              <pattern id="ls-grid" width="60" height="60" patternUnits="userSpaceOnUse">
-                <path d="M 60 0 L 0 0 0 60" fill="none" stroke="rgba(201,168,76,0.06)" strokeWidth="1" />
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#ls-grid)" />
-          </svg>
-
-          {/* Quote */}
-          <div className="relative flex-1 flex flex-col justify-center px-8 py-8 md:px-10 md:py-8 md:pr-[280px]">
-            <span
-              className="font-barlow font-bold text-7xl leading-none select-none mb-2"
-              style={{ color: '#C9A84C', opacity: 0.35, lineHeight: 1 }}
-            >
-              &ldquo;
-            </span>
-            <p
-              className="font-barlow font-bold text-2xl md:text-3xl leading-snug mb-6"
-              style={{ color: '#E8D49A' }}
-            >
-              Wir nutzen die uns zur Verfügung stehenden Ressourcen, um neben Job, Familie und Alltag das Beste rauszuholen.
-            </p>
-            <div>
-              <p className="font-barlow font-bold text-base" style={{ color: '#E6E8EB' }}>Fabian Schönle</p>
-              <p className="font-inter text-sm" style={{ color: '#5B6773' }}>Performance Coach · PhD Chemie</p>
-            </div>
-          </div>
-
-          {/* Fabian portrait — Mobile */}
-          <div
-            className="md:hidden relative flex-shrink-0 self-center mx-auto"
-            style={{ width: 200, height: 240, marginTop: 8, marginBottom: 8 }}
-          >
-            <Image
-              src="/images/Fabian-Schoenle-Zitat-Bild.png"
-              alt="Fabian Schönle"
-              fill
-              className="object-contain object-top"
-              sizes="200px"
-            />
-          </div>
-
-          {/* Fabian portrait — Desktop (ragt oben aus dem Kasten) */}
-          <div
-            className="hidden md:block absolute"
-            style={{ width: 280, height: 400, right: 24, bottom: 0 }}
-          >
-            <Image
-              src="/images/Fabian-Schoenle-Zitat-Bild.png"
-              alt="Fabian Schönle"
-              fill
-              className="object-contain object-bottom"
-              sizes="280px"
-            />
-          </div>
         </div>
 
       </div>

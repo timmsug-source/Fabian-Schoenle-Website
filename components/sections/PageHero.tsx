@@ -21,20 +21,21 @@ export default function PageHero({ label, headline, subheadline, body, ctaLabel 
           {headline}
         </h1>
         {subheadline && (
-          <p className="font-inter text-lg md:text-xl leading-relaxed mb-5 max-w-2xl" style={{ color: '#8A96A3' }}>
+          <p className="font-inter text-lg md:text-xl leading-relaxed mb-5 max-w-2xl" style={{ color: '#A6B0BA' }}>
             {subheadline}
           </p>
         )}
         {body && (
-          <p className="font-inter text-base leading-relaxed mb-8 max-w-2xl" style={{ color: '#5B6773' }}>
+          <p className="font-inter text-base leading-relaxed mb-8 max-w-2xl" style={{ color: '#7B8792' }}>
             {body}
           </p>
         )}
         <a
           href={CALENDLY_URL}
+          data-open-form="true"
           target="_blank"
           rel="noopener noreferrer"
-          className="cta-metal inline-flex items-center gap-2 px-7 py-4 rounded-xl font-inter font-semibold text-sm transition-transform hover:-translate-y-0.5"
+          className="cta-metal inline-flex items-center gap-2 px-7 py-4 rounded-xl font-inter font-semibold text-sm transition-transform"
         >
           {ctaLabel ?? 'Performance Analyse buchen'}
         </a>

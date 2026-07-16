@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import { CALENDLY_URL } from '@/lib/constants'
 
 const GOLD = 'url(#ico-gold)'
@@ -6,6 +5,7 @@ const GOLD = 'url(#ico-gold)'
 const symptoms = [
   {
     headline: 'Hartnäckiges Bauchfett',
+    body: 'Egal was du isst oder wie oft du trainierst, es bleibt.',
     icon: (
       <>
         <circle cx="14" cy="14" r="9" />
@@ -15,6 +15,7 @@ const symptoms = [
   },
   {
     headline: 'Fehlende Energie',
+    body: 'Nachmittags ist der Fokus weg. Du läufst auf Sparflamme.',
     icon: (
       <>
         <rect x="3" y="8" width="18" height="12" rx="2.5" />
@@ -25,6 +26,7 @@ const symptoms = [
   },
   {
     headline: 'Unerholsamer Schlaf',
+    body: 'Du schläfst, wachst aber nicht ausgeruht auf.',
     icon: (
       <>
         <path d="M20 15.5A8 8 0 0 1 10.5 6 8 8 0 1 0 20 15.5Z" />
@@ -33,16 +35,8 @@ const symptoms = [
     ),
   },
   {
-    headline: 'Jo-Jo-Effekt',
-    icon: (
-      <>
-        <path d="M22 5a10 10 0 1 0 2.5 8" />
-        <polyline points="24.5 5 24.5 11 18.5 11" />
-      </>
-    ),
-  },
-  {
     headline: 'Langsamer Muskelaufbau',
+    body: 'Du investierst Zeit im Training, doch der Körper reagiert kaum.',
     icon: (
       <>
         <path d="M4 10v8M8 8v12M20 8v12M24 10v8" />
@@ -51,7 +45,18 @@ const symptoms = [
     ),
   },
   {
+    headline: 'Jo-Jo-Effekt',
+    body: 'Du hast vieles versucht. Kein Ergebnis hat sich gehalten.',
+    icon: (
+      <>
+        <path d="M22 5a10 10 0 1 0 2.5 8" />
+        <polyline points="24.5 5 24.5 11 18.5 11" />
+      </>
+    ),
+  },
+  {
     headline: 'Schlechtes Körpergefühl',
+    body: 'Der Spiegel zeigt jemanden, der nicht deinem Anspruch entspricht.',
     icon: (
       <>
         <rect x="8" y="3" width="12" height="17" rx="6" />
@@ -61,10 +66,12 @@ const symptoms = [
   },
   {
     headline: 'Stimmungsschwankungen',
+    body: 'Manche Tage läuft es, andere nicht. Kein verlässliches Niveau.',
     icon: <path d="M2 14h4l3-8 5 16 3-10 2 4h7" />,
   },
   {
     headline: 'Brainfog',
+    body: 'Konzentration und Klarheit fühlen sich nicht mehr wie früher an.',
     icon: (
       <>
         <path d="M14 4a6 6 0 0 0-6 6c-2 1-2 4 0 5v4a3 3 0 0 0 6 0" />
@@ -75,27 +82,22 @@ const symptoms = [
   },
 ]
 
-// Streu-Positionen der Pills rund um das Bild (Desktop)
-const positions = [
-  { top: '4%', left: '2%' },
-  { top: '30%', left: '-2%' },
-  { top: '56%', left: '-2%' },
-  { top: '82%', left: '9%' },
-  { top: '4%', right: '2%' },
-  { top: '30%', right: '-2%' },
-  { top: '56%', right: '-2%' },
-  { top: '82%', right: '9%' },
-]
-
-function Pill({ item }: { item: (typeof symptoms)[0] }) {
+function Card({ item, i }: { item: (typeof symptoms)[0]; i: number }) {
   return (
-    <div className="symptom-pill inline-flex items-center gap-3 rounded-full pl-4 pr-6 py-3">
-      <svg width="26" height="26" viewBox="0 0 28 28" fill="none" stroke={GOLD} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="flex-shrink-0">
-        {item.icon}
-      </svg>
-      <span className="font-barlow font-semibold text-lg md:text-xl whitespace-nowrap" style={{ color: '#E6E8EB' }}>
-        {item.headline}
+    <div className="symptom-card animate-fade-up flex items-start gap-4 rounded-2xl px-5 py-5" style={{ animationDelay: `${(i % 2) * 80}ms` }}>
+      <span className="flex-shrink-0 mt-0.5">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke={GOLD} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+          {item.icon}
+        </svg>
       </span>
+      <div className="min-w-0">
+        <h3 className="font-barlow font-bold text-xl md:text-2xl leading-tight mb-1.5" style={{ color: '#E6E8EB' }}>
+          {item.headline}
+        </h3>
+        <p className="font-inter text-base leading-relaxed" style={{ color: '#98A4B1' }}>
+          {item.body}
+        </p>
+      </div>
     </div>
   )
 }
@@ -123,75 +125,48 @@ export default function SymptomGrid() {
           <h2 className="font-barlow font-bold text-3xl md:text-5xl leading-tight mb-4" style={{ color: '#E6E8EB' }}>
             Wenn dein Körper nicht mehr so<br className="hidden md:block" /> belastbar ist wie früher
           </h2>
-          <p className="font-inter text-base leading-relaxed max-w-2xl mx-auto" style={{ color: '#5B6773' }}>
+          <p className="font-inter text-base leading-relaxed max-w-2xl mx-auto" style={{ color: '#7B8792' }}>
             Diese Symptome sind kein Zufall, sondern ein Signal deines Körpers, welches du nicht ignorieren solltest.
           </p>
         </div>
 
-        {/* Radiales Layout — Bild mittig, Pills drumherum */}
-        <div className="animate-fade-up" style={{ animationDelay: '100ms' }}>
+        <div>
 
-          {/* Desktop: absolute Streuung */}
-          <div className="hidden lg:block relative mx-auto" style={{ maxWidth: 1100, height: 620 }}>
-            {/* Zentrales Bild mit Glow */}
-            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center">
-              <div className="absolute -inset-16 rounded-full" style={{ background: 'radial-gradient(circle, rgba(201,168,76,0.22) 0%, rgba(201,168,76,0) 68%)' }} />
+          {/* Bild oben — transparente Waage mit Glow */}
+          <div className="flex justify-center mb-8 md:mb-12 animate-fade-up">
+            <div className="relative w-full max-w-3xl">
               <div
-                className="relative overflow-hidden rounded-2xl"
-                style={{ width: 500, border: '1.5px solid rgba(201,168,76,0.35)', boxShadow: '0 0 60px rgba(201,168,76,0.2)' }}
-              >
-                <Image
-                  src="/images/FS-Waage.png"
-                  alt="Die Waage des Lebens — Gleichgewicht aus Ernährung, Training und Regeneration"
-                  width={1200}
-                  height={750}
-                  className="w-full h-auto"
-                  sizes="500px"
-                />
-              </div>
+                className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+                style={{ width: '80%', height: '80%', background: 'radial-gradient(ellipse at center, rgba(201,168,76,0.28) 0%, rgba(201,168,76,0.1) 40%, transparent 72%)', filter: 'blur(30px)' }}
+              />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/images/Waage transparent.svg"
+                alt="Die Waage des Lebens — Gleichgewicht aus Ernährung, Training und Regeneration"
+                className="relative w-full h-auto"
+              />
             </div>
+          </div>
 
-            {/* Pills */}
+          {/* 8 Karten — 2 Spalten */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-5xl mx-auto">
             {symptoms.map((item, i) => (
-              <div key={i} className="absolute" style={positions[i]}>
-                <Pill item={item} />
-              </div>
+              <Card key={i} item={item} i={i} />
             ))}
           </div>
 
-          {/* Mobile / Tablet: Bild oben, Pills als Wrap */}
-          <div className="lg:hidden flex flex-col items-center gap-8">
-            <div className="relative flex items-center justify-center">
-              <div className="absolute -inset-8 rounded-full" style={{ background: 'radial-gradient(circle, rgba(201,168,76,0.2) 0%, rgba(201,168,76,0) 70%)' }} />
-              <div
-                className="relative overflow-hidden rounded-2xl w-full max-w-md"
-                style={{ border: '1.5px solid rgba(201,168,76,0.35)', boxShadow: '0 0 40px rgba(201,168,76,0.18)' }}
-              >
-                <Image
-                  src="/images/FS-Waage.png"
-                  alt="Die Waage des Lebens"
-                  width={1200}
-                  height={750}
-                  className="w-full h-auto"
-                  sizes="100vw"
-                />
-              </div>
-            </div>
-            <div className="flex flex-wrap justify-center gap-3">
-              {symptoms.map((item, i) => (
-                <Pill key={i} item={item} />
-              ))}
-            </div>
-          </div>
-
           {/* CTA */}
-          <div className="mt-12 lg:mt-10 flex justify-center">
+          <div className="mt-12 flex justify-center">
             <a
               href={CALENDLY_URL}
+              data-open-form="true"
               target="_blank"
               rel="noopener noreferrer"
-              className="cta-metal inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-inter font-semibold text-sm transition-transform hover:-translate-y-0.5"
+              className="cta-metal inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-inter font-semibold text-sm transition-transform"
             >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+              </svg>
               Performance Analyse buchen
             </a>
           </div>

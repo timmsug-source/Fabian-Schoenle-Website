@@ -72,14 +72,14 @@ export default function NotFound() {
           <h2 className="font-barlow font-bold text-2xl md:text-4xl mt-2 mb-4" style={{ color: '#E6E8EB' }}>
             Diese Seite gibt es nicht
           </h2>
-          <p className="font-inter text-base leading-relaxed max-w-xl mx-auto mb-10" style={{ color: '#5B6773' }}>
+          <p className="font-inter text-base leading-relaxed max-w-xl mx-auto mb-10" style={{ color: '#7B8792' }}>
             Der Link ist veraltet oder die Seite wurde verschoben. Kein Problem — hier geht&rsquo;s direkt weiter.
           </p>
 
           {/* Zur Startseite */}
           <Link
             href="/"
-            className="cta-metal inline-flex items-center gap-2 px-8 py-4 rounded-xl font-inter font-semibold text-sm transition-transform hover:-translate-y-0.5"
+            className="cta-metal inline-flex items-center gap-2 px-8 py-4 rounded-xl font-inter font-semibold text-sm transition-transform"
           >
             Zur Startseite
             <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg>
@@ -114,7 +114,7 @@ export default function NotFound() {
                   <h3 className="font-barlow font-bold text-xl leading-snug mb-1" style={{ color: '#FFFFFF' }}>
                     {u.title}
                   </h3>
-                  <p className="font-inter text-xs leading-relaxed mb-3" style={{ color: '#C8CDD4' }}>
+                  <p className="font-inter text-xs leading-relaxed mb-3" style={{ color: '#DCDFE4' }}>
                     {u.sub}
                   </p>
                   <span className="inline-flex items-center gap-1.5 font-inter text-xs font-semibold" style={{ color: '#E8D49A' }}>

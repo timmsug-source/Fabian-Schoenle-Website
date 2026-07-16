@@ -8,6 +8,8 @@ type ButtonProps = {
   children: React.ReactNode
   className?: string
   external?: boolean
+  /** Öffnet bei Klick das Calendly-Popup (statt zu navigieren) */
+  popup?: boolean
 }
 
 export default function Button({
@@ -18,11 +20,12 @@ export default function Button({
   children,
   className = '',
   external = false,
+  popup = false,
 }: ButtonProps) {
   const base = 'inline-flex items-center justify-center rounded-xl font-inter font-semibold transition-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold'
 
   const variants = {
-    primary:   'cta-metal hover:-translate-y-0.5',
+    primary:   'cta-metal',
     secondary: 'border border-gold text-gold hover:bg-gold hover:text-navy-dark',
     ghost:     'text-neutral-2 hover:text-gold',
   }
@@ -37,7 +40,7 @@ export default function Button({
 
   if (href) {
     return external ? (
-      <a href={href} className={classes} target="_blank" rel="noopener noreferrer">
+      <a href={href} data-open-form={popup ? 'true' : undefined} className={classes} target="_blank" rel="noopener noreferrer">
         {children}
       </a>
     ) : (

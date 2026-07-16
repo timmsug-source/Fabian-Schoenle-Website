@@ -76,7 +76,7 @@ export default function Header() {
                 key={link.href}
                 href={link.href}
                 className="font-inter text-sm transition-colors hover:opacity-100"
-                style={{ color: '#A1A9B3' }}
+                style={{ color: '#AEB5BE' }}
               >
                 {link.label}
               </a>
@@ -86,9 +86,10 @@ export default function Header() {
           {/* Desktop CTA */}
           <a
             href={CALENDLY_URL}
+            data-open-form="true"
             target="_blank"
             rel="noopener noreferrer"
-            className="cta-metal hidden md:flex items-center gap-2 font-inter font-semibold text-sm px-6 h-11 rounded-lg transition-transform hover:-translate-y-0.5"
+            className="cta-metal hidden md:flex items-center gap-2 font-inter font-semibold text-sm px-6 h-11 rounded-lg transition-transform"
           >
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <path d="M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/>
@@ -141,13 +142,14 @@ export default function Header() {
                 href={link.href}
                 onClick={() => setMenuOpen(false)}
                 className="font-inter text-sm py-3 transition-colors"
-                style={{ color: '#A1A9B3', borderBottom: '1px solid rgba(201,168,76,0.08)' }}
+                style={{ color: '#AEB5BE', borderBottom: '1px solid rgba(201,168,76,0.08)' }}
               >
                 {link.label}
               </a>
             ))}
             <a
               href={CALENDLY_URL}
+              data-open-form="true"
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setMenuOpen(false)}

@@ -29,7 +29,7 @@ export default function CTASection({
         <p className="text-base md:text-lg font-inter leading-relaxed text-text mb-8">
           {body}
         </p>
-        <Button href={CALENDLY_URL} size="lg" external>
+        <Button href={CALENDLY_URL} size="lg" external popup>
           {ctaLabel}
         </Button>
       </div>

@@ -71,7 +71,7 @@ export default function FAQ({ label, headline, items }: FAQProps) {
               </button>
             </dt>
             {openIndex === i && (
-              <dd className="px-5 pb-5 font-inter text-sm md:text-base leading-relaxed" style={{ color: '#A1A9B3' }}>
+              <dd className="px-5 pb-5 font-inter text-sm md:text-base leading-relaxed" style={{ color: '#AEB5BE' }}>
                 {item.answer}
               </dd>
             )}

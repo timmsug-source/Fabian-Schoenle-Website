@@ -5,7 +5,7 @@ import { useRef, useState } from 'react'
 const tickerItems = [
   { name: 'Matthias K.', role: 'Director Global Aftermarket', result: '6 kg' },
   { name: 'Hagen F.', role: 'Unternehmer', result: '13 kg' },
-  { name: 'Gregory N.', role: 'Wealth Management', result: '13 kg' },
+  { name: 'Gregory N.', role: 'Wealth Management', result: '25 kg' },
   { name: 'Axel K.', role: 'Geschäftsführer', result: '4 kg' },
   { name: 'Robert R.', role: 'Unternehmer', result: '16 kg' },
   { name: 'Michael C.', role: 'Selbstständiger', result: '8 kg' },
@@ -96,7 +96,7 @@ export default function Hero() {
           </h1>
           <p
             className="font-inter text-lg md:text-xl leading-relaxed max-w-5xl mx-auto"
-            style={{ color: '#A1A9B3' }}
+            style={{ color: '#AEB5BE' }}
           >
             Ich verhelfe dir zu mehr Energie und Fokus im Alltag und lasse dich wieder mit einem
             selbstbewussten Blick in den Spiegel schauen.
@@ -166,7 +166,7 @@ export default function Hero() {
                       {item.headline}
                     </p>
                   </div>
-                  <p className="font-inter text-sm md:text-base leading-relaxed mt-1 md:mt-2 pl-[44px] md:pl-[54px]" style={{ color: '#A1A9B3' }}>
+                  <p className="font-inter text-sm md:text-base leading-relaxed mt-1 md:mt-2 pl-[44px] md:pl-[54px]" style={{ color: '#AEB5BE' }}>
                     {item.body}
                   </p>
                 </li>
@@ -177,7 +177,7 @@ export default function Hero() {
             <div className="mt-8 md:pl-[54px]">
               <a
                 href="#"
-                className="cta-metal inline-flex items-center gap-3 px-7 py-4 rounded-xl font-barlow font-semibold text-lg transition-transform hover:-translate-y-0.5"
+                className="cta-metal inline-flex items-center gap-3 px-7 py-4 rounded-xl font-barlow font-semibold text-lg transition-transform"
               >
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
@@ -187,7 +187,7 @@ export default function Hero() {
                 </svg>
                 Performance Analyse buchen
               </a>
-              <p className="mt-3 font-inter text-xs" style={{ color: '#5B6773' }}>
+              <p className="mt-3 font-inter text-xs" style={{ color: '#7B8792' }}>
                 Call mit mir persönlich · 30 Minuten
               </p>
             </div>
@@ -208,28 +208,30 @@ export default function Hero() {
             {[...tickerItems, ...tickerItems].map((item, i) => (
               <div
                 key={i}
-                className="flex-shrink-0 flex items-center gap-3 px-4 py-3 rounded-xl"
+                className="flex-shrink-0 flex flex-col items-center gap-1.5 px-6 py-4 rounded-xl"
                 style={{
                   background: 'rgba(201,168,76,0.04)',
                   border: '2px solid rgba(201,168,76,0.35)',
                   boxShadow: '0 0 20px rgba(201,168,76,0.22)',
-                  minWidth: 190,
+                  minWidth: 230,
                 }}
               >
-                <span className="flex items-center gap-1 font-barlow font-bold text-lg leading-none" style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M12 5v14M5 12l7 7 7-7" />
-                  </svg>
-                  {item.result}
-                </span>
-                <span className="w-px self-stretch" style={{ background: 'rgba(201,168,76,0.25)' }} />
-                <span className="flex flex-col min-w-0">
-                  <span className="font-barlow font-bold text-sm leading-tight truncate" style={{ color: '#E6E8EB' }}>
+                {/* Obere Zeile: Gewicht + Name */}
+                <span className="flex items-center gap-2.5">
+                  <span className="flex items-center gap-1 font-barlow font-bold text-xl leading-none" style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M12 5v14M5 12l7 7 7-7" />
+                    </svg>
+                    {item.result}
+                  </span>
+                  <span className="w-px h-4" style={{ background: 'rgba(201,168,76,0.3)' }} />
+                  <span className="font-barlow font-bold text-base leading-none whitespace-nowrap" style={{ color: '#E6E8EB' }}>
                     {item.name}
                   </span>
-                  <span className="font-inter text-[11px] leading-tight truncate" style={{ color: '#5B6773' }}>
-                    {item.role}
-                  </span>
+                </span>
+                {/* Zweite Zeile: Beruf zentriert, heller */}
+                <span className="font-inter text-xs leading-tight text-center whitespace-nowrap" style={{ color: '#D2D7DD' }}>
+                  {item.role}
                 </span>
               </div>
             ))}

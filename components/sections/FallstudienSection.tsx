@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { useRef, useState } from 'react'
 import { CALENDLY_URL } from '@/lib/constants'
 
@@ -8,7 +9,8 @@ const fallstudien = [
     name: 'Robert',
     alter: '42 Jahre',
     beruf: 'Geschäftsführer',
-    instagram: '@robert',
+    instagram: 'Robert Raschkov',
+    link: 'https://www.linkedin.com/in/robert-raschkov-045889230/',
     video: '/videos/Robert_Testimonial_final.mp4',
     problem: 'Robert arbeitet <strong>60+ Stunden pro Woche</strong>. Sein Körper hat auf die jahrelange Kombination aus <strong>Dauerstress, schlechtem Schlaf</strong> und unregelmäßiger Ernährung reagiert: 14 kg zugenommen, permanent müde, nachmittags kaum noch handlungsfähig.',
     ziel: 'Er will wieder die <strong>Energie haben, die er mit Anfang 30 hatte</strong> — leistungsfähig durch den ganzen Tag, ohne auf Koffein angewiesen zu sein. Und er will, dass sein Körper wieder seinem eigenen Anspruch entspricht.',
@@ -17,28 +19,29 @@ const fallstudien = [
     nachher: { gewicht: '84 kg', punkte: ['Stabile Energie ohne Koffein-Spitzen', 'Klarer Kopf bis in den Abend', '−14 kg Körpergewicht in 5 Monaten'] },
   },
   {
+    name: 'Richard',
+    alter: 'PLATZHALTER',
+    beruf: 'PLATZHALTER',
+    instagram: 'Richard',
+    video: '/videos/Richard_Testimonial_final.mp4',
+    problem: 'PLATZHALTER — bitte Richards Ausgangssituation ergänzen.',
+    ziel: 'PLATZHALTER — bitte Richards Ziel ergänzen.',
+    loesung: 'PLATZHALTER — bitte Richards Lösung ergänzen.',
+    vorher: { gewicht: '—', punkte: ['PLATZHALTER', 'PLATZHALTER', 'PLATZHALTER'] },
+    nachher: { gewicht: '—', punkte: ['PLATZHALTER', 'PLATZHALTER', 'PLATZHALTER'] },
+  },
+  {
     name: 'Axel',
     alter: '38 Jahre',
     beruf: 'Selbstständiger Unternehmer',
     instagram: 'Axel Krupp',
     link: 'https://www.linkedin.com/in/axelkrupp1968/',
     bild: '/images/19d177bf-4006-4bc2-8fb4-b7e6f8c9719e.jpg',
-    problem: 'Stefan hat in den letzten 3 Jahren eine Firma aufgebaut. Sein Körper ist dabei auf der Strecke geblieben: <strong>Schlafprobleme, ständige Stimmungsschwankungen</strong> — und trotz regelmäßigem Training kein sichtbarer Fortschritt.',
+    problem: 'Axel hat in den letzten 3 Jahren eine Firma aufgebaut. Sein Körper ist dabei auf der Strecke geblieben: <strong>Schlafprobleme, ständige Stimmungsschwankungen</strong> — und trotz regelmäßigem Training kein sichtbarer Fortschritt.',
     ziel: 'Er will verstehen, <strong>warum sein Körper nicht mehr reagiert</strong>. Und er will konkrete Ergebnisse — kein weiteres Ausprobieren, keine Diäten, kein Rätselraten.',
-    loesung: 'Die DNA-Analyse zeigte, dass Stefan <strong>genetisch bedingt stark auf Blutzuckerschwankungen reagiert</strong>. Gleichzeitig lag sein Testosteron im unteren Normbereich. Mit gezielter Anpassung hat der Körper wieder reagiert.',
+    loesung: 'Die DNA-Analyse zeigte, dass Axel <strong>genetisch bedingt stark auf Blutzuckerschwankungen reagiert</strong>. Gleichzeitig lag sein Testosteron im unteren Normbereich. Mit gezielter Anpassung hat der Körper wieder reagiert.',
     vorher: { gewicht: '91 kg', punkte: ['Training ohne Fortschritt seit 18 Monaten', 'Stimmung und Antrieb stark schwankend', 'Schlechte Schlafqualität, morgens nicht erholt'] },
     nachher: { gewicht: '80 kg', punkte: ['Sichtbarer Muskelaufbau und Fettverlust', 'Stabiler Antrieb und bessere Stimmung', 'Tiefer Schlaf — morgens ausgeruht'] },
-  },
-  {
-    name: 'Thomas',
-    alter: '45 Jahre',
-    beruf: 'Führungskraft im Management',
-    instagram: '@thomas_mgmt',
-    problem: 'Thomas hat alles versucht: <strong>Low Carb, Intervallfasten, Personal Trainer</strong>. Kurzfristig passierte immer etwas — aber nach wenigen Wochen stagnierte alles. Er hat aufgehört zu glauben, dass sein Körper noch veränderbar ist.',
-    ziel: 'Er will einen Ansatz, der <strong>nachhaltig funktioniert</strong> — nicht der nächste Versuch, der nach 6 Wochen wieder verpufft. Und er will seinen Körper wieder als Ressource erleben.',
-    loesung: 'Blutanalyse hat eine <strong>subklinische Schilddrüsenunterfunktion</strong> und erhebliche Mikronährstoffdefizite aufgedeckt — beides unerkannt. Erst nachdem diese Grundlagen stabilisiert waren, haben wir Training und Ernährung aufgebaut.',
-    vorher: { gewicht: '103 kg', punkte: ['Viele gescheiterte Versuche in 5 Jahren', 'Körper reagiert kaum auf Training oder Diät', 'Ständig müde, Motivation auf dem Tiefpunkt'] },
-    nachher: { gewicht: '87 kg', punkte: ['Erste nachhaltige Ergebnisse nach Wochen', '−16 kg Körpergewicht über 6 Monate', 'Energie und Drive wie mit Anfang 30'] },
   },
 ]
 
@@ -69,9 +72,17 @@ function VideoPlayer({ src }: { src: string }) {
         >
           <div
             className="flex items-center justify-center rounded-full transition-transform hover:scale-105"
-            style={{ width: 56, height: 56, background: 'rgba(201,168,76,0.2)', border: '1px solid rgba(201,168,76,0.4)', backdropFilter: 'blur(4px)' }}
+            style={{
+              width: 58,
+              height: 58,
+              background: 'rgba(12,20,36,0.4)',
+              backdropFilter: 'blur(6px)',
+              WebkitBackdropFilter: 'blur(6px)',
+              border: '1px solid rgba(255,255,255,0.45)',
+              boxShadow: '0 2px 12px rgba(0,0,0,0.22)',
+            }}
           >
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="#C9A84C"><path d="M8 5v14l11-7z"/></svg>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="#F2E0A7" style={{ marginLeft: 2 }}><path d="M8 5v14l11-7z"/></svg>
           </div>
         </div>
       )}
@@ -80,6 +91,8 @@ function VideoPlayer({ src }: { src: string }) {
 }
 
 export default function FallstudienSection() {
+  const [mehrGeladen, setMehrGeladen] = useState(false)
+
   return (
     <section id="rezensionen" className="relative overflow-hidden" style={{ background: '#060E1F' }}>
       {/* SVG Rastermuster */}
@@ -121,7 +134,7 @@ export default function FallstudienSection() {
 
         {/* ── Alle Fallstudien untereinander ── */}
         <div className="flex flex-col gap-10">
-          {fallstudien.slice(0, 2).map((fs, idx) => (
+          {fallstudien.map((fs, idx) => (
             <div
               key={idx}
               className="rounded-3xl overflow-hidden animate-fade-up"
@@ -158,7 +171,7 @@ export default function FallstudienSection() {
                       </p>
                       <p
                         className="font-inter text-sm md:text-base leading-relaxed"
-                        style={{ color: '#8A96A3' }}
+                        style={{ color: '#A6B0BA' }}
                         dangerouslySetInnerHTML={{ __html: text.replace(/<strong>/g, '<strong style="color:#C8D0D9;font-weight:600">') }}
                       />
                     </div>
@@ -183,9 +196,9 @@ export default function FallstudienSection() {
                     )}
                     <div className="px-5 py-4 text-center flex flex-col gap-1">
                       <p className="font-barlow font-bold text-xl" style={{ color: '#E6E8EB' }}>{fs.name}</p>
-                      <p className="font-inter text-sm" style={{ color: '#5B6773' }}>{fs.alter} · {fs.beruf}</p>
+                      <p className="font-inter text-sm" style={{ color: '#7B8792' }}>{fs.alter} · {fs.beruf}</p>
                       {'link' in fs && fs.link ? (
-                        <a href={fs.link} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-1.5 mt-1 transition-colors hover:text-white" style={{ color: '#5B6773' }}>
+                        <a href={fs.link} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-1.5 mt-1 transition-colors hover:text-white" style={{ color: '#7B8792' }}>
                           <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.44-2.13 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/>
                           </svg>
@@ -193,10 +206,10 @@ export default function FallstudienSection() {
                         </a>
                       ) : (
                         <div className="flex items-center justify-center gap-1.5 mt-1">
-                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#5B6773" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#7B8792" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                             <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
                           </svg>
-                          <span className="font-inter text-xs font-medium" style={{ color: '#5B6773' }}>{fs.instagram}</span>
+                          <span className="font-inter text-xs font-medium" style={{ color: '#7B8792' }}>{fs.instagram}</span>
                         </div>
                       )}
                     </div>
@@ -216,7 +229,7 @@ export default function FallstudienSection() {
                     </div>
                     <ul className="flex flex-col gap-3">
                       {fs.vorher.punkte.map((p, i) => (
-                        <li key={i} className="flex items-start gap-3 font-inter text-sm" style={{ color: '#8A96A3' }}>
+                        <li key={i} className="flex items-start gap-3 font-inter text-sm" style={{ color: '#A6B0BA' }}>
                           <svg width="24" height="24" viewBox="0 0 38 38" fill="none" className="flex-shrink-0 mt-0.5">
                             <defs><linearGradient id={`fx-${i}`} x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#C9A84C"/><stop offset="100%" stopColor="#E8D49A"/></linearGradient></defs>
                             <path d="M8 8L30 30M30 8L8 30" stroke={`url(#fx-${i})`} strokeWidth="4" strokeLinecap="round"/>
@@ -228,17 +241,17 @@ export default function FallstudienSection() {
                   </div>
 
                   {/* Ergebnis */}
-                  <div className="ergebnis-raised p-8 md:p-10 flex flex-col gap-4 relative overflow-hidden rounded-2xl" style={{ background: '#091122', border: '1px solid rgba(201,168,76,0.7)', boxShadow: '0 0 32px rgba(201,168,76,0.08), 0 0 8px rgba(201,168,76,0.05)' }}>
+                  <div className="ergebnis-raised p-8 md:p-10 flex flex-col gap-4 relative overflow-hidden rounded-2xl" style={{ background: '#091122', border: '1px solid rgba(52,211,153,0.7)', boxShadow: '0 0 32px rgba(52,211,153,0.10), 0 0 8px rgba(52,211,153,0.06)' }}>
                     <span className="absolute right-4 bottom-2 font-barlow font-bold select-none pointer-events-none" style={{ fontSize: 96, lineHeight: 1, color: 'rgba(255,255,255,0.04)', letterSpacing: '-2px' }}>FS</span>
                     <div className="relative flex items-center gap-3 flex-wrap">
                       <span className="font-barlow font-bold text-base uppercase tracking-wide text-white">Ergebnis</span>
-                      <span className="font-inter text-xs font-bold px-3 py-1 rounded-md" style={{ background: 'rgba(201,168,76,0.15)', color: '#C9A84C', border: '1px solid rgba(201,168,76,0.3)' }}>{fs.nachher.gewicht}</span>
+                      <span className="font-inter text-xs font-bold px-3 py-1 rounded-md" style={{ background: 'rgba(52,211,153,0.15)', color: '#6EE7B7', border: '1px solid rgba(52,211,153,0.35)' }}>{fs.nachher.gewicht}</span>
                     </div>
                     <ul className="relative flex flex-col gap-3">
                       {fs.nachher.punkte.map((p, i) => (
                         <li key={i} className="flex items-start gap-3 font-inter text-sm text-white/70">
                           <svg width="24" height="24" viewBox="0 0 38 38" fill="none" className="flex-shrink-0 mt-0.5">
-                            <defs><linearGradient id={`fck-${i}`} x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#B8832A"/><stop offset="45%" stopColor="#C9A84C"/><stop offset="75%" stopColor="#F2D27A"/><stop offset="100%" stopColor="#C9A84C"/></linearGradient></defs>
+                            <defs><linearGradient id={`fck-${i}`} x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#0E9E6E"/><stop offset="45%" stopColor="#34D399"/><stop offset="75%" stopColor="#A7F3D0"/><stop offset="100%" stopColor="#34D399"/></linearGradient></defs>
                             <polygon points="5,21 10.38,24.62 14,27.5 22.55,18.18 33,8 24.45,19.82 14,32.5 8.62,26.38" fill={`url(#fck-${i})`}/>
                           </svg>
                           {p}
@@ -258,6 +271,32 @@ export default function FallstudienSection() {
           ))}
         </div>
 
+        {/* Weitere Fallstudien laden — blendet Platzhalter ein */}
+        <div className="mt-10 flex justify-center animate-fade-up">
+          {!mehrGeladen ? (
+            <button
+              onClick={() => setMehrGeladen(true)}
+              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl font-inter font-semibold text-sm transition-opacity hover:opacity-80"
+              style={{ background: 'rgba(201,168,76,0.06)', border: '1px solid rgba(201,168,76,0.4)', color: '#E8D49A' }}
+            >
+              Weitere Fallstudien laden
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                <path d="M4 6l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </button>
+          ) : (
+            <div
+              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl font-inter text-sm"
+              style={{ background: 'rgba(201,168,76,0.03)', border: '1px dashed rgba(201,168,76,0.35)', color: '#7B8792' }}
+            >
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" />
+              </svg>
+              Weitere Rezensionen folgen
+            </div>
+          )}
+        </div>
+
         {/* CTA */}
         <div className="mt-12 flex justify-center animate-fade-up" style={{ animationDelay: '200ms' }}>
           <div
@@ -273,17 +312,39 @@ export default function FallstudienSection() {
               className="absolute top-0 left-10 right-10 h-px"
               style={{ background: 'linear-gradient(to right, transparent, rgba(201,168,76,0.6), transparent)' }}
             />
-            <h3 className="font-barlow font-bold text-2xl md:text-3xl leading-snug mb-6 max-w-xl mx-auto" style={{ color: '#E6E8EB' }}>
-              Lass uns jetzt gemeinsam herausfinden,{' '}
-              <span style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-                wie deine eigene Strategie aussieht
+
+            {/* Logo-Lockup wie in der Navigationsbar */}
+            <div className="flex items-center justify-center gap-3 mb-6">
+              <Image
+                src="/images/FS-Logo-60x60-transparenter-Hintergrund.png"
+                alt="FS Performance Lab"
+                width={52}
+                height={52}
+                className="rounded-lg object-contain"
+              />
+              <span className="flex flex-col leading-none text-left">
+                <span className="font-barlow font-semibold text-base md:text-lg tracking-wide" style={{ color: '#E6E8EB' }}>
+                  Fabian Schönle
+                </span>
+                <span className="font-inter text-[10px] font-semibold uppercase tracking-[0.18em] mt-0.5" style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+                  FS Performance Lab
+                </span>
               </span>
+            </div>
+
+            <h3 className="font-barlow font-bold text-2xl md:text-3xl leading-snug mb-6 max-w-2xl mx-auto" style={{ color: '#E6E8EB' }}>
+              Wir entwickeln für dich eine{' '}
+              <span style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+                maßgeschneiderte Strategie
+              </span>
+              , die deine Bedürfnisse und deinen Terminkalender berücksichtigt
             </h3>
             <a
               href={CALENDLY_URL}
+              data-open-form="true"
               target="_blank"
               rel="noopener noreferrer"
-              className="cta-metal inline-flex items-center gap-2 px-7 py-3.5 rounded-lg font-inter font-semibold text-sm transition-transform hover:-translate-y-0.5"
+              className="cta-metal inline-flex items-center gap-2 px-7 py-3.5 rounded-lg font-inter font-semibold text-sm transition-transform"
             >
               Kostenlose Performance-Analyse buchen
               <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>

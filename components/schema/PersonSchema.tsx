@@ -6,7 +6,7 @@ export default function PersonSchema() {
     url: 'https://fabianschoenle.de',
     jobTitle: 'Performance Coach',
     description:
-      'Fabian Schönle ist Performance Coach mit PhD-Hintergrund in Chemie. Er spezialisiert sich auf metabolische Optimierung für Männer ab 30.',
+      'Fabian Schönle ist Performance Coach mit wissenschaftlichem Hintergrund (M.Sc Chemie). Er spezialisiert sich auf metabolische Optimierung für Männer ab 30.',
     image: 'https://fabianschoenle.de/images/fabian-portrait.jpg',
     sameAs: [],
   }

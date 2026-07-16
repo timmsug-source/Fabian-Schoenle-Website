@@ -78,7 +78,7 @@ export default function FAQSection() {
               >
                 <span
                   className="font-inter font-semibold text-base leading-snug flex-1"
-                  style={{ color: offen === i ? '#E6E8EB' : '#A0A8B4' }}
+                  style={{ color: offen === i ? '#E6E8EB' : '#BBC1CA' }}
                 >
                   {faq.frage}
                 </span>
@@ -101,7 +101,7 @@ export default function FAQSection() {
               {/* Antwort */}
               {offen === i && (
                 <div className="px-5 pb-5">
-                  <p className="font-inter text-sm leading-relaxed" style={{ color: '#8A96A3' }}>
+                  <p className="font-inter text-sm leading-relaxed" style={{ color: '#A6B0BA' }}>
                     {faq.antwort}
                   </p>
                 </div>
@@ -112,7 +112,7 @@ export default function FAQSection() {
 
         {/* Finaler Mini-CTA */}
         <div className="mt-12 text-center animate-fade-up" style={{ animationDelay: '120ms' }}>
-          <p className="font-inter text-sm mb-3" style={{ color: '#5B6773' }}>
+          <p className="font-inter text-sm mb-3" style={{ color: '#7B8792' }}>
             Deine Frage ist nicht dabei?
           </p>
           <button
@@ -151,7 +151,7 @@ export default function FAQSection() {
               <button
                 onClick={() => { setFormOffen(false); setGesendet(false) }}
                 className="absolute top-4 right-4 w-7 h-7 rounded-full flex items-center justify-center transition-opacity hover:opacity-70"
-                style={{ background: 'rgba(255,255,255,0.07)', color: '#5B6773' }}
+                style={{ background: 'rgba(255,255,255,0.07)', color: '#7B8792' }}
               >
                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
                   <path d="M1 1l10 10M11 1L1 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
@@ -182,7 +182,7 @@ export default function FAQSection() {
                     <button
                       onClick={() => setGesendet(true)}
                       disabled={!email || !nachricht}
-                      className="cta-metal w-full py-3 rounded-xl font-inter font-semibold text-sm transition-transform hover:-translate-y-0.5 disabled:opacity-40"
+                      className="cta-metal w-full py-3 rounded-xl font-inter font-semibold text-sm transition-transform disabled:opacity-40"
                     >
                       Frage absenden
                     </button>
@@ -196,7 +196,7 @@ export default function FAQSection() {
                     </svg>
                   </div>
                   <p className="font-barlow font-bold text-xl mb-2" style={{ color: '#E6E8EB' }}>Nachricht erhalten</p>
-                  <p className="font-inter text-sm" style={{ color: '#5B6773' }}>Ich melde mich in der Regel innerhalb von 24 Stunden.</p>
+                  <p className="font-inter text-sm" style={{ color: '#7B8792' }}>Ich melde mich in der Regel innerhalb von 24 Stunden.</p>
                 </div>
               )}
             </div>

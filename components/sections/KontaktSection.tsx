@@ -1,8 +1,7 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { CALENDLY_URL } from '@/lib/constants'
-import NachrichtCTA from './NachrichtCTA'
 
 const punkte = [
   {
@@ -43,6 +42,8 @@ const punkte = [
 
 export default function KontaktSection() {
   const [widgetHeight, setWidgetHeight] = useState(500)
+  const [fills, setFills] = useState<number[]>([])
+  const ablaufRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const script = document.createElement('script')
@@ -63,14 +64,32 @@ export default function KontaktSection() {
     return () => window.removeEventListener('message', onMessage)
   }, [])
 
+  // Scroll-gesteuerter Fortschritt der Timeline-Linie
+  useEffect(() => {
+    const update = () => {
+      const container = ablaufRef.current
+      if (!container) return
+      const segs = container.querySelectorAll<HTMLElement>('[data-seg]')
+      const anchor = window.innerHeight * 0.55
+      const next = Array.from(segs).map((seg) => {
+        const r = seg.getBoundingClientRect()
+        return Math.max(0, Math.min(1, (anchor - r.top) / r.height))
+      })
+      setFills((prev) =>
+        prev.length === next.length && prev.every((v, i) => v === next[i]) ? prev : next
+      )
+    }
+    update()
+    window.addEventListener('scroll', update, { passive: true })
+    window.addEventListener('resize', update)
+    return () => {
+      window.removeEventListener('scroll', update)
+      window.removeEventListener('resize', update)
+    }
+  }, [])
+
   return (
     <section className="relative" style={{ background: '#060E1F' }}>
-      {/* Subtiler Gold-Glow oben */}
-      <div
-        className="absolute top-0 left-0 right-0 h-px"
-        style={{ background: 'linear-gradient(to right, transparent, rgba(201,168,76,0.4), transparent)' }}
-      />
-
       <div className="max-w-7xl mx-auto px-4 md:px-8 py-24 md:py-32">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
 
@@ -82,10 +101,10 @@ export default function KontaktSection() {
             <h2 className="font-barlow font-bold text-3xl md:text-5xl leading-tight mb-5" style={{ color: '#E6E8EB' }}>
               Finde heraus, was dein System gerade limitiert.
             </h2>
-            <p className="font-inter text-base md:text-lg leading-relaxed mb-4" style={{ color: '#5B6773' }}>
+            <p className="font-inter text-base md:text-lg leading-relaxed mb-4" style={{ color: '#7B8792' }}>
               Kein Verkaufsgespräch. Kein Vertrag. Nur 30 Minuten, in denen wir gemeinsam analysieren, wo der Hebel bei dir liegt.
             </p>
-            <p className="font-inter text-sm leading-relaxed mb-10" style={{ color: '#5B6773' }}>
+            <p className="font-inter text-sm leading-relaxed mb-10" style={{ color: '#7B8792' }}>
               Der erste Schritt ist eine kostenlose Performance-Analyse. Du bekommst danach Klarheit darüber, warum dein Körper gerade nicht so reagiert wie du es willst — und was konkret dagegen getan werden kann.
             </p>
 
@@ -96,7 +115,7 @@ export default function KontaktSection() {
                   <span className="flex-shrink-0 mt-0.5">{p.icon}</span>
                   <div>
                     <p className="font-inter text-sm font-semibold" style={{ color: '#E6E8EB' }}>{p.titel}</p>
-                    <p className="font-inter text-xs leading-relaxed mt-0.5" style={{ color: '#5B6773' }}>{p.text}</p>
+                    <p className="font-inter text-xs leading-relaxed mt-0.5" style={{ color: '#7B8792' }}>{p.text}</p>
                   </div>
                 </div>
               ))}
@@ -107,7 +126,7 @@ export default function KontaktSection() {
               href={CALENDLY_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="cta-metal inline-flex items-center gap-3 px-7 py-4 rounded-xl font-inter font-semibold text-sm transition-transform hover:-translate-y-0.5 mb-4"
+              className="cta-metal inline-flex items-center gap-3 px-7 py-4 rounded-xl font-inter font-semibold text-sm transition-transform mb-4"
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
@@ -115,10 +134,7 @@ export default function KontaktSection() {
               Performance Analyse buchen
             </a>
 
-            {/* Zweiter CTA — Direktnachricht */}
-            <div className="mb-6">
-              <NachrichtCTA />
-            </div>
+            <div className="mb-6" />
 
             {/* Vertrauensanker */}
             <p className="font-inter text-xs flex items-center gap-1.5" style={{ color: '#3A4A5A' }}>
@@ -172,7 +188,7 @@ export default function KontaktSection() {
                 href={CALENDLY_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="cta-metal inline-flex items-center gap-3 px-7 py-4 rounded-xl font-inter font-semibold text-sm transition-transform hover:-translate-y-0.5"
+                className="cta-metal inline-flex items-center gap-3 px-7 py-4 rounded-xl font-inter font-semibold text-sm transition-transform"
               >
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
@@ -183,7 +199,7 @@ export default function KontaktSection() {
           </div>
 
           {/* Rechts — 3 Schritte mit Icons */}
-          <div className="flex flex-col justify-center">
+          <div className="flex flex-col justify-center" ref={ablaufRef}>
             <div className="flex flex-col">
               {[
                 {
@@ -229,7 +245,16 @@ export default function KontaktSection() {
                       {schritt.icon}
                     </div>
                     {i < arr.length - 1 && (
-                      <div className="w-px flex-1 my-2" style={{ background: 'rgba(201,168,76,0.25)', minHeight: 36 }} />
+                      <div data-seg className="relative w-px flex-1 my-2" style={{ background: 'rgba(201,168,76,0.2)', minHeight: 36 }}>
+                        <div
+                          className="absolute top-0 left-0 w-full rounded-full"
+                          style={{
+                            height: `${(fills[i] ?? 0) * 100}%`,
+                            background: 'linear-gradient(to bottom, #C9A84C, #E8D49A)',
+                            boxShadow: '0 0 8px rgba(201,168,76,0.55)',
+                          }}
+                        />
+                      </div>
                     )}
                   </div>
                   <div className={i < arr.length - 1 ? 'pb-8' : ''}>
@@ -238,7 +263,7 @@ export default function KontaktSection() {
                         {schritt.titel}
                       </h3>
                     </div>
-                    <p className="font-inter text-base leading-relaxed mt-1" style={{ color: '#5B6773' }}>
+                    <p className="font-inter text-base leading-relaxed mt-1" style={{ color: '#7B8792' }}>
                       {schritt.text}
                     </p>
                   </div>

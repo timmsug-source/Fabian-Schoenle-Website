@@ -20,10 +20,10 @@ export default function Footer() {
             <p className="font-barlow font-semibold text-base tracking-wide mb-1" style={{ color: '#E6E8EB' }}>
               Fabian Schönle
             </p>
-            <p className="text-xs font-inter" style={{ color: '#5B6773' }}>Karlsruhe, Deutschland</p>
+            <p className="text-xs font-inter" style={{ color: '#7B8792' }}>Karlsruhe, Deutschland</p>
           </div>
         </div>
-        <div className="flex gap-6 text-sm font-inter" style={{ color: '#5B6773' }}>
+        <div className="flex gap-6 text-sm font-inter" style={{ color: '#7B8792' }}>
           <Link href="/impressum" className="hover:text-white transition-colors">
             Impressum
           </Link>
@@ -33,7 +33,7 @@ export default function Footer() {
         </div>
       </div>
       <div style={{ borderTop: '1px solid rgba(201, 168, 76, 0.15)' }}>
-        <p className="max-w-7xl mx-auto px-4 md:px-8 py-4 text-xs font-inter" style={{ color: '#5B6773' }}>
+        <p className="max-w-7xl mx-auto px-4 md:px-8 py-4 text-xs font-inter" style={{ color: '#7B8792' }}>
           © {year} {SITE_NAME} — Fabian Schönle
         </p>
       </div>

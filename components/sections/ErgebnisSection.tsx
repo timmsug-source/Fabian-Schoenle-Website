@@ -81,9 +81,9 @@ export default function ErgebnisSection() {
             Ergebnisse
           </p>
           <h2 className="font-barlow font-bold text-3xl md:text-5xl leading-tight mb-5" style={{ color: '#E6E8EB' }}>
-            Was sich verändert, wenn<br className="hidden md:block" /> dein System stimmt
+            Ergebnisse, die wirklich einen<br className="hidden md:block" /> Unterschied machen!
           </h2>
-          <p className="font-inter text-base md:text-lg leading-relaxed max-w-2xl mx-auto" style={{ color: '#5B6773' }}>
+          <p className="font-inter text-base md:text-lg leading-relaxed max-w-2xl mx-auto" style={{ color: '#7B8792' }}>
             Kein kurzfristiger Effekt. Sondern eine Verschiebung, die du in jedem Bereich deines Lebens spürst.
           </p>
         </div>
@@ -115,8 +115,8 @@ export default function ErgebnisSection() {
               <ul className="flex flex-col gap-3">
                 {s.punkte.map((p, j) => (
                   <li key={j} className="flex items-start gap-2.5">
-                    <Check color={s.farbe} />
-                    <span className="font-inter text-sm leading-relaxed" style={{ color: '#8A96A3' }}>{p}</span>
+                    <Check />
+                    <span className="font-inter text-sm leading-relaxed" style={{ color: '#A6B0BA' }}>{p}</span>
                   </li>
                 ))}
               </ul>
@@ -169,14 +169,14 @@ export default function ErgebnisSection() {
             </p>
             <div className="mt-5">
               <p className="font-barlow font-bold text-base" style={{ color: '#E6E8EB' }}>Fabian Schönle</p>
-              <p className="font-inter text-sm" style={{ color: '#5B6773' }}>Performance Coach · PhD Chemie</p>
+              <p className="font-inter text-sm" style={{ color: '#7B8792' }}>Performance Coach · PhD Chemie</p>
             </div>
           </div>
 
           {/* Bild — Mobile */}
           <div className="md:hidden relative flex-shrink-0 self-center" style={{ width: 200, height: 240 }}>
             <Image
-              src="/images/Fabian-Schoenle-Zitat-Bild.png"
+              src="/images/FS-Bild-Zitatsektion.png"
               alt="Fabian Schönle"
               fill
               className="object-contain object-top"
@@ -187,7 +187,7 @@ export default function ErgebnisSection() {
           {/* Bild — Desktop (ragt oben aus dem Kasten) */}
           <div className="hidden md:block absolute" style={{ width: 294, height: 420, right: 24, bottom: 0 }}>
             <Image
-              src="/images/Fabian-Schoenle-Zitat-Bild.png"
+              src="/images/FS-Bild-Zitatsektion.png"
               alt="Fabian Schönle"
               fill
               className="object-contain object-bottom"
@@ -259,14 +259,15 @@ export default function ErgebnisSection() {
             <p className="font-barlow font-bold text-xl leading-snug mb-2" style={{ color: '#E6E8EB' }}>
               Werde die nächste Bewertung.
             </p>
-            <p className="font-inter text-sm leading-relaxed mb-6" style={{ color: '#8A96A3' }}>
+            <p className="font-inter text-sm leading-relaxed mb-6" style={{ color: '#A6B0BA' }}>
               Im kostenlosen Erstgespräch finden wir heraus, was dein System gerade limitiert — unverbindlich und ohne Druck.
             </p>
             <a
               href={CALENDLY_URL}
+              data-open-form="true"
               target="_blank"
               rel="noopener noreferrer"
-              className="cta-metal inline-flex items-center gap-2 px-6 py-3 rounded-xl font-inter font-semibold text-sm transition-transform hover:-translate-y-0.5"
+              className="cta-metal inline-flex items-center gap-2 px-6 py-3 rounded-xl font-inter font-semibold text-sm transition-transform"
             >
               Performance Analyse buchen
               <svg width="14" height="14" viewBox="0 0 16 16" fill="none">

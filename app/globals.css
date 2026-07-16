@@ -9,8 +9,8 @@
   --color-gold:      #C99A3D;
   --color-gold-light:#F2D27A;
   --color-gold-dark: #8A5D1F;
-  --color-neutral-1: #5B6773;
-  --color-neutral-2: #A1A9B3;
+  --color-neutral-1: #7B8792;
+  --color-neutral-2: #AEB5BE;
   --color-neutral-3: #E6E8EB;
 }
 
@@ -24,12 +24,18 @@ body {
   to   { opacity: 1; transform: translateY(0); }
 }
 
+/* Scroll-Reveal: erst versteckt, Animation via .in-view (IntersectionObserver) */
 .animate-fade-up {
+  opacity: 0;
+  transform: translateY(24px);
+  will-change: opacity, transform;
+}
+.animate-fade-up.in-view {
   animation: fadeUp 0.6s ease forwards;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .animate-fade-up { animation: none; }
+  .animate-fade-up { opacity: 1; transform: none; animation: none; }
 }
 
 /* Metallischer Shine-Effekt auf Buttons */
@@ -145,6 +151,7 @@ body {
 }
 .cta-metal:hover {
   filter: brightness(1.04);
+  transform: scale(1.03);
   box-shadow:
     inset 0 1px 1px rgba(255,255,255,0.7),
     inset 0 -2px 4px rgba(120,80,10,0.4),
@@ -177,8 +184,11 @@ body {
 /* Problem-Sektion Karten */
 .symptom-card {
   background: linear-gradient(135deg, rgba(13,24,41,0.82) 0%, rgba(11,21,37,0.76) 100%);
-  border: 1.5px solid rgba(201,168,76,0.4);
-  box-shadow: inset 0 1px 0 rgba(232,212,154,0.06);
+  border: 1.5px solid rgba(201,168,76,0.45);
+  box-shadow:
+    inset 0 1px 0 rgba(232,212,154,0.08),
+    0 0 0 1px rgba(201,168,76,0.14),
+    0 0 26px rgba(201,168,76,0.2);
   backdrop-filter: blur(2px);
   transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
 }
