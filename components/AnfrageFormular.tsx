@@ -27,6 +27,10 @@ export default function AnfrageFormular() {
   const [offen, setOffen] = useState(false)
   const [step, setStep] = useState(0)
   const [werte, setWerte] = useState({ name: '', email: '', telefon: '' })
+  const [kontext, setKontext] = useState<{ symptome?: string; schwerpunkt?: string }>({})
+  const [consent, setConsent] = useState(false)
+  const [sending, setSending] = useState(false)
+  const [fehler, setFehler] = useState<string | null>(null)
   const [gesendet, setGesendet] = useState(false)
   const [mounted, setMounted] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
@@ -39,6 +43,7 @@ export default function AnfrageFormular() {
       const el = (e.target as HTMLElement | null)?.closest<HTMLElement>('[data-open-form]')
       if (!el) return
       e.preventDefault()
+      setKontext({ symptome: el.dataset.symptome || undefined, schwerpunkt: el.dataset.schwerpunkt || undefined })
       setOffen(true)
     }
     document.addEventListener('click', onClick)
@@ -57,16 +62,42 @@ export default function AnfrageFormular() {
 
   function schliessen() {
     setOffen(false)
-    setTimeout(() => { setStep(0); setWerte({ name: '', email: '', telefon: '' }); setGesendet(false) }, 200)
+    setTimeout(() => {
+      setStep(0)
+      setWerte({ name: '', email: '', telefon: '' })
+      setGesendet(false)
+      setConsent(false)
+      setSending(false)
+      setFehler(null)
+      setKontext({})
+    }, 200)
   }
 
   function weiter() {
     if (!werte[aktuell.key].trim()) return
     if (letzter) {
-      setGesendet(true)
-      // Hier später: an Backend (Resend) senden
+      if (!consent) { setFehler('Bitte stimme der Datenschutzerklärung zu.'); return }
+      void send()
     } else {
       setStep(s => s + 1)
+    }
+  }
+
+  async function send() {
+    setSending(true)
+    setFehler(null)
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...werte, symptome: kontext.symptome ?? '', schwerpunkt: kontext.schwerpunkt ?? '' }),
+      })
+      if (!res.ok) throw new Error()
+      setGesendet(true)
+    } catch {
+      setFehler('Senden fehlgeschlagen. Bitte versuche es später erneut.')
+    } finally {
+      setSending(false)
     }
   }
 
@@ -128,6 +159,31 @@ export default function AnfrageFormular() {
 
           {!gesendet ? (
             <>
+              {kontext.symptome && (
+                <div className="mb-8 rounded-xl p-4" style={{ background: 'rgba(201,168,76,0.06)', border: '1px solid rgba(201,168,76,0.28)' }}>
+                  <p className="font-inter text-[11px] font-semibold uppercase tracking-widest mb-3" style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+                    Deine Auswahl
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {kontext.symptome.split(', ').map((s, i) => (
+                      <span
+                        key={i}
+                        className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 font-inter text-xs"
+                        style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(201,168,76,0.3)', color: '#E6E8EB' }}
+                      >
+                        <span className="w-1.5 h-1.5 rounded-full" style={{ background: '#E8D49A' }} />
+                        {s}
+                      </span>
+                    ))}
+                  </div>
+                  {kontext.schwerpunkt && (
+                    <p className="font-inter text-xs mt-3" style={{ color: '#7B8792' }}>
+                      Schwerpunkt: <span style={{ color: '#E8D49A' }}>{kontext.schwerpunkt}</span>
+                    </p>
+                  )}
+                </div>
+              )}
+
               <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-4" style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
                 Frage {step + 1} von {felder.length}
               </p>
@@ -150,12 +206,36 @@ export default function AnfrageFormular() {
               />
 
               <div className="mt-10 flex flex-col gap-4">
+                {letzter && (
+                  <label className="flex items-start gap-3 cursor-pointer select-none">
+                    <input
+                      type="checkbox"
+                      checked={consent}
+                      onChange={e => { setConsent(e.target.checked); if (e.target.checked) setFehler(null) }}
+                      className="mt-0.5 h-4 w-4 flex-shrink-0 accent-[#C9A84C]"
+                    />
+                    <span className="font-inter text-xs leading-relaxed" style={{ color: '#7B8792' }}>
+                      Ich stimme zu, dass meine Angaben zur Bearbeitung meiner Anfrage verarbeitet werden. Weitere Infos in der{' '}
+                      <a href="/datenschutz" target="_blank" rel="noopener noreferrer" className="underline" style={{ color: '#A6B0BA' }}>
+                        Datenschutzerklärung
+                      </a>.
+                    </span>
+                  </label>
+                )}
+
+                {fehler && (
+                  <p className="font-inter text-sm" style={{ color: '#E0916F' }}>{fehler}</p>
+                )}
+
                 <button
                   onClick={weiter}
-                  className="cta-metal flex w-full items-center justify-center gap-2 px-8 py-3 rounded-xl font-inter font-semibold text-base transition-transform"
+                  disabled={sending}
+                  className="cta-metal flex w-full items-center justify-center gap-2 px-8 py-3 rounded-xl font-inter font-semibold text-base transition-transform disabled:opacity-70 disabled:cursor-not-allowed"
                 >
-                  {letzter ? 'Absenden' : 'Weiter'}
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                  {sending ? 'Wird gesendet …' : letzter ? 'Absenden' : 'Weiter'}
+                  {!sending && (
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                  )}
                 </button>
                 {step > 0 && (
                   <button

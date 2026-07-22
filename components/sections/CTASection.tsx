@@ -23,10 +23,10 @@ export default function CTASection({
             <SectionLabel>{label}</SectionLabel>
           </div>
         )}
-        <h2 className="text-3xl md:text-5xl font-bold font-barlow text-dark mb-6">
+        <h2 className="text-3xl md:text-5xl font-bold font-barlow mb-6" style={{ color: '#E6E8EB' }}>
           {headline}
         </h2>
-        <p className="text-base md:text-lg font-inter leading-relaxed text-text mb-8">
+        <p className="text-base md:text-lg font-inter leading-relaxed mb-8" style={{ color: '#A6B0BA' }}>
           {body}
         </p>
         <Button href={CALENDLY_URL} size="lg" external popup>

@@ -1,5 +1,5 @@
 import Hero from '@/components/sections/Hero'
-import SymptomGrid from '@/components/sections/SymptomGrid'
+import MusterCheck from '@/components/sections/MusterCheck'
 import HypotheseSection from '@/components/sections/HypotheseSection'
 import LoesungsSection from '@/components/sections/LoesungsSection'
 import FallstudienSection from '@/components/sections/FallstudienSection'
@@ -14,12 +14,12 @@ export default function HomePage() {
   return (
     <>
       <Hero />
-      <SymptomGrid />
+      <MusterCheck />
       <HypotheseSection />
+      <ErgebnisSection />
       <LoesungsSection />
       <FallstudienSection />
       <VergleichSection />
-      <ErgebnisSection />
       <UeberMichSection />
       <KontaktSection />
       <SocialSection />

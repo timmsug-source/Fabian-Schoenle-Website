@@ -297,10 +297,10 @@ export default function FallstudienSection() {
           )}
         </div>
 
-        {/* CTA */}
-        <div className="mt-12 flex justify-center animate-fade-up" style={{ animationDelay: '200ms' }}>
+        {/* CTA — volle Breite wie eine weitere Testimonial-Kachel */}
+        <div className="mt-12 animate-fade-up" style={{ animationDelay: '200ms' }}>
           <div
-            className="relative w-full max-w-3xl rounded-2xl px-8 py-10 md:px-12 md:py-12 text-center overflow-hidden"
+            className="relative w-full rounded-3xl px-8 py-12 md:px-16 md:py-16 text-center overflow-hidden"
             style={{
               background: 'linear-gradient(135deg, #0D1829 0%, #0B1525 100%)',
               border: '1px solid rgba(201,168,76,0.4)',
@@ -314,25 +314,25 @@ export default function FallstudienSection() {
             />
 
             {/* Logo-Lockup wie in der Navigationsbar */}
-            <div className="flex items-center justify-center gap-3 mb-6">
+            <div className="flex items-center justify-center gap-3 mb-7">
               <Image
                 src="/images/FS-Logo-60x60-transparenter-Hintergrund.png"
                 alt="FS Performance Lab"
-                width={52}
-                height={52}
+                width={60}
+                height={60}
                 className="rounded-lg object-contain"
               />
               <span className="flex flex-col leading-none text-left">
-                <span className="font-barlow font-semibold text-base md:text-lg tracking-wide" style={{ color: '#E6E8EB' }}>
+                <span className="font-barlow font-semibold text-lg md:text-xl tracking-wide" style={{ color: '#E6E8EB' }}>
                   Fabian Schönle
                 </span>
-                <span className="font-inter text-[10px] font-semibold uppercase tracking-[0.18em] mt-0.5" style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+                <span className="font-inter text-[11px] font-semibold uppercase tracking-[0.18em] mt-0.5" style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
                   FS Performance Lab
                 </span>
               </span>
             </div>
 
-            <h3 className="font-barlow font-bold text-2xl md:text-3xl leading-snug mb-6 max-w-2xl mx-auto" style={{ color: '#E6E8EB' }}>
+            <h3 className="font-barlow font-bold text-3xl md:text-4xl leading-snug mb-8 max-w-3xl mx-auto" style={{ color: '#E6E8EB' }}>
               Wir entwickeln für dich eine{' '}
               <span style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
                 maßgeschneiderte Strategie
@@ -344,10 +344,10 @@ export default function FallstudienSection() {
               data-open-form="true"
               target="_blank"
               rel="noopener noreferrer"
-              className="cta-metal inline-flex items-center gap-2 px-7 py-3.5 rounded-lg font-inter font-semibold text-sm transition-transform"
+              className="cta-metal inline-flex items-center gap-2.5 px-9 py-4 rounded-xl font-inter font-semibold text-base md:text-lg transition-transform"
             >
               Kostenlose Performance-Analyse buchen
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
             </a>
           </div>
         </div>

@@ -7,6 +7,8 @@ type Pillar = {
   icon: React.ReactNode
   headline: string
   body: string
+  /** HTML-Animation (iframe) — „altes" Design wie bei der Blutanalyse */
+  animation?: string
   image?: string
   imgW?: number
   imgH?: number
@@ -25,7 +27,7 @@ const pillars: Pillar[] = [
       </svg>
     ),
     headline: 'Blutanalyse',
-    image: '/images/Blutanalyse-Uebersicht.png', imgW: 1440, imgH: 300,
+    animation: '/animations/7-blutanalyse.html',
     body: 'Wir schauen rein, was wirklich passiert — Hormonstatus, Mikronährstoffe, Entzündungsmarker. Keine Vermutungen, sondern Fakten.',
   },
   {
@@ -38,7 +40,7 @@ const pillars: Pillar[] = [
       </svg>
     ),
     headline: 'DNA-Analyse',
-    image: '/images/IMG_0551.PNG', imgW: 997, imgH: 562,
+    animation: '/animations/1-dna-analyse.html',
     body: 'Deine Genetik bestimmt, wie dein Körper auf Ernährung, Training und Stress reagiert. Wir nutzen das als Grundlage — nicht als Ausrede.',
   },
   {
@@ -54,7 +56,7 @@ const pillars: Pillar[] = [
       </svg>
     ),
     headline: 'Ernährung',
-    image: '/images/IMG_0550.PNG', imgW: 1099, imgH: 1077,
+    animation: '/animations/2-ernaehrung.html',
     body: 'Kein Verbotskatalog. Kein Kalorienrechner. Sondern ein Ernährungsansatz, der auf deinen Stoffwechsel, deinen Alltag und deine Ziele abgestimmt ist.',
   },
   {
@@ -70,7 +72,7 @@ const pillars: Pillar[] = [
       </svg>
     ),
     headline: 'Training',
-    image: '/images/IMG_0547.PNG', imgW: 1206, imgH: 1190,
+    animation: '/animations/4-training.html',
     body: 'Wie viel, wie oft, welche Reize — abgestimmt auf dein Hormonsystem und deine Regenerationsfähigkeit. Nicht mehr als nötig, aber genau das Richtige.',
   },
   {
@@ -85,7 +87,7 @@ const pillars: Pillar[] = [
       </svg>
     ),
     headline: 'Schlaf & Regeneration',
-    image: '/images/IMG_0548.PNG', imgW: 1206, imgH: 1071, zoom: 1.07,
+    animation: '/animations/3-schlaf-regeneration.html',
     body: 'Schlechter Schlaf sabotiert alles andere. Wir identifizieren, was deine Regeneration blockiert — und beheben es systematisch.',
   },
   {
@@ -102,13 +104,12 @@ const pillars: Pillar[] = [
       </svg>
     ),
     headline: 'Tracking & Anpassung',
-    image: '/images/IMG_0549.PNG', imgW: 1088, imgH: 1017,
+    animation: '/animations/5-tracking-anpassung.html',
     body: 'Über eine App verfolgen wir kontinuierlich deine wichtigsten Parameter. Was funktioniert, wird verstärkt. Was nicht funktioniert, wird angepasst.',
   },
 ]
 
 export default function LoesungsSection() {
-  const iframeRef = useRef<HTMLIFrameElement>(null)
   const sectionRef = useRef<HTMLDivElement>(null)
   const [iframesVisible, setIframesVisible] = useState(false)
 
@@ -128,8 +129,7 @@ export default function LoesungsSection() {
     return () => observer.disconnect()
   }, [])
 
-  const handleIframeLoad = useCallback(() => {
-    const iframe = iframeRef.current
+  const handleIframeLoad = useCallback((iframe: HTMLIFrameElement | null) => {
     if (!iframe) return
 
     const injectStyle = (css: string) => {
@@ -142,64 +142,61 @@ export default function LoesungsSection() {
       } catch {}
     }
 
-    // After bundler replaces document (~500ms): hide controls so animation fills full height
+    // Skaliert die (fest dimensionierte) Design-Grafik so, dass sie die 16/9-Kartenfläche
+    // vollständig füllt (cover). Die Kartenhöhe bleibt dabei konstant — kein Springen/Zusammenziehen.
+    const fit = () => {
+      try {
+        const doc = iframe.contentDocument
+        const wrap = iframe.parentElement
+        if (!doc || !doc.body || !wrap) return
+        const cw = Math.max(doc.body.scrollWidth, doc.documentElement.scrollWidth)
+        const ch = Math.max(doc.body.scrollHeight, doc.documentElement.scrollHeight)
+        if (!cw || !ch) return
+        const cardW = wrap.clientWidth
+        const cardH = wrap.clientHeight // aus dem festen 16/9-Verhältnis abgeleitet
+        const scale = Math.max(cardW / cw, cardH / ch) // cover: füllt die Fläche
+        const tx = (cardW - cw * scale) / 2 // horizontal zentrieren
+        const ty = (cardH - ch * scale) / 2 // vertikal zentrieren
+        iframe.style.width = cw + 'px'
+        iframe.style.height = ch + 'px'
+        iframe.style.transformOrigin = 'top left'
+        iframe.style.transform = `translate(${tx}px, ${ty}px) scale(${scale})`
+      } catch {}
+    }
+
+    // Bundler-Leiste ausblenden
     setTimeout(() => {
       injectStyle(`
-        html, body { margin: 0 !important; padding: 0 !important;
-          width: 100% !important; height: 100% !important;
-          overflow: hidden !important; display: block !important; }
-        div[style*="rgba(20, 20, 20"] {
-          display: none !important;
-          height: 0 !important;
-        }
+        html, body { margin: 0 !important; padding: 0 !important; }
+        div[style*="rgba(20, 20, 20"] { display: none !important; height: 0 !important; }
       `)
     }, 800)
 
-    // Freeze on last frame — stop JS animation loop via rAF
+    // Wiederholt einpassen, bis der Content seine finale Größe erreicht hat
+    let ticks = 0
+    const iv = setInterval(() => {
+      fit()
+      if (++ticks >= 18) clearInterval(iv)
+    }, 400)
+
+    // Auf letztem Frame einfrieren + final einpassen
     setTimeout(() => {
       try {
         const win = iframe.contentWindow as (Window & typeof globalThis) | null
         if (win) win.requestAnimationFrame = () => 0
       } catch {}
       injectStyle('*, *::before, *::after { animation-play-state: paused !important; transition: none !important; }')
+      fit()
     }, 4500)
-  }, [])
 
-  const ctaKachel = (extraClass = '') => (
-    <div
-      className={`break-inside-avoid mb-6 rounded-2xl overflow-hidden px-6 py-8 text-center ${extraClass}`}
-      style={{
-        background: 'linear-gradient(155deg, #16213A 0%, #0D1829 60%, #091122 100%)',
-        border: '1px solid rgba(201,168,76,0.5)',
-        boxShadow: '0 0 0 1px rgba(201,168,76,0.25), 0 0 24px rgba(201,168,76,0.3), 0 0 48px rgba(201,168,76,0.15), 0 4px 20px rgba(0,0,0,0.3)',
-      }}
-    >
-      <div className="flex justify-center mb-4">
-        <svg width="48" height="48" viewBox="0 0 36 36" fill="none">
-          <defs><linearGradient id="ls-cta-g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#C9A84C"/><stop offset="100%" stopColor="#E8D49A"/></linearGradient></defs>
-          <circle cx="18" cy="18" r="16" fill="url(#ls-cta-g)"/>
-          <rect x="10" y="11" width="16" height="14" rx="2" stroke="#060E1F" strokeWidth="2" strokeLinecap="round"/>
-          <line x1="22" y1="9" x2="22" y2="13" stroke="#060E1F" strokeWidth="2" strokeLinecap="round"/>
-          <line x1="14" y1="9" x2="14" y2="13" stroke="#060E1F" strokeWidth="2" strokeLinecap="round"/>
-          <line x1="10" y1="17" x2="26" y2="17" stroke="#060E1F" strokeWidth="2" strokeLinecap="round"/>
-        </svg>
-      </div>
-      <p className="font-barlow font-bold text-xl leading-snug mb-2" style={{ color: '#E6E8EB' }}>
-        Bereit, dein System einzustellen?
-      </p>
-      <p className="font-inter text-sm leading-relaxed mb-6" style={{ color: '#A6B0BA' }}>
-        Im kostenlosen Erstgespräch finden wir heraus, wo bei dir der größte Hebel liegt — unverbindlich und ohne Druck.
-      </p>
-      <button
-        type="button"
-        data-open-form="true"
-        className="cta-metal inline-flex items-center gap-2 px-6 py-3 rounded-xl font-inter font-semibold text-sm transition-transform"
-      >
-        Performance Analyse buchen
-        <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
-      </button>
-    </div>
-  )
+    // Responsiv nachziehen (Kartenbreite + Content-Größe)
+    try {
+      const wrap = iframe.parentElement
+      if (wrap && 'ResizeObserver' in window) new ResizeObserver(() => fit()).observe(wrap)
+      const body = iframe.contentDocument?.body
+      if (body && 'ResizeObserver' in window) new ResizeObserver(() => fit()).observe(body)
+    } catch {}
+  }, [])
 
   return (
     <section id="methode" style={{ background: '#060E1F' }}>
@@ -217,19 +214,42 @@ export default function LoesungsSection() {
           </p>
         </div>
 
-        {/* Masonry — Bild/Animation oben, Text darunter; unterschiedliche Höhen greifen ineinander */}
-        <div className="columns-1 md:columns-2 lg:columns-3 gap-6 mb-16">
+        {/* Grid — alle Karten gleiche Höhe (auto-rows-fr) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-fr mb-16">
           {pillars.map((pillar, i) => (
-            <React.Fragment key={i}>
             <div
-              className="symptom-card break-inside-avoid mb-6 flex flex-col rounded-2xl overflow-hidden animate-fade-up"
+              key={i}
+              className="symptom-card h-full flex flex-col rounded-2xl overflow-hidden animate-fade-up"
               style={{
                 background: 'linear-gradient(135deg, #0D1829 0%, #0B1525 100%)',
                 animationDelay: `${i * 60}ms`,
               }}
             >
-              {pillar.image ? (
-                /* Statisches Bild — vollständig sichtbar, natürliche Höhe */
+              {pillar.animation ? (
+                /* HTML-Animation (iframe) — komplett in die Karte skaliert */
+                <div className="relative flex-shrink-0 overflow-hidden" style={{ aspectRatio: '1447 / 522' }}>
+                  <iframe
+                    src={iframesVisible ? pillar.animation : undefined}
+                    onLoad={(e) => handleIframeLoad(e.currentTarget)}
+                    style={{
+                      display: 'block',
+                      position: 'absolute', top: 0, left: 0,
+                      width: '100%',
+                      border: 'none', pointerEvents: 'none',
+                    }}
+                    title={pillar.headline}
+                  />
+                  {/* Kleiner Übergang zum Karten-Hintergrund */}
+                  <div
+                    style={{
+                      position: 'absolute', bottom: 0, left: 0, right: 0, height: 32,
+                      background: 'linear-gradient(to bottom, transparent, #0D1829)',
+                      pointerEvents: 'none',
+                    }}
+                  />
+                </div>
+              ) : pillar.image ? (
+                /* Statisches Bild (Fallback) — natürliche Höhe */
                 <div className="relative w-full overflow-hidden">
                   <Image
                     src={pillar.image}
@@ -240,40 +260,15 @@ export default function LoesungsSection() {
                     style={pillar.zoom ? { transform: `scale(${pillar.zoom})` } : undefined}
                     sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   />
-                  {/* Sanfter Gradient-Übergang zum Karten-Hintergrund */}
                   <div
                     className="absolute bottom-0 left-0 right-0 pointer-events-none"
                     style={{ height: 100, background: 'linear-gradient(to bottom, transparent, #0D1829)' }}
                   />
                 </div>
-              ) : (
-                /* Animation-Thumbnail oben — 16:9 iframe, dann auf ~60% Höhe gecroppt */
-                <div className="relative flex-shrink-0 overflow-hidden" style={{ height: 180 }}>
-                  <iframe
-                    ref={i === 0 ? iframeRef : undefined}
-                    src={iframesVisible ? '/animations/Blutanalyse.html' : undefined}
-                    onLoad={i === 0 ? handleIframeLoad : undefined}
-                    style={{
-                      display: 'block',
-                      position: 'absolute', top: 0, left: 0,
-                      width: '100%',
-                      aspectRatio: '16/9',
-                      border: 'none', pointerEvents: 'none',
-                    }}
-                    title={pillar.headline}
-                  />
-                  {/* Sanfter Gradient-Übergang zum Karten-Hintergrund */}
-                  <div
-                    style={{
-                      position: 'absolute', bottom: 0, left: 0, right: 0, height: '50%',
-                      background: 'linear-gradient(to bottom, transparent, #0D1829)',
-                    }}
-                  />
-                </div>
-              )}
+              ) : null}
 
               {/* Text unten */}
-              <div className="flex flex-col gap-2 px-5 py-4">
+              <div className="flex flex-1 flex-col gap-2 px-5 py-4">
                 <div className="flex items-center gap-3">
                   <span className="flex-shrink-0">{pillar.icon}</span>
                   <h3 className="font-barlow font-bold text-lg" style={{ color: '#E6E8EB' }}>{pillar.headline}</h3>
@@ -283,13 +278,7 @@ export default function LoesungsSection() {
                 </p>
               </div>
             </div>
-            {/* Desktop: CTA unten in der linken Spalte (nach DNA-Analyse) */}
-            {i === 1 && ctaKachel('hidden md:block')}
-            </React.Fragment>
           ))}
-
-          {/* Mobil: CTA erst nach allen Lösungskarten */}
-          {ctaKachel('md:hidden')}
         </div>
 
       </div>

@@ -116,7 +116,7 @@ export default function ErgebnisSection() {
                 {s.punkte.map((p, j) => (
                   <li key={j} className="flex items-start gap-2.5">
                     <Check />
-                    <span className="font-inter text-sm leading-relaxed" style={{ color: '#A6B0BA' }}>{p}</span>
+                    <span className="font-inter text-base leading-relaxed" style={{ color: '#A6B0BA' }}>{p}</span>
                   </li>
                 ))}
               </ul>
@@ -197,7 +197,7 @@ export default function ErgebnisSection() {
         </div>
 
         {/* Bewertungen */}
-        <div className="mt-20 mb-10 text-center animate-fade-up" style={{ animationDelay: '300ms' }}>
+        <div className="mt-28 md:mt-36 mb-10 text-center animate-fade-up" style={{ animationDelay: '300ms' }}>
           <p className="font-barlow font-bold text-2xl md:text-3xl" style={{ color: '#E6E8EB' }}>
             Das sind keine Versprechen.
           </p>

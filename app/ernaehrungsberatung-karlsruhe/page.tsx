@@ -1,9 +1,14 @@
 import type { Metadata } from 'next'
 import { buildMetadata } from '@/lib/metadata'
-import PageHero from '@/components/sections/PageHero'
+import LocalHero from '@/components/sections/LocalHero'
+import ReviewsSection from '@/components/sections/ReviewsSection'
+import ProblemSection from '@/components/sections/ProblemSection'
 import SolutionSection from '@/components/sections/SolutionSection'
-import FAQ from '@/components/sections/FAQ'
+import LeistungenSection from '@/components/sections/LeistungenSection'
+import Testimonials from '@/components/sections/Testimonials'
+import ComparisonTable from '@/components/sections/ComparisonTable'
 import CTASection from '@/components/sections/CTASection'
+import FAQ from '@/components/sections/FAQ'
 import LocalBusinessSchema from '@/components/schema/LocalBusinessSchema'
 import FAQSchema from '@/components/schema/FAQSchema'
 
@@ -26,9 +31,48 @@ const faqItems = [
       'Klassische Beratung gibt allgemeine Empfehlungen. Datenbasierte Beratung wertet dein individuelles Blutbild aus und leitet daraus ab, was dein Körper spezifisch braucht.',
   },
   {
+    question: 'Wie läuft die Zusammenarbeit ab?',
+    answer:
+      'Nach dem kostenlosen Erstgespräch folgt die Blut- und DNA-Analyse. Auf Basis der Auswertung erhältst du dein individuelles Protokoll — das wir laufend an deine Werte anpassen.',
+  },
+  {
+    question: 'Was kostet die Ernährungsberatung in Karlsruhe?',
+    answer:
+      'Die Zusammenarbeit ist individuell und richtet sich nach Umfang und Zieldefinition. Den konkreten Rahmen besprechen wir transparent im kostenlosen Erstgespräch — dort erfährst du genau, was auf dich zukommt.',
+  },
+  {
     question: 'Wie schnell sehe ich erste Ergebnisse?',
     answer:
-      'Die meisten Klienten berichten innerhalb von 4–6 Wochen von stabilerer Energie und besserem Schlaf. Körperkomposition verändert sich messbar nach 8–12 Wochen.',
+      'Die meisten Klienten berichten innerhalb von 4–6 Wochen von stabilerer Energie und besserem Schlaf. Die Körperkomposition verändert sich messbar nach 8–12 Wochen.',
+  },
+  {
+    question: 'Für wen ist die Ernährungsberatung gedacht?',
+    answer:
+      'Für Männer ab 30 mit hoher beruflicher Belastung, die trotz wenig Zeit körperlich und mental auf Maximum performen wollen — nicht für schnelle Diäten.',
+  },
+]
+
+const testimonials = [
+  {
+    result: '−14 kg in 5 Monaten',
+    quote:
+      'Nach der Blutanalyse war plötzlich klar, warum ich nachmittags immer eingebrochen bin. Heute habe ich stabile Energie ohne Koffein — und einen klaren Kopf bis in den Abend.',
+    name: 'Robert',
+    role: 'Geschäftsführer, 42',
+  },
+  {
+    result: 'Muskelaufbau & −11 kg',
+    quote:
+      'Ich habe 18 Monate ohne Fortschritt trainiert. Erst als wir meine Werte kannten, hat mein Körper wieder reagiert — sichtbarer Muskelaufbau und endlich tiefer Schlaf.',
+    name: 'Axel',
+    role: 'Selbstständiger Unternehmer, 38',
+  },
+  {
+    result: '−11 kg Körperfett in 10 Wochen',
+    quote:
+      'Kein Diätplan, den ich schon dreimal hatte. Zum ersten Mal ein System, das zu meinem Alltag als Unternehmer passt — und das messbar funktioniert.',
+    name: 'Markus R.',
+    role: 'Unternehmer',
   },
 ]
 
@@ -38,48 +82,128 @@ export default function ErnaehrungsberatungKarlsruhePage() {
       <LocalBusinessSchema />
       <FAQSchema items={faqItems} />
 
-      <PageHero
+      {/* 1 — Hero: Text links, Foto rechts */}
+      <LocalHero
         label="Ernährungsberatung Karlsruhe"
-        headline="Keine Diät. Ein System."
-        subheadline="Ernährungsberatung in Karlsruhe — basierend auf deinen Blutwerten."
-        body="Generische Ernährungspläne scheitern, weil sie deine Biologie ignorieren. Die Ernährungsberatung bei FS-Performance beginnt mit einer Blutanalyse und endet mit einem Protokoll, das präzise auf dein Stoffwechselprofil abgestimmt ist."
-        ctaLabel="Ernährungsberatung anfragen"
+        headline="Ernährungsberatung in Karlsruhe für"
+        headlineAccent="Selbstständige & Unternehmer"
+        subheadline="Datenbasiert wieder in Bestform — ohne Verzicht und ohne das Gefühl, auf Diät zu sein."
+        ctaLabel="Kostenloses Erstgespräch buchen"
+        imageSrc="/images/IMG_1550-hero.jpg"
+        imageAlt="Fabian Schönle — Performance Coach aus Karlsruhe"
+        statNumber="200+"
+        statText="Selbstständige & Unternehmer bereits erfolgreich begleitet"
       />
 
+      {/* Rezensionen */}
+      <ReviewsSection />
 
-      <SolutionSection
-        label="Vorgehen"
-        headline="So läuft die Ernährungsberatung ab."
-        steps={[
+      {/* 2 — Das Problem mit klassischer Ernährungsberatung */}
+      <ProblemSection
+        label="Das Problem"
+        headline="Warum die meisten Ernährungspläne scheitern."
+        intro="Es liegt nicht an deiner Disziplin. Es liegt daran, dass generische Pläne deine individuelle Biologie ignorieren — und damit raten müssen, was dein Körper wirklich braucht."
+        points={[
           {
-            number: '01',
-            headline: 'Blutanalyse',
-            body: 'Wir erheben ein umfassendes Blutbild — weit über den Standard hinaus. Das gibt uns präzise Einblicke in dein metabolisches System.',
+            headline: 'Allgemein statt individuell',
+            body: 'Standard-Empfehlungen basieren auf Durchschnittswerten. Dein Stoffwechsel ist aber keiner.',
           },
           {
-            number: '02',
-            headline: 'Auswertung',
-            body: 'Fabian analysiert die Daten wissenschaftlich und identifiziert Defizite, Unverträglichkeiten und Optimierungspotenzial.',
+            headline: 'Symptome statt Ursachen',
+            body: 'Die meisten Beratungen behandeln, was du spürst — nicht, was deine Blutwerte tatsächlich zeigen.',
           },
           {
-            number: '03',
-            headline: 'Protokoll',
-            body: 'Du erhältst einen individuellen Ernährungsplan — keine allgemeinen Empfehlungen, sondern konkrete Anweisungen für deine Biologie.',
+            headline: 'Willenskraft statt System',
+            body: 'Wer nur auf Verzicht setzt, kämpft gegen den eigenen Körper. Ein eingestelltes System braucht keinen Kampf.',
           },
         ]}
       />
 
+      {/* 3 — Dein Ansatz: Ernährung trifft Biologie */}
+      <SolutionSection
+        label="Dein Ansatz"
+        headline="Ernährung trifft Biologie — in drei Schritten."
+        steps={[
+          {
+            number: '01',
+            headline: 'Analysieren',
+            body: 'Wir erheben ein umfassendes Blutbild und deine DNA-Grundlage — weit über den Standard hinaus. Das gibt uns präzise Einblicke in dein metabolisches System.',
+          },
+          {
+            number: '02',
+            headline: 'Verstehen',
+            body: 'Fabian wertet die Daten wissenschaftlich aus und identifiziert Defizite, Unverträglichkeiten und konkretes Optimierungspotenzial.',
+          },
+          {
+            number: '03',
+            headline: 'Umsetzen',
+            body: 'Du erhältst ein individuelles Protokoll — keine allgemeinen Empfehlungen, sondern konkrete Anweisungen für deine Biologie.',
+          },
+        ]}
+      />
+
+      {/* 4 — Was ich konkret bekomme */}
+      <LeistungenSection
+        label="Was du bekommst"
+        headline="Was in der Zusammenarbeit konkret enthalten ist."
+        intro="Keine ellenlange Leistungsliste — die Punkte, die den Unterschied machen."
+        items={[
+          {
+            headline: 'Individueller Ernährungsplan auf Basis deiner Blutwerte',
+            body: 'Kein Musterplan. Ein Protokoll, das aus deinen realen Laborwerten abgeleitet ist.',
+          },
+          {
+            headline: 'Umfassende Blut- und DNA-Analyse',
+            body: 'Weit über den Standard hinaus — die Datengrundlage für jede Entscheidung.',
+          },
+          {
+            headline: 'Konkrete Nährstoff- und Supplement-Strategie',
+            body: 'Nur was dein Körper messbar braucht. Kein Rätselraten, keine pauschalen Verbotslisten.',
+          },
+          {
+            headline: 'Laufende Anpassung statt starrem Plan',
+            body: 'Dein System wird nachjustiert, sobald sich deine Werte verändern.',
+          },
+          {
+            headline: 'Direkter Draht zu Fabian',
+            body: 'Persönliche Betreuung statt einer App, die dich allein lässt.',
+          },
+        ]}
+      />
+
+      {/* 5 — Ergebnisse von Kunden aus der Region */}
+      <Testimonials
+        label="Ergebnisse"
+        headline="Ergebnisse von Männern wie dir."
+        items={testimonials}
+      />
+
+      {/* 6 — Warum du, nicht die Beratung von nebenan */}
+      <ComparisonTable
+        label="Der Unterschied"
+        headline="Warum FS-Performance — und nicht die Beratung von nebenan."
+        rows={[
+          { criterion: 'Grundlage', standard: 'Schätzungen & Fragebögen', fsPerformance: 'Blutwerte & DNA-Analyse' },
+          { criterion: 'Plan', standard: 'Ein Plan für alle', fsPerformance: 'Ein Protokoll für deine Biologie' },
+          { criterion: 'Fokus', standard: 'Kurzfristige Diät', fsPerformance: 'Dauerhaft eingestelltes System' },
+          { criterion: 'Betreuung', standard: 'Standard-Vorlagen', fsPerformance: 'Persönlich von Fabian' },
+          { criterion: 'Ziel', standard: 'Zahl auf der Waage', fsPerformance: 'Körperkomposition & Energie' },
+        ]}
+      />
+
+      {/* 7 — CTA: Erste Analyse buchen */}
+      <CTASection
+        label="Nächster Schritt"
+        headline="Starte mit einer kostenlosen Erstanalyse."
+        body="Im kostenlosen Erstgespräch schauen wir uns deine Situation an — und ich zeige dir, was dein Körper wirklich braucht. Unverbindlich und ohne Druck."
+        ctaLabel="Kostenloses Erstgespräch buchen"
+      />
+
+      {/* 8 — FAQ: lokal relevant */}
       <FAQ
         label="Häufige Fragen"
         headline="Fragen zur Ernährungsberatung in Karlsruhe."
         items={faqItems}
-      />
-
-      <CTASection
-        label="Nächster Schritt"
-        headline="Bereit für datenbasierte Ernährungsberatung?"
-        body="Im kostenlosen Erstgespräch besprechen wir deine Situation und klären, wie wir dein metabolisches System optimieren können."
-        ctaLabel="Kostenloses Erstgespräch buchen"
       />
     </>
   )

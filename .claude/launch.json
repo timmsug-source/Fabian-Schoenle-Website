@@ -2,10 +2,10 @@
   "version": "0.0.1",
   "configurations": [
     {
-      "name": "fs-performance",
+      "name": "fs-performance-3100",
       "runtimeExecutable": "pnpm",
-      "runtimeArgs": ["dev"],
-      "port": 3000
+      "runtimeArgs": ["dev", "-p", "3100"],
+      "port": 3100
     }
   ]
 }

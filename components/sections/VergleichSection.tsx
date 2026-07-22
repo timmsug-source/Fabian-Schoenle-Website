@@ -1,10 +1,10 @@
 import Image from 'next/image'
 
 const rows = [
-  { feature: 'Persönlicher Ansprechpartner',            fs: true,  generic: true,  online: false, selbst: false },
-  { feature: 'Individuelle Ernährungsstrategie',        fs: true,  generic: false, online: false, selbst: false },
-  { feature: 'Alltagsoptimierte Trainingsroutine',      fs: true,  generic: false, online: false, selbst: false },
-  { feature: 'Kontinuierliche Strategieoptimierung',    fs: true,  generic: false, online: false, selbst: false },
+  { feature: 'Persönlicher Ansprechpartner',            fs: true,  generic: true,  online: true,  selbst: false },
+  { feature: 'Individuelle Ernährungsstrategie',        fs: true,  generic: false, online: false, selbst: true  },
+  { feature: 'Alltagsoptimierte Trainingsroutine',      fs: true,  generic: true,  online: false, selbst: false },
+  { feature: 'Kontinuierliche Strategieoptimierung',    fs: true,  generic: false, online: false, selbst: true  },
   { feature: 'Individuelle DNA-/Bluttests',             fs: true,  generic: false, online: false, selbst: false },
   { feature: '24/7 Chatsupport',                        fs: true,  generic: false, online: false, selbst: false },
 ]
@@ -116,7 +116,7 @@ export default function VergleichSection() {
                   <span className="font-inter font-semibold text-base" style={{ color: '#fff' }}>Personal-<br />trainer</span>
                 </th>
                 <th className="pb-6 text-center px-3" style={{ width: '15%' }}>
-                  <span className="font-inter font-semibold text-base" style={{ color: '#fff' }}>Massen-<br />coaching</span>
+                  <span className="font-inter font-semibold text-base" style={{ color: '#fff' }}>Gruppen-<br />coaching</span>
                 </th>
                 <th className="pb-6 text-center px-3" style={{ width: '15%' }}>
                   <span className="font-inter font-semibold text-base" style={{ color: '#fff' }}>AI-<br />Coach</span>
@@ -212,7 +212,7 @@ export default function VergleichSection() {
                   <span className="font-inter font-semibold text-[10px] leading-tight block" style={{ color: '#fff' }}>Personal-<br />trainer</span>
                 </th>
                 <th className="text-center px-0.5 pb-2 align-bottom">
-                  <span className="font-inter font-semibold text-[10px] leading-tight block" style={{ color: '#fff' }}>Massen-<br />coaching</span>
+                  <span className="font-inter font-semibold text-[10px] leading-tight block" style={{ color: '#fff' }}>Gruppen-<br />coaching</span>
                 </th>
                 <th className="text-center px-0.5 pb-2 align-bottom">
                   <span className="font-inter font-semibold text-[10px] leading-tight block" style={{ color: '#fff' }}>AI-<br />Coach</span>

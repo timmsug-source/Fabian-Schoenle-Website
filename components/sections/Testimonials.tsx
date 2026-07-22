@@ -22,7 +22,7 @@ export default function Testimonials({ label, headline, items }: TestimonialsPro
           <SectionLabel>{label}</SectionLabel>
         </div>
       )}
-      <h2 className="text-3xl md:text-5xl font-bold font-barlow text-dark mb-12">
+      <h2 className="text-3xl md:text-5xl font-bold font-barlow mb-12" style={{ color: '#E6E8EB' }}>
         {headline}
       </h2>
       <div className="grid md:grid-cols-3 gap-6">
