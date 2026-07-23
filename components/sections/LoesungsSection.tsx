@@ -109,7 +109,7 @@ const pillars: Pillar[] = [
   },
 ]
 
-export default function LoesungsSection() {
+export default function LoesungsSection({ content = {} }: { content?: Record<string, string> }) {
   const sectionRef = useRef<HTMLDivElement>(null)
   const [iframesVisible, setIframesVisible] = useState(false)
 
@@ -199,23 +199,48 @@ export default function LoesungsSection() {
   }, [])
 
   return (
-    <section id="methode" style={{ background: '#060E1F' }}>
-      <div ref={sectionRef} className="max-w-7xl mx-auto px-4 md:px-8 py-24 md:py-32">
+    <section id="methode" className="relative overflow-hidden" style={{ background: '#060E1F' }}>
+      {/* Rastermuster wie in der Video-Testimonial-Sektion */}
+      <svg className="absolute inset-0 w-full h-full pointer-events-none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="none">
+        <defs>
+          <pattern id="ls-bg-grid" width="60" height="60" patternUnits="userSpaceOnUse">
+            <path d="M 60 0 L 0 0 0 60" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="1" />
+          </pattern>
+          <pattern id="ls-bg-diag" width="60" height="60" patternUnits="userSpaceOnUse">
+            <line x1="0" y1="60" x2="60" y2="0" stroke="rgba(255,255,255,0.04)" strokeWidth="1" />
+          </pattern>
+          <linearGradient id="ls-bg-fade" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="white" stopOpacity="0" />
+            <stop offset="14%" stopColor="white" stopOpacity="1" />
+            <stop offset="86%" stopColor="white" stopOpacity="1" />
+            <stop offset="100%" stopColor="white" stopOpacity="0" />
+          </linearGradient>
+          <mask id="ls-bg-fade-mask">
+            <rect width="100%" height="100%" fill="url(#ls-bg-fade)" />
+          </mask>
+        </defs>
+        <g mask="url(#ls-bg-fade-mask)">
+          <rect width="100%" height="100%" fill="url(#ls-bg-grid)" />
+          <rect width="100%" height="100%" fill="url(#ls-bg-diag)" />
+        </g>
+      </svg>
+
+      <div ref={sectionRef} className="relative max-w-7xl mx-auto px-4 md:px-8 py-24 md:py-32">
 
         <div className="mb-16 animate-fade-up text-center">
           <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-4" style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-            High-Performance Coaching
+            {content.loesung_label || 'High-Performance Coaching'}
           </p>
           <h2 className="font-barlow font-bold text-3xl md:text-5xl leading-tight mb-4" style={{ color: '#E6E8EB' }}>
-            Eine datenbasierte Strategie —<br className="hidden md:block" /> durch einen präzisen und individuellen Ansatz
+            {content.loesung_title_1 || 'Eine datenbasierte Strategie —'}<br className="hidden md:block" /> {content.loesung_title_2 || 'durch einen präzisen und individuellen Ansatz'}
           </h2>
           <p className="font-inter text-lg md:text-xl leading-relaxed max-w-3xl mx-auto" style={{ color: '#A6B0BA' }}>
-            Ich analysiere, was deinen Körper gerade limitiert. Und stelle dann genau die Hebel ein, die wirklich einen Unterschied machen.
+            {content.loesung_intro || 'Ich analysiere, was deinen Körper gerade limitiert. Und stelle dann genau die Hebel ein, die wirklich einen Unterschied machen.'}
           </p>
         </div>
 
-        {/* Grid — alle Karten gleiche Höhe (auto-rows-fr) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-fr mb-16">
+        {/* 2-Spalten-Raster (3 Reihen) — Grafik oben (60%), Text unten (40%) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 auto-rows-fr mb-16">
           {pillars.map((pillar, i) => (
             <div
               key={i}
@@ -226,8 +251,8 @@ export default function LoesungsSection() {
               }}
             >
               {pillar.animation ? (
-                /* HTML-Animation (iframe) — komplett in die Karte skaliert */
-                <div className="relative flex-shrink-0 overflow-hidden" style={{ aspectRatio: '1447 / 522' }}>
+                /* HTML-Animation (iframe) — komplett in die Grafikfläche skaliert */
+                <div className="relative flex-shrink-0 overflow-hidden" style={{ aspectRatio: '1080 / 412' }}>
                   <iframe
                     src={iframesVisible ? pillar.animation : undefined}
                     onLoad={(e) => handleIframeLoad(e.currentTarget)}
@@ -249,7 +274,7 @@ export default function LoesungsSection() {
                   />
                 </div>
               ) : pillar.image ? (
-                /* Statisches Bild (Fallback) — natürliche Höhe */
+                /* Statisches Bild (Fallback) */
                 <div className="relative w-full overflow-hidden">
                   <Image
                     src={pillar.image}
@@ -258,7 +283,7 @@ export default function LoesungsSection() {
                     height={pillar.imgH}
                     className="w-full h-auto block"
                     style={pillar.zoom ? { transform: `scale(${pillar.zoom})` } : undefined}
-                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    sizes="(max-width: 768px) 100vw, 50vw"
                   />
                   <div
                     className="absolute bottom-0 left-0 right-0 pointer-events-none"
@@ -267,14 +292,14 @@ export default function LoesungsSection() {
                 </div>
               ) : null}
 
-              {/* Text unten */}
-              <div className="flex flex-1 flex-col gap-2 px-5 py-4">
+              {/* Text unten — 40% */}
+              <div className="flex flex-1 flex-col justify-center gap-2 px-6 py-5">
                 <div className="flex items-center gap-3">
                   <span className="flex-shrink-0">{pillar.icon}</span>
-                  <h3 className="font-barlow font-bold text-lg" style={{ color: '#E6E8EB' }}>{pillar.headline}</h3>
+                  <h3 className="font-barlow font-bold text-xl md:text-2xl" style={{ color: '#E6E8EB' }}>{content[`loesung_pillar${i + 1}_headline`] || pillar.headline}</h3>
                 </div>
-                <p className="font-inter text-sm leading-relaxed" style={{ color: '#98A4B1' }}>
-                  {pillar.body}
+                <p className="font-inter text-sm md:text-base leading-relaxed" style={{ color: '#98A4B1' }}>
+                  {content[`loesung_pillar${i + 1}_body`] || pillar.body}
                 </p>
               </div>
             </div>

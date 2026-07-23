@@ -1,6 +1,6 @@
 import Image from 'next/image'
 
-export default function HypotheseSection() {
+export default function HypotheseSection({ content = {} }: { content?: Record<string, string> }) {
   return (
     <section className="relative overflow-hidden" style={{ background: 'transparent' }}>
 
@@ -41,11 +41,11 @@ export default function HypotheseSection() {
           {/* Left: Titel + Text */}
           <div className="flex-1 min-w-0">
             <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-6" style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-              Die Wahrheit
+              {content.wahrheit_label || 'Die Wahrheit'}
             </p>
 
             <h2 className="font-barlow font-bold text-3xl md:text-5xl leading-tight mb-10" style={{ color: '#E6E8EB' }}>
-              Warum deine Ansätze bisher<br className="hidden md:block" /> keine Ergebnisse lieferten
+              {content.wahrheit_title_1 || 'Warum deine Ansätze bisher'}<br className="hidden md:block" /> {content.wahrheit_title_2 || 'keine Ergebnisse lieferten'}
             </h2>
 
             <div
@@ -54,12 +54,7 @@ export default function HypotheseSection() {
             />
 
             <p className="font-inter text-base md:text-lg leading-relaxed" style={{ color: '#A6B0BA' }}>
-              Leistungsorientierte Menschen wollen ihr Problem mit mehr Disziplin lösen, weil sie das aus
-              ihrem beruflichen Leben gewohnt sind. Dadurch wählen sie radikale Ansätze, die zu Heißhunger
-              und Jo-Jo-Effekt führen — und dann entsteht Frustration, die sich durch mehr Stress und damit
-              ein hormonelles Ungleichgewicht (Testosteron sinkt usw.) äußert. Die meisten lassen dann einige
-              Monate vergehen und fangen mit dem nächsten Motivationsschub und noch mehr Disziplin wieder von
-              vorne an…
+              {content.wahrheit_body || 'Leistungsorientierte Menschen wollen ihr Problem mit mehr Disziplin lösen, weil sie das aus ihrem beruflichen Leben gewohnt sind. Dadurch wählen sie radikale Ansätze, die zu Heißhunger und Jo-Jo-Effekt führen — und dann entsteht Frustration, die sich durch mehr Stress und damit ein hormonelles Ungleichgewicht (Testosteron sinkt usw.) äußert. Die meisten lassen dann einige Monate vergehen und fangen mit dem nächsten Motivationsschub und noch mehr Disziplin wieder von vorne an…'}
             </p>
 
           </div>
@@ -100,11 +95,11 @@ export default function HypotheseSection() {
               className="font-barlow font-bold text-2xl md:text-3xl leading-snug mb-6"
               style={{ color: '#E8D49A' }}
             >
-              Wir nutzen die uns zur Verfügung stehenden Ressourcen, um neben Job, Familie und Alltag das Beste rauszuholen.
+              {content.wahrheit_quote || 'Wir nutzen die uns zur Verfügung stehenden Ressourcen, um neben Job, Familie und Alltag das Beste rauszuholen.'}
             </p>
             <div>
-              <p className="font-barlow font-bold text-base" style={{ color: '#E6E8EB' }}>Fabian Schönle</p>
-              <p className="font-inter text-sm" style={{ color: '#7B8792' }}>Performance Coach · PhD Chemie</p>
+              <p className="font-barlow font-bold text-base" style={{ color: '#E6E8EB' }}>{content.wahrheit_quote_author || 'Fabian Schönle'}</p>
+              <p className="font-inter text-sm" style={{ color: '#7B8792' }}>{content.wahrheit_quote_role || 'Performance Coach · PhD Chemie'}</p>
             </div>
           </div>
 

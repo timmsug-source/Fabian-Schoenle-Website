@@ -115,7 +115,7 @@ const STUFEN = [
   'Zahlreiche Ansatzpunkte und deutliches Potenzial',
 ]
 
-export default function MusterCheck() {
+export default function MusterCheck({ content = {} }: { content?: Record<string, string> }) {
   const [selected, setSelected] = useState<string[]>([])
 
   const toggle = (id: string) =>
@@ -141,18 +141,31 @@ export default function MusterCheck() {
 
   return (
     <section className="max-w-7xl mx-auto px-4 md:px-8 py-16 md:py-24">
-      <div className="mb-10 md:mb-12 text-center">
-        <SectionLabel>Kennst du das?</SectionLabel>
-        <h2 className="font-barlow font-bold text-3xl md:text-5xl leading-tight mt-4 mb-4" style={{ color: '#E6E8EB' }}>
-          Wenn dein Körper nicht mehr so<br className="hidden md:block" /> belastbar ist wie früher
-        </h2>
-        <p className="font-inter text-base leading-relaxed max-w-2xl mx-auto" style={{ color: '#7B8792' }}>
-          Diese Symptome sind kein Zufall, sondern ein Signal deines Körpers. Tippe an, was auf dich zutrifft.
-        </p>
+      <div className="relative mb-10 md:mb-12 text-center">
+        {/* Weicher Glow hinter der Überschrift */}
+        <div
+          aria-hidden="true"
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+          style={{
+            width: 'min(760px, 92%)',
+            height: 300,
+            background: 'radial-gradient(ellipse at center, rgba(201,168,76,0.18) 0%, rgba(201,168,76,0.06) 42%, transparent 72%)',
+            filter: 'blur(30px)',
+          }}
+        />
+        <div className="relative">
+          <SectionLabel>{content.muster_label || 'Kennst du das?'}</SectionLabel>
+          <h2 className="font-barlow font-bold text-3xl md:text-5xl leading-tight mt-4 mb-4" style={{ color: '#E6E8EB' }}>
+            {content.muster_title_1 || 'Wenn dein Körper nicht mehr so'}<br className="hidden md:block" /> {content.muster_title_2 || 'belastbar ist wie früher'}
+          </h2>
+          <p className="font-inter text-base leading-relaxed max-w-2xl mx-auto" style={{ color: '#7B8792' }}>
+            {content.muster_intro || 'Diese Symptome sind kein Zufall, sondern ein Signal deines Körpers. Tippe an, was auf dich zutrifft.'}
+          </p>
+        </div>
       </div>
 
       {/* Modul-Box: dünner Rahmen + Hero-Rasterhintergrund */}
-      <div className="relative overflow-hidden rounded-2xl p-6 md:p-8" style={{ border: '1px solid rgba(201,168,76,0.22)' }}>
+      <div className="relative overflow-hidden rounded-2xl p-6 md:p-8" style={{ background: '#060E1F', border: '1px solid rgba(201,168,76,0.22)', boxShadow: '0 0 24px rgba(255,255,255,0.09), 0 0 60px rgba(255,255,255,0.04)' }}>
 
         {/* Rasterhintergrund (wie im Hero) */}
         <svg className="absolute inset-0 w-full h-full pointer-events-none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="none">
@@ -194,7 +207,7 @@ export default function MusterCheck() {
       <div className="mb-8">
         <div className="flex items-start justify-between gap-4">
           <p className="font-inter text-xs font-semibold uppercase tracking-widest" style={goldText}>
-            Dein Muster-Check
+            {content.muster_result_label || 'Dein Muster-Check'}
           </p>
           <p className="font-barlow font-bold text-lg leading-none whitespace-nowrap">
             <span style={goldText}>{count}</span>
@@ -203,11 +216,11 @@ export default function MusterCheck() {
         </div>
 
         <h3 className="font-barlow font-bold text-2xl md:text-3xl leading-snug mt-3 mb-5" style={{ color: '#E6E8EB' }}>
-          {STUFEN[stufenIndex]}
+          {content[`muster_stufe_${stufenIndex}`] || STUFEN[stufenIndex]}
           {schwerpunkt && (
             <>
-              {' im Bereich: '}
-              <span style={goldText}>{CLUSTERS[schwerpunkt].name}</span>
+              {content.muster_bereich_connector || ' im Bereich: '}
+              <span style={goldText}>{content[`muster_cluster_${schwerpunkt}`] || CLUSTERS[schwerpunkt].name}</span>
             </>
           )}
         </h3>
@@ -234,7 +247,7 @@ export default function MusterCheck() {
         {/* Detail-Zeilen (ab 1 Auswahl) bzw. Hinweis */}
         {count === 0 ? (
           <p className="font-inter text-sm" style={{ color: '#AEB5BE' }}>
-            Tippe auf die Punkte, die zutreffen
+            {content.muster_hint || 'Tippe auf die Punkte, die zutreffen'}
           </p>
         ) : (
           <div className="flex flex-col gap-3">
@@ -251,7 +264,7 @@ export default function MusterCheck() {
                       className="font-inter text-sm md:text-base font-semibold truncate"
                       style={isFocus ? goldText : { color: '#7B8792' }}
                     >
-                      {CLUSTERS[c].name}
+                      {content[`muster_cluster_${c}`] || CLUSTERS[c].name}
                     </span>
                   </span>
                   <span className="flex gap-1.5 flex-shrink-0">
@@ -281,7 +294,7 @@ export default function MusterCheck() {
         )}
 
         <p className="font-inter text-xs mt-5" style={{ color: '#5B6773' }}>
-          Keine Diagnostik – erste Orientierung
+          {content.muster_disclaimer || 'Keine Diagnostik – erste Orientierung'}
         </p>
       </div>
 
@@ -309,10 +322,10 @@ export default function MusterCheck() {
                 {s.icon}
               </span>
               <p className="font-barlow font-bold text-base md:text-lg mb-1.5 pr-6" style={{ color: '#E6E8EB' }}>
-                {s.title}
+                {content[`muster_symptom_${s.id}_title`] || s.title}
               </p>
               <p className="font-inter text-sm leading-relaxed" style={{ color: '#9AA4AE' }}>
-                {s.desc}
+                {content[`muster_symptom_${s.id}_desc`] || s.desc}
               </p>
             </button>
           )
@@ -332,7 +345,7 @@ export default function MusterCheck() {
             className="cta-metal inline-flex items-center gap-3 px-7 py-3 rounded-xl font-barlow font-semibold text-base transition-transform"
           >
             <IconCal />
-            Performance Analyse buchen ({count})
+            {content.muster_cta_button || 'Performance Analyse buchen'} ({count})
           </a>
         ) : (
           <button
@@ -343,13 +356,13 @@ export default function MusterCheck() {
             style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', color: '#5B6773' }}
           >
             <IconCal />
-            Performance Analyse buchen
+            {content.muster_cta_button || 'Performance Analyse buchen'}
           </button>
         )}
         <p className="mt-3 font-inter text-sm" style={{ color: '#7B8792' }}>
           {count >= 1
-            ? 'Wir besprechen genau die Punkte, die du markiert hast.'
-            : 'Markiere zuerst, was auf dich zutrifft.'}
+            ? (content.muster_cta_note_active || 'Wir besprechen genau die Punkte, die du markiert hast.')
+            : (content.muster_cta_note_inactive || 'Markiere zuerst, was auf dich zutrifft.')}
         </p>
       </div>
       </div>

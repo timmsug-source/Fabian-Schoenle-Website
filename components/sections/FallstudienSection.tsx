@@ -22,7 +22,8 @@ const fallstudien = [
     name: 'Richard',
     alter: 'PLATZHALTER',
     beruf: 'PLATZHALTER',
-    instagram: 'Richard',
+    instagram: 'Richard Müller',
+    link: 'https://www.linkedin.com/in/richard-mueller/',
     video: '/videos/Richard_Testimonial_final.mp4',
     problem: 'PLATZHALTER — bitte Richards Ausgangssituation ergänzen.',
     ziel: 'PLATZHALTER — bitte Richards Ziel ergänzen.',
@@ -90,7 +91,7 @@ function VideoPlayer({ src }: { src: string }) {
   )
 }
 
-export default function FallstudienSection() {
+export default function FallstudienSection({ content = {} }: { content?: Record<string, string> }) {
   const [mehrGeladen, setMehrGeladen] = useState(false)
 
   return (
@@ -99,36 +100,35 @@ export default function FallstudienSection() {
       <svg className="absolute inset-0 w-full h-full pointer-events-none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="none">
         <defs>
           <pattern id="fs-bg-grid" width="60" height="60" patternUnits="userSpaceOnUse">
-            <path d="M 60 0 L 0 0 0 60" fill="none" stroke="rgba(255,255,255,0.035)" strokeWidth="1" />
+            <path d="M 60 0 L 0 0 0 60" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="1" />
           </pattern>
           <pattern id="fs-bg-diag" width="60" height="60" patternUnits="userSpaceOnUse">
-            <line x1="0" y1="60" x2="60" y2="0" stroke="rgba(255,255,255,0.02)" strokeWidth="1" />
+            <line x1="0" y1="60" x2="60" y2="0" stroke="rgba(255,255,255,0.04)" strokeWidth="1" />
           </pattern>
+          <linearGradient id="fs-bg-fade" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="white" stopOpacity="0" />
+            <stop offset="14%" stopColor="white" stopOpacity="1" />
+            <stop offset="86%" stopColor="white" stopOpacity="1" />
+            <stop offset="100%" stopColor="white" stopOpacity="0" />
+          </linearGradient>
+          <mask id="fs-bg-fade-mask">
+            <rect width="100%" height="100%" fill="url(#fs-bg-fade)" />
+          </mask>
         </defs>
-        <rect width="100%" height="100%" fill="url(#fs-bg-grid)" />
-        <rect width="100%" height="100%" fill="url(#fs-bg-diag)" />
+        <g mask="url(#fs-bg-fade-mask)">
+          <rect width="100%" height="100%" fill="url(#fs-bg-grid)" />
+          <rect width="100%" height="100%" fill="url(#fs-bg-diag)" />
+        </g>
       </svg>
-      {/* Goldener Radial-Glow oben mittig */}
-      <div
-        className="absolute pointer-events-none"
-        style={{
-          top: '-10%',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          width: '80%',
-          height: '60%',
-          background: 'radial-gradient(ellipse at center, rgba(201,168,76,0.07) 0%, transparent 70%)',
-        }}
-      />
       <div className="relative max-w-7xl mx-auto px-4 md:px-8 py-24 md:py-32">
 
         {/* Header */}
         <div className="mb-12 animate-fade-up text-center">
           <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-4" style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-            Echte Ergebnisse
+            {content.fallstudien_label || 'Echte Ergebnisse'}
           </p>
           <h2 className="font-barlow font-bold text-3xl md:text-5xl leading-tight" style={{ color: '#E6E8EB' }}>
-            So fühlt es sich an, wenn man sich<br className="hidden md:block" /> die Kontrolle zurückholt
+            {content.fallstudien_title_1 || 'So fühlt es sich an, wenn man sich'}<br className="hidden md:block" /> {content.fallstudien_title_2 || 'die Kontrolle zurückholt'}
           </h2>
         </div>
 
@@ -152,7 +152,7 @@ export default function FallstudienSection() {
               >
                 <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#C9A84C' }} />
                 <p className="font-inter text-xs font-semibold uppercase tracking-widest" style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-                  Fallstudie: {fs.name}
+                  Fallstudie: {content[`fallstudien${idx + 1}_name`] || fs.name}
                 </p>
               </div>
 
@@ -161,9 +161,9 @@ export default function FallstudienSection() {
                 {/* Linke Spalte: Story */}
                 <div className="lg:col-span-6 flex flex-col gap-6">
                   {[
-                    { label: 'Problem', text: fs.problem },
-                    { label: 'Ziel',    text: fs.ziel },
-                    { label: 'Lösung',  text: fs.loesung },
+                    { label: 'Problem', text: content[`fallstudien${idx + 1}_problem`] || fs.problem },
+                    { label: 'Ziel',    text: content[`fallstudien${idx + 1}_ziel`] || fs.ziel },
+                    { label: 'Lösung',  text: content[`fallstudien${idx + 1}_loesung`] || fs.loesung },
                   ].map(({ label, text }) => (
                     <div key={label}>
                       <p className="font-barlow font-bold text-sm uppercase tracking-wider mb-1.5" style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
@@ -195,8 +195,8 @@ export default function FallstudienSection() {
                       </div>
                     )}
                     <div className="px-5 py-4 text-center flex flex-col gap-1">
-                      <p className="font-barlow font-bold text-xl" style={{ color: '#E6E8EB' }}>{fs.name}</p>
-                      <p className="font-inter text-sm" style={{ color: '#7B8792' }}>{fs.alter} · {fs.beruf}</p>
+                      <p className="font-barlow font-bold text-xl" style={{ color: '#E6E8EB' }}>{content[`fallstudien${idx + 1}_name`] || fs.name}</p>
+                      <p className="font-inter text-sm" style={{ color: '#7B8792' }}>{content[`fallstudien${idx + 1}_alter`] || fs.alter} · {content[`fallstudien${idx + 1}_beruf`] || fs.beruf}</p>
                       {'link' in fs && fs.link ? (
                         <a href={fs.link} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-1.5 mt-1 transition-colors hover:text-white" style={{ color: '#7B8792' }}>
                           <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
@@ -225,7 +225,7 @@ export default function FallstudienSection() {
                   <div className="p-8 md:p-10 flex flex-col gap-4 rounded-2xl" style={{ background: 'rgba(180,30,30,0.15)' }}>
                     <div className="flex items-center gap-3 flex-wrap">
                       <span className="font-barlow font-bold text-base uppercase tracking-wide" style={{ color: '#E6E8EB' }}>Ausgangssituation</span>
-                      <span className="font-inter text-xs font-bold px-3 py-1 rounded-md" style={{ background: '#C0392B', color: '#fff' }}>{fs.vorher.gewicht}</span>
+                      <span className="font-inter text-xs font-bold px-3 py-1 rounded-md" style={{ background: '#C0392B', color: '#fff' }}>{content[`fallstudien${idx + 1}_vorher_gewicht`] || fs.vorher.gewicht}</span>
                     </div>
                     <ul className="flex flex-col gap-3">
                       {fs.vorher.punkte.map((p, i) => (
@@ -234,7 +234,7 @@ export default function FallstudienSection() {
                             <defs><linearGradient id={`fx-${i}`} x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#C9A84C"/><stop offset="100%" stopColor="#E8D49A"/></linearGradient></defs>
                             <path d="M8 8L30 30M30 8L8 30" stroke={`url(#fx-${i})`} strokeWidth="4" strokeLinecap="round"/>
                           </svg>
-                          {p}
+                          {content[`fallstudien${idx + 1}_vorher_punkt${i + 1}`] || p}
                         </li>
                       ))}
                     </ul>
@@ -245,7 +245,7 @@ export default function FallstudienSection() {
                     <span className="absolute right-4 bottom-2 font-barlow font-bold select-none pointer-events-none" style={{ fontSize: 96, lineHeight: 1, color: 'rgba(255,255,255,0.04)', letterSpacing: '-2px' }}>FS</span>
                     <div className="relative flex items-center gap-3 flex-wrap">
                       <span className="font-barlow font-bold text-base uppercase tracking-wide text-white">Ergebnis</span>
-                      <span className="font-inter text-xs font-bold px-3 py-1 rounded-md" style={{ background: 'rgba(52,211,153,0.15)', color: '#6EE7B7', border: '1px solid rgba(52,211,153,0.35)' }}>{fs.nachher.gewicht}</span>
+                      <span className="font-inter text-xs font-bold px-3 py-1 rounded-md" style={{ background: 'rgba(52,211,153,0.15)', color: '#6EE7B7', border: '1px solid rgba(52,211,153,0.35)' }}>{content[`fallstudien${idx + 1}_nachher_gewicht`] || fs.nachher.gewicht}</span>
                     </div>
                     <ul className="relative flex flex-col gap-3">
                       {fs.nachher.punkte.map((p, i) => (
@@ -254,7 +254,7 @@ export default function FallstudienSection() {
                             <defs><linearGradient id={`fck-${i}`} x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#0E9E6E"/><stop offset="45%" stopColor="#34D399"/><stop offset="75%" stopColor="#A7F3D0"/><stop offset="100%" stopColor="#34D399"/></linearGradient></defs>
                             <polygon points="5,21 10.38,24.62 14,27.5 22.55,18.18 33,8 24.45,19.82 14,32.5 8.62,26.38" fill={`url(#fck-${i})`}/>
                           </svg>
-                          {p}
+                          {content[`fallstudien${idx + 1}_nachher_punkt${i + 1}`] || p}
                         </li>
                       ))}
                     </ul>
@@ -333,11 +333,11 @@ export default function FallstudienSection() {
             </div>
 
             <h3 className="font-barlow font-bold text-3xl md:text-4xl leading-snug mb-8 max-w-3xl mx-auto" style={{ color: '#E6E8EB' }}>
-              Wir entwickeln für dich eine{' '}
+              {content.fallstudien_cta_title_1 || 'Wir entwickeln für dich eine'}{' '}
               <span style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-                maßgeschneiderte Strategie
+                {content.fallstudien_cta_highlight || 'maßgeschneiderte Strategie'}
               </span>
-              , die deine Bedürfnisse und deinen Terminkalender berücksichtigt
+              {content.fallstudien_cta_title_2 || ', die deine Bedürfnisse und deinen Terminkalender berücksichtigt'}
             </h3>
             <a
               href={CALENDLY_URL}
@@ -346,7 +346,7 @@ export default function FallstudienSection() {
               rel="noopener noreferrer"
               className="cta-metal inline-flex items-center gap-2.5 px-9 py-4 rounded-xl font-inter font-semibold text-base md:text-lg transition-transform"
             >
-              Kostenlose Performance-Analyse buchen
+              {content.fallstudien_cta_button || 'Kostenlose Performance-Analyse buchen'}
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
             </a>
           </div>

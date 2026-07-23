@@ -47,17 +47,17 @@ const absaetze = [
   'Aus dieser Erkenntnis ist FS-Performance entstanden — ein High-Performance Coaching, das den Körper so behandelt, wie du dein Business behandelst: datenbasiert, strategisch und mit klarem Ziel.',
 ]
 
-export default function UeberMichSection() {
+export default function UeberMichSection({ content = {} }: { content?: Record<string, string> }) {
   return (
     <section id="ueber-mich" className="relative overflow-hidden" style={{ background: '#060E1F' }}>
       {/* Rasterhintergrund — oben und unten weich ein-/ausgeblendet */}
       <svg className="absolute inset-0 w-full h-full pointer-events-none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="none">
         <defs>
           <pattern id="um-grid" width="60" height="60" patternUnits="userSpaceOnUse">
-            <path d="M 60 0 L 0 0 0 60" fill="none" stroke="rgba(201,168,76,0.07)" strokeWidth="1" />
+            <path d="M 60 0 L 0 0 0 60" fill="none" stroke="rgba(201,168,76,0.095)" strokeWidth="1" />
           </pattern>
           <pattern id="um-diag" width="60" height="60" patternUnits="userSpaceOnUse">
-            <line x1="0" y1="60" x2="60" y2="0" stroke="rgba(201,168,76,0.035)" strokeWidth="1" />
+            <line x1="0" y1="60" x2="60" y2="0" stroke="rgba(201,168,76,0.055)" strokeWidth="1" />
           </pattern>
           <linearGradient id="um-fade" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0%" stopColor="white" stopOpacity="0" />
@@ -79,7 +79,7 @@ export default function UeberMichSection() {
 
         {/* Label */}
         <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-4 animate-fade-up" style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-          Über Fabian Schönle
+          {content.uebermich_label || 'Über Fabian Schönle'}
         </p>
 
         {/* Haupt-Grid: Text links, Bild rechts */}
@@ -88,7 +88,7 @@ export default function UeberMichSection() {
           {/* Linke Spalte — Text */}
           <div className="animate-fade-up" style={{ animationDelay: '60ms' }}>
             <h2 className="font-barlow font-bold text-3xl md:text-5xl leading-tight mb-8" style={{ color: '#E6E8EB' }}>
-              Ich war selbst da,<br /> wo du gerade stehst.
+              {content.uebermich_title_1 || 'Ich war selbst da,'}<br /> {content.uebermich_title_2 || 'wo du gerade stehst.'}
             </h2>
 
             <div className="flex flex-col gap-5">
@@ -101,7 +101,7 @@ export default function UeberMichSection() {
                     fontWeight: i === 2 ? 600 : 400,
                   }}
                 >
-                  {text}
+                  {content[`uebermich_para${i + 1}`] || text}
                 </p>
               ))}
             </div>
@@ -114,7 +114,7 @@ export default function UeberMichSection() {
               rel="noopener noreferrer"
               className="cta-metal mt-8 inline-flex items-center gap-2 px-6 py-3.5 rounded-lg font-inter font-semibold text-sm transition-transform"
             >
-              Performance Analyse buchen
+              {content.uebermich_cta_button || 'Performance Analyse buchen'}
               <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
                 <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>

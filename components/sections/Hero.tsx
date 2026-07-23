@@ -1,6 +1,7 @@
 'use client'
 
 import { useRef, useState } from 'react'
+import { CALENDLY_URL } from '@/lib/constants'
 
 const tickerItems = [
   { name: 'Matthias K.', role: 'Director Global Aftermarket', result: '6 kg' },
@@ -26,7 +27,7 @@ const bullets = [
   },
 ]
 
-export default function Hero() {
+export default function Hero({ content = {} }: { content?: Record<string, string> }) {
   const videoRef = useRef<HTMLVideoElement>(null)
   const [playing, setPlaying] = useState(false)
 
@@ -82,24 +83,23 @@ export default function Hero() {
         {/* H1 + Subheadline — volle Breite */}
         <div className="mb-8 md:mb-16 text-center">
           <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-5" style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-            High-Performance Coaching
+            {content.hero_label || 'High-Performance Coaching'}
           </p>
           <h1
             className="font-barlow font-bold text-4xl md:text-5xl lg:text-6xl leading-[1.05] mb-6"
             style={{ color: '#E6E8EB' }}
           >
-            Als leistungsorientierter Mann trotz vollem Kalender{' '}
+            {content.hero_title_1 || 'Als leistungsorientierter Mann trotz vollem Kalender'}{' '}
             <span style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-              mentale und körperliche Bestform
+              {content.hero_title_highlight || 'mentale und körperliche Bestform'}
             </span>{' '}
-            erreichen
+            {content.hero_title_2 || 'erreichen'}
           </h1>
           <p
             className="font-inter text-lg md:text-xl leading-relaxed max-w-5xl mx-auto"
             style={{ color: '#AEB5BE' }}
           >
-            Ich verhelfe dir zu mehr Energie und Fokus im Alltag und lasse dich wieder mit einem
-            selbstbewussten Blick in den Spiegel schauen.
+            {content.hero_subtitle || 'Ich verhelfe dir zu mehr Energie und Fokus im Alltag und lasse dich wieder mit einem selbstbewussten Blick in den Spiegel schauen.'}
           </p>
         </div>
 
@@ -163,11 +163,11 @@ export default function Hero() {
                       </svg>
                     </span>
                     <p className="font-barlow font-semibold text-xl md:text-2xl" style={{ color: '#E6E8EB' }}>
-                      {item.headline}
+                      {content[`hero_bullet${i + 1}_title`] || item.headline}
                     </p>
                   </div>
                   <p className="font-inter text-sm md:text-base leading-relaxed mt-1 md:mt-2 pl-[44px] md:pl-[54px]" style={{ color: '#AEB5BE' }}>
-                    {item.body}
+                    {content[`hero_bullet${i + 1}_body`] || item.body}
                   </p>
                 </li>
               ))}
@@ -176,7 +176,10 @@ export default function Hero() {
             {/* CTA Button — eingerückt wie Bullet-Text */}
             <div className="mt-8 md:pl-[54px]">
               <a
-                href="#"
+                href={CALENDLY_URL}
+                data-open-form="true"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="cta-metal inline-flex items-center gap-3 px-7 py-4 rounded-xl font-barlow font-semibold text-lg transition-transform"
               >
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -185,10 +188,10 @@ export default function Hero() {
                   <line x1="8" y1="2" x2="8" y2="6" />
                   <line x1="3" y1="10" x2="21" y2="10" />
                 </svg>
-                Performance Analyse buchen
+                {content.hero_cta || 'Performance Analyse buchen'}
               </a>
               <p className="mt-3 font-inter text-xs" style={{ color: '#7B8792' }}>
-                Call mit mir persönlich · 30 Minuten
+                {content.hero_cta_note || 'Call mit mir persönlich · 30 Minuten'}
               </p>
             </div>
           </div>

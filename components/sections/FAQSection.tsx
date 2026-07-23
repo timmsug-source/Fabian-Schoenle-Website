@@ -33,7 +33,7 @@ const faqs = [
   },
 ]
 
-export default function FAQSection() {
+export default function FAQSection({ content = {} }: { content?: Record<string, string> }) {
   const [offen, setOffen] = useState<number | null>(null)
   const [formOffen, setFormOffen] = useState(false)
   const [nachricht, setNachricht] = useState('')
@@ -52,10 +52,10 @@ export default function FAQSection() {
         {/* Header */}
         <div className="mb-12 animate-fade-up">
           <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-4" style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-            Häufige Fragen
+            {content.faq_label || 'Häufige Fragen'}
           </p>
           <h2 className="font-barlow font-bold text-3xl md:text-5xl leading-tight" style={{ color: '#E6E8EB' }}>
-            Fragen, die in der<br className="hidden md:block" /> Vergangenheit gestellt wurden
+            {content.faq_title_1 || 'Fragen, die in der'}<br className="hidden md:block" /> {content.faq_title_2 || 'Vergangenheit gestellt wurden'}
           </h2>
         </div>
 
@@ -80,7 +80,7 @@ export default function FAQSection() {
                   className="font-inter font-semibold text-base leading-snug flex-1"
                   style={{ color: offen === i ? '#E6E8EB' : '#BBC1CA' }}
                 >
-                  {faq.frage}
+                  {content[`faq${i + 1}_frage`] || faq.frage}
                 </span>
 
                 {/* Gold Plus/Minus */}
@@ -102,7 +102,7 @@ export default function FAQSection() {
               {offen === i && (
                 <div className="px-5 pb-5">
                   <p className="font-inter text-sm leading-relaxed" style={{ color: '#A6B0BA' }}>
-                    {faq.antwort}
+                    {content[`faq${i + 1}_antwort`] || faq.antwort}
                   </p>
                 </div>
               )}

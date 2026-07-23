@@ -40,7 +40,7 @@ const punkte = [
   },
 ]
 
-export default function KontaktSection() {
+export default function KontaktSection({ content = {} }: { content?: Record<string, string> }) {
   const [widgetHeight, setWidgetHeight] = useState(500)
   const [fills, setFills] = useState<number[]>([])
   const ablaufRef = useRef<HTMLDivElement>(null)
@@ -96,16 +96,16 @@ export default function KontaktSection() {
           {/* Linke Spalte — Text + Trust */}
           <div className="animate-fade-up lg:sticky lg:top-28 lg:self-start">
             <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-4" style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-              High-Performance Coaching starten
+              {content.kontakt_label || 'High-Performance Coaching starten'}
             </p>
             <h2 className="font-barlow font-bold text-3xl md:text-5xl leading-tight mb-5" style={{ color: '#E6E8EB' }}>
-              Finde heraus, was dein System gerade limitiert.
+              {content.kontakt_title || 'Finde heraus, was dein System gerade limitiert.'}
             </h2>
             <p className="font-inter text-base md:text-lg leading-relaxed mb-4" style={{ color: '#7B8792' }}>
-              Kein Verkaufsgespräch. Kein Vertrag. Nur 30 Minuten, in denen wir gemeinsam analysieren, wo der Hebel bei dir liegt.
+              {content.kontakt_intro1 || 'Kein Verkaufsgespräch. Kein Vertrag. Nur 30 Minuten, in denen wir gemeinsam analysieren, wo der Hebel bei dir liegt.'}
             </p>
             <p className="font-inter text-sm leading-relaxed mb-10" style={{ color: '#7B8792' }}>
-              Der erste Schritt ist eine kostenlose Performance-Analyse. Du bekommst danach Klarheit darüber, warum dein Körper gerade nicht so reagiert wie du es willst — und was konkret dagegen getan werden kann.
+              {content.kontakt_intro2 || 'Der erste Schritt ist eine kostenlose Performance-Analyse. Du bekommst danach Klarheit darüber, warum dein Körper gerade nicht so reagiert wie du es willst — und was konkret dagegen getan werden kann.'}
             </p>
 
             {/* Einwand-Punkte */}
@@ -114,8 +114,8 @@ export default function KontaktSection() {
                 <div key={i} className="flex items-start gap-3">
                   <span className="flex-shrink-0 mt-0.5">{p.icon}</span>
                   <div>
-                    <p className="font-inter text-sm font-semibold" style={{ color: '#E6E8EB' }}>{p.titel}</p>
-                    <p className="font-inter text-xs leading-relaxed mt-0.5" style={{ color: '#7B8792' }}>{p.text}</p>
+                    <p className="font-inter text-sm font-semibold" style={{ color: '#E6E8EB' }}>{content[`kontakt_trust${i + 1}_titel`] || p.titel}</p>
+                    <p className="font-inter text-xs leading-relaxed mt-0.5" style={{ color: '#7B8792' }}>{content[`kontakt_trust${i + 1}_text`] || p.text}</p>
                   </div>
                 </div>
               ))}
@@ -131,7 +131,7 @@ export default function KontaktSection() {
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
               </svg>
-              Performance Analyse buchen
+              {content.kontakt_cta_button || 'Performance Analyse buchen'}
             </a>
 
             <div className="mb-6" />
@@ -172,10 +172,10 @@ export default function KontaktSection() {
           {/* Links — Überschrift + Bild + Button */}
           <div className="flex flex-col">
             <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-0.5 text-center" style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-              So läuft es ab
+              {content.ablauf_label || 'So läuft es ab'}
             </p>
             <h3 className="font-barlow font-bold text-3xl md:text-5xl leading-tight text-center" style={{ color: '#E6E8EB', marginBottom: 0 }}>
-              Drei Schritte bis zu deinem Plan
+              {content.ablauf_title || 'Drei Schritte bis zu deinem Plan'}
             </h3>
             <img
               src="/images/Fabian-Schoenle-Mockup-Ablauf.webp"
@@ -193,7 +193,7 @@ export default function KontaktSection() {
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
                 </svg>
-                Jetzt kostenlosen Termin sichern
+                {content.ablauf_cta_button || 'Jetzt kostenlosen Termin sichern'}
               </a>
             </div>
           </div>
@@ -260,11 +260,11 @@ export default function KontaktSection() {
                   <div className={i < arr.length - 1 ? 'pb-8' : ''}>
                     <div className="flex items-center" style={{ minHeight: '3.5rem' }}>
                       <h3 className="font-barlow font-bold text-2xl md:text-3xl leading-tight" style={{ color: '#E6E8EB' }}>
-                        {schritt.titel}
+                        {content[`ablauf_schritt${i + 1}_titel`] || schritt.titel}
                       </h3>
                     </div>
                     <p className="font-inter text-base leading-relaxed mt-1" style={{ color: '#7B8792' }}>
-                      {schritt.text}
+                      {content[`ablauf_schritt${i + 1}_text`] || schritt.text}
                     </p>
                   </div>
                 </div>

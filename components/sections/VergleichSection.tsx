@@ -1,12 +1,13 @@
 import Image from 'next/image'
 
 const rows = [
-  { feature: 'Persönlicher Ansprechpartner',            fs: true,  generic: true,  online: true,  selbst: false },
-  { feature: 'Individuelle Ernährungsstrategie',        fs: true,  generic: false, online: false, selbst: true  },
-  { feature: 'Alltagsoptimierte Trainingsroutine',      fs: true,  generic: true,  online: false, selbst: false },
-  { feature: 'Kontinuierliche Strategieoptimierung',    fs: true,  generic: false, online: false, selbst: true  },
   { feature: 'Individuelle DNA-/Bluttests',             fs: true,  generic: false, online: false, selbst: false },
+  { feature: 'Datenbasierte Strategie',                 fs: true,  generic: false, online: false, selbst: false },
+  { feature: 'Kontinuierliche Strategieoptimierung',    fs: true,  generic: false, online: false, selbst: true  },
+  { feature: 'Individuelle Ernährungsstrategie',        fs: true,  generic: false, online: false, selbst: false },
+  { feature: 'Alltagsoptimierte Trainingsroutine',      fs: true,  generic: true,  online: false, selbst: false },
   { feature: '24/7 Chatsupport',                        fs: true,  generic: false, online: false, selbst: false },
+  { feature: 'Persönlicher Ansprechpartner',            fs: true,  generic: true,  online: false, selbst: false },
 ]
 
 const FS_BG    = 'linear-gradient(170deg, #16213A 0%, #0D1829 55%, #091122 100%)'
@@ -62,26 +63,22 @@ function MiniCross() {
   )
 }
 
-export default function VergleichSection() {
+export default function VergleichSection({ content = {} }: { content?: Record<string, string> }) {
   return (
     <section className="relative overflow-hidden" style={{ background: '#060E1F' }}>
-      <div
-        className="absolute top-0 left-0 right-0 h-px"
-        style={{ background: 'linear-gradient(to right, transparent, rgba(201,168,76,0.3), transparent)' }}
-      />
-
       <div className="relative max-w-7xl mx-auto px-4 md:px-8 py-24 md:py-32">
 
         {/* Header */}
         <div className="mb-20 animate-fade-up text-center">
           <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-4" style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-            Der Unterschied
+            {content.vergleich_label || 'Der Unterschied'}
           </p>
           <h2 className="font-barlow font-bold text-3xl md:text-5xl leading-tight" style={{ color: '#E6E8EB' }}>
-            Andere verkaufen dir einen Plan.<br className="hidden md:block" />{' '}
+            {content.vergleich_title_1 || 'Warum du'}{' '}
             <span style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-              Ich stelle dein System ein.
-            </span>
+              {content.vergleich_highlight || 'mit mir'}
+            </span>{' '}
+            {content.vergleich_title_2 || 'zusammenarbeiten solltest'}
           </h2>
         </div>
 
@@ -107,8 +104,11 @@ export default function VergleichSection() {
                     boxShadow: `${FS_GLOW}, 0 -12px 32px rgba(201,168,76,0.14)`,
                   }}
                 >
-                  <span className="flex justify-center">
+                  <span className="flex flex-col items-center gap-2">
                     <Image src="/images/FS-Logo-60x60-transparenter-Hintergrund.png" alt="FS Performance Lab" width={44} height={44} className="rounded-lg object-contain" />
+                    <span className="font-inter font-semibold text-xs leading-tight" style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+                      FS Performance<br />Lab
+                    </span>
                   </span>
                 </th>
 
@@ -133,7 +133,7 @@ export default function VergleichSection() {
                     style={{ borderTop: ROW_LINE, boxShadow: '0 -1px 6px rgba(255,255,255,0.04)' }}
                   >
                     <span className="font-inter text-base md:text-lg font-medium" style={{ color: '#E6E8EB' }}>
-                      {row.feature}
+                      {content[`vergleich_feature${i + 1}`] || row.feature}
                     </span>
                   </td>
 
@@ -204,8 +204,11 @@ export default function VergleichSection() {
                   className="text-center px-0.5 pt-3 pb-2 align-bottom"
                   style={{ background: FS_BG, borderTop: FS_SIDES, borderLeft: FS_SIDES, borderRight: FS_SIDES, borderRadius: '10px 10px 0 0', boxShadow: `${FS_GLOW}, 0 -10px 24px rgba(201,168,76,0.12)` }}
                 >
-                  <span className="flex justify-center">
+                  <span className="flex flex-col items-center gap-1">
                     <Image src="/images/FS-Logo-60x60-transparenter-Hintergrund.png" alt="FS Performance Lab" width={28} height={28} className="rounded-md object-contain" />
+                    <span className="font-inter font-semibold text-[9px] leading-tight block" style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+                      FS Performance<br />Lab
+                    </span>
                   </span>
                 </th>
                 <th className="text-center px-0.5 pb-2 align-bottom">
@@ -225,7 +228,7 @@ export default function VergleichSection() {
                 return (
                   <tr key={i}>
                     <td className="py-3 pr-2" style={{ borderTop: ROW_LINE }}>
-                      <span className="font-inter text-xs font-medium leading-snug" style={{ color: '#E6E8EB' }}>{row.feature}</span>
+                      <span className="font-inter text-xs font-medium leading-snug" style={{ color: '#E6E8EB' }}>{content[`vergleich_feature${i + 1}`] || row.feature}</span>
                     </td>
                     <td
                       className="py-3 text-center"
