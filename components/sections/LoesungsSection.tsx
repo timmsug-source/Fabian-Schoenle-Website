@@ -143,23 +143,39 @@ export default function LoesungsSection({ content = {} }: { content?: Record<str
       } catch {}
     }
 
-    // Skaliert die (fest dimensionierte) Design-Grafik so, dass sie die 16/9-Kartenfläche
-    // vollständig füllt (cover). Die Kartenhöhe bleibt dabei konstant — kein Springen/Zusammenziehen.
+    // Steuert gezielt den Grafik-Container an (fest ~760px breit, sitzt versetzt im
+    // Body mit eigenem Padding) und skaliert dessen INHALTSBEREICH (ohne Padding)
+    // exakt in die Karte — so bleibt oben/unten/seitlich kein Rahmen/Leerraum.
+    const ZOOM = 1.03 // minimaler Overscan gegen Sub-Pixel-Kanten
     const fit = () => {
       try {
         const doc = iframe.contentDocument
+        const win = iframe.contentWindow
         const wrap = iframe.parentElement
-        if (!doc || !doc.body || !wrap) return
-        const cw = Math.max(doc.body.scrollWidth, doc.documentElement.scrollWidth)
-        const ch = Math.max(doc.body.scrollHeight, doc.documentElement.scrollHeight)
-        if (!cw || !ch) return
+        if (!doc || !doc.body || !win || !wrap) return
+        // Renderbreite fixieren, damit der 760er-Container natürlich layoutet
+        iframe.style.width = '920px'
+        iframe.style.height = '520px'
+        const cont = Array.from(doc.body.querySelectorAll<HTMLElement>('*')).find(
+          (el) => el.clientWidth >= 720 && el.clientWidth <= 800 && el.clientHeight >= 300 && el.clientHeight <= 420
+        )
+        if (!cont) return
+        const cs = win.getComputedStyle(cont)
+        const padL = parseFloat(cs.paddingLeft) || 0
+        const padR = parseFloat(cs.paddingRight) || 0
+        const padT = parseFloat(cs.paddingTop) || 0
+        const padB = parseFloat(cs.paddingBottom) || 0
+        const r = cont.getBoundingClientRect()
+        const cLeft = r.left + padL
+        const cTop = r.top + padT
+        const cW = r.width - padL - padR
+        const cH = r.height - padT - padB
+        if (cW <= 0 || cH <= 0) return
         const cardW = wrap.clientWidth
-        const cardH = wrap.clientHeight // aus dem festen 16/9-Verhältnis abgeleitet
-        const scale = Math.max(cardW / cw, cardH / ch) // cover: füllt die Fläche
-        const tx = (cardW - cw * scale) / 2 // horizontal zentrieren
-        const ty = (cardH - ch * scale) / 2 // vertikal zentrieren
-        iframe.style.width = cw + 'px'
-        iframe.style.height = ch + 'px'
+        const cardH = wrap.clientHeight
+        const scale = Math.max(cardW / cW, cardH / cH) * ZOOM
+        const tx = -cLeft * scale + (cardW - cW * scale) / 2
+        const ty = -cTop * scale + (cardH - cH * scale) / 2
         iframe.style.transformOrigin = 'top left'
         iframe.style.transform = `translate(${tx}px, ${ty}px) scale(${scale})`
       } catch {}
@@ -238,8 +254,8 @@ export default function LoesungsSection({ content = {} }: { content?: Record<str
           <Rich as="p" className="font-inter text-lg md:text-xl leading-relaxed max-w-3xl mx-auto" style={{ color: '#A6B0BA' }} html={content.loesung_intro || 'Ich analysiere, was deinen Körper gerade limitiert. Und stelle dann genau die Hebel ein, die wirklich einen Unterschied machen.'} />
         </div>
 
-        {/* 2-Spalten-Raster (3 Reihen) — Grafik oben (60%), Text unten (40%) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 auto-rows-fr mb-16">
+        {/* 3-Spalten-Raster (2 Reihen) — Grafik oben, Text unten */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-fr mb-16">
           {pillars.map((pillar, i) => (
             <div
               key={i}
@@ -251,7 +267,7 @@ export default function LoesungsSection({ content = {} }: { content?: Record<str
             >
               {pillar.animation ? (
                 /* HTML-Animation (iframe) — komplett in die Grafikfläche skaliert */
-                <div className="relative flex-shrink-0 overflow-hidden" style={{ aspectRatio: '1080 / 412' }}>
+                <div className="relative flex-shrink-0 overflow-hidden" style={{ aspectRatio: '640 / 280' }}>
                   <iframe
                     src={iframesVisible ? pillar.animation : undefined}
                     onLoad={(e) => handleIframeLoad(e.currentTarget)}
