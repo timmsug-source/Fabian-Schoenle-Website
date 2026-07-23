@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import { CALENDLY_URL } from '@/lib/constants'
+import { Rich } from '@/components/Rich'
 
 const saeulen = [
   {
@@ -83,9 +84,7 @@ export default function ErgebnisSection({ content = {} }: { content?: Record<str
           <h2 className="font-barlow font-bold text-3xl md:text-5xl leading-tight mb-5" style={{ color: '#E6E8EB' }}>
             {content.ergebnis_title_1 || 'Ergebnisse, die wirklich einen'}<br className="hidden md:block" /> {content.ergebnis_title_2 || 'Unterschied machen!'}
           </h2>
-          <p className="font-inter text-base md:text-lg leading-relaxed max-w-2xl mx-auto" style={{ color: '#7B8792' }}>
-            {content.ergebnis_intro || 'Kein kurzfristiger Effekt. Sondern eine Verschiebung, die du in jedem Bereich deines Lebens spürst.'}
-          </p>
+          <Rich as="p" className="font-inter text-base md:text-lg leading-relaxed max-w-2xl mx-auto" style={{ color: '#7B8792' }} html={content.ergebnis_intro || 'Kein kurzfristiger Effekt. Sondern eine Verschiebung, die du in jedem Bereich deines Lebens spürst.'} />
         </div>
 
         {/* Drei Säulen */}
@@ -116,7 +115,7 @@ export default function ErgebnisSection({ content = {} }: { content?: Record<str
                 {s.punkte.map((p, j) => (
                   <li key={j} className="flex items-start gap-2.5">
                     <Check />
-                    <span className="font-inter text-base leading-relaxed" style={{ color: '#A6B0BA' }}>{content[`ergebnis_col${i + 1}_punkt${j + 1}`] || p}</span>
+                    <Rich className="font-inter text-base leading-relaxed" style={{ color: '#A6B0BA' }} html={content[`ergebnis_col${i + 1}_punkt${j + 1}`] || p} />
                   </li>
                 ))}
               </ul>
@@ -161,12 +160,12 @@ export default function ErgebnisSection({ content = {} }: { content?: Record<str
             >
               &ldquo;
             </span>
-            <p
+            <Rich
+              as="p"
               className="font-barlow font-bold text-2xl md:text-3xl leading-snug mb-6"
               style={{ color: '#E8D49A' }}
-            >
-              {content.ergebnis_quote || 'Das Ziel ist nicht nur ein besserer Körper. Das Ziel ist, dass du wieder auf dem Niveau performst, das du von dir selbst erwartest.'}
-            </p>
+              html={content.ergebnis_quote || 'Das Ziel ist nicht nur ein besserer Körper. Das Ziel ist, dass du wieder auf dem Niveau performst, das du von dir selbst erwartest.'}
+            />
             <div className="mt-5">
               <p className="font-barlow font-bold text-base" style={{ color: '#E6E8EB' }}>{content.ergebnis_quote_author || 'Fabian Schönle'}</p>
               <p className="font-inter text-sm" style={{ color: '#7B8792' }}>{content.ergebnis_quote_role || 'Performance Coach · PhD Chemie'}</p>
@@ -259,9 +258,7 @@ export default function ErgebnisSection({ content = {} }: { content?: Record<str
             <p className="font-barlow font-bold text-xl leading-snug mb-2" style={{ color: '#E6E8EB' }}>
               {content.ergebnis_cta_title || 'Werde die nächste Bewertung.'}
             </p>
-            <p className="font-inter text-sm leading-relaxed mb-6" style={{ color: '#A6B0BA' }}>
-              {content.ergebnis_cta_body || 'Im kostenlosen Erstgespräch finden wir heraus, was dein System gerade limitiert — unverbindlich und ohne Druck.'}
-            </p>
+            <Rich as="p" className="font-inter text-sm leading-relaxed mb-6" style={{ color: '#A6B0BA' }} html={content.ergebnis_cta_body || 'Im kostenlosen Erstgespräch finden wir heraus, was dein System gerade limitiert — unverbindlich und ohne Druck.'} />
             <a
               href={CALENDLY_URL}
               data-open-form="true"

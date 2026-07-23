@@ -2,6 +2,7 @@
 
 import React, { useRef, useCallback, useEffect, useState } from 'react'
 import Image from 'next/image'
+import { Rich } from '@/components/Rich'
 
 type Pillar = {
   icon: React.ReactNode
@@ -234,9 +235,7 @@ export default function LoesungsSection({ content = {} }: { content?: Record<str
           <h2 className="font-barlow font-bold text-3xl md:text-5xl leading-tight mb-4" style={{ color: '#E6E8EB' }}>
             {content.loesung_title_1 || 'Eine datenbasierte Strategie —'}<br className="hidden md:block" /> {content.loesung_title_2 || 'durch einen präzisen und individuellen Ansatz'}
           </h2>
-          <p className="font-inter text-lg md:text-xl leading-relaxed max-w-3xl mx-auto" style={{ color: '#A6B0BA' }}>
-            {content.loesung_intro || 'Ich analysiere, was deinen Körper gerade limitiert. Und stelle dann genau die Hebel ein, die wirklich einen Unterschied machen.'}
-          </p>
+          <Rich as="p" className="font-inter text-lg md:text-xl leading-relaxed max-w-3xl mx-auto" style={{ color: '#A6B0BA' }} html={content.loesung_intro || 'Ich analysiere, was deinen Körper gerade limitiert. Und stelle dann genau die Hebel ein, die wirklich einen Unterschied machen.'} />
         </div>
 
         {/* 2-Spalten-Raster (3 Reihen) — Grafik oben (60%), Text unten (40%) */}
@@ -298,9 +297,7 @@ export default function LoesungsSection({ content = {} }: { content?: Record<str
                   <span className="flex-shrink-0">{pillar.icon}</span>
                   <h3 className="font-barlow font-bold text-xl md:text-2xl" style={{ color: '#E6E8EB' }}>{content[`loesung_pillar${i + 1}_headline`] || pillar.headline}</h3>
                 </div>
-                <p className="font-inter text-sm md:text-base leading-relaxed" style={{ color: '#98A4B1' }}>
-                  {content[`loesung_pillar${i + 1}_body`] || pillar.body}
-                </p>
+                <Rich as="p" className="font-inter text-sm md:text-base leading-relaxed" style={{ color: '#98A4B1' }} html={content[`loesung_pillar${i + 1}_body`] || pillar.body} />
               </div>
             </div>
           ))}

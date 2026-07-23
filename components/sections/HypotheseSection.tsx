@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import { Rich } from '@/components/Rich'
 
 export default function HypotheseSection({ content = {} }: { content?: Record<string, string> }) {
   return (
@@ -53,9 +54,7 @@ export default function HypotheseSection({ content = {} }: { content?: Record<st
               style={{ height: 1, background: 'linear-gradient(to right, rgba(201,168,76,0.4), transparent)' }}
             />
 
-            <p className="font-inter text-base md:text-lg leading-relaxed" style={{ color: '#A6B0BA' }}>
-              {content.wahrheit_body || 'Leistungsorientierte Menschen wollen ihr Problem mit mehr Disziplin lösen, weil sie das aus ihrem beruflichen Leben gewohnt sind. Dadurch wählen sie radikale Ansätze, die zu Heißhunger und Jo-Jo-Effekt führen — und dann entsteht Frustration, die sich durch mehr Stress und damit ein hormonelles Ungleichgewicht (Testosteron sinkt usw.) äußert. Die meisten lassen dann einige Monate vergehen und fangen mit dem nächsten Motivationsschub und noch mehr Disziplin wieder von vorne an…'}
-            </p>
+            <Rich as="p" className="font-inter text-base md:text-lg leading-relaxed" style={{ color: '#A6B0BA' }} html={content.wahrheit_body || 'Leistungsorientierte Menschen wollen ihr Problem mit mehr Disziplin lösen, weil sie das aus ihrem beruflichen Leben gewohnt sind. Dadurch wählen sie radikale Ansätze, die zu Heißhunger und Jo-Jo-Effekt führen — und dann entsteht Frustration, die sich durch mehr Stress und damit ein hormonelles Ungleichgewicht (Testosteron sinkt usw.) äußert. Die meisten lassen dann einige Monate vergehen und fangen mit dem nächsten Motivationsschub und noch mehr Disziplin wieder von vorne an…'} />
 
           </div>
 
@@ -91,12 +90,12 @@ export default function HypotheseSection({ content = {} }: { content?: Record<st
             >
               &ldquo;
             </span>
-            <p
+            <Rich
+              as="p"
               className="font-barlow font-bold text-2xl md:text-3xl leading-snug mb-6"
               style={{ color: '#E8D49A' }}
-            >
-              {content.wahrheit_quote || 'Wir nutzen die uns zur Verfügung stehenden Ressourcen, um neben Job, Familie und Alltag das Beste rauszuholen.'}
-            </p>
+              html={content.wahrheit_quote || 'Wir nutzen die uns zur Verfügung stehenden Ressourcen, um neben Job, Familie und Alltag das Beste rauszuholen.'}
+            />
             <div>
               <p className="font-barlow font-bold text-base" style={{ color: '#E6E8EB' }}>{content.wahrheit_quote_author || 'Fabian Schönle'}</p>
               <p className="font-inter text-sm" style={{ color: '#7B8792' }}>{content.wahrheit_quote_role || 'Performance Coach · PhD Chemie'}</p>

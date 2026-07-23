@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import { CALENDLY_URL } from '@/lib/constants'
+import { Rich } from '@/components/Rich'
 
 const credentials = [
   {
@@ -93,16 +94,16 @@ export default function UeberMichSection({ content = {} }: { content?: Record<st
 
             <div className="flex flex-col gap-5">
               {absaetze.map((text, i) => (
-                <p
+                <Rich
                   key={i}
+                  as="p"
                   className="font-inter text-base leading-relaxed"
                   style={{
                     color: i === 2 ? '#E6E8EB' : '#A6B0BA',
                     fontWeight: i === 2 ? 600 : 400,
                   }}
-                >
-                  {content[`uebermich_para${i + 1}`] || text}
-                </p>
+                  html={content[`uebermich_para${i + 1}`] || text}
+                />
               ))}
             </div>
 

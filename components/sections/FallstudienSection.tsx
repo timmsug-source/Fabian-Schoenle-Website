@@ -3,6 +3,7 @@
 import Image from 'next/image'
 import { useRef, useState } from 'react'
 import { CALENDLY_URL } from '@/lib/constants'
+import { Rich } from '@/components/Rich'
 
 const fallstudien = [
   {
@@ -234,7 +235,7 @@ export default function FallstudienSection({ content = {} }: { content?: Record<
                             <defs><linearGradient id={`fx-${i}`} x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#C9A84C"/><stop offset="100%" stopColor="#E8D49A"/></linearGradient></defs>
                             <path d="M8 8L30 30M30 8L8 30" stroke={`url(#fx-${i})`} strokeWidth="4" strokeLinecap="round"/>
                           </svg>
-                          {content[`fallstudien${idx + 1}_vorher_punkt${i + 1}`] || p}
+                          <Rich html={content[`fallstudien${idx + 1}_vorher_punkt${i + 1}`] || p} />
                         </li>
                       ))}
                     </ul>
@@ -254,7 +255,7 @@ export default function FallstudienSection({ content = {} }: { content?: Record<
                             <defs><linearGradient id={`fck-${i}`} x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#0E9E6E"/><stop offset="45%" stopColor="#34D399"/><stop offset="75%" stopColor="#A7F3D0"/><stop offset="100%" stopColor="#34D399"/></linearGradient></defs>
                             <polygon points="5,21 10.38,24.62 14,27.5 22.55,18.18 33,8 24.45,19.82 14,32.5 8.62,26.38" fill={`url(#fck-${i})`}/>
                           </svg>
-                          {content[`fallstudien${idx + 1}_nachher_punkt${i + 1}`] || p}
+                          <Rich html={content[`fallstudien${idx + 1}_nachher_punkt${i + 1}`] || p} />
                         </li>
                       ))}
                     </ul>

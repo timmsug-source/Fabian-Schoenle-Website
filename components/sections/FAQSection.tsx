@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { Rich } from '@/components/Rich'
 
 const faqs = [
   {
@@ -101,9 +102,7 @@ export default function FAQSection({ content = {} }: { content?: Record<string, 
               {/* Antwort */}
               {offen === i && (
                 <div className="px-5 pb-5">
-                  <p className="font-inter text-sm leading-relaxed" style={{ color: '#A6B0BA' }}>
-                    {content[`faq${i + 1}_antwort`] || faq.antwort}
-                  </p>
+                  <Rich as="p" className="font-inter text-sm leading-relaxed" style={{ color: '#A6B0BA' }} html={content[`faq${i + 1}_antwort`] || faq.antwort} />
                 </div>
               )}
             </div>

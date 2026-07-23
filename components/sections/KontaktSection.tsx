@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { CALENDLY_URL } from '@/lib/constants'
+import { Rich } from '@/components/Rich'
 
 const punkte = [
   {
@@ -101,12 +102,8 @@ export default function KontaktSection({ content = {} }: { content?: Record<stri
             <h2 className="font-barlow font-bold text-3xl md:text-5xl leading-tight mb-5" style={{ color: '#E6E8EB' }}>
               {content.kontakt_title || 'Finde heraus, was dein System gerade limitiert.'}
             </h2>
-            <p className="font-inter text-base md:text-lg leading-relaxed mb-4" style={{ color: '#7B8792' }}>
-              {content.kontakt_intro1 || 'Kein Verkaufsgespräch. Kein Vertrag. Nur 30 Minuten, in denen wir gemeinsam analysieren, wo der Hebel bei dir liegt.'}
-            </p>
-            <p className="font-inter text-sm leading-relaxed mb-10" style={{ color: '#7B8792' }}>
-              {content.kontakt_intro2 || 'Der erste Schritt ist eine kostenlose Performance-Analyse. Du bekommst danach Klarheit darüber, warum dein Körper gerade nicht so reagiert wie du es willst — und was konkret dagegen getan werden kann.'}
-            </p>
+            <Rich as="p" className="font-inter text-base md:text-lg leading-relaxed mb-4" style={{ color: '#7B8792' }} html={content.kontakt_intro1 || 'Kein Verkaufsgespräch. Kein Vertrag. Nur 30 Minuten, in denen wir gemeinsam analysieren, wo der Hebel bei dir liegt.'} />
+            <Rich as="p" className="font-inter text-sm leading-relaxed mb-10" style={{ color: '#7B8792' }} html={content.kontakt_intro2 || 'Der erste Schritt ist eine kostenlose Performance-Analyse. Du bekommst danach Klarheit darüber, warum dein Körper gerade nicht so reagiert wie du es willst — und was konkret dagegen getan werden kann.'} />
 
             {/* Einwand-Punkte */}
             <div className="flex flex-col gap-3 mb-10">
@@ -115,7 +112,7 @@ export default function KontaktSection({ content = {} }: { content?: Record<stri
                   <span className="flex-shrink-0 mt-0.5">{p.icon}</span>
                   <div>
                     <p className="font-inter text-sm font-semibold" style={{ color: '#E6E8EB' }}>{content[`kontakt_trust${i + 1}_titel`] || p.titel}</p>
-                    <p className="font-inter text-xs leading-relaxed mt-0.5" style={{ color: '#7B8792' }}>{content[`kontakt_trust${i + 1}_text`] || p.text}</p>
+                    <Rich as="p" className="font-inter text-xs leading-relaxed mt-0.5" style={{ color: '#7B8792' }} html={content[`kontakt_trust${i + 1}_text`] || p.text} />
                   </div>
                 </div>
               ))}
@@ -263,9 +260,7 @@ export default function KontaktSection({ content = {} }: { content?: Record<stri
                         {content[`ablauf_schritt${i + 1}_titel`] || schritt.titel}
                       </h3>
                     </div>
-                    <p className="font-inter text-base leading-relaxed mt-1" style={{ color: '#7B8792' }}>
-                      {content[`ablauf_schritt${i + 1}_text`] || schritt.text}
-                    </p>
+                    <Rich as="p" className="font-inter text-base leading-relaxed mt-1" style={{ color: '#7B8792' }} html={content[`ablauf_schritt${i + 1}_text`] || schritt.text} />
                   </div>
                 </div>
               ))}

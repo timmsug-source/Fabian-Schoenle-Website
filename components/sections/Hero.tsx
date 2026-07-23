@@ -2,6 +2,7 @@
 
 import { useRef, useState } from 'react'
 import { CALENDLY_URL } from '@/lib/constants'
+import { Rich } from '@/components/Rich'
 
 const tickerItems = [
   { name: 'Matthias K.', role: 'Director Global Aftermarket', result: '6 kg' },
@@ -95,12 +96,12 @@ export default function Hero({ content = {} }: { content?: Record<string, string
             </span>{' '}
             {content.hero_title_2 || 'erreichen'}
           </h1>
-          <p
+          <Rich
+            as="p"
             className="font-inter text-lg md:text-xl leading-relaxed max-w-5xl mx-auto"
             style={{ color: '#AEB5BE' }}
-          >
-            {content.hero_subtitle || 'Ich verhelfe dir zu mehr Energie und Fokus im Alltag und lasse dich wieder mit einem selbstbewussten Blick in den Spiegel schauen.'}
-          </p>
+            html={content.hero_subtitle || 'Ich verhelfe dir zu mehr Energie und Fokus im Alltag und lasse dich wieder mit einem selbstbewussten Blick in den Spiegel schauen.'}
+          />
         </div>
 
         {/* Video links — Bullets rechts */}
@@ -166,9 +167,7 @@ export default function Hero({ content = {} }: { content?: Record<string, string
                       {content[`hero_bullet${i + 1}_title`] || item.headline}
                     </p>
                   </div>
-                  <p className="font-inter text-sm md:text-base leading-relaxed mt-1 md:mt-2 pl-[44px] md:pl-[54px]" style={{ color: '#AEB5BE' }}>
-                    {content[`hero_bullet${i + 1}_body`] || item.body}
-                  </p>
+                  <Rich as="p" className="font-inter text-sm md:text-base leading-relaxed mt-1 md:mt-2 pl-[44px] md:pl-[54px]" style={{ color: '#AEB5BE' }} html={content[`hero_bullet${i + 1}_body`] || item.body} />
                 </li>
               ))}
             </ul>
