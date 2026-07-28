@@ -16,15 +16,15 @@ const tickerItems = [
 const bullets = [
   {
     headline: 'Datenbasierte Strategie',
-    body: 'Durch individuelle DNA- & Blutwerte identifizieren wir die Hebel, die bei dir wirklich entscheidend sind.',
+    body: 'Über 50 Blut- und DNA-Marker zeigen, welche 3 bis 4 Hebel bei dir wirklich zählen. Kein Rätselraten.',
   },
   {
-    headline: 'Erlange deine körperliche & mentale Bestform',
-    body: 'Durch individuelle Trainings- und Ernährungsansätze spürst du, wie sich deine Fitness kontinuierlich verbessert.',
+    headline: 'Körperliche und mentale Bestform',
+    body: 'Durchschnittlich 12 kg weniger Körpergewicht in 16 Wochen – und spürbar mehr Fokus und Energie im Alltag.',
   },
   {
-    headline: 'Erziele nachhaltige Ergebnisse',
-    body: 'Durch eine logisch nachvollziehbare Methode entstehen Ergebnisse, die langfristig bestehen.',
+    headline: 'Nachhaltige Ergebnisse',
+    body: 'Bewegungs- und Ernährungsroutinen, die zu deinem Terminkalender passen.',
   },
 ]
 
@@ -90,17 +90,17 @@ export default function Hero({ content = {} }: { content?: Record<string, string
             className="font-barlow font-bold text-4xl md:text-5xl lg:text-6xl leading-[1.05] mb-6"
             style={{ color: '#E6E8EB' }}
           >
-            {content.hero_title_1 || 'Als leistungsorientierter Mann trotz vollem Kalender'}{' '}
+            {content.hero_title_1 || 'Ich helfe dir, trotz vollem Alltag'}{' '}
             <span style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-              {content.hero_title_highlight || 'mentale und körperliche Bestform'}
+              {content.hero_title_highlight || 'körperliche Bestform und maximale Performance'}
             </span>{' '}
-            {content.hero_title_2 || 'erreichen'}
+            {content.hero_title_2 || 'zu erreichen.'}
           </h1>
           <Rich
             as="p"
             className="font-inter text-lg md:text-xl leading-relaxed max-w-5xl mx-auto"
             style={{ color: '#AEB5BE' }}
-            html={content.hero_subtitle || 'Ich verhelfe dir zu mehr Energie und Fokus im Alltag und lasse dich wieder mit einem selbstbewussten Blick in den Spiegel schauen.'}
+            html={content.hero_subtitle || 'Datenbasierter Ansatz auf Basis deiner Blut- und DNA-Werte. In 4 Monaten zu stabiler Energie, einem klaren Kopf und durchschnittlich 12 kg weniger Körpergewicht – ohne Job, Familie oder Freunde hintenanzustellen.'}
           />
         </div>
 

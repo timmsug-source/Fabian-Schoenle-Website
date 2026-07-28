@@ -3,7 +3,7 @@ import { buildMetadata } from '@/lib/metadata'
 import LocalHero from '@/components/sections/LocalHero'
 import ReviewsSection from '@/components/sections/ReviewsSection'
 import ProblemSection from '@/components/sections/ProblemSection'
-import SolutionSection from '@/components/sections/SolutionSection'
+import LoesungsSection from '@/components/sections/LoesungsSection'
 import LeistungenSection from '@/components/sections/LeistungenSection'
 import Testimonials from '@/components/sections/Testimonials'
 import ComparisonTable from '@/components/sections/ComparisonTable'
@@ -101,46 +101,30 @@ export default function ErnaehrungsberatungKarlsruhePage() {
       {/* 2 — Das Problem mit klassischer Ernährungsberatung */}
       <ProblemSection
         label="Das Problem"
-        headline="Warum die meisten Ernährungspläne scheitern."
+        headline="Warum die meisten Ernährungspläne"
+        headlineAccent="scheitern."
         intro="Es liegt nicht an deiner Disziplin. Es liegt daran, dass generische Pläne deine individuelle Biologie ignorieren — und damit raten müssen, was dein Körper wirklich braucht."
         points={[
           {
-            headline: 'Allgemein statt individuell',
+            wrong: 'Allgemein',
+            right: 'individuell',
             body: 'Standard-Empfehlungen basieren auf Durchschnittswerten. Dein Stoffwechsel ist aber keiner.',
           },
           {
-            headline: 'Symptome statt Ursachen',
+            wrong: 'Symptome',
+            right: 'Ursachen',
             body: 'Die meisten Beratungen behandeln, was du spürst — nicht, was deine Blutwerte tatsächlich zeigen.',
           },
           {
-            headline: 'Willenskraft statt System',
+            wrong: 'Willenskraft',
+            right: 'System',
             body: 'Wer nur auf Verzicht setzt, kämpft gegen den eigenen Körper. Ein eingestelltes System braucht keinen Kampf.',
           },
         ]}
       />
 
-      {/* 3 — Dein Ansatz: Ernährung trifft Biologie */}
-      <SolutionSection
-        label="Dein Ansatz"
-        headline="Ernährung trifft Biologie — in drei Schritten."
-        steps={[
-          {
-            number: '01',
-            headline: 'Analysieren',
-            body: 'Wir erheben ein umfassendes Blutbild und deine DNA-Grundlage — weit über den Standard hinaus. Das gibt uns präzise Einblicke in dein metabolisches System.',
-          },
-          {
-            number: '02',
-            headline: 'Verstehen',
-            body: 'Fabian wertet die Daten wissenschaftlich aus und identifiziert Defizite, Unverträglichkeiten und konkretes Optimierungspotenzial.',
-          },
-          {
-            number: '03',
-            headline: 'Umsetzen',
-            body: 'Du erhältst ein individuelles Protokoll — keine allgemeinen Empfehlungen, sondern konkrete Anweisungen für deine Biologie.',
-          },
-        ]}
-      />
+      {/* 3 — Ablauf/Methode: gleiche Sektion wie auf der Startseite */}
+      <LoesungsSection />
 
       {/* 4 — Was ich konkret bekomme */}
       <LeistungenSection
@@ -165,7 +149,7 @@ export default function ErnaehrungsberatungKarlsruhePage() {
             body: 'Dein System wird nachjustiert, sobald sich deine Werte verändern.',
           },
           {
-            headline: 'Direkter Draht zu Fabian',
+            headline: 'Direkter Draht zu mir',
             body: 'Persönliche Betreuung statt einer App, die dich allein lässt.',
           },
         ]}
@@ -186,7 +170,7 @@ export default function ErnaehrungsberatungKarlsruhePage() {
           { criterion: 'Grundlage', standard: 'Schätzungen & Fragebögen', fsPerformance: 'Blutwerte & DNA-Analyse' },
           { criterion: 'Plan', standard: 'Ein Plan für alle', fsPerformance: 'Ein Protokoll für deine Biologie' },
           { criterion: 'Fokus', standard: 'Kurzfristige Diät', fsPerformance: 'Dauerhaft eingestelltes System' },
-          { criterion: 'Betreuung', standard: 'Standard-Vorlagen', fsPerformance: 'Persönlich von Fabian' },
+          { criterion: 'Betreuung', standard: 'Standard-Vorlagen', fsPerformance: 'Persönlich von mir' },
           { criterion: 'Ziel', standard: 'Zahl auf der Waage', fsPerformance: 'Körperkomposition & Energie' },
         ]}
       />

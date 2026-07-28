@@ -35,15 +35,6 @@ function IconStarLine() {
   )
 }
 
-function IconTrend() {
-  return (
-    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#E8D49A" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M3 17l6-6 4 4 8-8" />
-      <path d="M17 7h4v4" />
-    </svg>
-  )
-}
-
 function IconShield() {
   return (
     <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#E8D49A" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -71,9 +62,8 @@ const reviewShots = [
 ]
 
 const stats = [
-  { icon: <IconGroup />, value: '200+', label: 'Klient:innen', sub: 'bereits begleitet' },
+  { icon: <IconGroup />, value: '200+', label: 'Klienten', sub: 'bereits begleitet' },
   { icon: <IconStarLine />, value: '4,9 / 5', label: 'Durchschnittliche Bewertung', sub: 'auf Basis echter Rezensionen' },
-  { icon: <IconTrend />, value: '98 %', label: 'Weiterempfehlung', sub: 'durch meine Klient:innen' },
   { icon: <IconShield />, value: '100 %', label: 'Individuell & datenbasiert', sub: 'keine Standardpläne' },
 ]
 
@@ -116,11 +106,11 @@ export default function ReviewsSection() {
           border: '1px solid rgba(201,168,76,0.15)',
         }}
       >
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3">
           {stats.map((s, i) => (
             <div
               key={i}
-              className={`flex items-center gap-4 px-2 py-4 lg:py-0 ${i > 0 ? 'lg:border-l' : ''}`}
+              className={`flex items-center gap-4 px-6 md:px-10 py-4 lg:py-0 ${i > 0 ? 'lg:border-l' : ''}`}
               style={i > 0 ? { borderColor: 'rgba(201,168,76,0.18)' } : undefined}
             >
               <span

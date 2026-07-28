@@ -52,7 +52,7 @@ export default function PersonalCoachingOnlinePage() {
           {
             number: '01',
             headline: 'DNA & Blut',
-            body: 'Heim-Testkit für Blutanalyse und DNA. Auswertung durch Fabian — wissenschaftlich, nicht algorithmisch.',
+            body: 'Heim-Testkit für Blutanalyse und DNA. Auswertung durch mich — wissenschaftlich, nicht algorithmisch.',
           },
           {
             number: '02',

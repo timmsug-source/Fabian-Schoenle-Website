@@ -269,7 +269,7 @@ export default function LocalHero({
           </a>
           <p className="mt-3 flex items-center gap-2 font-inter text-xs" style={{ color: '#7B8792' }}>
             <IconClock />
-            Call mit Fabian persönlich · 30 Minuten · unverbindlich
+            Call mit mir persönlich · 30 Minuten · unverbindlich
           </p>
 
         </div>
