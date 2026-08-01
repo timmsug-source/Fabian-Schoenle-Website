@@ -119,7 +119,6 @@ export default function ErnaehrungsberatungKarlsruhePage() {
         videoId="8EiIoNZQ42A"
         videoPosterSrc="/images/video-thumb-8EiIoNZQ42A.jpg"
         videoTitle="Fabian Schönle — Ernährungsberatung Karlsruhe"
-        videoLabel="Sieh selbst"
         videoHeadline="Wie es stattdessen funktioniert."
         videoBody="Ich erkläre dir, warum Diäten immer wieder am selben Punkt scheitern – und was du stattdessen brauchst. Hier erfährst du, was hinter dem datenbasierten Ansatz steckt."
         videoPoints={[
