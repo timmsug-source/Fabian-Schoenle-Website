@@ -46,18 +46,26 @@ function IconShield() {
 
 /* ---------- Daten ---------- */
 
+// Breite und Höhe entsprechen den Originaldateien — dadurch bekommt jede Karte
+// exakt die Höhe ihres Screenshots, ohne Leerraum oben und unten.
 const reviewShots = [
-  {
-    src: '/images/FS-Rezension-Robert.jpg',
-    alt: 'LinkedIn-Rezension von Robert Raschkov, Geschäftsführer',
-  },
-  {
-    src: '/images/FS-Rezension-Matthias.jpg',
-    alt: 'LinkedIn-Rezension von Matthias Karlin, Director Global Aftermarket',
-  },
   {
     src: '/images/FS-Rezension-Trustpilot.jpg',
     alt: 'Trustpilot-Rezension: 15 kg abgenommen und volle Energie zurück',
+    width: 1713,
+    height: 918,
+  },
+  {
+    src: '/images/Bewertungen 2026-06-24 um 12.45.57.png',
+    alt: 'Google-Rezension von F. Fechner: 13 kg in drei Monaten abgenommen',
+    width: 1012,
+    height: 502,
+  },
+  {
+    src: '/images/Bewertungen 2026-06-24 um 12.44.32.png',
+    alt: 'Google-Rezension von Sabine Greiter: 10 kg in drei Monaten abgenommen',
+    width: 1036,
+    height: 506,
   },
 ]
 
@@ -82,18 +90,17 @@ export default function ReviewsSection() {
       </div>
 
       {/* Rezensions-Screenshots */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
         {reviewShots.map((s, i) => (
           <div key={i} className="rounded-2xl overflow-hidden" style={cardGlow}>
-            <div className="relative w-full aspect-[1.9]" style={{ background: '#111114' }}>
-              <Image
-                src={s.src}
-                alt={s.alt}
-                fill
-                className="object-contain"
-                sizes="(max-width: 1024px) 100vw, 33vw"
-              />
-            </div>
+            <Image
+              src={s.src}
+              alt={s.alt}
+              width={s.width}
+              height={s.height}
+              className="w-full h-auto block"
+              sizes="(max-width: 1024px) 100vw, 33vw"
+            />
           </div>
         ))}
       </div>
@@ -103,7 +110,8 @@ export default function ReviewsSection() {
         className="mt-8 rounded-2xl px-4 py-8 md:px-8"
         style={{
           background: 'linear-gradient(135deg, rgba(13,24,41,0.6) 0%, rgba(9,17,34,0.6) 100%)',
-          border: '1px solid rgba(201,168,76,0.15)',
+          border: '1px solid rgba(201,168,76,0.3)',
+          boxShadow: '0 0 24px rgba(201,168,76,0.14), inset 0 0 24px rgba(201,168,76,0.04)',
         }}
       >
         <div className="grid grid-cols-1 sm:grid-cols-3">

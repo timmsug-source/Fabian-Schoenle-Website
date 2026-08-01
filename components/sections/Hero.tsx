@@ -190,7 +190,7 @@ export default function Hero({ content = {} }: { content?: Record<string, string
                 {content.hero_cta || 'Performance Analyse buchen'}
               </a>
               <p className="mt-3 font-inter text-xs" style={{ color: '#7B8792' }}>
-                {content.hero_cta_note || 'Call mit mir persönlich · 30 Minuten'}
+                {content.hero_cta_note || 'Call mit mir persönlich · 20 Minuten'}
               </p>
             </div>
           </div>

@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import { CALENDLY_URL } from '@/lib/constants'
+import { BEWERTUNGEN } from '@/lib/bewertungen'
 import { Rich } from '@/components/Rich'
 
 const saeulen = [
@@ -206,23 +207,7 @@ export default function ErgebnisSection({ content = {} }: { content?: Record<str
         </div>
 
         <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 animate-fade-up" style={{ animationDelay: '360ms' }}>
-          {[
-            // Neue Rezensionen (dunkler Hintergrund) zuerst
-            '/images/FS-Rezension-Gregory.jpg',
-            '/images/FS-Rezension-Robert.jpg',
-            '/images/FS-Rezension-Matthias.jpg',
-            '/images/FS-Rezension-Hans-Herbert.jpg',
-            '/images/FS-Rezension-Trustpilot.jpg',
-            // Google-Rezensionen
-            '/images/Bewertungen 2026-06-24 um 12.44.32.png',
-            '/images/Bewertungen 2026-06-24 um 12.45.57.png',
-            '/images/Bewertungen 2026-06-24 um 12.46.24.png',
-            '/images/Bewertungen 2026-06-24 um 12.47.39.png',
-            '/images/Bewertungen 2026-06-24 um 12.47.52.png',
-            '/images/Bewertungen 2026-06-24 um 12.48.33.png',
-            '/images/Bewertungen 2026-06-24 um 12.48.47.png',
-            '/images/Bewertungen 2026-06-24 um 12.48.57.png',
-          ].map((src, i) => (
+          {BEWERTUNGEN.map((src, i) => (
             <div
               key={i}
               className={`break-inside-avoid mb-4 rounded-2xl overflow-hidden ${i > 2 && !alleZeigen ? 'hidden sm:block' : ''}`}

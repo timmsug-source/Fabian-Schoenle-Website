@@ -61,13 +61,12 @@ export default function HypotheseSection({ content = {} }: { content?: Record<st
           {/* Right: Kreislauf-Grafik */}
           <div className="w-full lg:w-[460px] flex-shrink-0">
             <Image
-              src="/images/Kreislauf_transparent.svg"
-              alt="Der Teufelskreis: Mehr Disziplin, radikale Ansätze, Heißhunger, Jo-Jo-Effekt, Frustration, Stress und hormonelle Disbalance"
+              src="/images/Waage transparent2.png"
+              alt="Der Teufelskreis: Mehr Disziplin, radikale Ansätze, Heißhunger, Jo-Jo-Effekt, Frustration, Mehr Stress"
               width={717}
               height={717}
               className="w-full h-auto"
               sizes="(max-width: 1024px) 100vw, 460px"
-              unoptimized
             />
           </div>
 

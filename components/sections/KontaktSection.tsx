@@ -24,7 +24,7 @@ const punkte = [
         <path d="M18 10 L18 18 L24 22" stroke="url(#kk1)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
       </svg>
     ),
-    titel: '30 Minuten — kein Stunden-Call',
+    titel: '20 Minuten — kein Stunden-Call',
     text: 'Respekt für deine Zeit. Wir kommen schnell auf den Punkt.',
   },
   {
@@ -41,7 +41,22 @@ const punkte = [
   },
 ]
 
-export default function KontaktSection({ content = {} }: { content?: Record<string, string> }) {
+type KontaktSectionProps = {
+  content?: Record<string, string>
+  /* Seitenspezifische Texte — haben Vorrang vor den CMS-Feldern der Startseite */
+  label?: string
+  title?: string
+  intro1?: string
+  intro2?: string
+}
+
+export default function KontaktSection({
+  content = {},
+  label,
+  title,
+  intro1,
+  intro2,
+}: KontaktSectionProps) {
   const [widgetHeight, setWidgetHeight] = useState(500)
   const [fills, setFills] = useState<number[]>([])
   const ablaufRef = useRef<HTMLDivElement>(null)
@@ -97,13 +112,13 @@ export default function KontaktSection({ content = {} }: { content?: Record<stri
           {/* Linke Spalte — Text + Trust */}
           <div className="animate-fade-up lg:sticky lg:top-28 lg:self-start">
             <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-4" style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-              {content.kontakt_label || 'High-Performance Coaching starten'}
+              {label || content.kontakt_label || 'High-Performance Coaching starten'}
             </p>
             <h2 className="font-barlow font-bold text-3xl md:text-5xl leading-tight mb-5" style={{ color: '#E6E8EB' }}>
-              {content.kontakt_title || 'Finde heraus, was dein System gerade limitiert.'}
+              {title || content.kontakt_title || 'Finde heraus, was dein System gerade limitiert.'}
             </h2>
-            <Rich as="p" className="font-inter text-base md:text-lg leading-relaxed mb-4" style={{ color: '#7B8792' }} html={content.kontakt_intro1 || 'Kein Verkaufsgespräch. Kein Vertrag. Nur 30 Minuten, in denen wir gemeinsam analysieren, wo der Hebel bei dir liegt.'} />
-            <Rich as="p" className="font-inter text-sm leading-relaxed mb-10" style={{ color: '#7B8792' }} html={content.kontakt_intro2 || 'Der erste Schritt ist eine kostenlose Performance-Analyse. Du bekommst danach Klarheit darüber, warum dein Körper gerade nicht so reagiert wie du es willst — und was konkret dagegen getan werden kann.'} />
+            <Rich as="p" className="font-inter text-base md:text-lg leading-relaxed mb-4" style={{ color: '#7B8792' }} html={intro1 || content.kontakt_intro1 || 'Kein Verkaufsgespräch. Kein Vertrag. Nur 20 Minuten, in denen wir gemeinsam analysieren, wo der Hebel bei dir liegt.'} />
+            <Rich as="p" className="font-inter text-sm leading-relaxed mb-10" style={{ color: '#7B8792' }} html={intro2 || content.kontakt_intro2 || 'Der erste Schritt ist eine kostenlose Performance-Analyse. Du bekommst danach Klarheit darüber, warum dein Körper gerade nicht so reagiert wie du es willst — und was konkret dagegen getan werden kann.'} />
 
             {/* Einwand-Punkte */}
             <div className="flex flex-col gap-3 mb-10">
@@ -208,7 +223,7 @@ export default function KontaktSection({ content = {} }: { content?: Record<stri
                     </svg>
                   ),
                   titel: 'Termin sichern',
-                  text: 'Wähle einen freien Slot direkt im Kalender — 30 Minuten, online, ohne Vorgespräch. Kein Verkaufsgespräch, kein Smalltalk. Du buchst einen konkreten Analysetermin.',
+                  text: 'Wähle einen freien Slot direkt im Kalender — 20 Minuten, online, ohne Vorgespräch. Kein Verkaufsgespräch, kein Smalltalk. Du buchst einen konkreten Analysetermin.',
                 },
                 {
                   icon: (

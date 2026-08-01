@@ -39,6 +39,7 @@ public/videos/*.mp4
 !public/videos/vsl.mp4
 !public/videos/Robert_Testimonial_final.mp4
 !public/videos/Richard_Testimonial_final.mp4
+!public/videos/Richard_Testimonial_kurz.mp4
 # Versehentliche/Quell-Videos im Bilder-Ordner nie committen (z. B. große .mov-Rohdateien)
 public/images/*.mov
 public/images/*.mp4

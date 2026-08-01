@@ -34,7 +34,22 @@ const faqs = [
   },
 ]
 
-export default function FAQSection({ content = {} }: { content?: Record<string, string> }) {
+type FaqEintrag = { frage: string; antwort: string }
+
+type FAQSectionProps = {
+  content?: Record<string, string>
+  /** Eigene Fragen — z. B. auf Unterseiten. Ohne Angabe greifen die Fragen der Startseite. */
+  items?: FaqEintrag[]
+  label?: string
+  title1?: string
+  title2?: string
+}
+
+export default function FAQSection({ content = {}, items, label, title1, title2 }: FAQSectionProps) {
+  // Eigene Fragen haben Vorrang. Die CMS-Felder (faq1_frage …) gehören zur
+  // Startseite und dürfen seitenspezifische Fragen nicht überschreiben.
+  const eintraege = items ?? faqs
+  const ausCms = !items
   const [offen, setOffen] = useState<number | null>(null)
   const [formOffen, setFormOffen] = useState(false)
   const [nachricht, setNachricht] = useState('')
@@ -53,16 +68,21 @@ export default function FAQSection({ content = {} }: { content?: Record<string, 
         {/* Header */}
         <div className="mb-12 animate-fade-up">
           <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-4" style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-            {content.faq_label || 'Häufige Fragen'}
+            {label || content.faq_label || 'Häufige Fragen'}
           </p>
           <h2 className="font-barlow font-bold text-3xl md:text-5xl leading-tight" style={{ color: '#E6E8EB' }}>
-            {content.faq_title_1 || 'Fragen, die in der'}<br className="hidden md:block" /> {content.faq_title_2 || 'Vergangenheit gestellt wurden'}
+            {title1 || content.faq_title_1 || 'Fragen, die in der'}
+            {(title2 || !title1) && (
+              <>
+                <br className="hidden md:block" /> {title2 || content.faq_title_2 || 'Vergangenheit gestellt wurden'}
+              </>
+            )}
           </h2>
         </div>
 
         {/* Accordion */}
         <div className="flex flex-col gap-3 animate-fade-up" style={{ animationDelay: '60ms' }}>
-          {faqs.map((faq, i) => (
+          {eintraege.map((faq, i) => (
             <div
               key={i}
               className="rounded-xl overflow-hidden"
@@ -81,7 +101,7 @@ export default function FAQSection({ content = {} }: { content?: Record<string, 
                   className="font-inter font-semibold text-base leading-snug flex-1"
                   style={{ color: offen === i ? '#E6E8EB' : '#BBC1CA' }}
                 >
-                  {content[`faq${i + 1}_frage`] || faq.frage}
+                  {(ausCms && content[`faq${i + 1}_frage`]) || faq.frage}
                 </span>
 
                 {/* Gold Plus/Minus */}
@@ -102,7 +122,7 @@ export default function FAQSection({ content = {} }: { content?: Record<string, 
               {/* Antwort */}
               {offen === i && (
                 <div className="px-5 pb-5">
-                  <Rich as="p" className="font-inter text-sm leading-relaxed" style={{ color: '#A6B0BA' }} html={content[`faq${i + 1}_antwort`] || faq.antwort} />
+                  <Rich as="p" className="font-inter text-sm leading-relaxed" style={{ color: '#A6B0BA' }} html={(ausCms && content[`faq${i + 1}_antwort`]) || faq.antwort} />
                 </div>
               )}
             </div>

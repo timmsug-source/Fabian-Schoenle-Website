@@ -3,12 +3,15 @@ import { buildMetadata } from '@/lib/metadata'
 import LocalHero from '@/components/sections/LocalHero'
 import ReviewsSection from '@/components/sections/ReviewsSection'
 import ProblemSection from '@/components/sections/ProblemSection'
-import LoesungsSection from '@/components/sections/LoesungsSection'
 import LeistungenSection from '@/components/sections/LeistungenSection'
-import Testimonials from '@/components/sections/Testimonials'
-import ComparisonTable from '@/components/sections/ComparisonTable'
-import CTASection from '@/components/sections/CTASection'
-import FAQ from '@/components/sections/FAQ'
+import SolutionSection from '@/components/sections/SolutionSection'
+import VideoTestimonials from '@/components/sections/VideoTestimonials'
+import CTABanner from '@/components/sections/CTABanner'
+import ErgebnisKartenSection from '@/components/sections/ErgebnisKartenSection'
+import VergleichSection from '@/components/sections/VergleichSection'
+import FAQSection from '@/components/sections/FAQSection'
+import KontaktSection from '@/components/sections/KontaktSection'
+import SocialSection from '@/components/sections/SocialSection'
 import LocalBusinessSchema from '@/components/schema/LocalBusinessSchema'
 import FAQSchema from '@/components/schema/FAQSchema'
 
@@ -23,12 +26,22 @@ const faqItems = [
   {
     question: 'Findet die Ernährungsberatung in Karlsruhe vor Ort statt?',
     answer:
-      'Ja, du hast die Wahl: persönlich in Karlsruhe oder komplett online. Die Qualität ist identisch — weil der Ansatz datenbasiert ist, spielt der Ort keine Rolle.',
+      'Die Zusammenarbeit läuft komplett online — Erstgespräch, Auswertung und laufende Betreuung. Für dich heißt das: kein Anfahrtsweg und kein fester Termin vor Ort. Weil der Ansatz auf deinen Blut- und DNA-Werten basiert, spielt der Ort ohnehin keine Rolle.',
+  },
+  {
+    question: 'Übernimmt die Krankenkasse die Kosten?',
+    answer:
+      'Nein. Ich habe keine Kassenzulassung, die Kosten werden also weder von der AOK noch von einer anderen gesetzlichen Kasse erstattet. Der Grund: Bezuschusst werden nur standardisierte Beratungskonzepte nach § 20 SGB V. Mein Ansatz basiert auf deinen individuellen Blut- und DNA-Werten und passt bewusst nicht in dieses Raster. Wenn dir eine Abrechnung über die Kasse wichtig ist, bist du bei einer zertifizierten Ernährungsfachkraft mit Kassenzulassung besser aufgehoben.',
   },
   {
     question: 'Wie unterscheidet sich datenbasierte Ernährungsberatung von klassischer?',
     answer:
       'Klassische Beratung gibt allgemeine Empfehlungen. Datenbasierte Beratung wertet dein individuelles Blutbild aus und leitet daraus ab, was dein Körper spezifisch braucht.',
+  },
+  {
+    question: 'Welche Qualifikation bringst du mit?',
+    answer:
+      'Ich habe Chemie studiert und einen M.Sc. in Chemie. Daraus kommt das Handwerk, das meine Arbeit trägt: komplexe Systeme analysieren und Laborwerte richtig lesen. Dazu über 200 begleitete Klienten und die eigene Praxis als Triathlet. Wichtig zur Einordnung: Ich bin kein Diätassistent und keine Ernährungsfachkraft mit Kassenzulassung, sondern auf datenbasierte Optimierung für Selbstständige und Unternehmer spezialisiert.',
   },
   {
     question: 'Wie läuft die Zusammenarbeit ab?',
@@ -50,29 +63,10 @@ const faqItems = [
     answer:
       'Für Männer ab 30 mit hoher beruflicher Belastung, die trotz wenig Zeit körperlich und mental auf Maximum performen wollen — nicht für schnelle Diäten.',
   },
-]
-
-const testimonials = [
   {
-    result: '−14 kg in 5 Monaten',
-    quote:
-      'Nach der Blutanalyse war plötzlich klar, warum ich nachmittags immer eingebrochen bin. Heute habe ich stabile Energie ohne Koffein — und einen klaren Kopf bis in den Abend.',
-    name: 'Robert',
-    role: 'Geschäftsführer, 42',
-  },
-  {
-    result: 'Muskelaufbau & −11 kg',
-    quote:
-      'Ich habe 18 Monate ohne Fortschritt trainiert. Erst als wir meine Werte kannten, hat mein Körper wieder reagiert — sichtbarer Muskelaufbau und endlich tiefer Schlaf.',
-    name: 'Axel',
-    role: 'Selbstständiger Unternehmer, 38',
-  },
-  {
-    result: '−11 kg Körperfett in 10 Wochen',
-    quote:
-      'Kein Diätplan, den ich schon dreimal hatte. Zum ersten Mal ein System, das zu meinem Alltag als Unternehmer passt — und das messbar funktioniert.',
-    name: 'Markus R.',
-    role: 'Unternehmer',
+    question: 'Wie bereite ich mich auf das Erstgespräch vor?',
+    answer:
+      'Gar nicht — du musst nichts ausfüllen und nichts mitbringen. Wenn du aktuelle Blutwerte zur Hand hast, kannst du sie gern bereithalten, nötig ist das aber nicht. Hilfreich ist nur, wenn du dir vorher kurz überlegst, was dich am meisten stört: Energie, Gewicht, Schlaf oder Konzentration. Alles Weitere klären wir in den 20 Minuten gemeinsam.',
   },
 ]
 
@@ -87,8 +81,9 @@ export default function ErnaehrungsberatungKarlsruhePage() {
         label="Ernährungsberatung Karlsruhe"
         headline="Ernährungsberatung in Karlsruhe für"
         headlineAccent="Selbstständige & Unternehmer"
-        subheadline="Datenbasiert wieder in Bestform — ohne Verzicht und ohne das Gefühl, auf Diät zu sein."
-        ctaLabel="Kostenloses Erstgespräch buchen"
+        subheadline="Datenbasiert wieder in Bestform – auf Basis deiner Blut- und DNA-Werte. Ohne Verbotskatalog und ohne das Gefühl, auf Diät zu sein."
+        ctaLabel="Performance Analyse sichern"
+        ctaNote="Call mit mir persönlich · 20 Minuten · unverbindlich"
         imageSrc="/images/IMG_1550-hero.jpg"
         imageAlt="Fabian Schönle — Performance Coach aus Karlsruhe"
         statNumber="200+"
@@ -103,91 +98,220 @@ export default function ErnaehrungsberatungKarlsruhePage() {
         label="Das Problem"
         headline="Warum die meisten Ernährungspläne"
         headlineAccent="scheitern."
-        intro="Es liegt nicht an deiner Disziplin. Es liegt daran, dass generische Pläne deine individuelle Biologie ignorieren — und damit raten müssen, was dein Körper wirklich braucht."
+        intro="Es liegt nicht an deiner Disziplin. Es liegt daran, dass generische Pläne deine individuelle Biologie ignorieren – und damit raten müssen, was dein Körper wirklich braucht."
         points={[
           {
-            wrong: 'Allgemein',
-            right: 'individuell',
-            body: 'Standard-Empfehlungen basieren auf Durchschnittswerten. Dein Stoffwechsel ist aber keiner.',
+            wrong: 'Durchschnitt',
+            right: 'Individuell',
+            body: 'Standard-Empfehlungen basieren auf Mittelwerten aus großen Gruppen. Dein Stoffwechsel ist aber kein Mittelwert. Was bei deinem Kollegen funktioniert, kann bei dir genau der falsche Hebel sein – ohne dass du je erfährst, warum.',
           },
           {
             wrong: 'Symptome',
             right: 'Ursachen',
-            body: 'Die meisten Beratungen behandeln, was du spürst — nicht, was deine Blutwerte tatsächlich zeigen.',
+            body: 'Die meisten Beratungen arbeiten mit dem, was du spürst: Müdigkeit, Heißhunger, kein Fortschritt. Was deine Blutwerte tatsächlich zeigen, sieht sich niemand an. Also wird am Symptom geschraubt, während die Ursache bleibt.',
           },
           {
             wrong: 'Willenskraft',
             right: 'System',
-            body: 'Wer nur auf Verzicht setzt, kämpft gegen den eigenen Körper. Ein eingestelltes System braucht keinen Kampf.',
+            body: 'Wer nur auf Verzicht setzt, kämpft gegen den eigenen Körper. Das hält ein paar Wochen, dann kommt der Jo-Jo-Effekt – und mit ihm die Enttäuschung über den nächsten gescheiterten Versuch. Ein richtig eingestelltes System braucht diesen Kampf nicht.',
+          },
+        ]}
+        videoId="8EiIoNZQ42A"
+        videoPosterSrc="/images/video-thumb-8EiIoNZQ42A.jpg"
+        videoTitle="Fabian Schönle — Ernährungsberatung Karlsruhe"
+        videoLabel="Sieh selbst"
+        videoHeadline="Wie es stattdessen funktioniert."
+        videoBody="Ich erkläre dir, warum Diäten immer wieder am selben Punkt scheitern – und was du stattdessen brauchst. Hier erfährst du, was hinter dem datenbasierten Ansatz steckt."
+        videoPoints={[
+          'Warum radikale Ansätze zwangsläufig im Jo-Jo-Effekt enden',
+          'Was deine Blut- und DNA-Werte über deinen Stoffwechsel verraten',
+          'Wie daraus eine Strategie wird, die zu deinem Alltag passt',
+        ]}
+      />
+
+      {/* 3 — Dein Ansatz: Ernährung trifft Biologie */}
+      <SolutionSection
+        label="Dein Ansatz"
+        headline="Ernährung trifft Biologie."
+        intro="So sieht Ernährungsberatung in Karlsruhe bei mir aus: erst messen, dann planen. Deine Werte geben die Richtung vor."
+        karten
+        zitat="Ich rate nicht, was dein Körper braucht. Ich messe es – und stelle danach die drei bis vier Hebel ein, die bei dir wirklich etwas verändern."
+        zitatAutor="Fabian Schönle"
+        zitatRolle="Performance Coach · M.Sc. Chemie"
+        hintergrundBild="/images/Hintergrund-Ergebnisse.webp"
+        steps={[
+          {
+            number: '01',
+            headline: 'Blutanalyse zuerst',
+            body: 'Bevor irgendein Plan entsteht, schauen wir in deine Werte: Hormonstatus, Mikronährstoffe, Entzündungsmarker. Erst danach wird entschieden – nicht vorher geraten.',
+          },
+          {
+            number: '02',
+            headline: 'DNA als Grundlage',
+            body: 'Deine Genetik bestimmt, wie dein Körper auf Kohlenhydrate, Fette und Stress reagiert. Daraus ergibt sich, welche Nährstoffe du tatsächlich brauchst – und in welcher Menge.',
+          },
+          {
+            number: '03',
+            headline: 'Plan statt Verbotsliste',
+            body: 'Am Ende steht kein Katalog mit Streichlisten, sondern eine datenbasierte Strategie für deine Biologie, die sich in deinen Arbeitstag einfügt.',
           },
         ]}
       />
 
-      {/* 3 — Ablauf/Methode: gleiche Sektion wie auf der Startseite */}
-      <LoesungsSection />
+      {/* 4 — Video-Testimonials im Hochformat */}
+      <VideoTestimonials
+        label="Echte Ergebnisse"
+        headline="Zwei Selbstständige, die ihre"
+        headlineAccent="Energie zurückhaben."
+        intro="Kein Skript, keine Werbeaussagen. Beide hatten volle Kalender und wenig Spielraum – und trotzdem funktioniert hat, was zu ihrem Alltag passt."
+        videos={[
+          {
+            src: '/videos/Robert_Testimonial_final.mp4',
+            name: 'Robert',
+            rolle: 'Geschäftsführer, 42',
+            badgeVon: '98',
+            badgeNach: '84 kg',
+            zitat:
+              'Nach der Blutanalyse war plötzlich klar, warum ich nachmittags immer eingebrochen bin. Heute habe ich stabile Energie ohne Koffein — und einen klaren Kopf bis in den Abend.',
+            vorher: [
+              '14 kg zugenommen, Bauchfett trotz Sport',
+              'Permanent erschöpft trotz 7 Stunden Schlaf',
+              'Konzentration bricht nachmittags komplett ein',
+            ],
+            nachher: [
+              '−14 kg Körpergewicht in 5 Monaten',
+              'Stabile Energie ohne Koffein-Spitzen',
+              'Klarer Kopf bis in den Abend',
+            ],
+          },
+          {
+            src: '/videos/Richard_Testimonial_kurz.mp4',
+            name: 'Richard',
+            rolle: 'Gründer',
+            badgeVon: '106',
+            badgeNach: '92,5 kg',
+            zitat: 'Innerhalb von 10 Wochen 13,5 kg abgenommen',
+            vorher: [
+              'Ab 20 Uhr war die Energie komplett weg — Familienzeit fiel dadurch aus',
+              'Ausgeprägtes Mittagstief, Energielevel den ganzen Tag niedrig',
+              'Hohe mentale Belastung durch die Gründungsphase, im eigenen Körper nicht mehr wohlgefühlt',
+            ],
+            nachher: [
+              '13,5 kg weniger in 10 Wochen — von 106 auf 92,5 kg',
+              'Volle Energie von früh bis abends, Mittagstief verschwunden',
+              'Umsetzbar trotz Gründungsphase und Familie',
+              'Die Ernährung der ganzen Familie hat sich mitverändert',
+            ],
+          },
+        ]}
+      />
 
-      {/* 4 — Was ich konkret bekomme */}
+      {/* 5 — Was ich konkret bekomme */}
       <LeistungenSection
         label="Was du bekommst"
         headline="Was in der Zusammenarbeit konkret enthalten ist."
-        intro="Keine ellenlange Leistungsliste — die Punkte, die den Unterschied machen."
+        intro="Keine ellenlange Leistungsliste – sondern genau die Punkte, die den Unterschied machen."
+        imageSrc="/images/Fabian-Schoenle-Blick-Kamera.webp"
+        imageAlt="Fabian Schönle — Performance Coach aus Karlsruhe"
+        name="Fabian Schönle"
+        role="M.Sc. Chemie · Triathlet · Karlsruhe"
         items={[
           {
-            headline: 'Individueller Ernährungsplan auf Basis deiner Blutwerte',
-            body: 'Kein Musterplan. Ein Protokoll, das aus deinen realen Laborwerten abgeleitet ist.',
+            headline: 'Umfassende Blut- und DNA-Analyse',
+            body: 'Über 50 Marker, weit über den Standard hinaus: Hormonstatus, Mikronährstoffe, Entzündungswerte und deine genetische Veranlagung. Danach reden wir nicht mehr über Durchschnittswerte, sondern über deinen Körper.',
           },
           {
-            headline: 'Umfassende Blut- und DNA-Analyse',
-            body: 'Weit über den Standard hinaus — die Datengrundlage für jede Entscheidung.',
+            headline: 'Individueller Ernährungsplan auf Basis deiner Werte',
+            body: 'Kein Musterplan aus der Schublade. Deine Strategie wird aus den realen Laborwerten abgeleitet – so arbeiten wir an der Ursache statt am Symptom. Und sie passt zu deinem Terminkalender, nicht umgekehrt.',
           },
           {
             headline: 'Konkrete Nährstoff- und Supplement-Strategie',
-            body: 'Nur was dein Körper messbar braucht. Kein Rätselraten, keine pauschalen Verbotslisten.',
+            body: 'Nur das, was dein Körper messbar braucht. Kein Verbotskatalog, keine pauschalen Streichlisten. Ein richtig eingestelltes System kommt ohne ständigen Kampf gegen dich selbst aus.',
           },
           {
             headline: 'Laufende Anpassung statt starrem Plan',
-            body: 'Dein System wird nachjustiert, sobald sich deine Werte verändern.',
+            body: 'Dein Körper verändert sich – deine Strategie auch. Sobald sich deine Werte bewegen, justieren wir nach. Alles kompakt in einer App, ohne nerviges Tracken.',
           },
           {
             headline: 'Direkter Draht zu mir',
-            body: 'Persönliche Betreuung statt einer App, die dich allein lässt.',
+            body: 'Persönliche Betreuung statt einer App, die dich allein lässt. Du schreibst mir, wenn etwas nicht passt – und bekommst eine Antwort von mir, nicht von einem Support-Team.',
           },
         ]}
       />
 
-      {/* 5 — Ergebnisse von Kunden aus der Region */}
-      <Testimonials
+      {/* 6 — CTA-Streifen unter den Leistungen */}
+      <CTABanner
+        headline="Klingt nach dem, was du suchst?"
+        body="Im kostenlosen Erstgespräch schauen wir uns deine Situation an — unverbindlich und ohne Druck."
+        buttonLabel="Performance Analyse sichern"
+        note="20 Minuten · persönlich mit mir"
+      />
+
+      {/* 7 — Ergebnisse: Karten mit Popup */}
+      <ErgebnisKartenSection
         label="Ergebnisse"
-        headline="Ergebnisse von Männern wie dir."
-        items={testimonials}
-      />
-
-      {/* 6 — Warum du, nicht die Beratung von nebenan */}
-      <ComparisonTable
-        label="Der Unterschied"
-        headline="Warum FS-Performance — und nicht die Beratung von nebenan."
-        rows={[
-          { criterion: 'Grundlage', standard: 'Schätzungen & Fragebögen', fsPerformance: 'Blutwerte & DNA-Analyse' },
-          { criterion: 'Plan', standard: 'Ein Plan für alle', fsPerformance: 'Ein Protokoll für deine Biologie' },
-          { criterion: 'Fokus', standard: 'Kurzfristige Diät', fsPerformance: 'Dauerhaft eingestelltes System' },
-          { criterion: 'Betreuung', standard: 'Standard-Vorlagen', fsPerformance: 'Persönlich von mir' },
-          { criterion: 'Ziel', standard: 'Zahl auf der Waage', fsPerformance: 'Körperkomposition & Energie' },
+        headline="Was sich verändert, wenn dein System"
+        headlineAccent="richtig eingestellt ist."
+        intro="Kein kurzfristiger Effekt auf der Waage. Sondern Veränderungen, die du im Alltag merkst – körperlich, mental und im Job."
+        karten={[
+          {
+            label: 'Energie',
+            icon: 'energie',
+            teaser: 'Der Nachmittag ist kein Loch mehr, durch das du dich mit Kaffee schleppst.',
+            punkte: [
+              'Kein Nachmittagstief mehr',
+              'Energie, die über den ganzen Tag stabil bleibt',
+              'Schlaf, der dich wirklich erholt',
+              'Abends noch Kraft für die Menschen, die dir wichtig sind',
+            ],
+          },
+          {
+            label: 'Körper',
+            icon: 'koerper',
+            teaser: 'Sichtbare Veränderung – und Werte, die sie bestätigen.',
+            punkte: [
+              'Durchschnittlich 12 kg weniger Körpergewicht – vor allem am Bauch',
+              'Sichtbar mehr Muskeldefinition, ohne exzessives Training',
+              'Blutwerte, die sich messbar verbessern',
+              'Kürzere Regeneration nach Training, Stress und Infekten',
+            ],
+          },
+          {
+            label: 'Kopf',
+            icon: 'kopf',
+            teaser: 'Klarer denken, gelassener entscheiden – auch wenn der Tag voll ist.',
+            punkte: [
+              'Ein klarer Kopf, auch unter hoher Belastung',
+              'Mehr Antrieb und Entscheidungsfreude',
+              'Stabilere Stimmung über die Woche hinweg',
+              'Das Gefühl, wieder Kontrolle über deinen Körper zu haben',
+            ],
+          },
         ]}
+        bruecke1="Das sind keine Versprechen."
+        bruecke2="Das sind echte Bewertungen."
+        bewertungsGrid
       />
 
-      {/* 7 — CTA: Erste Analyse buchen */}
-      <CTASection
-        label="Nächster Schritt"
-        headline="Starte mit einer kostenlosen Erstanalyse."
-        body="Im kostenlosen Erstgespräch schauen wir uns deine Situation an — und ich zeige dir, was dein Körper wirklich braucht. Unverbindlich und ohne Druck."
-        ctaLabel="Kostenloses Erstgespräch buchen"
-      />
+      {/* 8 — Vergleich: gleiche Sektion wie auf der Startseite */}
+      <VergleichSection />
 
-      {/* 8 — FAQ: lokal relevant */}
-      <FAQ
+      {/* 9 — Ablauf & Kontakt: gleiche Sektion wie auf der Startseite */}
+      <KontaktSection
+        label="Ernährungsberatung in Karlsruhe starten"
+        title="Finde heraus, was deine Ernährung gerade limitiert."
+        intro1="Kein Verkaufsgespräch. Kein Vertrag. Nur 20 Minuten, in denen wir gemeinsam anschauen, warum deine bisherigen Ernährungsansätze nicht gehalten haben."
+        intro2="Der erste Schritt ist eine kostenlose Analyse deiner Ausgangslage. Du bekommst danach Klarheit darüber, welche Hebel bei dir wirklich zählen — und wie eine Ernährung aussieht, die zu deinem Arbeitstag passt." />
+
+      {/* 10 — Socials: gleiche Sektion wie auf der Startseite */}
+      <SocialSection />
+
+      {/* 11 — FAQ: lokale Fragen im Design der Startseite */}
+      <FAQSection
         label="Häufige Fragen"
-        headline="Fragen zur Ernährungsberatung in Karlsruhe."
-        items={faqItems}
+        title1="Fragen zur Ernährungsberatung"
+        title2="in Karlsruhe"
+        items={faqItems.map((f) => ({ frage: f.question, antwort: f.answer }))}
       />
     </>
   )

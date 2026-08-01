@@ -25,7 +25,7 @@ const fallstudien = [
     beruf: 'PLATZHALTER',
     instagram: 'Richard Müller',
     link: 'https://www.linkedin.com/in/richard-mueller/',
-    video: '/videos/Richard_Testimonial_final.mp4',
+    video: '/videos/Richard_Testimonial_kurz.mp4',
     problem: 'PLATZHALTER — bitte Richards Ausgangssituation ergänzen.',
     ziel: 'PLATZHALTER — bitte Richards Ziel ergänzen.',
     loesung: 'PLATZHALTER — bitte Richards Lösung ergänzen.',

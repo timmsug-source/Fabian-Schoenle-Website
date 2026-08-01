@@ -1,5 +1,6 @@
 import SectionLabel from '@/components/ui/SectionLabel'
 import TestimonialCard from '@/components/ui/TestimonialCard'
+import BewertungsGrid from '@/components/sections/BewertungsGrid'
 
 type Testimonial = {
   quote: string
@@ -11,10 +12,12 @@ type Testimonial = {
 type TestimonialsProps = {
   label?: string
   headline: string
-  items: Testimonial[]
+  items?: Testimonial[]
+  /** Zeigt das Raster echter Bewertungs-Screenshots */
+  bewertungsGrid?: boolean
 }
 
-export default function Testimonials({ label, headline, items }: TestimonialsProps) {
+export default function Testimonials({ label, headline, items, bewertungsGrid }: TestimonialsProps) {
   return (
     <section className="max-w-7xl mx-auto px-4 md:px-8 py-16 md:py-24">
       {label && (
@@ -25,11 +28,19 @@ export default function Testimonials({ label, headline, items }: TestimonialsPro
       <h2 className="text-3xl md:text-5xl font-bold font-barlow mb-12" style={{ color: '#E6E8EB' }}>
         {headline}
       </h2>
-      <div className="grid md:grid-cols-3 gap-6">
-        {items.map((item, i) => (
-          <TestimonialCard key={i} {...item} />
-        ))}
-      </div>
+      {items && items.length > 0 && (
+        <div className="grid md:grid-cols-3 gap-6">
+          {items.map((item, i) => (
+            <TestimonialCard key={i} {...item} />
+          ))}
+        </div>
+      )}
+
+      {bewertungsGrid && (
+        <div className={items && items.length > 0 ? 'mt-16 md:mt-20' : ''}>
+          <BewertungsGrid hinweis="Verifizierte Rezensionen echter Kunden von LinkedIn, Trustpilot und Google." />
+        </div>
+      )}
     </section>
   )
 }

@@ -7,6 +7,7 @@ type LocalHeroProps = {
   headlineAccent?: string
   subheadline?: string
   ctaLabel?: string
+  ctaNote?: string
   imageSrc?: string
   imageAlt?: string
   statNumber?: string
@@ -95,17 +96,17 @@ const bullets = [
   {
     icon: <IconDNA />,
     headline: 'Datenbasiert statt generisch',
-    body: 'Auf Basis deiner Blut- und DNA-Werte wissen wir genau, welche Hebel bei dir wirken.',
+    body: 'Über 50 Blut- und DNA-Marker zeigen, welche 3 bis 4 Hebel bei dir wirklich zählen. Kein Rätselraten.',
   },
   {
     icon: <IconCalendar />,
-    headline: 'Für vollen Terminkalender',
-    body: 'Ein System, das sich in deinen Alltag als Unternehmer einfügt — ohne Verzicht, ohne Rätselraten.',
+    headline: 'Für volle Terminkalender',
+    body: 'Eine Ernährung, die sich in deinen Arbeitstag einfügt. Nicht umgekehrt.',
   },
   {
     icon: <IconBolt />,
     headline: 'Dauerhaft statt Jo-Jo',
-    body: 'Weniger Bauchfett und stabile Energie — Ergebnisse, die bleiben, weil sie auf deiner Biologie basieren.',
+    body: 'Durchschnittlich 12 kg weniger Körpergewicht in 16 Wochen – und Ergebnisse, die bleiben, weil sie auf deiner Biologie basieren.',
   },
 ]
 
@@ -166,8 +167,9 @@ export default function LocalHero({
   label = 'Ernährungsberatung Karlsruhe',
   headline = 'Ernährungsberatung in Karlsruhe für',
   headlineAccent = 'Selbstständige & Unternehmer',
-  subheadline = 'Datenbasiert wieder in Bestform — ohne Verzicht und ohne das Gefühl, auf Diät zu sein.',
-  ctaLabel = 'Kostenloses Erstgespräch buchen',
+  subheadline = 'Datenbasiert wieder in Bestform – auf Basis deiner Blut- und DNA-Werte. Ohne Verbotskatalog und ohne das Gefühl, auf Diät zu sein.',
+  ctaLabel = 'Performance Analyse sichern',
+  ctaNote = 'Call mit mir persönlich · 20 Minuten · unverbindlich',
   imageSrc = '/images/vsl-poster.jpg',
   imageAlt = 'Fabian Schönle',
   statNumber = '200+',
@@ -269,7 +271,7 @@ export default function LocalHero({
           </a>
           <p className="mt-3 flex items-center gap-2 font-inter text-xs" style={{ color: '#7B8792' }}>
             <IconClock />
-            Call mit mir persönlich · 30 Minuten · unverbindlich
+            {ctaNote}
           </p>
 
         </div>
