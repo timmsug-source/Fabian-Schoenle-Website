@@ -204,11 +204,9 @@ export default function VergleichSection({ content = {} }: { content?: Record<st
                   className="text-center px-0.5 pt-3 pb-2 align-bottom"
                   style={{ background: FS_BG, borderTop: FS_SIDES, borderLeft: FS_SIDES, borderRight: FS_SIDES, borderRadius: '10px 10px 0 0', boxShadow: `${FS_GLOW}, 0 -10px 24px rgba(201,168,76,0.12)` }}
                 >
-                  <span className="flex flex-col items-center gap-1">
-                    <Image src="/images/FS-Logo-60x60-transparenter-Hintergrund.png" alt="FS Performance Lab" width={28} height={28} className="rounded-md object-contain" />
-                    <span className="font-inter font-semibold text-[9px] leading-tight block" style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-                      FS Performance<br />Lab
-                    </span>
+                  {/* Auf Mobil nur das Logo — der Schriftzug darunter wird bei 9px unleserlich */}
+                  <span className="flex flex-col items-center">
+                    <Image src="/images/FS-Logo-60x60-transparenter-Hintergrund.png" alt="FS Performance Lab" width={34} height={34} className="rounded-md object-contain" />
                   </span>
                 </th>
                 <th className="text-center px-0.5 pb-2 align-bottom">

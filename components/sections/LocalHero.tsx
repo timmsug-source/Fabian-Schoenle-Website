@@ -178,6 +178,35 @@ export default function LocalHero({
   return (
     <section className="relative overflow-hidden" style={{ background: '#060E1F' }}>
 
+      {/* Rastermuster — nur Mobil, auf Desktop übernimmt das Bild die rechte Hälfte */}
+      <svg
+        className="lg:hidden absolute inset-0 w-full h-full pointer-events-none"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
+        preserveAspectRatio="none"
+      >
+        <defs>
+          <pattern id="lh-bg-grid" width="60" height="60" patternUnits="userSpaceOnUse">
+            <path d="M 60 0 L 0 0 0 60" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="1" />
+          </pattern>
+          <pattern id="lh-bg-diag" width="60" height="60" patternUnits="userSpaceOnUse">
+            <line x1="0" y1="60" x2="60" y2="0" stroke="rgba(255,255,255,0.04)" strokeWidth="1" />
+          </pattern>
+          <linearGradient id="lh-bg-fade" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="white" stopOpacity="1" />
+            <stop offset="80%" stopColor="white" stopOpacity="1" />
+            <stop offset="100%" stopColor="white" stopOpacity="0" />
+          </linearGradient>
+          <mask id="lh-bg-fade-mask">
+            <rect width="100%" height="100%" fill="url(#lh-bg-fade)" />
+          </mask>
+        </defs>
+        <g mask="url(#lh-bg-fade-mask)">
+          <rect width="100%" height="100%" fill="url(#lh-bg-grid)" />
+          <rect width="100%" height="100%" fill="url(#lh-bg-diag)" />
+        </g>
+      </svg>
+
       {/* Bild rechts — volle Höhe bis zum oberen Rand */}
       <div className="hidden lg:block absolute inset-y-0 right-0 w-[52%] xl:w-[50%]">
         <Image
@@ -224,12 +253,6 @@ export default function LocalHero({
       <div className="relative max-w-7xl mx-auto px-4 md:px-8 pt-36 md:pt-48 pb-16 md:pb-24">
         <div className="max-w-2xl">
 
-          {/* Bild oben — nur Mobile */}
-          <div className="lg:hidden relative w-full aspect-[4/3] rounded-xl overflow-hidden mb-8">
-            <Image src={imageSrc} alt={imageAlt} fill className="object-cover object-center" sizes="100vw" priority />
-            <div className="absolute inset-x-0 bottom-0 h-16 pointer-events-none" style={{ background: 'linear-gradient(to bottom, transparent, #060E1F)' }} />
-          </div>
-
           {label && (
             <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-5" style={goldGradient}>
               {label}
@@ -256,6 +279,12 @@ export default function LocalHero({
                 <p className="font-inter text-sm leading-relaxed" style={{ color: '#9AA4AE' }}>{b.body}</p>
               </div>
             ))}
+          </div>
+
+          {/* Bild — nur Mobile, nach den Bullets: Argumentationskette bleibt zusammen */}
+          <div className="lg:hidden relative w-full aspect-square rounded-xl overflow-hidden mb-10">
+            <Image src={imageSrc} alt={imageAlt} fill className="object-cover object-center" sizes="100vw" />
+            <div className="absolute inset-x-0 bottom-0 h-16 pointer-events-none" style={{ background: 'linear-gradient(to bottom, transparent, #060E1F)' }} />
           </div>
 
           {/* CTA */}

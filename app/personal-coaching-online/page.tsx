@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { buildMetadata } from '@/lib/metadata'
-import PageHero from '@/components/sections/PageHero'
+import OnlineHero from '@/components/sections/OnlineHero'
 import SolutionSection from '@/components/sections/SolutionSection'
 import Testimonials from '@/components/sections/Testimonials'
 import FAQ from '@/components/sections/FAQ'
@@ -37,12 +37,39 @@ export default function PersonalCoachingOnlinePage() {
     <>
       <FAQSchema items={faqItems} />
 
-      <PageHero
+      <OnlineHero
         label="Personal Coaching online"
-        headline="Ort spielt keine Rolle. Ergebnisse schon."
-        subheadline="Datenbasiertes Personal Coaching — komplett online."
-        body="DNA-Analyse, Blutbild, individueller Plan. Das gesamte Coaching-Programm läuft remote — ohne Abstriche bei der Qualität oder Präzision."
-        ctaLabel="Online Coaching anfragen"
+        headline1="Mehr Klarheit."
+        headline2="Mehr Energie."
+        headlineAccent="Messbare Ergebnisse."
+        subheadline="Datenbasiertes 1:1 Coaching für Selbstständige und Unternehmer — komplett online. DNA-Analyse, Blutbild und ein Plan, der zu deinem Alltag passt."
+        ctaLabel="Jetzt Potenzial entfalten"
+        imageSrc="/images/Fabian-Schoenle-Blick-Kamera.webp"
+        imageAlt="Fabian Schönle — Performance Coach"
+        features={[
+          {
+            icon: 'ziel',
+            titel: 'Klarheit statt Raten',
+            text: 'Über 50 Blut- und DNA-Marker zeigen, welche Hebel bei dir zählen.',
+          },
+          {
+            icon: 'kurve',
+            titel: 'Mehr Performance',
+            text: 'Stabile Energie, besserer Schlaf, klarer Kopf über den ganzen Tag.',
+          },
+          {
+            icon: 'diamant',
+            titel: 'Nachhaltige Ergebnisse',
+            text: 'Ein eingestelltes System, das bleibt — kein kurzfristiger Effekt.',
+          },
+        ]}
+        zitat="Dein Erfolg ist nur so stabil wie dein System. Ich helfe dir, es"
+        zitatAkzent="richtig einzustellen."
+        trust={[
+          { icon: 'monitor', titel: '100 % online', text: 'Flexibel & ortsunabhängig' },
+          { icon: 'person', titel: '1:1 Coaching', text: 'Individuell & auf Augenhöhe' },
+          { icon: 'schloss', titel: 'Vertraulich', text: 'Deine Daten bleiben deine' },
+        ]}
       />
 
       <SolutionSection

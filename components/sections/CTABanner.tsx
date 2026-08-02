@@ -43,7 +43,8 @@ export default function CTABanner({
 
         {/* Rechts: Button */}
         <div className="flex-shrink-0 flex flex-col items-start md:items-center gap-2">
-          <Button href={CALENDLY_URL} size="lg" external popup>
+          {/* size="md": Bei "lg" bricht die Beschriftung auf Mobil um, weil sie breiter wird als die Karte innen */}
+          <Button href={CALENDLY_URL} size="md" external popup className="whitespace-nowrap">
             {buttonLabel}
           </Button>
           {note && (
