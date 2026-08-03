@@ -63,6 +63,21 @@ const saeulen = [
   },
 ]
 
+/**
+ * Baut die Punkte einer Säule aus dem CMS: ergebnis_colN_punkt1, _punkt2, …
+ * Die Anzahl ist NICHT begrenzt — im CMS ergänzte Punkte erscheinen automatisch.
+ * Ohne CMS-Inhalte (oder wenn alle leer sind) greifen die Standardtexte.
+ */
+function cmsPunkte(content: Record<string, string>, spalte: number, fallback: string[]): string[] {
+  const prefix = `ergebnis_col${spalte}_punkt`
+  const ausCms = Object.keys(content)
+    .filter((k) => k.startsWith(prefix) && /^\d+$/.test(k.slice(prefix.length)))
+    .sort((a, b) => Number(a.slice(prefix.length)) - Number(b.slice(prefix.length)))
+    .map((k) => content[k])
+    .filter((v) => v && v.trim())
+  return ausCms.length > 0 ? ausCms : fallback
+}
+
 function Check({ color = '#C9A84C' }: { color?: string }) {
   return (
     <svg width="24" height="24" viewBox="0 0 38 38" fill="none" className="flex-shrink-0 mt-0.5">
@@ -113,10 +128,10 @@ export default function ErgebnisSection({ content = {} }: { content?: Record<str
 
               {/* Punkte */}
               <ul className="flex flex-col gap-3">
-                {s.punkte.map((p, j) => (
+                {cmsPunkte(content, i + 1, s.punkte).map((p, j) => (
                   <li key={j} className="flex items-start gap-2.5">
                     <Check />
-                    <Rich className="font-inter text-base leading-relaxed" style={{ color: '#A6B0BA' }} html={content[`ergebnis_col${i + 1}_punkt${j + 1}`] || p} />
+                    <Rich className="font-inter text-base leading-relaxed" style={{ color: '#A6B0BA' }} html={p} />
                   </li>
                 ))}
               </ul>
