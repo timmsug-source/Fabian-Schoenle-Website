@@ -2,7 +2,16 @@ import { txt } from '@/lib/cms-text'
 import { Rich } from '@/components/Rich'
 import Image from 'next/image'
 
-const rows = [
+interface Zeile {
+  feature: string
+  fs: boolean
+  generic: boolean
+  online: boolean
+  selbst: boolean
+}
+
+/** Standardzeilen. Greifen nur, solange das CMS nichts liefert. */
+const rows: Zeile[] = [
   { feature: 'Individuelle DNA-/Bluttests',             fs: true,  generic: false, online: false, selbst: false },
   { feature: 'Datenbasierte Strategie',                 fs: true,  generic: false, online: false, selbst: false },
   { feature: 'Kontinuierliche Strategieoptimierung',    fs: true,  generic: false, online: false, selbst: true  },
@@ -11,6 +20,57 @@ const rows = [
   { feature: '24/7 Chatsupport',                        fs: true,  generic: false, online: false, selbst: false },
   { feature: 'Persönlicher Ansprechpartner',            fs: true,  generic: true,  online: false, selbst: false },
 ]
+
+/** Stichwörter, mit denen im CMS eine Spalte angehakt wird */
+const SPALTEN_WOERTER = {
+  fs: ['fs', 'lab'],
+  generic: ['trainer', 'personal'],
+  online: ['gruppe', 'group'],
+  selbst: ['ai', 'ki'],
+}
+
+/**
+ * Baut die Tabellenzeilen aus dem CMS: vergleich_featureN (Text) und
+ * vergleich_featureN_haken (wo ein Häkchen sitzt, z.B. "fs, trainer").
+ *
+ * Die Anzahl ist NICHT begrenzt. Wichtig: Häkchen und Text liegen im selben
+ * Datensatzpaar, wandern beim Umsortieren also gemeinsam. Vorher standen die
+ * Häkchen im Code und hingen an der Zeilennummer — wurde im CMS umsortiert,
+ * blieben sie an der alten Position zurück.
+ */
+function cmsZeilen(content: Record<string, string>): Zeile[] {
+  const nummern: number[] = []
+  for (const k of Object.keys(content)) {
+    const m = k.match(/^vergleich_feature(\d+)$/)
+    if (m) nummern.push(Number(m[1]))
+  }
+  if (nummern.length === 0) return rows
+
+  return nummern
+    .sort((a, b) => a - b)
+    .map((nr) => {
+      const standard = rows[nr - 1]
+      const roh = content[`vergleich_feature${nr}_haken`]
+      // In einzelne Wörter zerlegen statt nach Zeichenfolgen zu suchen:
+      // "trainer" enthält sonst "ai" und würde den AI-Coach mit anhaken.
+      const woerterImFeld =
+        roh === undefined ? null : roh.toLowerCase().split(/[^a-zäöüß]+/).filter(Boolean)
+      // Ohne Häkchen-Feld gilt weiterhin der Wert aus dem Code
+      const hat = (stichwoerter: string[], vorgabe: boolean) =>
+        woerterImFeld === null
+          ? vorgabe
+          : stichwoerter.some((s) => woerterImFeld.some((w) => w.startsWith(s)))
+
+      return {
+        feature: txt(content, `vergleich_feature${nr}`, standard?.feature ?? ''),
+        fs: hat(SPALTEN_WOERTER.fs, standard?.fs ?? false),
+        generic: hat(SPALTEN_WOERTER.generic, standard?.generic ?? false),
+        online: hat(SPALTEN_WOERTER.online, standard?.online ?? false),
+        selbst: hat(SPALTEN_WOERTER.selbst, standard?.selbst ?? false),
+      }
+    })
+    .filter((z) => z.feature)
+}
 
 const FS_BG    = 'linear-gradient(170deg, #16213A 0%, #0D1829 55%, #091122 100%)'
 const FS_SIDES = '1px solid rgba(201,168,76,0.55)'
@@ -66,6 +126,7 @@ function MiniCross() {
 }
 
 export default function VergleichSection({ content = {} }: { content?: Record<string, string> }) {
+  const zeilen = cmsZeilen(content)
   return (
     <section className="relative overflow-hidden" style={{ background: '#060E1F' }}>
       <div className="relative max-w-7xl mx-auto px-4 md:px-8 py-24 md:py-32">
@@ -137,7 +198,7 @@ export default function VergleichSection({ content = {} }: { content?: Record<st
             </thead>
 
             <tbody>
-              {rows.map((row, i) => (
+              {zeilen.map((row, i) => (
                 <tr key={i}>
                   {/* Feature-Name */}
                   <td
@@ -145,7 +206,7 @@ export default function VergleichSection({ content = {} }: { content?: Record<st
                     style={{ borderTop: ROW_LINE, boxShadow: '0 -1px 6px rgba(255,255,255,0.04)' }}
                   >
                     <span className="font-inter text-base md:text-lg font-medium" style={{ color: '#E6E8EB' }}>
-                      {txt(content, `vergleich_feature${i + 1}`, row.feature)}
+                      {row.feature}
                     </span>
                   </td>
 
@@ -233,12 +294,12 @@ export default function VergleichSection({ content = {} }: { content?: Record<st
               </tr>
             </thead>
             <tbody>
-              {rows.map((row, i) => {
+              {zeilen.map((row, i) => {
                 const last = i === rows.length - 1
                 return (
                   <tr key={i}>
                     <td className="py-3 pr-2" style={{ borderTop: ROW_LINE }}>
-                      <span className="font-inter text-xs font-medium leading-snug" style={{ color: '#E6E8EB' }}>{txt(content, `vergleich_feature${i + 1}`, row.feature)}</span>
+                      <span className="font-inter text-xs font-medium leading-snug" style={{ color: '#E6E8EB' }}>{row.feature}</span>
                     </td>
                     <td
                       className="py-3 text-center"
