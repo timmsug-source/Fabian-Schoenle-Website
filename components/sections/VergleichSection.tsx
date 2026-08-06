@@ -1,4 +1,5 @@
 import { txt } from '@/lib/cms-text'
+import { Rich } from '@/components/Rich'
 import Image from 'next/image'
 
 const rows = [
@@ -81,6 +82,16 @@ export default function VergleichSection({ content = {} }: { content?: Record<st
             </span>{' '}
             {txt(content, 'vergleich_title_2', 'zusammenarbeiten solltest')}
           </h2>
+          <Rich
+            as="p"
+            className="font-inter text-base md:text-lg leading-relaxed max-w-2xl mx-auto mt-5"
+            style={{ color: '#7B8792' }}
+            html={txt(
+              content,
+              'vergleich_intro',
+              'Die meisten Ansätze arbeiten mit Vermutungen. Hier siehst du auf einen Blick, was den Unterschied ausmacht.'
+            )}
+          />
         </div>
 
         {/* Tabelle — Desktop */}
