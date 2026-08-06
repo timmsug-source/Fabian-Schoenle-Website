@@ -49,7 +49,37 @@ const absaetze = [
   'Aus dieser Erkenntnis ist FS-Performance entstanden — ein High-Performance Coaching, das den Körper so behandelt, wie du dein Business behandelst: datenbasiert, strategisch und mit klarem Ziel.',
 ]
 
+/**
+ * Baut die Absätze aus dem CMS: uebermich_para1, _para2, … Die Anzahl ist
+ * NICHT begrenzt, leere Felder werden übersprungen.
+ *
+ * Ein komplett in **…** gesetzter Absatz wird hervorgehoben. Vorher hing die
+ * Hervorhebung an der Position (immer der dritte) und wäre verrutscht, sobald
+ * jemand einen Absatz davor einfügt.
+ */
+function cmsAbsaetze(content: Record<string, string>) {
+  const nummern: number[] = []
+  for (const k of Object.keys(content)) {
+    const m = k.match(/^uebermich_para(\d+)$/)
+    if (m && !nummern.includes(Number(m[1]))) nummern.push(Number(m[1]))
+  }
+
+  const roh =
+    nummern.length > 0
+      ? nummern.sort((a, b) => a - b).map((n) => content[`uebermich_para${n}`] ?? '')
+      : absaetze
+
+  return roh
+    .map((t) => t.trim())
+    .filter(Boolean)
+    .map((t) => {
+      const hervor = /^\*\*[\s\S]+\*\*$/.test(t)
+      return { text: hervor ? t.slice(2, -2).trim() : t, hervor }
+    })
+}
+
 export default function UeberMichSection({ content = {} }: { content?: Record<string, string> }) {
+  const absaetzeListe = cmsAbsaetze(content)
   return (
     <section id="ueber-mich" className="relative overflow-hidden" style={{ background: '#060E1F' }}>
       {/* Rasterhintergrund — oben und unten weich ein-/ausgeblendet */}
@@ -94,16 +124,16 @@ export default function UeberMichSection({ content = {} }: { content?: Record<st
             </h2>
 
             <div className="flex flex-col gap-5">
-              {absaetze.map((text, i) => (
+              {absaetzeListe.map((absatz, i) => (
                 <Rich
                   key={i}
                   as="p"
                   className="font-inter text-base leading-relaxed"
                   style={{
-                    color: i === 2 ? '#E6E8EB' : '#A6B0BA',
-                    fontWeight: i === 2 ? 600 : 400,
+                    color: absatz.hervor ? '#E6E8EB' : '#A6B0BA',
+                    fontWeight: absatz.hervor ? 600 : 400,
                   }}
-                  html={txt(content, `uebermich_para${i + 1}`, text)}
+                  html={absatz.text}
                 />
               ))}
             </div>
