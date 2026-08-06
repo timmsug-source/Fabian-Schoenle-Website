@@ -38,7 +38,40 @@ const credentials = [
     ),
     text: 'Leidenschaftlicher Triathlet',
   },
+  {
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs><linearGradient id="uc3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#C9A84C"/><stop offset="100%" stopColor="#E8D49A"/></linearGradient></defs>
+        <circle cx="18" cy="15" r="9" stroke="url(#uc3)" strokeWidth="3" />
+        <path d="M12 22 L9 33 L18 29 L27 33 L24 22" stroke="url(#uc3)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    ),
+    text: '10+ Jahre Erfahrung',
+  },
 ]
+
+/**
+ * Baut die Punkte unter dem Bild aus dem CMS: uebermich_credential1, _2, …
+ * Die Symbole bleiben im Code und werden über die Position zugeordnet; gibt es
+ * für eine Position keins, wird das letzte wiederverwendet. Leere Felder
+ * werden übersprungen.
+ */
+function cmsCredentials(content: Record<string, string>) {
+  const nummern: number[] = []
+  for (const k of Object.keys(content)) {
+    const m = k.match(/^uebermich_credential(\d+)$/)
+    if (m && !nummern.includes(Number(m[1]))) nummern.push(Number(m[1]))
+  }
+  if (nummern.length === 0) return credentials
+
+  return nummern
+    .sort((a, b) => a - b)
+    .map((n) => ({
+      icon: (credentials[n - 1] ?? credentials[credentials.length - 1]).icon,
+      text: (content[`uebermich_credential${n}`] ?? '').trim(),
+    }))
+    .filter((c) => c.text)
+}
 
 const absaetze = [
   'Studium. Nebenjob. Leistungssport. Familie. Irgendwann kommt der Punkt, an dem du merkst: Der Körper zieht nicht mehr mit.',
@@ -80,6 +113,7 @@ function cmsAbsaetze(content: Record<string, string>) {
 
 export default function UeberMichSection({ content = {} }: { content?: Record<string, string> }) {
   const absaetzeListe = cmsAbsaetze(content)
+  const credentialListe = cmsCredentials(content)
   return (
     <section id="ueber-mich" className="relative overflow-hidden" style={{ background: '#060E1F' }}>
       {/* Rasterhintergrund — oben und unten weich ein-/ausgeblendet */}
@@ -228,7 +262,7 @@ export default function UeberMichSection({ content = {} }: { content?: Record<st
                 boxShadow: '0 0 30px rgba(201,168,76,0.06)',
               }}
             >
-              {credentials.map((c, i) => (
+              {credentialListe.map((c, i) => (
                 <div key={i} className="flex items-center gap-3">
                   <span className="flex-shrink-0">
                     {c.icon}
