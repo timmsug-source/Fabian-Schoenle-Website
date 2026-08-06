@@ -1,3 +1,4 @@
+import { txt } from '@/lib/cms-text'
 import Image from 'next/image'
 
 const rows = [
@@ -71,14 +72,14 @@ export default function VergleichSection({ content = {} }: { content?: Record<st
         {/* Header */}
         <div className="mb-20 animate-fade-up text-center">
           <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-4" style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-            {content.vergleich_label || 'Der Unterschied'}
+            {txt(content, 'vergleich_label', 'Der Unterschied')}
           </p>
           <h2 className="font-barlow font-bold text-3xl md:text-5xl leading-tight" style={{ color: '#E6E8EB' }}>
-            {content.vergleich_title_1 || 'Warum du'}{' '}
+            {txt(content, 'vergleich_title_1', 'Warum du')}{' '}
             <span style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-              {content.vergleich_highlight || 'mit mir'}
+              {txt(content, 'vergleich_highlight', 'mit mir')}
             </span>{' '}
-            {content.vergleich_title_2 || 'zusammenarbeiten solltest'}
+            {txt(content, 'vergleich_title_2', 'zusammenarbeiten solltest')}
           </h2>
         </div>
 
@@ -133,7 +134,7 @@ export default function VergleichSection({ content = {} }: { content?: Record<st
                     style={{ borderTop: ROW_LINE, boxShadow: '0 -1px 6px rgba(255,255,255,0.04)' }}
                   >
                     <span className="font-inter text-base md:text-lg font-medium" style={{ color: '#E6E8EB' }}>
-                      {content[`vergleich_feature${i + 1}`] || row.feature}
+                      {txt(content, `vergleich_feature${i + 1}`, row.feature)}
                     </span>
                   </td>
 
@@ -226,7 +227,7 @@ export default function VergleichSection({ content = {} }: { content?: Record<st
                 return (
                   <tr key={i}>
                     <td className="py-3 pr-2" style={{ borderTop: ROW_LINE }}>
-                      <span className="font-inter text-xs font-medium leading-snug" style={{ color: '#E6E8EB' }}>{content[`vergleich_feature${i + 1}`] || row.feature}</span>
+                      <span className="font-inter text-xs font-medium leading-snug" style={{ color: '#E6E8EB' }}>{txt(content, `vergleich_feature${i + 1}`, row.feature)}</span>
                     </td>
                     <td
                       className="py-3 text-center"

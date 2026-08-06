@@ -1,5 +1,6 @@
 'use client'
 
+import { txt } from '@/lib/cms-text'
 import { useState } from 'react'
 import Image from 'next/image'
 import { CALENDLY_URL } from '@/lib/constants'
@@ -95,12 +96,12 @@ export default function ErgebnisSection({ content = {} }: { content?: Record<str
         {/* Header */}
         <div className="mb-16 animate-fade-up text-center">
           <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-4" style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-            {content.ergebnis_label || 'Ergebnisse'}
+            {txt(content, 'ergebnis_label', 'Ergebnisse')}
           </p>
           <h2 className="font-barlow font-bold text-3xl md:text-5xl leading-tight mb-5" style={{ color: '#E6E8EB' }}>
-            {content.ergebnis_title_1 || 'Ergebnisse, die wirklich einen'}<br className="hidden md:block" /> {content.ergebnis_title_2 || 'Unterschied machen!'}
+            {txt(content, 'ergebnis_title_1', 'Ergebnisse, die wirklich einen')}<br className="hidden md:block" /> {txt(content, 'ergebnis_title_2', 'Unterschied machen!')}
           </h2>
-          <Rich as="p" className="font-inter text-base md:text-lg leading-relaxed max-w-2xl mx-auto" style={{ color: '#7B8792' }} html={content.ergebnis_intro || 'Kein kurzfristiger Effekt. Sondern eine Verschiebung, die du in jedem Bereich deines Lebens spürst.'} />
+          <Rich as="p" className="font-inter text-base md:text-lg leading-relaxed max-w-2xl mx-auto" style={{ color: '#7B8792' }} html={txt(content, 'ergebnis_intro', 'Kein kurzfristiger Effekt. Sondern eine Verschiebung, die du in jedem Bereich deines Lebens spürst.')} />
         </div>
 
         {/* Drei Säulen */}
@@ -122,7 +123,7 @@ export default function ErgebnisSection({ content = {} }: { content?: Record<str
                   {s.icon}
                 </span>
                 <h3 className="font-barlow font-bold text-xl" style={{ color: '#E6E8EB' }}>
-                  {content[`ergebnis_col${i + 1}_label`] || s.label}
+                  {txt(content, `ergebnis_col${i + 1}_label`, s.label)}
                 </h3>
               </div>
 
@@ -180,11 +181,11 @@ export default function ErgebnisSection({ content = {} }: { content?: Record<str
               as="p"
               className="font-barlow font-bold text-2xl md:text-3xl leading-snug mb-6"
               style={{ color: '#E8D49A' }}
-              html={content.ergebnis_quote || 'Das Ziel ist nicht nur ein besserer Körper. Das Ziel ist, dass du wieder auf dem Niveau performst, das du von dir selbst erwartest.'}
+              html={txt(content, 'ergebnis_quote', 'Das Ziel ist nicht nur ein besserer Körper. Das Ziel ist, dass du wieder auf dem Niveau performst, das du von dir selbst erwartest.')}
             />
             <div className="mt-5">
-              <p className="font-barlow font-bold text-base" style={{ color: '#E6E8EB' }}>{content.ergebnis_quote_author || 'Fabian Schönle'}</p>
-              <p className="font-inter text-sm" style={{ color: '#7B8792' }}>{content.ergebnis_quote_role || 'Performance Coach · PhD Chemie'}</p>
+              <p className="font-barlow font-bold text-base" style={{ color: '#E6E8EB' }}>{txt(content, 'ergebnis_quote_author', 'Fabian Schönle')}</p>
+              <p className="font-inter text-sm" style={{ color: '#7B8792' }}>{txt(content, 'ergebnis_quote_role', 'Performance Coach · PhD Chemie')}</p>
             </div>
           </div>
 
@@ -214,10 +215,10 @@ export default function ErgebnisSection({ content = {} }: { content?: Record<str
         {/* Bewertungen */}
         <div className="mt-28 md:mt-36 mb-10 text-center animate-fade-up" style={{ animationDelay: '300ms' }}>
           <p className="font-barlow font-bold text-2xl md:text-3xl" style={{ color: '#E6E8EB' }}>
-            {content.ergebnis_reviews_line1 || 'Das sind keine Versprechen.'}
+            {txt(content, 'ergebnis_reviews_line1', 'Das sind keine Versprechen.')}
           </p>
           <p className="font-barlow font-bold text-2xl md:text-3xl" style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-            {content.ergebnis_reviews_line2 || 'Das sind echte Bewertungen.'}
+            {txt(content, 'ergebnis_reviews_line2', 'Das sind echte Bewertungen.')}
           </p>
         </div>
 
@@ -256,9 +257,9 @@ export default function ErgebnisSection({ content = {} }: { content?: Record<str
               </svg>
             </div>
             <p className="font-barlow font-bold text-xl leading-snug mb-2" style={{ color: '#E6E8EB' }}>
-              {content.ergebnis_cta_title || 'Werde die nächste Bewertung.'}
+              {txt(content, 'ergebnis_cta_title', 'Werde die nächste Bewertung.')}
             </p>
-            <Rich as="p" className="font-inter text-sm leading-relaxed mb-6" style={{ color: '#A6B0BA' }} html={content.ergebnis_cta_body || 'Im kostenlosen Erstgespräch finden wir heraus, was dein System gerade limitiert — unverbindlich und ohne Druck.'} />
+            <Rich as="p" className="font-inter text-sm leading-relaxed mb-6" style={{ color: '#A6B0BA' }} html={txt(content, 'ergebnis_cta_body', 'Im kostenlosen Erstgespräch finden wir heraus, was dein System gerade limitiert — unverbindlich und ohne Druck.')} />
             <a
               href={CALENDLY_URL}
               data-open-form="true"
@@ -266,7 +267,7 @@ export default function ErgebnisSection({ content = {} }: { content?: Record<str
               rel="noopener noreferrer"
               className="cta-metal inline-flex items-center gap-2 px-6 py-3 rounded-xl font-inter font-semibold text-sm transition-transform"
             >
-              {content.ergebnis_cta_button || 'Performance Analyse buchen'}
+              {txt(content, 'ergebnis_cta_button', 'Performance Analyse buchen')}
               <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
                 <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>

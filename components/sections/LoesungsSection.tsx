@@ -1,5 +1,6 @@
 'use client'
 
+import { txt } from '@/lib/cms-text'
 import React, { useRef, useCallback, useEffect, useState } from 'react'
 import Image from 'next/image'
 import { Rich } from '@/components/Rich'
@@ -246,12 +247,12 @@ export default function LoesungsSection({ content = {} }: { content?: Record<str
 
         <div className="mb-16 animate-fade-up text-center">
           <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-4" style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-            {content.loesung_label || 'High-Performance Coaching'}
+            {txt(content, 'loesung_label', 'High-Performance Coaching')}
           </p>
           <h2 className="font-barlow font-bold text-3xl md:text-5xl leading-tight mb-4" style={{ color: '#E6E8EB' }}>
-            {content.loesung_title_1 || 'Eine datenbasierte Strategie —'}<br className="hidden md:block" /> {content.loesung_title_2 || 'durch einen präzisen und individuellen Ansatz'}
+            {txt(content, 'loesung_title_1', 'Eine datenbasierte Strategie —')}<br className="hidden md:block" /> {txt(content, 'loesung_title_2', 'durch einen präzisen und individuellen Ansatz')}
           </h2>
-          <Rich as="p" className="font-inter text-lg md:text-xl leading-relaxed max-w-3xl mx-auto" style={{ color: '#A6B0BA' }} html={content.loesung_intro || 'Ich analysiere, was deinen Körper gerade limitiert. Und stelle dann genau die Hebel ein, die wirklich einen Unterschied machen.'} />
+          <Rich as="p" className="font-inter text-lg md:text-xl leading-relaxed max-w-3xl mx-auto" style={{ color: '#A6B0BA' }} html={txt(content, 'loesung_intro', 'Ich analysiere, was deinen Körper gerade limitiert. Und stelle dann genau die Hebel ein, die wirklich einen Unterschied machen.')} />
         </div>
 
         {/* 3-Spalten-Raster (2 Reihen) — Grafik oben, Text unten */}
@@ -311,9 +312,9 @@ export default function LoesungsSection({ content = {} }: { content?: Record<str
               <div className="flex flex-1 flex-col justify-center gap-2 px-6 py-5">
                 <div className="flex items-center gap-3">
                   <span className="flex-shrink-0">{pillar.icon}</span>
-                  <h3 className="font-barlow font-bold text-xl md:text-2xl" style={{ color: '#E6E8EB' }}>{content[`loesung_pillar${i + 1}_headline`] || pillar.headline}</h3>
+                  <h3 className="font-barlow font-bold text-xl md:text-2xl" style={{ color: '#E6E8EB' }}>{txt(content, `loesung_pillar${i + 1}_headline`, pillar.headline)}</h3>
                 </div>
-                <Rich as="p" className="font-inter text-sm md:text-base leading-relaxed" style={{ color: '#98A4B1' }} html={content[`loesung_pillar${i + 1}_body`] || pillar.body} />
+                <Rich as="p" className="font-inter text-sm md:text-base leading-relaxed" style={{ color: '#98A4B1' }} html={txt(content, `loesung_pillar${i + 1}_body`, pillar.body)} />
               </div>
             </div>
           ))}

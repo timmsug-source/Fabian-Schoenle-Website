@@ -1,3 +1,4 @@
+import { txt } from '@/lib/cms-text'
 import Image from 'next/image'
 import { CALENDLY_URL } from '@/lib/constants'
 import { Rich } from '@/components/Rich'
@@ -80,7 +81,7 @@ export default function UeberMichSection({ content = {} }: { content?: Record<st
 
         {/* Label */}
         <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-4 animate-fade-up" style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-          {content.uebermich_label || 'Über Fabian Schönle'}
+          {txt(content, 'uebermich_label', 'Über Fabian Schönle')}
         </p>
 
         {/* Haupt-Grid: Text links, Bild rechts */}
@@ -89,7 +90,7 @@ export default function UeberMichSection({ content = {} }: { content?: Record<st
           {/* Linke Spalte — Text */}
           <div className="animate-fade-up" style={{ animationDelay: '60ms' }}>
             <h2 className="font-barlow font-bold text-3xl md:text-5xl leading-tight mb-8" style={{ color: '#E6E8EB' }}>
-              {content.uebermich_title_1 || 'Ich war selbst da,'}<br /> {content.uebermich_title_2 || 'wo du gerade stehst.'}
+              {txt(content, 'uebermich_title_1', 'Ich war selbst da,')}<br /> {txt(content, 'uebermich_title_2', 'wo du gerade stehst.')}
             </h2>
 
             <div className="flex flex-col gap-5">
@@ -102,7 +103,7 @@ export default function UeberMichSection({ content = {} }: { content?: Record<st
                     color: i === 2 ? '#E6E8EB' : '#A6B0BA',
                     fontWeight: i === 2 ? 600 : 400,
                   }}
-                  html={content[`uebermich_para${i + 1}`] || text}
+                  html={txt(content, `uebermich_para${i + 1}`, text)}
                 />
               ))}
             </div>
@@ -115,7 +116,7 @@ export default function UeberMichSection({ content = {} }: { content?: Record<st
               rel="noopener noreferrer"
               className="cta-metal mt-8 inline-flex items-center gap-2 px-6 py-3.5 rounded-lg font-inter font-semibold text-sm transition-transform"
             >
-              {content.uebermich_cta_button || 'Performance Analyse buchen'}
+              {txt(content, 'uebermich_cta_button', 'Performance Analyse buchen')}
               <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
                 <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>

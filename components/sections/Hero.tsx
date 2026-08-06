@@ -1,5 +1,6 @@
 'use client'
 
+import { txt } from '@/lib/cms-text'
 import { useRef, useState } from 'react'
 import { CALENDLY_URL } from '@/lib/constants'
 import { Rich } from '@/components/Rich'
@@ -84,23 +85,23 @@ export default function Hero({ content = {} }: { content?: Record<string, string
         {/* H1 + Subheadline — volle Breite */}
         <div className="mb-8 md:mb-16 text-center">
           <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-5" style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-            {content.hero_label || 'High-Performance Coaching'}
+            {txt(content, 'hero_label', 'High-Performance Coaching')}
           </p>
           <h1
             className="font-barlow font-bold text-4xl md:text-5xl lg:text-6xl leading-[1.05] mb-6"
             style={{ color: '#E6E8EB' }}
           >
-            {content.hero_title_1 || 'Ich helfe dir, trotz vollem Alltag'}{' '}
+            {txt(content, 'hero_title_1', 'Ich helfe dir, trotz vollem Alltag')}{' '}
             <span style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-              {content.hero_title_highlight || 'körperliche Bestform und maximale Performance'}
+              {txt(content, 'hero_title_highlight', 'körperliche Bestform und maximale Performance')}
             </span>{' '}
-            {content.hero_title_2 || 'zu erreichen.'}
+            {txt(content, 'hero_title_2', 'zu erreichen.')}
           </h1>
           <Rich
             as="p"
             className="font-inter text-lg md:text-xl leading-relaxed max-w-5xl mx-auto"
             style={{ color: '#AEB5BE' }}
-            html={content.hero_subtitle || 'Datenbasierter Ansatz auf Basis deiner Blut- und DNA-Werte. In 4 Monaten zu stabiler Energie, einem klaren Kopf und durchschnittlich 12 kg weniger Körpergewicht – ohne Job, Familie oder Freunde hintenanzustellen.'}
+            html={txt(content, 'hero_subtitle', 'Datenbasierter Ansatz auf Basis deiner Blut- und DNA-Werte. In 4 Monaten zu stabiler Energie, einem klaren Kopf und durchschnittlich 12 kg weniger Körpergewicht – ohne Job, Familie oder Freunde hintenanzustellen.')}
           />
         </div>
 
@@ -164,10 +165,10 @@ export default function Hero({ content = {} }: { content?: Record<string, string
                       </svg>
                     </span>
                     <p className="font-barlow font-semibold text-xl md:text-2xl" style={{ color: '#E6E8EB' }}>
-                      {content[`hero_bullet${i + 1}_title`] || item.headline}
+                      {txt(content, `hero_bullet${i + 1}_title`, item.headline)}
                     </p>
                   </div>
-                  <Rich as="p" className="font-inter text-sm md:text-base leading-relaxed mt-1 md:mt-2 pl-[44px] md:pl-[54px]" style={{ color: '#AEB5BE' }} html={content[`hero_bullet${i + 1}_body`] || item.body} />
+                  <Rich as="p" className="font-inter text-sm md:text-base leading-relaxed mt-1 md:mt-2 pl-[44px] md:pl-[54px]" style={{ color: '#AEB5BE' }} html={txt(content, `hero_bullet${i + 1}_body`, item.body)} />
                 </li>
               ))}
             </ul>
@@ -187,10 +188,10 @@ export default function Hero({ content = {} }: { content?: Record<string, string
                   <line x1="8" y1="2" x2="8" y2="6" />
                   <line x1="3" y1="10" x2="21" y2="10" />
                 </svg>
-                {content.hero_cta || 'Performance Analyse buchen'}
+                {txt(content, 'hero_cta', 'Performance Analyse buchen')}
               </a>
               <p className="mt-3 font-inter text-xs" style={{ color: '#7B8792' }}>
-                {content.hero_cta_note || 'Call mit mir persönlich · 20 Minuten'}
+                {txt(content, 'hero_cta_note', 'Call mit mir persönlich · 20 Minuten')}
               </p>
             </div>
           </div>

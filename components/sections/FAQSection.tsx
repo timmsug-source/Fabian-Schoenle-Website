@@ -1,5 +1,6 @@
 'use client'
 
+import { txt } from '@/lib/cms-text'
 import { useState } from 'react'
 import { Rich } from '@/components/Rich'
 
@@ -68,13 +69,13 @@ export default function FAQSection({ content = {}, items, label, title1, title2 
         {/* Header */}
         <div className="mb-12 animate-fade-up">
           <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-4" style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-            {label || content.faq_label || 'Häufige Fragen'}
+            {label || txt(content, 'faq_label', 'Häufige Fragen')}
           </p>
           <h2 className="font-barlow font-bold text-3xl md:text-5xl leading-tight" style={{ color: '#E6E8EB' }}>
-            {title1 || content.faq_title_1 || 'Fragen, die in der'}
+            {title1 || txt(content, 'faq_title_1', 'Fragen, die in der')}
             {(title2 || !title1) && (
               <>
-                <br className="hidden md:block" /> {title2 || content.faq_title_2 || 'Vergangenheit gestellt wurden'}
+                <br className="hidden md:block" /> {title2 || txt(content, 'faq_title_2', 'Vergangenheit gestellt wurden')}
               </>
             )}
           </h2>
