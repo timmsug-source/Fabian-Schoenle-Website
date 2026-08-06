@@ -1,11 +1,29 @@
 'use client'
 
+import { txt } from '@/lib/cms-text'
 import Image from 'next/image'
 import { useRef, useState } from 'react'
 import { CALENDLY_URL } from '@/lib/constants'
 import { Rich } from '@/components/Rich'
 
-const fallstudien = [
+interface Fallstudie {
+  name: string
+  alter: string
+  beruf: string
+  instagram?: string
+  link?: string
+  /** Pfad im Projekt (/videos/…) oder vollständige Adresse aus dem Speicher */
+  video?: string
+  bild?: string
+  problem: string
+  ziel: string
+  loesung: string
+  vorher: { gewicht: string; punkte: string[] }
+  nachher: { gewicht: string; punkte: string[] }
+}
+
+/** Standardinhalte. Greifen, solange das CMS für eine Fallstudie nichts liefert. */
+const fallstudien: Fallstudie[] = [
   {
     name: 'Robert',
     alter: '42 Jahre',
@@ -113,8 +131,67 @@ function cmsPunkte(
   return ausCms.length > 0 ? ausCms : fallback
 }
 
+/**
+ * Baut die Liste der Fallstudien aus dem CMS. Die Anzahl ist NICHT begrenzt —
+ * eine im CMS angelegte Fallstudie erscheint automatisch.
+ *
+ * Video und Bild dürfen aus dem CMS kommen (Adresse aus dem Speicher); fehlen
+ * sie dort, greift der Pfad aus den Standardinhalten. Eine neue Fallstudie ohne
+ * beides zeigt den neutralen Platzhalter statt eines kaputten Layouts.
+ *
+ * Ohne Namen wird eine Fallstudie übersprungen — so taucht ein frisch im CMS
+ * angelegter, noch leerer Eintrag nicht sofort auf der Website auf.
+ */
+function cmsFallstudien(content: Record<string, string>): Fallstudie[] {
+  const nummern: number[] = []
+  for (const k of Object.keys(content)) {
+    const m = k.match(/^fallstudien(\d+)_/)
+    if (m && !nummern.includes(Number(m[1]))) nummern.push(Number(m[1]))
+  }
+  if (nummern.length === 0) return fallstudien
+
+  return nummern
+    .sort((a, b) => a - b)
+    .map((nr) => {
+      const standard = fallstudien[nr - 1]
+
+      // Texte: ein im CMS vorhandenes Feld gewinnt, auch wenn es leer ist —
+      // sonst ließe sich ein Text nie leeren (siehe lib/cms-text).
+      const t = (feld: string) => {
+        const k = `fallstudien${nr}_${feld}`
+        return k in content ? content[k].trim() : undefined
+      }
+      // Video, Bild und Link: hier bedeutet leer bewusst "nimm die Datei aus
+      // dem Projekt" — so ist das Feld im CMS auch beschriftet.
+      const m = (feld: string) => content[`fallstudien${nr}_${feld}`]?.trim() || undefined
+
+      return {
+        name: t('name') ?? standard?.name ?? '',
+        alter: t('alter') ?? standard?.alter ?? '',
+        beruf: t('beruf') ?? standard?.beruf ?? '',
+        instagram: m('kontakt') ?? standard?.instagram,
+        link: m('link') ?? standard?.link,
+        video: m('video') ?? standard?.video,
+        bild: m('bild') ?? standard?.bild,
+        problem: t('problem') ?? standard?.problem ?? '',
+        ziel: t('ziel') ?? standard?.ziel ?? '',
+        loesung: t('loesung') ?? standard?.loesung ?? '',
+        vorher: {
+          gewicht: t('vorher_gewicht') ?? standard?.vorher.gewicht ?? '',
+          punkte: cmsPunkte(content, nr, 'vorher', standard?.vorher.punkte ?? []),
+        },
+        nachher: {
+          gewicht: t('nachher_gewicht') ?? standard?.nachher.gewicht ?? '',
+          punkte: cmsPunkte(content, nr, 'nachher', standard?.nachher.punkte ?? []),
+        },
+      }
+    })
+    .filter((fs) => fs.name)
+}
+
 export default function FallstudienSection({ content = {} }: { content?: Record<string, string> }) {
   const [mehrGeladen, setMehrGeladen] = useState(false)
+  const liste = cmsFallstudien(content)
 
   return (
     <section id="rezensionen" className="relative overflow-hidden" style={{ background: '#060E1F' }}>
@@ -147,16 +224,16 @@ export default function FallstudienSection({ content = {} }: { content?: Record<
         {/* Header */}
         <div className="mb-12 animate-fade-up text-center">
           <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-4" style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-            {content.fallstudien_label || 'Echte Ergebnisse'}
+            {txt(content, 'fallstudien_label', 'Echte Ergebnisse')}
           </p>
           <h2 className="font-barlow font-bold text-3xl md:text-5xl leading-tight" style={{ color: '#E6E8EB' }}>
-            {content.fallstudien_title_1 || 'So fühlt es sich an, wenn man sich'}<br className="hidden md:block" /> {content.fallstudien_title_2 || 'die Kontrolle zurückholt'}
+            {txt(content, 'fallstudien_title_1', 'So fühlt es sich an, wenn man sich')}<br className="hidden md:block" /> {txt(content, 'fallstudien_title_2', 'die Kontrolle zurückholt')}
           </h2>
         </div>
 
         {/* ── Alle Fallstudien untereinander ── */}
         <div className="flex flex-col gap-10">
-          {fallstudien.map((fs, idx) => (
+          {liste.map((fs, idx) => (
             <div
               key={idx}
               className="rounded-3xl overflow-hidden animate-fade-up"
@@ -174,7 +251,7 @@ export default function FallstudienSection({ content = {} }: { content?: Record<
               >
                 <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#C9A84C' }} />
                 <p className="font-inter text-xs font-semibold uppercase tracking-widest" style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-                  Fallstudie: {content[`fallstudien${idx + 1}_name`] || fs.name}
+                  Fallstudie: {fs.name}
                 </p>
               </div>
 
@@ -183,9 +260,9 @@ export default function FallstudienSection({ content = {} }: { content?: Record<
                 {/* Linke Spalte: Story */}
                 <div className="lg:col-span-6 flex flex-col gap-6">
                   {[
-                    { label: 'Problem', text: content[`fallstudien${idx + 1}_problem`] || fs.problem },
-                    { label: 'Ziel',    text: content[`fallstudien${idx + 1}_ziel`] || fs.ziel },
-                    { label: 'Lösung',  text: content[`fallstudien${idx + 1}_loesung`] || fs.loesung },
+                    { label: 'Problem', text: fs.problem },
+                    { label: 'Ziel',    text: fs.ziel },
+                    { label: 'Lösung',  text: fs.loesung },
                   ].map(({ label, text }) => (
                     <div key={label}>
                       <p className="font-barlow font-bold text-sm uppercase tracking-wider mb-1.5" style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
@@ -203,9 +280,9 @@ export default function FallstudienSection({ content = {} }: { content?: Record<
                 {/* Rechte Spalte: Media & Profil */}
                 <div className="lg:col-span-6">
                   <div className="rounded-2xl overflow-hidden flex flex-col" style={{ background: 'rgba(0,0,0,0.25)', border: '1px solid rgba(201,168,76,0.5)', boxShadow: '0 0 40px rgba(201,168,76,0.25), 0 0 12px rgba(201,168,76,0.15)' }}>
-                    {'video' in fs && fs.video ? (
+                    {fs.video ? (
                       <VideoPlayer src={fs.video} />
-                    ) : 'bild' in fs && fs.bild ? (
+                    ) : fs.bild ? (
                       <div className="relative aspect-video overflow-hidden rounded-t-xl" style={{ border: '1px solid rgba(201,168,76,0.4)' }}>
                         <img src={fs.bild} alt={fs.name} className="absolute inset-0 w-full h-full object-cover" style={{ objectPosition: 'center 22%' }} />
                       </div>
@@ -217,9 +294,9 @@ export default function FallstudienSection({ content = {} }: { content?: Record<
                       </div>
                     )}
                     <div className="px-5 py-4 text-center flex flex-col gap-1">
-                      <p className="font-barlow font-bold text-xl" style={{ color: '#E6E8EB' }}>{content[`fallstudien${idx + 1}_name`] || fs.name}</p>
-                      <p className="font-inter text-sm" style={{ color: '#7B8792' }}>{content[`fallstudien${idx + 1}_alter`] || fs.alter} · {content[`fallstudien${idx + 1}_beruf`] || fs.beruf}</p>
-                      {'link' in fs && fs.link ? (
+                      <p className="font-barlow font-bold text-xl" style={{ color: '#E6E8EB' }}>{fs.name}</p>
+                      <p className="font-inter text-sm" style={{ color: '#7B8792' }}>{fs.alter} · {fs.beruf}</p>
+                      {fs.link ? (
                         <a href={fs.link} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-1.5 mt-1 transition-colors hover:text-white" style={{ color: '#7B8792' }}>
                           <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.44-2.13 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/>
@@ -247,10 +324,10 @@ export default function FallstudienSection({ content = {} }: { content?: Record<
                   <div className="p-8 md:p-10 flex flex-col gap-4 rounded-2xl" style={{ background: 'rgba(180,30,30,0.15)' }}>
                     <div className="flex items-center gap-3 flex-wrap">
                       <span className="font-barlow font-bold text-base uppercase tracking-wide" style={{ color: '#E6E8EB' }}>Ausgangssituation</span>
-                      <span className="font-inter text-xs font-bold px-3 py-1 rounded-md" style={{ background: '#C0392B', color: '#fff' }}>{content[`fallstudien${idx + 1}_vorher_gewicht`] || fs.vorher.gewicht}</span>
+                      <span className="font-inter text-xs font-bold px-3 py-1 rounded-md" style={{ background: '#C0392B', color: '#fff' }}>{fs.vorher.gewicht}</span>
                     </div>
                     <ul className="flex flex-col gap-3">
-                      {cmsPunkte(content, idx + 1, 'vorher', fs.vorher.punkte).map((p, i) => (
+                      {fs.vorher.punkte.map((p, i) => (
                         <li key={i} className="flex items-center gap-3 font-inter text-sm" style={{ color: '#A6B0BA' }}>
                           <svg width="24" height="24" viewBox="0 0 38 38" fill="none" className="flex-shrink-0">
                             <defs><linearGradient id={`fx-${idx}-${i}`} x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#C9A84C"/><stop offset="100%" stopColor="#E8D49A"/></linearGradient></defs>
@@ -267,10 +344,10 @@ export default function FallstudienSection({ content = {} }: { content?: Record<
                     <span className="absolute right-4 bottom-2 font-barlow font-bold select-none pointer-events-none" style={{ fontSize: 96, lineHeight: 1, color: 'rgba(255,255,255,0.04)', letterSpacing: '-2px' }}>FS</span>
                     <div className="relative flex items-center gap-3 flex-wrap">
                       <span className="font-barlow font-bold text-base uppercase tracking-wide text-white">Ergebnis</span>
-                      <span className="font-inter text-xs font-bold px-3 py-1 rounded-md" style={{ background: 'rgba(52,211,153,0.15)', color: '#6EE7B7', border: '1px solid rgba(52,211,153,0.35)' }}>{content[`fallstudien${idx + 1}_nachher_gewicht`] || fs.nachher.gewicht}</span>
+                      <span className="font-inter text-xs font-bold px-3 py-1 rounded-md" style={{ background: 'rgba(52,211,153,0.15)', color: '#6EE7B7', border: '1px solid rgba(52,211,153,0.35)' }}>{fs.nachher.gewicht}</span>
                     </div>
                     <ul className="relative flex flex-col gap-3">
-                      {cmsPunkte(content, idx + 1, 'nachher', fs.nachher.punkte).map((p, i) => (
+                      {fs.nachher.punkte.map((p, i) => (
                         <li key={i} className="flex items-center gap-3 font-inter text-sm text-white/70">
                           <svg width="24" height="24" viewBox="0 0 38 38" fill="none" className="flex-shrink-0">
                             <defs><linearGradient id={`fck-${idx}-${i}`} x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#0E9E6E"/><stop offset="45%" stopColor="#34D399"/><stop offset="75%" stopColor="#A7F3D0"/><stop offset="100%" stopColor="#34D399"/></linearGradient></defs>
@@ -355,11 +432,11 @@ export default function FallstudienSection({ content = {} }: { content?: Record<
             </div>
 
             <h3 className="font-barlow font-bold text-3xl md:text-4xl leading-snug mb-8 max-w-3xl mx-auto" style={{ color: '#E6E8EB' }}>
-              {content.fallstudien_cta_title_1 || 'Wir entwickeln für dich eine'}{' '}
+              {txt(content, 'fallstudien_cta_title_1', 'Wir entwickeln für dich eine')}{' '}
               <span style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-                {content.fallstudien_cta_highlight || 'maßgeschneiderte Strategie'}
+                {txt(content, 'fallstudien_cta_highlight', 'maßgeschneiderte Strategie')}
               </span>
-              {content.fallstudien_cta_title_2 || ', die deine Bedürfnisse und deinen Terminkalender berücksichtigt'}
+              {txt(content, 'fallstudien_cta_title_2', ', die deine Bedürfnisse und deinen Terminkalender berücksichtigt')}
             </h3>
             <a
               href={CALENDLY_URL}
@@ -368,7 +445,7 @@ export default function FallstudienSection({ content = {} }: { content?: Record<
               rel="noopener noreferrer"
               className="cta-metal inline-flex items-center gap-2.5 px-9 py-4 rounded-xl font-inter font-semibold text-base md:text-lg transition-transform"
             >
-              {content.fallstudien_cta_button || 'Kostenlose Performance-Analyse buchen'}
+              {txt(content, 'fallstudien_cta_button', 'Kostenlose Performance-Analyse buchen')}
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
             </a>
           </div>
