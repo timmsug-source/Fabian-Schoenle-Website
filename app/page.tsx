@@ -27,7 +27,7 @@ export default async function HomePage() {
       <VergleichSection content={content} />
       <UeberMichSection content={content} />
       <KontaktSection content={content} />
-      <SocialSection />
+      <SocialSection content={content} />
       <FAQSection content={content} />
     </>
   )
