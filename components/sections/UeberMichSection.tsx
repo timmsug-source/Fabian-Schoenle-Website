@@ -227,7 +227,7 @@ export default function UeberMichSection({ content = {} }: { content?: Record<st
                 }}
               >
                 <Image
-                  src="/images/Fabian-Schönle-Farbe-Triathlon.JPG"
+                  src="/images/FS-Bild-Triathlon.webp"
                   alt="Fabian Schönle — Performance Coach"
                   fill
                   className="object-cover object-top"

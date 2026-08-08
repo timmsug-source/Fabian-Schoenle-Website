@@ -62,10 +62,10 @@ export default function HypotheseSection({ content = {} }: { content?: Record<st
           {/* Right: Kreislauf-Grafik */}
           <div className="w-full lg:w-[460px] flex-shrink-0">
             <Image
-              src="/images/Waage transparent2.png"
-              alt="Der Teufelskreis: Mehr Disziplin, radikale Ansätze, Heißhunger, Jo-Jo-Effekt, Frustration, Mehr Stress"
-              width={717}
-              height={717}
+              src="/images/Kreislauf-transparent-neu.webp"
+              alt="Der Teufelskreis: Mehr Disziplin, radikale Ansätze, Heißhunger, Jojo-Effekt, Frustration, Mehr Stress"
+              width={1042}
+              height={1025}
               className="w-full h-auto"
               sizes="(max-width: 1024px) 100vw, 460px"
             />
@@ -108,7 +108,7 @@ export default function HypotheseSection({ content = {} }: { content?: Record<st
             style={{ width: 200, height: 240, marginTop: 8, marginBottom: 8 }}
           >
             <Image
-              src="/images/FS-Bild-Zitatsektion.png"
+              src="/images/FS-Bild-Zitatsektion.webp"
               alt="Fabian Schönle"
               fill
               className="object-contain object-top"
@@ -122,7 +122,7 @@ export default function HypotheseSection({ content = {} }: { content?: Record<st
             style={{ width: 260, height: 330, right: 24, bottom: 0 }}
           >
             <Image
-              src="/images/FS-Bild-Zitatsektion.png"
+              src="/images/FS-Bild-Zitatsektion.webp"
               alt="Fabian Schönle"
               fill
               className="object-contain object-bottom"

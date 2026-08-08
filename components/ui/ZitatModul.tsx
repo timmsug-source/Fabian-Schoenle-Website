@@ -60,7 +60,7 @@ export default function ZitatModul({
       {/* Portrait — Mobile */}
       <div className="md:hidden relative flex-shrink-0 self-center" style={{ width: 200, height: 240 }}>
         <Image
-          src="/images/FS-Bild-Zitatsektion-2.png"
+          src="/images/FS-Bild-Zitatsektion-2.webp"
           alt="Fabian Schönle"
           fill
           className="object-contain object-top"
@@ -71,7 +71,7 @@ export default function ZitatModul({
       {/* Portrait — Desktop, ragt oben aus dem Kasten */}
       <div className="hidden md:block absolute" style={{ width: 294, height: 420, right: 24, bottom: 0 }}>
         <Image
-          src="/images/FS-Bild-Zitatsektion-2.png"
+          src="/images/FS-Bild-Zitatsektion-2.webp"
           alt="Fabian Schönle"
           fill
           className="object-contain object-bottom"
