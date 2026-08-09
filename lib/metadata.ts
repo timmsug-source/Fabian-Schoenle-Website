@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { SITE_NAME, SITE_URL } from '@/lib/constants'
+import { SITE_NAME, SITE_URL, UNTERSEITEN_NOINDEX } from '@/lib/constants'
 
 export function buildMetadata({
   title,
@@ -22,7 +22,11 @@ export function buildMetadata({
     alt: `${SITE_NAME} — Datenbasiertes Performance Coaching`,
   }
 
+  // Unterseite = Aufruf mit slug. Siehe UNTERSEITEN_NOINDEX in lib/constants.ts.
+  const aufNoindex = Boolean(slug) && UNTERSEITEN_NOINDEX
+
   return {
+    ...(aufNoindex ? { robots: { index: false, follow: true } } : {}),
     // `absolute` schaltet die Title-Vorlage aus dem Root-Layout ab. Die Titel hier
     // tragen den Markennamen bereits selbst — ohne das Flag hängt Next.js ihn ein
     // zweites Mal an ("… | FS Performance Lab | FS Performance Lab").
