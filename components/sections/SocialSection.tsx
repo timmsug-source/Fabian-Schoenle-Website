@@ -1,8 +1,10 @@
 import { txt } from '@/lib/cms-text'
 import Image from 'next/image'
 
-const LINKEDIN_URL = 'https://www.linkedin.com/in/fabian-sch%C3%B6nle-a273a8363/'
-const YOUTUBE_URL = 'https://www.youtube.com/@FuelByFabian'
+// Aus den Konstanten, damit Profil-URLs und die `sameAs`-Angaben der
+// strukturierten Daten nicht auseinanderlaufen können.
+import { LINKEDIN_URL, YOUTUBE_URL } from '@/lib/constants'
+
 const YOUTUBE_CHANNEL_ID = 'UC6pwxF5Ngw8kYbJgjd-eqMg'
 
 interface YTVideo {

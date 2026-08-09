@@ -223,15 +223,16 @@ export default function ErgebnisSection({ content = {} }: { content?: Record<str
         </div>
 
         <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 animate-fade-up" style={{ animationDelay: '360ms' }}>
-          {BEWERTUNGEN.map((src, i) => (
+          {BEWERTUNGEN.map((bewertung, i) => (
             <div
               key={i}
               className={`break-inside-avoid mb-4 rounded-2xl overflow-hidden ${i > 2 && !alleZeigen ? 'hidden sm:block' : ''}`}
               style={{ border: '1px solid rgba(201,168,76,0.25)', boxShadow: '0 4px 20px rgba(0,0,0,0.3)' }}
             >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={src}
-                alt={`Bewertung ${i + 1}`}
+                src={bewertung.src}
+                alt={bewertung.alt}
                 className="w-full h-auto block"
               />
             </div>

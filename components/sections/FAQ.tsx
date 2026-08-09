@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useId, useState } from 'react'
 import SectionLabel from '@/components/ui/SectionLabel'
 
 type FAQItem = {
@@ -16,6 +16,7 @@ type FAQProps = {
 
 export default function FAQ({ label, headline, items }: FAQProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(null)
+  const bereichId = useId()
 
   return (
     <section className="max-w-7xl mx-auto px-4 md:px-8 py-16 md:py-24">
@@ -44,6 +45,7 @@ export default function FAQ({ label, headline, items }: FAQProps) {
                 className="flex w-full items-center justify-between text-left px-5 py-4"
                 onClick={() => setOpenIndex(openIndex === i ? null : i)}
                 aria-expanded={openIndex === i}
+                aria-controls={`${bereichId}-antwort-${i}`}
               >
                 <span className="font-inter font-semibold text-sm md:text-base pr-4" style={{ color: '#E6E8EB' }}>
                   {item.question}
@@ -70,11 +72,26 @@ export default function FAQ({ label, headline, items }: FAQProps) {
                 </span>
               </button>
             </dt>
-            {openIndex === i && (
-              <dd className="px-5 pb-5 font-inter text-sm md:text-base leading-relaxed" style={{ color: '#AEB5BE' }}>
-                {item.answer}
-              </dd>
-            )}
+            {/*
+              Antwort steht immer im HTML und wird nur auf- und zugeklappt — sonst
+              zeichnet das FAQPage-Schema Text aus, der nirgends auf der Seite steht.
+              Gleiche Lösung wie in FAQSection: grid-template-rows 0fr → 1fr, ohne
+              Transition auf dieser Eigenschaft (Chrome löst `1fr` sonst nicht auf).
+            */}
+            <dd
+              id={`${bereichId}-antwort-${i}`}
+              className="grid"
+              style={{ gridTemplateRows: openIndex === i ? '1fr' : '0fr' }}
+            >
+              <div className="overflow-hidden">
+                <div
+                  className="px-5 pb-5 font-inter text-sm md:text-base leading-relaxed transition-opacity duration-200"
+                  style={{ color: '#AEB5BE', opacity: openIndex === i ? 1 : 0 }}
+                >
+                  {item.answer}
+                </div>
+              </div>
+            </dd>
           </div>
         ))}
       </dl>

@@ -1,41 +1,9 @@
 'use client'
 
 import { txt } from '@/lib/cms-text'
-import { useState } from 'react'
+import { useId, useState } from 'react'
 import { Rich } from '@/components/Rich'
-
-const faqs = [
-  {
-    frage: 'Ich habe schon vieles probiert — warum sollte das hier anders sein?',
-    antwort: 'Weil wir nicht raten. Bevor wir irgendetwas verändern, analysieren wir über Blut- und DNA-Werte, was dein System gerade wirklich limitiert. Kein generischer Plan, der für den Durchschnitt gemacht wurde — sondern eine Strategie, die auf deine Biologie abgestimmt ist. Das ist der Unterschied.',
-  },
-  {
-    frage: 'Ich habe kaum Zeit. Funktioniert das trotzdem?',
-    antwort: 'Ja — und genau dafür ist dieser Ansatz gemacht. Die Zielgruppe sind Selbstständige und Unternehmer mit hoher Belastung und wenig Zeit. Ernährung, Training und Alltag werden so aufgebaut, dass sie in dein Leben passen — nicht umgekehrt.',
-  },
-  {
-    frage: 'Muss ich komplett auf etwas verzichten?',
-    antwort: 'Nein. Es geht nicht um Verbote oder Einschränkungen, sondern darum, zu verstehen, was dein Körper braucht. Wer weiß, wie sein System funktioniert, muss nicht auf Genuss verzichten — er trifft einfach bessere Entscheidungen.',
-  },
-  {
-    frage: 'Wie schnell sehe ich erste Ergebnisse?',
-    antwort: 'Die meisten Kunden spüren innerhalb der ersten 4–6 Wochen eine spürbare Veränderung bei Energie und Fokus. Sichtbare Veränderungen in der Körperkomposition entstehen typischerweise innerhalb von 2–4 Monaten — abhängig von Ausgangslage und Konsequenz in der Umsetzung.',
-  },
-  {
-    frage: 'Was kostet das Coaching?',
-    antwort: 'Das lässt sich pauschal nicht beantworten — weil der Aufwand von deiner Ausgangslage, deinen Zielen und der gewünschten Betreuungsintensität abhängt. Im kostenlosen Erstgespräch besprechen wir, was für dich sinnvoll ist und was es kostet.',
-  },
-  {
-    frage: 'Ist das auch online möglich?',
-    antwort: 'Ja. Die gesamte Zusammenarbeit läuft online ab — Erstgespräch, Analysen, Check-ins, Tracking. Du brauchst nichts außer einem Laptop oder Smartphone und die Bereitschaft, die Analyse-Kits zu nutzen.',
-  },
-  {
-    frage: 'Was passiert nach dem Erstgespräch?',
-    antwort: 'Du bekommst eine ehrliche Einschätzung deiner Situation — und einen klaren Vorschlag, wie eine Zusammenarbeit aussehen würde. Kein Druck, keine Verpflichtung. Du entscheidest danach in Ruhe.',
-  },
-]
-
-type FaqEintrag = { frage: string; antwort: string }
+import { FAQS, type FaqEintrag } from '@/lib/faq'
 
 type FAQSectionProps = {
   content?: Record<string, string>
@@ -49,9 +17,10 @@ type FAQSectionProps = {
 export default function FAQSection({ content = {}, items, label, title1, title2 }: FAQSectionProps) {
   // Eigene Fragen haben Vorrang. Die CMS-Felder (faq1_frage …) gehören zur
   // Startseite und dürfen seitenspezifische Fragen nicht überschreiben.
-  const eintraege = items ?? faqs
+  const eintraege = items ?? FAQS
   const ausCms = !items
   const [offen, setOffen] = useState<number | null>(null)
+  const bereichId = useId()
   const [formOffen, setFormOffen] = useState(false)
   const [nachricht, setNachricht] = useState('')
   const [email, setEmail] = useState('')
@@ -97,6 +66,8 @@ export default function FAQSection({ content = {}, items, label, title1, title2 
               <button
                 onClick={() => setOffen(offen === i ? null : i)}
                 className="w-full flex items-center gap-4 px-5 py-4 text-left"
+                aria-expanded={offen === i}
+                aria-controls={`${bereichId}-antwort-${i}`}
               >
                 <span
                   className="font-inter font-semibold text-base leading-snug flex-1"
@@ -120,12 +91,33 @@ export default function FAQSection({ content = {}, items, label, title1, title2 
                 </span>
               </button>
 
-              {/* Antwort */}
-              {offen === i && (
-                <div className="px-5 pb-5">
-                  <Rich as="p" className="font-inter text-sm leading-relaxed" style={{ color: '#A6B0BA' }} html={(ausCms && content[`faq${i + 1}_antwort`]) || faq.antwort} />
+              {/*
+                Antwort steht immer im HTML und wird nur auf- und zugeklappt.
+                Vorher wurde sie bedingt gerendert — dadurch stand keine einzige
+                Antwort im ausgelieferten Markup, obwohl das FAQPage-Schema sie
+                auszeichnet.
+
+                Das Auf-/Zuklappen läuft über grid-template-rows (0fr → 1fr), weil
+                das ohne feste Höhenangabe auskommt. Bewusst ohne Transition auf
+                dieser Eigenschaft: Chrome löst `1fr` dann nicht mehr auf und die
+                Antwort bleibt auf 0 px stehen. Weich eingeblendet wird stattdessen
+                die Opazität des Inhalts.
+              */}
+              <div
+                id={`${bereichId}-antwort-${i}`}
+                role="region"
+                className="grid"
+                style={{ gridTemplateRows: offen === i ? '1fr' : '0fr' }}
+              >
+                <div className="overflow-hidden">
+                  <div
+                    className="px-5 pb-5 transition-opacity duration-200"
+                    style={{ opacity: offen === i ? 1 : 0 }}
+                  >
+                    <Rich as="p" className="font-inter text-sm leading-relaxed" style={{ color: '#A6B0BA' }} html={(ausCms && content[`faq${i + 1}_antwort`]) || faq.antwort} />
+                  </div>
                 </div>
-              )}
+              </div>
             </div>
           ))}
         </div>
