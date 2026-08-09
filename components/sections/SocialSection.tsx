@@ -103,6 +103,12 @@ export default async function SocialSection({ content = {} }: { content?: Record
             className="group relative block overflow-hidden rounded-2xl animate-fade-up"
             style={{ ...MEDIA_FRAME, aspectRatio: '16/9' }}
           >
+            {/*
+              Bewusst ohne `unoptimized`: Das Vorschaubild laeuft dadurch ueber
+              den eigenen Server (remotePatterns in next.config.mjs). Vorher lud
+              der Browser es direkt bei img.youtube.com — dabei ging bei jedem
+              Seitenaufruf die IP des Besuchers an Google, ungefragt.
+            */}
             {latest ? (
               <Image
                 src={`https://img.youtube.com/vi/${latest.id}/maxresdefault.jpg`}
@@ -110,7 +116,6 @@ export default async function SocialSection({ content = {} }: { content?: Record
                 fill
                 className="object-cover transition-transform duration-300 group-hover:scale-105"
                 sizes="(max-width: 1024px) 100vw, 600px"
-                unoptimized
               />
             ) : (
               <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, #16213A 0%, #0D1829 100%)' }} />

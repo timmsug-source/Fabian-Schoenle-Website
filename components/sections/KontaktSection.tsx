@@ -4,6 +4,7 @@ import { txt } from '@/lib/cms-text'
 import { useEffect, useRef, useState } from 'react'
 import { CALENDLY_URL } from '@/lib/constants'
 import { Rich } from '@/components/Rich'
+import KlickZumLaden from '@/components/ui/KlickZumLaden'
 
 const punkte = [
   {
@@ -60,15 +61,24 @@ export default function KontaktSection({
 }: KontaktSectionProps) {
   const [widgetHeight, setWidgetHeight] = useState(500)
   const [fills, setFills] = useState<number[]>([])
+  const [kalenderGeladen, setKalenderGeladen] = useState(false)
   const ablaufRef = useRef<HTMLDivElement>(null)
 
+  /**
+   * Calendly wird erst auf Klick geladen. Vorher hing das Skript bei jedem
+   * Seitenaufruf ungefragt im <head> und das Widget-iframe baute eine
+   * Verbindung zu calendly.com auf — ohne Einwilligung und mit unterdruecktem
+   * Hinweis (hide_gdpr_banner=1). Durch das Nachladen auf Klick braucht es
+   * dafuer keine Einwilligung, und die Seite laedt spuerbar schneller.
+   */
   useEffect(() => {
+    if (!kalenderGeladen) return
     const script = document.createElement('script')
     script.src = 'https://assets.calendly.com/assets/external/widget.js'
     script.async = true
     document.head.appendChild(script)
-    return () => { document.head.removeChild(script) }
-  }, [])
+    return () => { script.remove() }
+  }, [kalenderGeladen])
 
   useEffect(() => {
     function onMessage(e: MessageEvent) {
@@ -165,7 +175,7 @@ export default function KontaktSection({
             </p>
           </div>
 
-          {/* Rechte Spalte — Calendly Widget */}
+          {/* Rechte Spalte — Calendly Widget, laedt erst auf Klick */}
           <div
             className="rounded-2xl overflow-hidden animate-fade-up"
             style={{
@@ -173,11 +183,22 @@ export default function KontaktSection({
               animationDelay: '80ms',
             }}
           >
-            <div
-              className="calendly-inline-widget"
-              data-url={`${CALENDLY_URL}?hide_event_type_details=1&hide_gdpr_banner=1&background_color=091122&text_color=E6E8EB&primary_color=4A6741`}
-              style={{ minWidth: 320, height: widgetHeight }}
-            />
+            {kalenderGeladen ? (
+              <div
+                className="calendly-inline-widget"
+                data-url={`${CALENDLY_URL}?hide_event_type_details=1&hide_gdpr_banner=1&background_color=091122&text_color=E6E8EB&primary_color=4A6741`}
+                style={{ minWidth: 320, height: widgetHeight }}
+              />
+            ) : (
+              <KlickZumLaden
+                titel="Termin direkt im Kalender wählen"
+                hinweis="Mit dem Klick wird der Kalender von Calendly geladen. Dabei wird deine IP-Adresse an Calendly übertragen."
+                knopf="Kalender laden"
+                datenschutzHinweis
+                onLaden={() => setKalenderGeladen(true)}
+                hoehe={widgetHeight}
+              />
+            )}
           </div>
 
         </div>

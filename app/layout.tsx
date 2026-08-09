@@ -6,6 +6,8 @@ import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import ScrollReveal from '@/components/ScrollReveal'
 import AnfrageFormular from '@/components/AnfrageFormular'
+import ConsentBanner from '@/components/consent/ConsentBanner'
+import Analytics from '@/components/consent/Analytics'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -61,6 +63,8 @@ export default function RootLayout({
         <Header />
         <main>{children}</main>
         <Footer />
+        <ConsentBanner />
+        <Analytics />
       </body>
     </html>
   )

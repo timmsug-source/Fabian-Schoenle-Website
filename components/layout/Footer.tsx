@@ -30,6 +30,11 @@ export default function Footer() {
           <Link href="/datenschutz" className="hover:text-white transition-colors">
             Datenschutz
           </Link>
+          {/* Widerruf muss so einfach erreichbar sein wie die Erteilung —
+              das Attribut oeffnet die Auswahl erneut (siehe ConsentBanner). */}
+          <button type="button" data-cookie-einstellungen className="hover:text-white transition-colors">
+            Cookie-Einstellungen
+          </button>
         </div>
       </div>
       <div style={{ borderTop: '1px solid rgba(201, 168, 76, 0.15)' }}>
