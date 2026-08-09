@@ -25,6 +25,35 @@ export default function FAQSection({ content = {}, items, label, title1, title2 
   const [nachricht, setNachricht] = useState('')
   const [email, setEmail] = useState('')
   const [gesendet, setGesendet] = useState(false)
+  const [sendet, setSendet] = useState(false)
+  const [fehler, setFehler] = useState<string | null>(null)
+
+  /**
+   * Vorher setzte der Button nur `gesendet` auf true — die Nachricht wurde nie
+   * irgendwohin geschickt. Der Absender sah eine Bestätigung, während seine
+   * Frage verloren ging. Jetzt geht sie über dieselbe Route wie das große
+   * Anfrageformular.
+   */
+  async function absenden() {
+    setSendet(true)
+    setFehler(null)
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, nachricht }),
+      })
+      if (!res.ok) {
+        const daten = await res.json().catch(() => null)
+        throw new Error(daten?.error || 'Senden fehlgeschlagen.')
+      }
+      setGesendet(true)
+    } catch (e) {
+      setFehler(e instanceof Error ? e.message : 'Senden fehlgeschlagen. Bitte versuche es später erneut.')
+    } finally {
+      setSendet(false)
+    }
+  }
 
   return (
     <section id="faq" className="relative" style={{ background: '#060E1F' }}>
@@ -148,7 +177,7 @@ export default function FAQSection({ content = {}, items, label, title1, title2 
           <div
             className="fixed inset-0 z-50 flex items-center justify-center p-4"
             style={{ background: 'rgba(0,0,0,0.7)', backdropFilter: 'blur(4px)' }}
-            onClick={() => { setFormOffen(false); setGesendet(false) }}
+            onClick={() => { setFormOffen(false); setGesendet(false); setFehler(null) }}
           >
             <div
               className="relative w-full max-w-md rounded-2xl p-7"
@@ -161,7 +190,7 @@ export default function FAQSection({ content = {}, items, label, title1, title2 
             >
               {/* Schließen */}
               <button
-                onClick={() => { setFormOffen(false); setGesendet(false) }}
+                onClick={() => { setFormOffen(false); setGesendet(false); setFehler(null) }}
                 className="absolute top-4 right-4 w-7 h-7 rounded-full flex items-center justify-center transition-opacity hover:opacity-70"
                 style={{ background: 'rgba(255,255,255,0.07)', color: '#7B8792' }}
               >
@@ -191,12 +220,15 @@ export default function FAQSection({ content = {}, items, label, title1, title2 
                       className="w-full px-4 py-3 rounded-xl font-inter text-sm outline-none resize-none"
                       style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: '#E6E8EB' }}
                     />
+                    {fehler && (
+                      <p className="font-inter text-sm" style={{ color: '#E0916F' }}>{fehler}</p>
+                    )}
                     <button
-                      onClick={() => setGesendet(true)}
-                      disabled={!email || !nachricht}
+                      onClick={absenden}
+                      disabled={!email || !nachricht || sendet}
                       className="cta-metal w-full py-3 rounded-xl font-inter font-semibold text-sm transition-transform disabled:opacity-40"
                     >
-                      Frage absenden
+                      {sendet ? 'Wird gesendet …' : 'Frage absenden'}
                     </button>
                   </div>
                 </>
