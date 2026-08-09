@@ -14,11 +14,36 @@ type FAQSectionProps = {
   title2?: string
 }
 
+/**
+ * Baut die Fragen aus dem CMS: faq1_frage/_antwort, faq2_… Die Anzahl ist NICHT
+ * begrenzt, eine im CMS angelegte Frage erscheint automatisch. Vorher bestimmte
+ * die Länge der Standardliste, wie viele Fragen gezeigt wurden — eine achte im
+ * CMS wäre nie sichtbar geworden.
+ *
+ * Einträge ohne Frage werden übersprungen; fehlt eine Antwort, greift die aus
+ * der Standardliste.
+ */
+function cmsFaqs(content: Record<string, string>, standard: FaqEintrag[]): FaqEintrag[] {
+  const nummern: number[] = []
+  for (const k of Object.keys(content)) {
+    const m = k.match(/^faq(\d+)_frage$/)
+    if (m && !nummern.includes(Number(m[1]))) nummern.push(Number(m[1]))
+  }
+  if (nummern.length === 0) return standard
+
+  return nummern
+    .sort((a, b) => a - b)
+    .map((n) => ({
+      frage: content[`faq${n}_frage`]?.trim() || standard[n - 1]?.frage || '',
+      antwort: content[`faq${n}_antwort`]?.trim() || standard[n - 1]?.antwort || '',
+    }))
+    .filter((f) => f.frage)
+}
+
 export default function FAQSection({ content = {}, items, label, title1, title2 }: FAQSectionProps) {
   // Eigene Fragen haben Vorrang. Die CMS-Felder (faq1_frage …) gehören zur
   // Startseite und dürfen seitenspezifische Fragen nicht überschreiben.
-  const eintraege = items ?? FAQS
-  const ausCms = !items
+  const eintraege = items ?? cmsFaqs(content, FAQS)
   const [offen, setOffen] = useState<number | null>(null)
   const bereichId = useId()
   const [formOffen, setFormOffen] = useState(false)
@@ -102,7 +127,7 @@ export default function FAQSection({ content = {}, items, label, title1, title2 
                   className="font-inter font-semibold text-base leading-snug flex-1"
                   style={{ color: offen === i ? '#E6E8EB' : '#BBC1CA' }}
                 >
-                  {(ausCms && content[`faq${i + 1}_frage`]) || faq.frage}
+                  {faq.frage}
                 </span>
 
                 {/* Gold Plus/Minus */}
@@ -143,7 +168,7 @@ export default function FAQSection({ content = {}, items, label, title1, title2 
                     className="px-5 pb-5 transition-opacity duration-200"
                     style={{ opacity: offen === i ? 1 : 0 }}
                   >
-                    <Rich as="p" className="font-inter text-sm leading-relaxed" style={{ color: '#A6B0BA' }} html={(ausCms && content[`faq${i + 1}_antwort`]) || faq.antwort} />
+                    <Rich as="p" className="font-inter text-sm leading-relaxed" style={{ color: '#A6B0BA' }} html={faq.antwort} />
                   </div>
                 </div>
               </div>
