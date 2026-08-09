@@ -3,6 +3,19 @@
 @tailwind utilities;
 
 :root {
+  /*
+    Sagt dem Browser, dass diese Seite bereits ein dunkles Design mitbringt.
+    Ohne diese Angabe wendet Chrome auf Android seinen automatischen
+    Dunkelmodus an und rechnet die Farben selbst um. Betroffen sind vor allem
+    Hintergründe — und der Goldverlauf der Überschriften ist technisch ein
+    Hintergrund (background-clip: text). Er wurde dadurch zu Braun, während
+    weißer Text unverändert blieb.
+
+    Nebeneffekt, hier erwünscht: Formularfelder und Bildlaufleisten rendern
+    in ihrer dunklen Variante.
+  */
+  color-scheme: dark;
+
   --color-navy:      #182A3A;
   --color-navy-dark: #060E1F;
   --color-navy-mid:  #2A3A4A;

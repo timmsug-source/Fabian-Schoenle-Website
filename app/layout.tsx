@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Inter, Barlow_Condensed } from 'next/font/google'
 import './globals.css'
 import { SITE_NAME } from '@/lib/constants'
@@ -19,6 +19,17 @@ const barlowCondensed = Barlow_Condensed({
   variable: '--font-barlow',
   display: 'swap',
 })
+
+/**
+ * Dieselbe Aussage wie `color-scheme: dark` in globals.css, nur als Meta-Angabe:
+ * Der Browser wertet sie schon vor dem Stylesheet aus und wendet seinen
+ * automatischen Dunkelmodus dadurch gar nicht erst an. `themeColor` färbt
+ * zusätzlich die Browserleiste auf Android im Seitenhintergrund ein.
+ */
+export const viewport: Viewport = {
+  colorScheme: 'dark',
+  themeColor: '#060E1F',
+}
 
 export const metadata: Metadata = {
   title: {
