@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter, Barlow_Condensed } from 'next/font/google'
 import './globals.css'
+import { SITE_NAME } from '@/lib/constants'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import ScrollReveal from '@/components/ScrollReveal'
@@ -21,8 +22,8 @@ const barlowCondensed = Barlow_Condensed({
 
 export const metadata: Metadata = {
   title: {
-    default: 'High Performance Coaching für Männer ab 30 | FS-Performance',
-    template: '%s | FS-Performance',
+    default: `High Performance Coaching für Männer ab 30 | ${SITE_NAME}`,
+    template: `%s | ${SITE_NAME}`,
   },
   description: 'Datenbasiertes Performance Coaching — basierend auf DNA- und Blutanalyse. Für Männer, die körperlich und mental auf Maximum performen wollen.',
   metadataBase: new URL('https://fabianschoenle.de'),

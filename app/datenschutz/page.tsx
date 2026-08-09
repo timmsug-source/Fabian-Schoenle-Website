@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { buildMetadata } from '@/lib/metadata'
 
 export const metadata: Metadata = buildMetadata({
-  title: 'Datenschutz | FS-Performance',
+  title: 'Datenschutz | FS Performance Lab',
   description: 'Datenschutzerklärung von Fabian Schönle — Coaching mit FuelByFabian.',
   slug: 'datenschutz',
 })

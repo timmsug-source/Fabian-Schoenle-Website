@@ -16,7 +16,7 @@ import LocalBusinessSchema from '@/components/schema/LocalBusinessSchema'
 import FAQSchema from '@/components/schema/FAQSchema'
 
 export const metadata: Metadata = buildMetadata({
-  title: 'Ernährungsberatung Karlsruhe — datenbasiert & individuell | FS-Performance',
+  title: 'Ernährungsberatung Karlsruhe — datenbasiert & individuell | FS Performance Lab',
   description:
     'Ernährungsberatung in Karlsruhe basierend auf deinen Blutwerten — kein generischer Diätplan, sondern ein System das zu deiner Biologie passt.',
   slug: 'ernaehrungsberatung-karlsruhe',

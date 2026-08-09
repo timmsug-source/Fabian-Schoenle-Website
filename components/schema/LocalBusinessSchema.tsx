@@ -1,9 +1,11 @@
+import { SITE_NAME, SITE_URL } from '@/lib/constants'
+
 export default function LocalBusinessSchema() {
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
-    name: 'FS-Performance',
-    url: 'https://fabianschoenle.de',
+    name: SITE_NAME,
+    url: SITE_URL,
     telephone: '',
     address: {
       '@type': 'PostalAddress',

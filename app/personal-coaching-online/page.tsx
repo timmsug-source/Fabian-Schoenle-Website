@@ -8,7 +8,7 @@ import CTASection from '@/components/sections/CTASection'
 import FAQSchema from '@/components/schema/FAQSchema'
 
 export const metadata: Metadata = buildMetadata({
-  title: 'Personal Coaching online für Männer ab 30 | FS-Performance',
+  title: 'Personal Coaching online für Männer ab 30 | FS Performance Lab',
   description:
     'Datenbasiertes Personal Coaching online — DNA-Analyse, Blutbild, individueller Plan. Ort spielt keine Rolle. Ergebnisse schon.',
   slug: 'personal-coaching-online',

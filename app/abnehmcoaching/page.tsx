@@ -8,7 +8,7 @@ import CTASection from '@/components/sections/CTASection'
 import FAQSchema from '@/components/schema/FAQSchema'
 
 export const metadata: Metadata = buildMetadata({
-  title: 'Abnehmcoaching für Männer | Kein Jo-Jo, kein Verzicht | FS-Performance',
+  title: 'Abnehmcoaching für Männer | Kein Jo-Jo, kein Verzicht | FS Performance Lab',
   description:
     'Abnehmcoaching das wirklich funktioniert — weil es auf deiner Biologie basiert, nicht auf Willenskraft. Für Männer ab 30 mit Bauchfett und Energieproblemen.',
   slug: 'abnehmcoaching',

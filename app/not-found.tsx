@@ -1,7 +1,7 @@
 import Link from 'next/link'
 
 const unterseiten = [
-  { href: '/ueber-mich', title: 'Über mich', sub: 'Wer hinter FS-Performance steckt', bild: '/images/Fabian-Schoenle-Blick-Kamera.webp', pos: 'center 20%' },
+  { href: '/ueber-mich', title: 'Über mich', sub: 'Wer hinter FS Performance Lab steckt', bild: '/images/Fabian-Schoenle-Blick-Kamera.webp', pos: 'center 20%' },
   { href: '/ernaehrungsberatung-karlsruhe', title: 'Ernährungsberatung Karlsruhe', sub: 'Datenbasiert & individuell', bild: '/images/FS-Waage.png', pos: 'center' },
   { href: '/personal-coaching-online', title: 'Personal Coaching online', sub: 'Ort spielt keine Rolle', bild: '/images/Fabian-Schoenle-Mockup-Ablauf.webp', pos: 'center' },
   { href: '/abnehmcoaching', title: 'Abnehmcoaching', sub: 'Ohne Jo-Jo, ohne Verzicht', bild: '/images/FS-Kreislauf.png', pos: 'center' },

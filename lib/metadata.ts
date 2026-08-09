@@ -25,7 +25,7 @@ export function buildMetadata({
   return {
     // `absolute` schaltet die Title-Vorlage aus dem Root-Layout ab. Die Titel hier
     // tragen den Markennamen bereits selbst — ohne das Flag hängt Next.js ihn ein
-    // zweites Mal an ("… | FS-Performance | FS-Performance").
+    // zweites Mal an ("… | FS Performance Lab | FS Performance Lab").
     title: { absolute: title },
     description,
     alternates: { canonical: url },

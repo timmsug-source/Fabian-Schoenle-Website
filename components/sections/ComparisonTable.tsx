@@ -44,7 +44,7 @@ export default function ComparisonTable({ label, headline, rows }: ComparisonTab
                   backgroundClip: 'text',
                 }}
               >
-                FS-Performance
+                FS Performance Lab
               </th>
             </tr>
           </thead>

@@ -6,7 +6,7 @@ import PersonSchema from '@/components/schema/PersonSchema'
 import { CALENDLY_URL } from '@/lib/constants'
 
 export const metadata: Metadata = buildMetadata({
-  title: 'Über Fabian Schönle — Performance Coach & Chemiker | FS-Performance',
+  title: 'Über Fabian Schönle — Performance Coach & Chemiker | FS Performance Lab',
   description:
     'Fabian Schönle verbindet wissenschaftliche Präzision mit praktischer Umsetzung. Erfahre, wie sein Ansatz entstanden ist und für wen er gemacht ist.',
   slug: 'ueber-mich',
