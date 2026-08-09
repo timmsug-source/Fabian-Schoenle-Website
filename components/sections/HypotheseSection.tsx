@@ -103,15 +103,21 @@ export default function HypotheseSection({ content = {} }: { content?: Record<st
           </div>
 
           {/* Fabian portrait — Mobile */}
+          {/*
+            Kein Abstand nach unten: Das Portrait soll auf der Unterkante des
+            Zitatkastens aufliegen — wie in der Desktop-Variante. `object-bottom`
+            hält es dort auch dann, wenn ein Bild mit anderem Seitenverhältnis
+            nachrückt und `object-contain` oben Luft lässt.
+          */}
           <div
             className="md:hidden relative flex-shrink-0 self-center mx-auto"
-            style={{ width: 200, height: 240, marginTop: 8, marginBottom: 8 }}
+            style={{ width: 200, height: 240, marginTop: 8 }}
           >
             <Image
               src="/images/FS-Bild-Zitatsektion.webp"
               alt="Fabian Schönle"
               fill
-              className="object-contain object-top"
+              className="object-contain object-bottom"
               sizes="200px"
             />
           </div>

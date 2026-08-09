@@ -190,11 +190,18 @@ export default function KontaktSection({
             <h3 className="font-barlow font-bold text-3xl md:text-5xl leading-tight text-center" style={{ color: '#E6E8EB', marginBottom: 0 }}>
               {txt(content, 'ablauf_title', 'Drei Schritte bis zu deinem Plan')}
             </h3>
+            {/*
+              Der Wert hängt am Bild: Prozent-Margins beziehen sich auf die
+              Containerbreite, und die Datei bringt über dem Laptop 3,6 % dieser
+              Breite an Leerraum mit. 1 % Abstand ergibt zusammen die ~4,5 %, die
+              das vorherige Mockup mit seiner größeren Randluft und -7 % hatte.
+              Wird das Bild getauscht, muss dieser Wert mitgerechnet werden.
+            */}
             <img
-              src="/images/Fabian-Schoenle-Mockup-Ablauf.webp"
-              alt="Fabian Schönle"
+              src="/images/FS-Ablauf-Mockup.webp"
+              alt="Fabian Schönle im Video-Call — so läuft das Erstgespräch ab"
               className="w-full h-auto"
-              style={{ marginTop: '-7%' }}
+              style={{ marginTop: '1%' }}
             />
             <div style={{ marginTop: '0.5%' }} className="flex justify-center">
               <a
