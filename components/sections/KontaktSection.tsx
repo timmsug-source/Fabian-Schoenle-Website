@@ -126,7 +126,9 @@ export default function KontaktSection({
               {punkte.map((p, i) => (
                 <div key={i} className="flex items-start gap-3">
                   <span className="flex-shrink-0 mt-0.5">{p.icon}</span>
-                  <div>
+                  {/* text-left: hebt die globale Mobil-Zentrierung auf — neben einem
+                      Icon stehender Fliesstext gehoert linksbuendig. */}
+                  <div className="text-left">
                     <p className="font-inter text-sm font-semibold" style={{ color: '#E6E8EB' }}>{txt(content, `kontakt_trust${i + 1}_titel`, p.titel)}</p>
                     <Rich as="p" className="font-inter text-xs leading-relaxed mt-0.5" style={{ color: '#7B8792' }} html={txt(content, `kontakt_trust${i + 1}_text`, p.text)} />
                   </div>
@@ -150,7 +152,10 @@ export default function KontaktSection({
             <div className="mb-6" />
 
             {/* Vertrauensanker */}
-            <p className="font-inter text-xs flex items-center gap-1.5" style={{ color: '#3A4A5A' }}>
+            {/* text-left: der Text steht neben dem Schloss-Symbol. Zentriert
+                bricht er in der Mitte um und loest sich optisch vom Symbol,
+                das am linken Rand kleben bleibt. */}
+            <p className="font-inter text-xs flex items-center gap-1.5 text-left" style={{ color: '#3A4A5A' }}>
               <svg width="12" height="12" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" className="flex-shrink-0">
                 <defs><linearGradient id="klock" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#C9A84C"/><stop offset="100%" stopColor="#E8D49A"/></linearGradient></defs>
                 <rect x="8" y="16" width="20" height="16" rx="3" fill="url(#klock)"/>
@@ -182,44 +187,60 @@ export default function KontaktSection({
           className="relative mt-20 pt-16 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center overflow-hidden"
           style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}
         >
-          {/* Links — Überschrift + Bild + Button */}
-          <div className="flex flex-col">
-            <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-0.5 text-center" style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-              {txt(content, 'ablauf_label', 'So läuft es ab')}
-            </p>
-            <h3 className="font-barlow font-bold text-3xl md:text-5xl leading-tight text-center" style={{ color: '#E6E8EB', marginBottom: 0 }}>
-              {txt(content, 'ablauf_title', 'Drei Schritte bis zu deinem Plan')}
-            </h3>
-            {/*
-              Der Wert hängt am Bild: Prozent-Margins beziehen sich auf die
-              Containerbreite, und die Datei bringt über dem Laptop 3,6 % dieser
-              Breite an Leerraum mit. 1 % Abstand ergibt zusammen die ~4,5 %, die
-              das vorherige Mockup mit seiner größeren Randluft und -7 % hatte.
-              Wird das Bild getauscht, muss dieser Wert mitgerechnet werden.
-            */}
-            <img
-              src="/images/FS-Ablauf-Mockup.webp"
-              alt="Fabian Schönle im Video-Call — so läuft das Erstgespräch ab"
-              className="w-full h-auto"
-              style={{ marginTop: '1%' }}
-            />
-            <div style={{ marginTop: '0.5%' }} className="flex justify-center">
-              <a
-                href={CALENDLY_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="cta-metal inline-flex items-center gap-3 px-7 py-4 rounded-xl font-inter font-semibold text-sm transition-transform"
-              >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
-                </svg>
-                {txt(content, 'ablauf_cta_button', 'Jetzt kostenlosen Termin sichern')}
-              </a>
+          {/*
+            Links — Überschrift + Bild + Button.
+
+            `contents` loest diesen Wrapper auf Mobil auf: Überschrift und
+            Bild/Button werden dadurch zu eigenständigen Rasterfeldern und
+            lassen sich per `order` einzeln einsortieren — Überschrift (1),
+            Schritte (2), Bild mit Button (3). Ab lg wird der Wrapper wieder
+            zur Flex-Spalte, damit die Überschrift wie bisher direkt über dem
+            Bild sitzt und das Desktop-Layout unverändert bleibt.
+          */}
+          <div className="contents lg:flex lg:flex-col">
+            {/* Überschrift — mobil zuerst, auf Desktop oben in der linken Spalte */}
+            <div className="order-1">
+              <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-0.5 text-center" style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+                {txt(content, 'ablauf_label', 'So läuft es ab')}
+              </p>
+              <h3 className="font-barlow font-bold text-3xl md:text-5xl leading-tight text-center" style={{ color: '#E6E8EB', marginBottom: 0 }}>
+                {txt(content, 'ablauf_title', 'Drei Schritte bis zu deinem Plan')}
+              </h3>
+            </div>
+
+            {/* Bild + Button — mobil hinter den Schritten */}
+            <div className="order-3">
+              {/*
+                Der Wert hängt am Bild: Prozent-Margins beziehen sich auf die
+                Containerbreite, und die Datei bringt über dem Laptop 3,6 % dieser
+                Breite an Leerraum mit. 1 % Abstand ergibt zusammen die ~4,5 %, die
+                das vorherige Mockup mit seiner größeren Randluft und -7 % hatte.
+                Wird das Bild getauscht, muss dieser Wert mitgerechnet werden.
+              */}
+              <img
+                src="/images/FS-Ablauf-Mockup.webp"
+                alt="Fabian Schönle im Video-Call — so läuft das Erstgespräch ab"
+                className="w-full h-auto"
+                style={{ marginTop: '1%' }}
+              />
+              <div style={{ marginTop: '0.5%' }} className="flex justify-center">
+                <a
+                  href={CALENDLY_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="cta-metal inline-flex items-center gap-3 px-7 py-4 rounded-xl font-inter font-semibold text-sm transition-transform"
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+                  </svg>
+                  {txt(content, 'ablauf_cta_button', 'Jetzt kostenlosen Termin sichern')}
+                </a>
+              </div>
             </div>
           </div>
 
           {/* Rechts — 3 Schritte mit Icons */}
-          <div className="flex flex-col justify-center" ref={ablaufRef}>
+          <div className="order-2 flex flex-col justify-center" ref={ablaufRef}>
             <div className="flex flex-col">
               {[
                 {
@@ -277,7 +298,10 @@ export default function KontaktSection({
                       </div>
                     )}
                   </div>
-                  <div className={i < arr.length - 1 ? 'pb-8' : ''}>
+                  {/* text-left: die globale Mobil-Zentrierung wuerde den Fliesstext
+                      neben der Zeitleiste mittig setzen, waehrend die Ueberschrift
+                      durch den Flex-Container links steht. */}
+                  <div className={`text-left ${i < arr.length - 1 ? 'pb-8' : ''}`}>
                     <div className="flex items-center" style={{ minHeight: '3.5rem' }}>
                       <h3 className="font-barlow font-bold text-2xl md:text-3xl leading-tight" style={{ color: '#E6E8EB' }}>
                         {txt(content, `ablauf_schritt${i + 1}_titel`, schritt.titel)}
