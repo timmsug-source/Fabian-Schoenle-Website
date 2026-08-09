@@ -295,7 +295,10 @@ export default function VergleichSection({ content = {} }: { content?: Record<st
             </thead>
             <tbody>
               {zeilen.map((row, i) => {
-                const last = i === rows.length - 1
+                // Gegen zeilen.length prüfen, nicht gegen rows: Das CMS kann mehr
+                // Zeilen liefern als das Fallback-Array — sonst sitzt die gerundete
+                // Unterkante auf der falschen Zeile.
+                const last = i === zeilen.length - 1
                 return (
                   <tr key={i}>
                     <td className="py-3 pr-2" style={{ borderTop: ROW_LINE }}>

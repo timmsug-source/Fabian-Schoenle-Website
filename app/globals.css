@@ -254,3 +254,32 @@ body {
     0 6px 18px rgba(0,0,0,0.35);
   transform: translateY(-3px) scale(1.04);
 }
+
+/* ---------------------------------------------------------------
+   Mobil: Inhalte zentriert.
+   Bewusst als eine Regel statt als text-center in ~200 Elementen.
+   Ab 768px greift wieder die Ausrichtung der jeweiligen Komponente.
+   --------------------------------------------------------------- */
+@media (max-width: 767px) {
+  main section {
+    text-align: center;
+  }
+
+  /* Listenzeilen mit vorangestelltem Icon bleiben linksbündig:
+     Zentriert startet jede Zeile neben dem Haken an anderer Stelle. */
+  main section li {
+    text-align: left;
+  }
+
+  /* Vergleichstabelle: Die Kriterienspalte bleibt linksbündig,
+     zentriert bräche das Raster der vier Wertespalten auf. */
+  main table td:first-child,
+  main table th:first-child {
+    text-align: left;
+  }
+
+  /* FAQ-Akkordeon: Die Frage steht neben dem Plus/Minus-Zeichen. */
+  main #faq button > span:first-child {
+    text-align: left;
+  }
+}

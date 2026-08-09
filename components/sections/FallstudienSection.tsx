@@ -76,15 +76,19 @@ function VideoPlayer({ src }: { src: string }) {
 
   return (
     <div className="relative aspect-video overflow-hidden rounded-t-xl" style={{ background: 'rgba(0,0,0,0.4)', border: '1px solid rgba(201,168,76,0.4)', boxShadow: '0 0 24px rgba(201,168,76,0.1)' }}>
+      {/*
+        #t=0.1 ist ein Media-Fragment: Der Browser springt beim Laden der Metadaten
+        auf Sekunde 0.1 und zeichnet diesen Frame — sonst bleibt die Fläche schwarz,
+        weil es keine Poster-Bilder zu den Videos gibt.
+      */}
       <video
         ref={videoRef}
+        src={`${src}#t=0.1`}
         className="absolute inset-0 w-full h-full object-cover"
         controls={playing}
         playsInline
         preload="metadata"
-      >
-        <source src={src} type="video/mp4" />
-      </video>
+      />
       {!playing && (
         <div
           className="absolute inset-0 flex items-center justify-center cursor-pointer"
@@ -399,7 +403,7 @@ export default function FallstudienSection({ content = {} }: { content?: Record<
         {/* CTA — volle Breite wie eine weitere Testimonial-Kachel */}
         <div className="mt-12 animate-fade-up" style={{ animationDelay: '200ms' }}>
           <div
-            className="relative w-full rounded-3xl px-8 py-12 md:px-16 md:py-16 text-center overflow-hidden"
+            className="relative w-full rounded-3xl px-5 py-8 md:px-16 md:py-16 text-center overflow-hidden"
             style={{
               background: 'linear-gradient(135deg, #0D1829 0%, #0B1525 100%)',
               border: '1px solid rgba(201,168,76,0.4)',
@@ -431,7 +435,7 @@ export default function FallstudienSection({ content = {} }: { content?: Record<
               </span>
             </div>
 
-            <h3 className="font-barlow font-bold text-3xl md:text-4xl leading-snug mb-8 max-w-3xl mx-auto" style={{ color: '#E6E8EB' }}>
+            <h3 className="font-barlow font-bold text-2xl md:text-4xl leading-snug mb-6 md:mb-8 max-w-3xl mx-auto" style={{ color: '#E6E8EB' }}>
               {txt(content, 'fallstudien_cta_title_1', 'Wir entwickeln für dich eine')}{' '}
               <span style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
                 {txt(content, 'fallstudien_cta_highlight', 'maßgeschneiderte Strategie')}
@@ -443,10 +447,9 @@ export default function FallstudienSection({ content = {} }: { content?: Record<
               data-open-form="true"
               target="_blank"
               rel="noopener noreferrer"
-              className="cta-metal inline-flex items-center gap-2.5 px-9 py-4 rounded-xl font-inter font-semibold text-base md:text-lg transition-transform"
+              className="cta-metal inline-flex items-center justify-center px-6 py-3 md:px-9 md:py-4 rounded-xl font-inter font-semibold text-sm md:text-lg transition-transform"
             >
               {txt(content, 'fallstudien_cta_button', 'Kostenlose Performance-Analyse buchen')}
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
             </a>
           </div>
         </div>
