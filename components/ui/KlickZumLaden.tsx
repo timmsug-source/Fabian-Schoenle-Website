@@ -50,7 +50,16 @@ export default function KlickZumLaden({
         {hinweis}
       </p>
 
-      <button type="button" onClick={onLaden} className="cta-metal px-7 py-3.5 rounded-xl font-inter font-semibold text-sm transition-transform">
+      {/* Größe, Innenabstand und Symbol bewusst identisch zum Haupt-CTA der
+          Sektion — die beiden stehen nebeneinander und sollen gleich wirken. */}
+      <button
+        type="button"
+        onClick={onLaden}
+        className="cta-metal inline-flex items-center gap-3 px-7 py-4 rounded-xl font-inter font-semibold text-sm transition-transform"
+      >
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2" /><line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" />
+        </svg>
         {knopf}
       </button>
 
