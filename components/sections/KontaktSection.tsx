@@ -239,7 +239,7 @@ export default function KontaktSection({
                 Wird das Bild getauscht, muss dieser Wert mitgerechnet werden.
               */}
               <img
-                src="/images/FS-Ablauf-Mockup.webp"
+                src="/images/FS-Ablauf-Mockup-Neu.webp"
                 alt="Fabian Schönle im Video-Call — so läuft das Erstgespräch ab"
                 className="w-full h-auto"
                 style={{ marginTop: '1%' }}
