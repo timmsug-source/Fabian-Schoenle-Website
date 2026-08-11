@@ -20,6 +20,19 @@ export const UNTERSEITEN_NOINDEX = true
 
 export const CALENDLY_URL = process.env.NEXT_PUBLIC_CALENDLY_URL ?? 'https://calendly.com/fuelbyfabian/30min'
 
+/**
+ * VORÜBERGEHEND AUS: Solange der Mailversand nicht steht (goneo lässt den
+ * MX-Eintrag für Resend nicht zu), führen alle CTAs direkt zu Calendly, statt
+ * das Anfrageformular zu öffnen. Ein Formular, dessen Nachrichten nirgends
+ * ankommen, ist schlimmer als kein Formular.
+ *
+ * Auf `true` setzen, sobald der Versand funktioniert — dann greifen wieder alle
+ * Elemente mit `data-open-form`, und die Direktnachricht in der FAQ erscheint.
+ * Alle betroffenen Schaltflächen haben ohnehin Calendly als Ziel hinterlegt;
+ * ohne die Abfangfunktion verhalten sie sich einfach als normale Links.
+ */
+export const ANFRAGE_FORMULAR_AKTIV = false
+
 /** Profile der Marke. Werden auch als `sameAs` in den strukturierten Daten ausgegeben. */
 export const LINKEDIN_URL = 'https://www.linkedin.com/in/fabian-sch%C3%B6nle-a273a8363/'
 export const YOUTUBE_URL = 'https://www.youtube.com/@FuelByFabian'

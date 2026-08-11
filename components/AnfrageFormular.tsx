@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { createPortal } from 'react-dom'
 import Image from 'next/image'
+import { ANFRAGE_FORMULAR_AKTIV } from '@/lib/constants'
 
 type Feld = {
   key: 'name' | 'email' | 'telefon'
@@ -37,8 +38,11 @@ export default function AnfrageFormular() {
 
   useEffect(() => setMounted(true), [])
 
-  // Öffnet das Formular bei Klick auf ein Element mit data-open-form
+  // Öffnet das Formular bei Klick auf ein Element mit data-open-form.
+  // Ist ANFRAGE_FORMULAR_AKTIV aus, wird nichts abgefangen — die Schaltflächen
+  // sind dann normale Links und führen zu ihrem Ziel (Calendly).
   useEffect(() => {
+    if (!ANFRAGE_FORMULAR_AKTIV) return
     function onClick(e: MouseEvent) {
       const el = (e.target as HTMLElement | null)?.closest<HTMLElement>('[data-open-form]')
       if (!el) return
