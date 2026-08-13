@@ -212,7 +212,10 @@ function TestimonialKarte({ video, index }: { video: VideoTestimonial; index: nu
         hier ausprobiert und wieder verworfen: In den halb so breiten Spalten
         dieser Sektion wirkt sie gedrängt und der Text bricht zu oft um.
       */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-7">
+      <div
+        className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-6 pt-6"
+        style={{ borderTop: '1px solid rgba(201,168,76,0.18)' }}
+      >
         <div>
           <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: '#6B7684' }}>
             Ausgangssituation
@@ -230,7 +233,11 @@ function TestimonialKarte({ video, index }: { video: VideoTestimonial; index: nu
         </div>
 
         <div>
-          <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: '#6B7684' }}>
+          {/* Gold mit zartem Schein — hebt das Ergebnis von der grauen Ausgangssituation ab */}
+          <p
+            className="font-inter text-xs font-semibold uppercase tracking-widest mb-3"
+            style={{ color: '#C9A84C', textShadow: '0 0 10px rgba(201,168,76,0.35)' }}
+          >
             Ergebnis
           </p>
           <ul className="flex flex-col gap-2.5">
