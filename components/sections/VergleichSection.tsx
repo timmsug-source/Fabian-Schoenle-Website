@@ -1,13 +1,44 @@
+import { Fragment } from 'react'
 import { txt } from '@/lib/cms-text'
 import { Rich } from '@/components/Rich'
 import Image from 'next/image'
 
-interface Zeile {
+export interface Zeile {
   feature: string
   fs: boolean
   generic: boolean
   online: boolean
   selbst: boolean
+}
+
+/**
+ * Beschriftung der drei Vergleichsspalten. Jeder Eintrag ist eine Zeile im Kopf —
+ * die Spalten sind schmal, deshalb wird der Umbruch von Hand gesetzt statt dem
+ * Browser überlassen.
+ */
+export type Spaltenkoepfe = {
+  generic: string[]
+  online: string[]
+  selbst: string[]
+}
+
+const SPALTEN_STARTSEITE: Spaltenkoepfe = {
+  generic: ['Personal-', 'trainer'],
+  online: ['Gruppen-', 'coaching'],
+  selbst: ['AI-', 'Coach'],
+}
+
+function Kopfzeilen({ zeilen }: { zeilen: string[] }) {
+  return (
+    <>
+      {zeilen.map((z, i) => (
+        <Fragment key={i}>
+          {i > 0 && <br />}
+          {z}
+        </Fragment>
+      ))}
+    </>
+  )
 }
 
 /** Standardzeilen. Greifen nur, solange das CMS nichts liefert. */
@@ -125,8 +156,23 @@ function MiniCross() {
   )
 }
 
-export default function VergleichSection({ content = {} }: { content?: Record<string, string> }) {
-  const zeilen = cmsZeilen(content)
+type VergleichSectionProps = {
+  content?: Record<string, string>
+  /** Setzt Zeilen fest — dann greifen weder CMS noch die Standardzeilen. Für Unterseiten. */
+  zeilen?: Zeile[]
+  /** Beschriftung der drei Vergleichsspalten. Ohne Angabe die der Startseite. */
+  spalten?: Spaltenkoepfe
+  /** Einleitung unter der Überschrift. Ohne Angabe die aus dem CMS. */
+  intro?: string
+}
+
+export default function VergleichSection({
+  content = {},
+  zeilen: zeilenProp,
+  spalten = SPALTEN_STARTSEITE,
+  intro,
+}: VergleichSectionProps) {
+  const zeilen = zeilenProp ?? cmsZeilen(content)
   return (
     <section className="relative overflow-hidden" style={{ background: '#060E1F' }}>
       <div className="relative max-w-7xl mx-auto px-4 md:px-8 py-24 md:py-32">
@@ -147,11 +193,14 @@ export default function VergleichSection({ content = {} }: { content?: Record<st
             as="p"
             className="font-inter text-base md:text-lg leading-relaxed max-w-2xl mx-auto mt-5"
             style={{ color: '#7B8792' }}
-            html={txt(
-              content,
-              'vergleich_intro',
-              'Die meisten Ansätze arbeiten mit Vermutungen. Hier siehst du auf einen Blick, was den Unterschied ausmacht.'
-            )}
+            html={
+              intro ??
+              txt(
+                content,
+                'vergleich_intro',
+                'Die meisten Ansätze arbeiten mit Vermutungen. Hier siehst du auf einen Blick, was den Unterschied ausmacht.'
+              )
+            }
           />
         </div>
 
@@ -186,13 +235,19 @@ export default function VergleichSection({ content = {} }: { content?: Record<st
                 </th>
 
                 <th className="pb-6 text-center px-3" style={{ width: '15%' }}>
-                  <span className="font-inter font-semibold text-base" style={{ color: '#fff' }}>Personal-<br />trainer</span>
+                  <span className="font-inter font-semibold text-base leading-tight" style={{ color: '#fff' }}>
+                    <Kopfzeilen zeilen={spalten.generic} />
+                  </span>
                 </th>
                 <th className="pb-6 text-center px-3" style={{ width: '15%' }}>
-                  <span className="font-inter font-semibold text-base" style={{ color: '#fff' }}>Gruppen-<br />coaching</span>
+                  <span className="font-inter font-semibold text-base leading-tight" style={{ color: '#fff' }}>
+                    <Kopfzeilen zeilen={spalten.online} />
+                  </span>
                 </th>
                 <th className="pb-6 text-center px-3" style={{ width: '15%' }}>
-                  <span className="font-inter font-semibold text-base" style={{ color: '#fff' }}>AI-<br />Coach</span>
+                  <span className="font-inter font-semibold text-base leading-tight" style={{ color: '#fff' }}>
+                    <Kopfzeilen zeilen={spalten.selbst} />
+                  </span>
                 </th>
               </tr>
             </thead>
@@ -283,13 +338,19 @@ export default function VergleichSection({ content = {} }: { content?: Record<st
                   </span>
                 </th>
                 <th className="text-center px-0.5 pb-2 align-bottom">
-                  <span className="font-inter font-semibold text-[10px] leading-tight block" style={{ color: '#fff' }}>Personal-<br />trainer</span>
+                  <span className="font-inter font-semibold text-[10px] leading-tight block" style={{ color: '#fff' }}>
+                    <Kopfzeilen zeilen={spalten.generic} />
+                  </span>
                 </th>
                 <th className="text-center px-0.5 pb-2 align-bottom">
-                  <span className="font-inter font-semibold text-[10px] leading-tight block" style={{ color: '#fff' }}>Gruppen-<br />coaching</span>
+                  <span className="font-inter font-semibold text-[10px] leading-tight block" style={{ color: '#fff' }}>
+                    <Kopfzeilen zeilen={spalten.online} />
+                  </span>
                 </th>
                 <th className="text-center px-0.5 pb-2 align-bottom">
-                  <span className="font-inter font-semibold text-[10px] leading-tight block" style={{ color: '#fff' }}>AI-<br />Coach</span>
+                  <span className="font-inter font-semibold text-[10px] leading-tight block" style={{ color: '#fff' }}>
+                    <Kopfzeilen zeilen={spalten.selbst} />
+                  </span>
                 </th>
               </tr>
             </thead>

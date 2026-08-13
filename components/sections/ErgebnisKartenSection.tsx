@@ -1,6 +1,3 @@
-'use client'
-
-import { useEffect, useState } from 'react'
 import BewertungsGrid from '@/components/sections/BewertungsGrid'
 
 type IconName = 'koerper' | 'kopf' | 'energie'
@@ -91,26 +88,6 @@ export default function ErgebnisKartenSection({
   bruecke2,
   bewertungsGrid,
 }: ErgebnisKartenSectionProps) {
-  const [offen, setOffen] = useState<number | null>(null)
-  const aktiv = offen !== null ? karten[offen] : null
-
-  // Escape schließt, und solange offen ist, scrollt die Seite dahinter nicht mit
-  useEffect(() => {
-    if (offen === null) return
-
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setOffen(null)
-    }
-    const vorher = document.body.style.overflow
-    document.body.style.overflow = 'hidden'
-    window.addEventListener('keydown', onKey)
-
-    return () => {
-      document.body.style.overflow = vorher
-      window.removeEventListener('keydown', onKey)
-    }
-  }, [offen])
-
   return (
     <section className="relative" style={{ background: '#060E1F' }}>
       <div className="max-w-7xl mx-auto px-4 md:px-8 py-16 md:py-24">
@@ -138,15 +115,22 @@ export default function ErgebnisKartenSection({
         )}
       </div>
 
-      {/* Karten */}
+      {/*
+        Karten wie in der Ergebnis-Sektion der Startseite: alle Punkte direkt
+        sichtbar, keine Interaktion. Zuvor öffnete ein Klick ein Popup mit den
+        Punkten — das war verspielt und versteckte ausgerechnet die Inhalte,
+        auf die es ankommt.
+      */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
         {karten.map((k, i) => (
-          <button
+          <div
             key={i}
-            type="button"
-            onClick={() => setOffen(i)}
-            className="ergebnis-karte relative rounded-2xl p-7 text-left flex flex-col overflow-hidden"
-            aria-haspopup="dialog"
+            className="relative flex flex-col rounded-2xl p-7 overflow-hidden"
+            style={{
+              background: 'linear-gradient(135deg, #0D1829 0%, #0B1525 100%)',
+              border: `1px solid ${ICONS[k.icon].farbe}59`,
+              boxShadow: `0 0 30px ${ICONS[k.icon].farbe}1f, 0 20px 60px rgba(0,0,0,0.4)`,
+            }}
           >
             {/* Farbstreifen oben — wie auf der Startseite */}
             <span
@@ -154,24 +138,32 @@ export default function ErgebnisKartenSection({
               style={{ background: `linear-gradient(to right, transparent, ${ICONS[k.icon].farbe}99, transparent)` }}
             />
 
-            <span className="flex items-center gap-3 mb-3">
+            <div className="flex items-center gap-3 mb-3">
               <span className="flex-shrink-0" style={{ color: ICONS[k.icon].farbe }}>
                 {ICONS[k.icon].svg}
               </span>
-              <span className="font-barlow font-bold text-xl md:text-2xl" style={{ color: '#E6E8EB' }}>
+              <h3 className="font-barlow font-bold text-xl md:text-2xl" style={{ color: '#E6E8EB' }}>
                 {k.label}
-              </span>
-            </span>
-            <span className="font-inter text-sm md:text-base leading-relaxed flex-1" style={{ color: '#98A4B1' }}>
+              </h3>
+            </div>
+
+            <p className="font-inter text-sm md:text-base leading-relaxed mb-6" style={{ color: '#98A4B1' }}>
               {k.teaser}
-            </span>
-            <span className="mt-6 inline-flex items-center gap-2 font-inter text-sm font-semibold" style={{ color: '#C9A84C' }}>
-              {k.punkte.length} Ergebnisse ansehen
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                <path d="M3 8h10M9 4l4 4-4 4" stroke="#C9A84C" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </span>
-          </button>
+            </p>
+
+            <ul className="flex flex-col gap-3">
+              {k.punkte.map((p, j) => (
+                <li key={j} className="flex items-start gap-2.5">
+                  <span className="flex-shrink-0 flex items-center h-6">
+                    <Haken farbe={ICONS[k.icon].farbe} />
+                  </span>
+                  <span className="font-inter text-base leading-relaxed" style={{ color: '#A6B0BA' }}>
+                    {p}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
         ))}
       </div>
 
@@ -197,70 +189,6 @@ export default function ErgebnisKartenSection({
 
       </div>
 
-      {/* Popup */}
-      {aktiv && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4"
-          role="dialog"
-          aria-modal="true"
-          aria-label={aktiv.label}
-        >
-          {/* Hintergrund — Klick schließt */}
-          <button
-            type="button"
-            onClick={() => setOffen(null)}
-            aria-label="Schließen"
-            className="absolute inset-0 cursor-default"
-            style={{ background: 'rgba(4,9,20,0.8)', backdropFilter: 'blur(3px)' }}
-          />
-
-          <div
-            className="relative w-full max-w-lg rounded-2xl p-7 md:p-8 max-h-[85vh] overflow-y-auto"
-            style={{
-              background: 'linear-gradient(155deg, #16213A 0%, #0D1829 60%, #091122 100%)',
-              border: '1px solid rgba(201,168,76,0.5)',
-              boxShadow: '0 0 0 1px rgba(201,168,76,0.2), 0 0 40px rgba(201,168,76,0.25), 0 20px 60px rgba(0,0,0,0.6)',
-            }}
-          >
-            <button
-              type="button"
-              onClick={() => setOffen(null)}
-              aria-label="Schließen"
-              className="absolute top-5 right-5 flex items-center justify-center w-9 h-9 rounded-full transition-colors"
-              style={{ border: '1px solid rgba(201,168,76,0.35)', color: '#C9A84C' }}
-            >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                <path d="M6 6l12 12M18 6L6 18" />
-              </svg>
-            </button>
-
-            <div className="flex items-center gap-3 mb-2 pr-12">
-              <span className="flex-shrink-0" style={{ color: ICONS[aktiv.icon].farbe }}>
-                {ICONS[aktiv.icon].svg}
-              </span>
-              <h3 className="font-barlow font-bold text-2xl md:text-3xl" style={{ color: '#E6E8EB' }}>
-                {aktiv.label}
-              </h3>
-            </div>
-            <p className="font-inter text-sm md:text-base leading-relaxed mb-6" style={{ color: '#98A4B1' }}>
-              {aktiv.teaser}
-            </p>
-
-            <ul className="flex flex-col gap-3">
-              {aktiv.punkte.map((p, j) => (
-                <li key={j} className="flex gap-3">
-                  <span className="flex-shrink-0 flex items-center h-6">
-                    <Haken farbe={ICONS[aktiv.icon].farbe} />
-                  </span>
-                  <span className="font-inter text-sm md:text-base leading-relaxed" style={{ color: '#A6B0BA' }}>
-                    {p}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      )}
     </section>
   )
 }

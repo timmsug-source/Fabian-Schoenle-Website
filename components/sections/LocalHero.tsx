@@ -172,7 +172,7 @@ export default function LocalHero({
   ctaNote = 'Call mit mir persönlich · 20 Minuten · unverbindlich',
   imageSrc = '/images/vsl-poster.jpg',
   imageAlt = 'Fabian Schönle',
-  statNumber = '200+',
+  statNumber = '40+',
   statText = 'Selbstständige & Unternehmer bereits erfolgreich begleitet',
 }: LocalHeroProps) {
   return (
@@ -229,7 +229,7 @@ export default function LocalHero({
           style={{ background: 'linear-gradient(to bottom, transparent, #060E1F)' }}
         />
 
-        {/* 200+ Badge */}
+        {/* Kennzahl-Badge */}
         <div
           className="absolute bottom-8 right-8 flex items-center gap-4 rounded-2xl px-5 py-4 max-w-[300px]"
           style={{

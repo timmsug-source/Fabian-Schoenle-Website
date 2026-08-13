@@ -10,7 +10,10 @@ type VideoTestimonial = {
   /** Ergebnis-Badge über dem Video: Ausgangswert und Zielwert, z. B. „98" → „84 kg" */
   badgeVon?: string
   badgeNach?: string
-  zitat: string
+  /** Optional — ohne Zitat bleibt nur die Zuordnung stehen. */
+  zitat?: string
+  /** Optionales LinkedIn-Profil — macht die Person überprüfbar. */
+  linkedin?: string
   vorher: string[]
   nachher: string[]
 }
@@ -59,6 +62,45 @@ function Kreuz() {
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className="flex-shrink-0 mt-1">
       <path d="M6 6l12 12M18 6L6 18" stroke="#E0715A" strokeWidth="2.2" strokeLinecap="round" opacity="0.75" />
     </svg>
+  )
+}
+
+/**
+ * Name, Kurzprofil und optionaler LinkedIn-Verweis. Als eigene Komponente,
+ * weil die Zuordnung sowohl mit als auch ohne Zitat gebraucht wird.
+ */
+function Zuordnung({ video }: { video: VideoTestimonial }) {
+  return (
+    <div className="flex flex-col gap-1 text-left">
+      {/* Name und LinkedIn in einer Zeile — der Verweis gehört zur Person,
+          nicht darunter. Nur das Symbol, weil der Name direkt daneben steht;
+          die Beschriftung würde ihn bloß wiederholen. */}
+      <span className="flex items-center gap-2">
+        <span className="font-inter text-xs font-semibold uppercase tracking-widest" style={goldText}>
+          {video.name}
+        </span>
+        {video.linkedin && (
+          <a
+            href={video.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`${video.name} auf LinkedIn ansehen`}
+            title={`${video.name} auf LinkedIn ansehen`}
+            className="inline-flex items-center justify-center rounded transition-colors hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+            style={{ color: '#7B8792', width: 22, height: 22, outlineColor: '#C9A84C' }}
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.44-2.13 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z" />
+            </svg>
+          </a>
+        )}
+      </span>
+      {video.rolle && (
+        <span className="font-inter text-sm leading-snug" style={{ color: '#7B8792' }}>
+          {video.rolle}
+        </span>
+      )}
+    </div>
   )
 }
 
@@ -143,24 +185,33 @@ function TestimonialKarte({ video, index }: { video: VideoTestimonial; index: nu
         )}
       </div>
 
-      {/* Zitat */}
-      <blockquote className="mt-6 pl-4" style={{ borderLeft: '2px solid rgba(201,168,76,0.5)' }}>
-        <p className="font-inter italic text-base leading-relaxed" style={{ color: '#D4D9DF' }}>
-          &bdquo;{video.zitat}&ldquo;
-        </p>
-        <footer className="mt-3">
-          <span className="font-inter text-xs font-semibold uppercase tracking-widest" style={goldText}>
-            {video.name}
-          </span>
-          {video.rolle && (
-            <span className="font-inter text-xs ml-2" style={{ color: '#7B8792' }}>
-              {video.rolle}
-            </span>
-          )}
-        </footer>
-      </blockquote>
+      {/*
+        Zitat ist optional. Ohne Zitat bleibt die Zuordnung trotzdem stehen —
+        sie ordnet die Vorher/Nachher-Liste darunter einer Person zu. Fiele sie
+        mit weg, stünden dort anonyme Zahlen. Der Zitat-Rahmen (Goldbalken,
+        Kursivsatz) entfällt dann, weil es nichts mehr zu zitieren gibt.
+      */}
+      {video.zitat ? (
+        <blockquote className="mt-6 pl-4" style={{ borderLeft: '2px solid rgba(201,168,76,0.5)' }}>
+          <p className="font-inter italic text-base leading-relaxed" style={{ color: '#D4D9DF' }}>
+            &bdquo;{video.zitat}&ldquo;
+          </p>
+          <footer className="mt-3">
+            <Zuordnung video={video} />
+          </footer>
+        </blockquote>
+      ) : (
+        <div className="mt-6">
+          <Zuordnung video={video} />
+        </div>
+      )}
 
-      {/* Vorher / Nachher */}
+      {/*
+        Vorher / Nachher bewusst schlicht. Die Kachel-Optik der Fallstudien von
+        der Startseite (getönte Flächen, grüner Rahmen, Wasserzeichen) wurde
+        hier ausprobiert und wieder verworfen: In den halb so breiten Spalten
+        dieser Sektion wirkt sie gedrängt und der Text bricht zu oft um.
+      */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-7">
         <div>
           <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: '#6B7684' }}>

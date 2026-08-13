@@ -70,7 +70,7 @@ const reviewShots = [
 ]
 
 const stats = [
-  { icon: <IconGroup />, value: '200+', label: 'Klienten', sub: 'bereits begleitet' },
+  { icon: <IconGroup />, value: '40+', label: 'Klienten', sub: 'bereits begleitet' },
   { icon: <IconStarLine />, value: '4,9 / 5', label: 'Durchschnittliche Bewertung', sub: 'auf Basis echter Rezensionen' },
   { icon: <IconShield />, value: '100 %', label: 'Individuell & datenbasiert', sub: 'keine Standardpläne' },
 ]

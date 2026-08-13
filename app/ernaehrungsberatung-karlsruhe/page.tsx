@@ -86,7 +86,7 @@ export default function ErnaehrungsberatungKarlsruhePage() {
         ctaNote="Call mit mir persönlich · 20 Minuten · unverbindlich"
         imageSrc="/images/IMG_1550-hero.jpg"
         imageAlt="Fabian Schönle — Performance Coach aus Karlsruhe"
-        statNumber="200+"
+        statNumber="40+"
         statText="Selbstständige & Unternehmer bereits erfolgreich begleitet"
       />
 
@@ -98,32 +98,32 @@ export default function ErnaehrungsberatungKarlsruhePage() {
         label="Das Problem"
         headline="Warum die meisten Ernährungspläne"
         headlineAccent="scheitern."
-        intro="Es liegt nicht an deiner Disziplin. Es liegt daran, dass generische Pläne deine individuelle Biologie ignorieren – und damit raten müssen, was dein Körper wirklich braucht."
+        intro="Es liegt nicht an deiner Disziplin. Es liegt daran, dass generische Pläne deine Hormone ignorieren – und dein Hormonhaushalt entscheidet mit, was Training und Ernährung bei dir überhaupt bewirken können."
         points={[
           {
-            wrong: 'Durchschnitt',
-            right: 'Individuell',
-            body: 'Standard-Empfehlungen basieren auf Mittelwerten aus großen Gruppen. Dein Stoffwechsel ist aber kein Mittelwert. Was bei deinem Kollegen funktioniert, kann bei dir genau der falsche Hebel sein – ohne dass du je erfährst, warum.',
+            wrong: 'Kalorien',
+            right: 'Hormone',
+            body: 'Die meisten Pläne rechnen nur mit Kalorien. Aber dein Hormonstatus entscheidet mit, wie dein Körper mit diesen Kalorien umgeht. Wenn Testosteron, Cortisol und Schilddrüsenwerte nicht stimmen, kannst du das Defizit noch so sauber einhalten – der Fortschritt bleibt trotzdem aus.',
           },
           {
             wrong: 'Symptome',
             right: 'Ursachen',
-            body: 'Die meisten Beratungen arbeiten mit dem, was du spürst: Müdigkeit, Heißhunger, kein Fortschritt. Was deine Blutwerte tatsächlich zeigen, sieht sich niemand an. Also wird am Symptom geschraubt, während die Ursache bleibt.',
+            body: 'Wenig Antrieb, hartnäckiges Bauchfett, kaum Muskelaufbau trotz Training: Das sind Symptome. Die meisten Beratungen schrauben genau daran herum. Was deine Blutwerte über die Ursache sagen, sieht sich niemand an.',
           },
           {
-            wrong: 'Willenskraft',
-            right: 'System',
-            body: 'Wer nur auf Verzicht setzt, kämpft gegen den eigenen Körper. Das hält ein paar Wochen, dann kommt der Jo-Jo-Effekt – und mit ihm die Enttäuschung über den nächsten gescheiterten Versuch. Ein richtig eingestelltes System braucht diesen Kampf nicht.',
+            wrong: 'Härter',
+            right: 'Klüger',
+            body: 'Mehr Training und weniger essen klingt nach der logischen Antwort. Für dein Hormonsystem ist es zusätzlicher Stress – und Stress wirkt sich langfristig negativ auf deine Hormone aus. Du arbeitest dann gegen genau den Mechanismus, den du eigentlich brauchst.',
           },
         ]}
-        videoId="8EiIoNZQ42A"
-        videoPosterSrc="/images/video-thumb-8EiIoNZQ42A.jpg"
-        videoTitle="Fabian Schönle — Ernährungsberatung Karlsruhe"
-        videoHeadline="Wie es stattdessen funktioniert."
-        videoBody="Ich erkläre dir, warum Diäten immer wieder am selben Punkt scheitern – und was du stattdessen brauchst. Hier erfährst du, was hinter dem datenbasierten Ansatz steckt."
+        videoId="_ZjzTAVAj8Q"
+        videoPosterSrc="/images/video-thumb-_ZjzTAVAj8Q.jpg"
+        videoTitle="Testosteron: Wie es Fokus und Bauchfett steuert — Video von Fabian Schönle"
+        videoHeadline="Was Testosteron mit deinem Fokus zu tun hat."
+        videoBody="Testosteron beeinflusst mehr als Muskelaufbau: Antrieb, Konzentration, Schlaf und die Fettverteilung hängen mit daran. Ich erkläre dir, welche Rolle es wirklich spielt – und welche Hebel du selbst in der Hand hast."
         videoPoints={[
-          'Warum radikale Ansätze zwangsläufig im Jo-Jo-Effekt enden',
-          'Was deine Blut- und DNA-Werte über deinen Stoffwechsel verraten',
+          'Welche Faktoren im Alltag deinen Hormonhaushalt beeinflussen',
+          'Was deine Blut- und DNA-Werte darüber verraten',
           'Wie daraus eine Strategie wird, die zu deinem Alltag passt',
         ]}
       />
@@ -132,7 +132,7 @@ export default function ErnaehrungsberatungKarlsruhePage() {
       <SolutionSection
         label="Dein Ansatz"
         headline="Ernährung trifft Biologie."
-        intro="So sieht Ernährungsberatung in Karlsruhe bei mir aus: erst messen, dann planen. Deine Werte geben die Richtung vor."
+        intro="So sieht Ernährungsberatung in Karlsruhe bei mir aus: erst messen, dann planen. Deine Werte geben die Richtung vor – auch dann, wenn sie unauffällig sind."
         karten
         zitat="Ich rate nicht, was dein Körper braucht. Ich messe es – und stelle danach die drei bis vier Hebel ein, die bei dir wirklich etwas verändern."
         zitatAutor="Fabian Schönle"
@@ -141,18 +141,18 @@ export default function ErnaehrungsberatungKarlsruhePage() {
         steps={[
           {
             number: '01',
-            headline: 'Blutanalyse zuerst',
-            body: 'Bevor irgendein Plan entsteht, schauen wir in deine Werte: Hormonstatus, Mikronährstoffe, Entzündungsmarker. Erst danach wird entschieden – nicht vorher geraten.',
+            headline: 'Blut- und DNA-Analyse',
+            body: 'Bevor irgendein Plan entsteht, schauen wir in deine Werte: Hormonstatus, Mikronährstoffe, Entzündungsmarker – und deine genetische Veranlagung für Kohlenhydrate, Fette und Stress. Die Analyse läuft über ein professionelles Labor, ich bin kein Arzt und gebe sie deshalb dorthin, wo sie hingehört. Du musst dich um nichts kümmern.',
           },
           {
             number: '02',
-            headline: 'DNA als Grundlage',
-            body: 'Deine Genetik bestimmt, wie dein Körper auf Kohlenhydrate, Fette und Stress reagiert. Daraus ergibt sich, welche Nährstoffe du tatsächlich brauchst – und in welcher Menge.',
+            headline: 'Auswertung und Priorisierung',
+            body: 'Aus über 50 Markern filtere ich die drei bis vier Hebel heraus, die bei dir tatsächlich zählen. Manchmal sind das die Hormone. Manchmal ist es der Schlaf, ein Nährstoffmangel oder schlicht die Verteilung deiner Mahlzeiten. Das entscheiden die Daten – nicht eine Vermutung.',
           },
           {
             number: '03',
-            headline: 'Plan statt Verbotsliste',
-            body: 'Am Ende steht kein Katalog mit Streichlisten, sondern eine datenbasierte Strategie für deine Biologie, die sich in deinen Arbeitstag einfügt.',
+            headline: 'Plan statt Präparat',
+            body: 'Am Ende steht kein Katalog mit Streichlisten und kein Rezept. Sondern eine datenbasierte Strategie aus Ernährung, Bewegung und Regeneration, die sich in deinen Arbeitstag einfügt – und die angepasst wird, sobald sich deine Werte verändern.',
           },
         ]}
       />
@@ -167,11 +167,10 @@ export default function ErnaehrungsberatungKarlsruhePage() {
           {
             src: '/videos/Robert_Testimonial_final.mp4',
             name: 'Robert',
-            rolle: 'Geschäftsführer, 42',
+            rolle: '42 Jahre · Projektleiter, nebenbei Finanzberatung · spielt Squash',
+            linkedin: 'https://www.linkedin.com/in/robert-raschkov-045889230/',
             badgeVon: '98',
             badgeNach: '84 kg',
-            zitat:
-              'Nach der Blutanalyse war plötzlich klar, warum ich nachmittags immer eingebrochen bin. Heute habe ich stabile Energie ohne Koffein — und einen klaren Kopf bis in den Abend.',
             vorher: [
               '14 kg zugenommen, Bauchfett trotz Sport',
               'Permanent erschöpft trotz 7 Stunden Schlaf',
@@ -186,10 +185,10 @@ export default function ErnaehrungsberatungKarlsruhePage() {
           {
             src: '/videos/Richard_Testimonial_kurz.mp4',
             name: 'Richard',
-            rolle: 'Gründer',
+            rolle: '36 Jahre · Gründer · Familienvater von zwei Kindern',
+            linkedin: 'https://www.linkedin.com/in/richard-mueller/',
             badgeVon: '106',
             badgeNach: '92,5 kg',
-            zitat: 'Innerhalb von 10 Wochen 13,5 kg abgenommen',
             vorher: [
               'Ab 20 Uhr war die Energie komplett weg — Familienzeit fiel dadurch aus',
               'Ausgeprägtes Mittagstief, Energielevel den ganzen Tag niedrig',
@@ -210,7 +209,7 @@ export default function ErnaehrungsberatungKarlsruhePage() {
         label="Was du bekommst"
         headline="Was in der Zusammenarbeit konkret enthalten ist."
         intro="Keine ellenlange Leistungsliste – sondern genau die Punkte, die den Unterschied machen."
-        imageSrc="/images/Fabian-Schoenle-Blick-Kamera.webp"
+        imageSrc="/images/FS-Bild-Hemd-blau.webp"
         imageAlt="Fabian Schönle — Performance Coach aus Karlsruhe"
         name="Fabian Schönle"
         role="M.Sc. Chemie · Triathlet · Karlsruhe"
@@ -230,10 +229,6 @@ export default function ErnaehrungsberatungKarlsruhePage() {
           {
             headline: 'Laufende Anpassung statt starrem Plan',
             body: 'Dein Körper verändert sich – deine Strategie auch. Sobald sich deine Werte bewegen, justieren wir nach. Alles kompakt in einer App, ohne nerviges Tracken.',
-          },
-          {
-            headline: 'Direkter Draht zu mir',
-            body: 'Persönliche Betreuung statt einer App, die dich allein lässt. Du schreibst mir, wenn etwas nicht passt – und bekommst eine Antwort von mir, nicht von einem Support-Team.',
           },
         ]}
       />
@@ -293,7 +288,24 @@ export default function ErnaehrungsberatungKarlsruhePage() {
       />
 
       {/* 8 — Vergleich: gleiche Sektion wie auf der Startseite */}
-      <VergleichSection />
+      <VergleichSection
+        intro="Du bekommst keinen Standardplan aus der Schublade – sondern eine Strategie, die auf deinen eigenen Werten aufbaut."
+        spalten={{
+          generic: ['Klassische', 'Ernährungs-', 'beratung'],
+          online: ['Ernährungs-', 'App'],
+          selbst: ['Hausarzt /', 'Standard-', 'Check'],
+        }}
+        zeilen={[
+          { feature: 'Individuelle DNA-/Bluttests',          fs: true, generic: false, online: false, selbst: false },
+          { feature: 'Hormonstatus wird mitgemessen',        fs: true, generic: false, online: false, selbst: false },
+          { feature: 'Über 50 Marker statt Standardwerte',   fs: true, generic: false, online: false, selbst: false },
+          { feature: 'Datenbasierte Strategie',              fs: true, generic: false, online: false, selbst: false },
+          { feature: 'Individuelle Ernährungsstrategie',     fs: true, generic: true,  online: false, selbst: false },
+          { feature: 'Kontinuierliche Strategieoptimierung', fs: true, generic: false, online: true,  selbst: false },
+          { feature: 'Persönlicher Ansprechpartner',         fs: true, generic: true,  online: false, selbst: true  },
+          { feature: '24/7 Chatsupport',                     fs: true, generic: false, online: false, selbst: false },
+        ]}
+      />
 
       {/* 9 — Ablauf & Kontakt: gleiche Sektion wie auf der Startseite */}
       <KontaktSection

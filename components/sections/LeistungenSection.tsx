@@ -135,8 +135,19 @@ export default function LeistungenSection({
               style={{
                 border: '1px solid rgba(201,168,76,0.3)',
                 boxShadow: '0 0 30px rgba(201,168,76,0.14)',
+                // Trägt freigestellte Portraits — bei vollflächigen Fotos liegt
+                // der Verlauf unsichtbar dahinter.
+                background: 'linear-gradient(135deg, #0D1829 0%, #0B1525 100%)',
               }}
             >
+              {/* Weicher Schein hinter der Person, damit der Freisteller nicht schwebt */}
+              <div
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  background:
+                    'radial-gradient(70% 55% at 50% 38%, rgba(201,168,76,0.10) 0%, rgba(201,168,76,0.04) 45%, transparent 75%)',
+                }}
+              />
               <Image
                 src={imageSrc}
                 alt={imageAlt ?? ''}
