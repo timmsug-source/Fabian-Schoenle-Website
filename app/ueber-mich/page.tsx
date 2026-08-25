@@ -264,12 +264,12 @@ export default function UeberMichPage() {
                 }}
               >
                 <Image
-                  src="/images/Fabian-Schoenle-Blick-Kamera.webp"
+                  src="/images/FS-Bild-Hero-Ueber-Mich.webp"
                   alt="Fabian Schönle — Performance Coach"
                   fill
                   priority
                   className="object-cover"
-                  style={{ objectPosition: 'center 15%' }}
+                  style={{ objectPosition: 'center 25%' }}
                   sizes="(max-width: 1024px) 100vw, 520px"
                 />
               </div>
