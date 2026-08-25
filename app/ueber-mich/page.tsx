@@ -141,18 +141,18 @@ const ueberLab = [
 const haltung = [
   {
     icon: IconChemie,
-    titel: 'Wissenschaftlich',
-    text: 'M.Sc. Chemie. Ich denke in Molekülen, Wechselwirkungen und Messwerten — dieselbe Systematik, die ich im Labor gelernt habe.',
+    titel: 'Datenbasiert',
+    text: 'Als Wissenschaftler arbeite ich mit Daten. Kein Rätselraten, sondern die Hebel nutzen, auf die es wirklich ankommt.',
   },
   {
     icon: IconGruender,
-    titel: 'Selbst erprobt',
-    text: 'Was ich dir empfehle, habe ich vorher am eigenen Körper durchlaufen. Ich gebe nichts weiter, das ich nicht kenne.',
+    titel: 'Bewährt',
+    text: 'Meine Strategien haben sich bereits bei über 40 Kunden bewährt und ihnen zu langfristigen Resultaten verholfen.',
   },
   {
-    icon: IconTriathlet,
-    titel: 'In der Praxis geprüft',
-    text: 'Als Triathlet über die Ironman-Distanz 70.3. Unter Belastung zeigt sich, ob Ernährung, Schlaf und Regeneration zusammenspielen.',
+    icon: IconPerformance,
+    titel: 'Kontinuierlich entwickelt',
+    text: 'Ich lese regelmäßig aktuelle Studien, um meine Methoden am Stand der Wissenschaft zu orientieren.',
   },
 ]
 
@@ -173,27 +173,27 @@ const messwerte = ['Hormonstatus', 'Mikronährstoffe', 'Entzündungsmarker', 'Ge
 const ablauf = [
   {
     nr: '01',
-    titel: 'Anamnese',
-    text: 'Individuelle DNA- und Blutwerte zeigen, wie deine Situation wirklich aussieht — statt wie sie sich anfühlt.',
+    titel: 'Daten sammeln',
+    text: 'Über 50 Blut- und DNA-Marker, weit über den Standard hinaus: Hormonstatus, Mikronährstoffe, Entzündungswerte und deine genetische Veranlagung.',
   },
   {
     nr: '02',
-    titel: 'Priorisierung',
-    text: 'Aus über 50 Markern filtere ich die drei bis vier Hebel heraus, die bei dir tatsächlich zählen.',
+    titel: 'Muster erkennen',
+    text: 'Aus den Werten lese ich heraus, was zusammenhängt — warum die Energie einbricht, warum sich trotz Training nichts bewegt, wo dein System aus dem Takt ist.',
   },
   {
     nr: '03',
-    titel: 'Strategie',
-    text: 'Daraus entsteht ein Plan, der in deinen Kalender passt — und der angepasst wird, sobald sich deine Werte bewegen.',
+    titel: 'Strategie ableiten',
+    text: 'Daraus entsteht ein Plan mit drei bis vier Hebeln, der in deinen Kalender passt — und der angepasst wird, sobald sich deine Werte verändern.',
   },
 ]
 
 /** Die Grundsaetze, nach denen die Strategie gebaut wird. */
 const ansaetze = [
-  { titel: 'Keine Verbote', text: 'Es geht um Menge, Verteilung und Timing — nicht um Verzicht.' },
-  { titel: 'Kein Standardplan', text: 'Deine Strategie entsteht aus deinen Werten, nicht aus einem Durchschnitt.' },
-  { titel: 'Nichts für vier Wochen', text: 'Was du nach einem Monat wieder aufgibst, war nie eine Lösung.' },
-  { titel: 'Alles an einem Ort', text: 'Ernährung, Schlaf, Stress und Training gehören in dieselbe Strategie.' },
+  { titel: 'Kein Verbotskatalog', text: 'Es geht um Menge, Verteilung und Timing — nicht um Verzicht.' },
+  { titel: 'Keine Diäten',        text: 'Nichts, was du durchhalten musst. Was nach vier Wochen endet, war nie eine Lösung.' },
+  { titel: 'Kein Standardplan',   text: 'Deine Strategie entsteht aus deinen Werten, nicht aus einem Durchschnitt.' },
+  { titel: 'Keine Excelsheets',   text: 'Kein Tracken bis auf die Nachkommastelle. Die Zahlen liefert das Labor, nicht dein Alltag.' },
 ]
 
 export default function UeberMichPage() {
@@ -246,7 +246,7 @@ export default function UeberMichPage() {
               <Gold>Performance Coach aus Karlsruhe</Gold>
             </h1>
             <p className="font-inter text-lg md:text-xl leading-relaxed max-w-4xl mx-auto" style={{ color: '#AEB5BE' }}>
-              M.Sc. Chemie, über zehn Jahre Erfahrung in Ernährung und Training, über 40 begleitete Kunden. Ich helfe leistungsorientierten Menschen dabei, trotz vollem Alltag in körperliche Bestform zu kommen – auf Basis ihrer eigenen Blut- und DNA-Werte statt auf Basis von Vermutungen.
+              M.Sc. in Chemie, über zehn Jahre Erfahrung in Ernährung und Training & über 40 erfolgreich begleitete Kunden. Ich helfe leistungsorientierten Menschen dabei, auf Basis individueller Blutwerte trotz vollem Alltag in ihre körperliche und mentale Bestform zu kommen – ohne Diäten, Verzicht und stundenlanges Training.
             </p>
           </div>
 
@@ -310,7 +310,7 @@ export default function UeberMichPage() {
             <div className="animate-fade-up text-left">
               <Label>Über FS Performance Lab</Label>
               <h2 className="font-barlow font-bold text-3xl md:text-5xl leading-tight mb-8" style={{ color: '#E6E8EB' }}>
-                Wie ich zu dieser Arbeit <Gold>gekommen bin.</Gold>
+                Wieso ich heute <Gold>Menschen coache.</Gold>
               </h2>
 
               <div className="flex flex-col gap-5 pl-6" style={{ borderLeft: '2px solid rgba(201,168,76,0.35)' }}>
@@ -342,11 +342,15 @@ export default function UeberMichPage() {
                   className="absolute inset-0 pointer-events-none"
                   style={{ background: 'radial-gradient(70% 55% at 50% 40%, rgba(201,168,76,0.1) 0%, transparent 72%)' }}
                 />
+                {/* Formatfuellend. Der Wert steuert, welcher Teil des Hochformats im
+                    Rahmen liegt: kleiner = weiter oben im Bild (mehr Kopffreiheit),
+                    groesser = weiter unten (mehr Koerper, Kopf stoesst an). */}
                 <Image
-                  src="/images/FS-Bild-Hemd-blau.webp"
-                  alt="Fabian Schönle"
+                  src="/images/FS-Bild-Über-Fabian.webp"
+                  alt="Fabian Schönle — Performance Coach"
                   fill
-                  className="object-contain object-bottom"
+                  className="object-cover"
+                  style={{ objectPosition: 'center 58%' }}
                   sizes="(max-width: 1024px) 100vw, 500px"
                 />
               </div>
@@ -381,12 +385,9 @@ export default function UeberMichPage() {
             {/* Links */}
             <div className="text-left animate-fade-up">
               <Label>Expertise</Label>
-              <h2 className="font-barlow font-bold text-3xl md:text-5xl leading-tight mb-6" style={{ color: '#E6E8EB' }}>
-                Fundiertes Wissen. <Gold>Echte Ergebnisse.</Gold>
+              <h2 className="font-barlow font-bold text-3xl md:text-5xl leading-tight mb-10" style={{ color: '#E6E8EB' }}>
+                Jahrelange Erfahrung & <Gold>echte Ergebnisse.</Gold>
               </h2>
-              <p className="font-inter text-base md:text-lg leading-relaxed mb-10 max-w-xl" style={{ color: '#A6B0BA' }}>
-                Kein Bauchgefühl und keine Trends, sondern Laborwerte, ein Jahrzehnt Praxis und die eigene Erfahrung als Sportler.
-              </p>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
                 {haltung.map((h, i) => (
@@ -445,12 +446,12 @@ export default function UeberMichPage() {
           <div className="text-center max-w-3xl mx-auto animate-fade-up">
             <Label>Mein Ansatz</Label>
             <h2 className="font-barlow font-bold text-3xl md:text-5xl leading-tight mb-6" style={{ color: '#E6E8EB' }}>
-              Erst messen, <Gold>dann entscheiden.</Gold>
+              Aus Daten wird <Gold>ein System.</Gold>
             </h2>
             {/* Kurzer Goldstrich unter der Ueberschrift — wie in der Vorlage */}
             <span className="block mx-auto mb-6" style={{ width: 64, height: 2, background: 'linear-gradient(90deg, transparent, #C9A84C, transparent)' }} />
             <p className="font-inter text-base md:text-lg leading-relaxed" style={{ color: '#A6B0BA' }}>
-              Deine Strategie entsteht aus deinen eigenen Werten — und passt sich an, sobald sie sich verändern.
+              Individuelle Daten und Blutwerte als Basis für eine ganzheitliche und individuelle Gesundheitsstrategie.
             </p>
 
             {/* Was gemessen wird */}
@@ -511,7 +512,7 @@ export default function UeberMichPage() {
           {/* Kernsatz */}
           <div className="mt-16 md:mt-20 animate-fade-up" style={{ animationDelay: '200ms' }}>
             <ZitatModul
-              zitat="Ich messe über 50 Blut- und DNA-Marker, filtere daraus die drei bis vier Hebel heraus, die bei dir wirklich zählen — und baue daraus eine Strategie, die in deinen Terminkalender passt, nicht umgekehrt."
+              zitat="Wir nutzen individuelle DNA- und Blutwerte, um die drei bis vier Hebel zu identifizieren, die bei dir wirklich einen Unterschied machen – und bauen daraus eine nachhaltige Strategie, die zu deinem Terminkalender passt."
               autor="Fabian Schönle"
               rolle="Performance Coach · M.Sc. Chemie"
               patternId="methode-zitat-grid"
