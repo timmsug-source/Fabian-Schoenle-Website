@@ -202,17 +202,6 @@ export default function ProblemSection({
             </div>
           )}
 
-          {/* Erklär-Leiste */}
-          <div
-            className="flex items-center gap-3 px-6 md:px-8 py-4"
-            style={{ borderTop: '1px solid rgba(201,168,76,0.15)', background: 'rgba(201,168,76,0.045)' }}
-          >
-            <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: '#E8D49A' }} />
-            <p className="font-inter text-sm" style={{ color: '#AEB5BE' }}>
-              Durchgestrichen steht, was nicht funktioniert. Darunter{' '}
-              <span style={{ color: '#E8D49A', fontWeight: 600 }}>steht dein Plan.</span>
-            </p>
-          </div>
         </div>
       </div>
     </section>

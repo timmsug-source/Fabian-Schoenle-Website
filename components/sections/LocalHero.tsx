@@ -25,15 +25,16 @@ const goldStops = (
   </>
 )
 
-function IconDNA() {
+function IconKolben() {
   return (
-    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="url(#icon-gold-dna)" strokeWidth="1.7" strokeLinecap="round">
+    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="url(#icon-gold-kolben)" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
       <defs>
-        <linearGradient id="icon-gold-dna" x1="0%" y1="0%" x2="100%" y2="100%">{goldStops}</linearGradient>
+        <linearGradient id="icon-gold-kolben" x1="0%" y1="0%" x2="100%" y2="100%">{goldStops}</linearGradient>
       </defs>
-      <path d="M7 3c0 4 10 5 10 9s-10 5-10 9" />
-      <path d="M17 3c0 4-10 5-10 9s10 5 10 9" />
-      <path d="M8.5 5.5h7M8 8h8M8 16h8M8.5 18.5h7" />
+      {/* Erlenmeyerkolben: Rand, Hals, konischer Körper — dazu die Füllstandslinie */}
+      <path d="M9 2.8h6" />
+      <path d="M10 2.8v6L4.4 18.6a1.6 1.6 0 0 0 1.4 2.4h12.4a1.6 1.6 0 0 0 1.4-2.4L14 8.8v-6" />
+      <path d="M7.1 14.6h9.8" />
     </svg>
   )
 }
@@ -50,13 +51,14 @@ function IconCalendar() {
   )
 }
 
-function IconBolt() {
+function IconUhr() {
   return (
-    <svg width="30" height="30" viewBox="0 0 24 24" fill="url(#icon-gold-bolt)">
+    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="url(#icon-gold-uhr)" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
       <defs>
-        <linearGradient id="icon-gold-bolt" x1="0%" y1="0%" x2="100%" y2="100%">{goldStops}</linearGradient>
+        <linearGradient id="icon-gold-uhr" x1="0%" y1="0%" x2="100%" y2="100%">{goldStops}</linearGradient>
       </defs>
-      <path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z" />
+      <circle cx="12" cy="12" r="9" />
+      <path d="M12 6.8V12l3.6 2.2" />
     </svg>
   )
 }
@@ -94,19 +96,19 @@ function IconGroup() {
 
 const bullets = [
   {
-    icon: <IconDNA />,
-    headline: 'Datenbasiert statt generisch',
-    body: 'Über 50 Blut- und DNA-Marker zeigen, welche 3 bis 4 Hebel bei dir wirklich zählen. Kein Rätselraten.',
+    icon: <IconKolben />,
+    headline: 'Datenbasiert',
+    body: 'Über 50 Blut- und DNA-Marker zeigen, welche drei bis vier Hebel bei dir wirklich zählen. Kein Rätselraten.',
   },
   {
     icon: <IconCalendar />,
-    headline: 'Für volle Terminkalender',
-    body: 'Eine Ernährung, die sich in deinen Arbeitstag einfügt. Nicht umgekehrt.',
+    headline: 'Alltagstauglich',
+    body: 'Entwickle gemeinsam mit mir eine Ernährungsstrategie, die individuell an deinen Terminkalender angepasst ist.',
   },
   {
-    icon: <IconBolt />,
-    headline: 'Dauerhaft statt Jo-Jo',
-    body: 'Durchschnittlich 12 kg weniger Körpergewicht in 16 Wochen – und Ergebnisse, die bleiben, weil sie auf deiner Biologie basieren.',
+    icon: <IconUhr />,
+    headline: 'Nachhaltig',
+    body: 'Erreiche langfristige Resultate — durch echtes Verständnis und einen bewussten Umgang mit deiner Ernährung.',
   },
 ]
 

@@ -152,7 +152,7 @@ export default function LeistungenSection({
                 src={imageSrc}
                 alt={imageAlt ?? ''}
                 fill
-                className="object-cover"
+                className="object-contain object-bottom"
                 sizes="(max-width: 1024px) 100vw, 420px"
               />
               {/* Verlauf nach unten, damit das Bild in den Kasten darunter läuft */}

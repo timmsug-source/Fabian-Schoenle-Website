@@ -80,14 +80,14 @@ export default function ErnaehrungsberatungKarlsruhePage() {
       <LocalHero
         label="Ernährungsberatung Karlsruhe"
         headline="Ernährungsberatung in Karlsruhe für"
-        headlineAccent="Selbstständige & Unternehmer"
-        subheadline="Datenbasiert wieder in Bestform – auf Basis deiner Blut- und DNA-Werte. Ohne Verbotskatalog und ohne das Gefühl, auf Diät zu sein."
+        headlineAccent="leistungsorientierte Menschen"
+        subheadline="Ohne Raten und Verzicht in Bestform – auf Basis individueller DNA- und Blutwerte."
         ctaLabel="Performance Analyse sichern"
         ctaNote="Call mit mir persönlich · 20 Minuten · unverbindlich"
         imageSrc="/images/IMG_1550-hero.jpg"
         imageAlt="Fabian Schönle — Performance Coach aus Karlsruhe"
-        statNumber="40+"
-        statText="Selbstständige & Unternehmer bereits erfolgreich begleitet"
+        statNumber="+40"
+        statText="Menschen bereits erfolgreich begleitet"
       />
 
       {/* Rezensionen */}
@@ -98,7 +98,7 @@ export default function ErnaehrungsberatungKarlsruhePage() {
         label="Das Problem"
         headline="Warum die meisten Ernährungspläne"
         headlineAccent="scheitern."
-        intro="Es liegt nicht an deiner Disziplin. Es liegt daran, dass generische Pläne deine Hormone ignorieren – und dein Hormonhaushalt entscheidet mit, was Training und Ernährung bei dir überhaupt bewirken können."
+        intro="Es liegt nicht an deiner Disziplin. Es liegt daran, dass generische Pläne und radikale Ansätze deinen Alltag und deine individuelle Physiologie bzw. Anatomie völlig ignorieren. Alles, was du dadurch verlierst, ist deine wertvollste Ressource – nämlich Zeit."
         points={[
           {
             wrong: 'Kalorien',
@@ -112,7 +112,7 @@ export default function ErnaehrungsberatungKarlsruhePage() {
           },
           {
             wrong: 'Härter',
-            right: 'Klüger',
+            right: 'Strategie',
             body: 'Mehr Training und weniger essen klingt nach der logischen Antwort. Für dein Hormonsystem ist es zusätzlicher Stress – und Stress wirkt sich langfristig negativ auf deine Hormone aus. Du arbeitest dann gegen genau den Mechanismus, den du eigentlich brauchst.',
           },
         ]}
@@ -128,31 +128,31 @@ export default function ErnaehrungsberatungKarlsruhePage() {
         ]}
       />
 
-      {/* 3 — Dein Ansatz: Ernährung trifft Biologie */}
+      {/* 3 — Mein Ansatz: Wissenschaft trifft auf Ernährung */}
       <SolutionSection
-        label="Dein Ansatz"
-        headline="Ernährung trifft Biologie."
-        intro="So sieht Ernährungsberatung in Karlsruhe bei mir aus: erst messen, dann planen. Deine Werte geben die Richtung vor – auch dann, wenn sie unauffällig sind."
+        label="Mein Ansatz"
+        headline="Wissenschaft trifft auf Ernährung."
+        intro="Durch einen datenbasierten Ansatz ermitteln wir gemeinsam die Hebel, die bei dir wirklich den Unterschied machen."
         karten
-        zitat="Ich rate nicht, was dein Körper braucht. Ich messe es – und stelle danach die drei bis vier Hebel ein, die bei dir wirklich etwas verändern."
+        zitat="Wir verschwenden keine Zeit, indem wir herumrätseln, sondern bestimmen wissenschaftlich die Hebel, die bei dir wirklich den Unterschied machen."
         zitatAutor="Fabian Schönle"
         zitatRolle="Performance Coach · M.Sc. Chemie"
         hintergrundBild="/images/Hintergrund-Ergebnisse.webp"
         steps={[
           {
             number: '01',
-            headline: 'Blut- und DNA-Analyse',
-            body: 'Bevor irgendein Plan entsteht, schauen wir in deine Werte: Hormonstatus, Mikronährstoffe, Entzündungsmarker – und deine genetische Veranlagung für Kohlenhydrate, Fette und Stress. Die Analyse läuft über ein professionelles Labor, ich bin kein Arzt und gebe sie deshalb dorthin, wo sie hingehört. Du musst dich um nichts kümmern.',
+            headline: 'Datenbasierte Anamnese',
+            body: 'Individuelle DNA- und Blutwerte helfen uns zu verstehen, wie deine aktuelle Situation wirklich aussieht.',
           },
           {
             number: '02',
-            headline: 'Auswertung und Priorisierung',
-            body: 'Aus über 50 Markern filtere ich die drei bis vier Hebel heraus, die bei dir tatsächlich zählen. Manchmal sind das die Hormone. Manchmal ist es der Schlaf, ein Nährstoffmangel oder schlicht die Verteilung deiner Mahlzeiten. Das entscheiden die Daten – nicht eine Vermutung.',
+            headline: 'Strategieentwicklung',
+            body: 'Auf dieser Basis entwickeln wir gemeinsam konkrete, einfach umsetzbare Schritte, die sich wirklich in deinen Alltag integrieren lassen.',
           },
           {
             number: '03',
-            headline: 'Plan statt Präparat',
-            body: 'Am Ende steht kein Katalog mit Streichlisten und kein Rezept. Sondern eine datenbasierte Strategie aus Ernährung, Bewegung und Regeneration, die sich in deinen Arbeitstag einfügt – und die angepasst wird, sobald sich deine Werte verändern.',
+            headline: 'Weiterentwicklung',
+            body: 'Um zu gewährleisten, dass die Strategie langfristig für dich umsetzbar ist, überprüfen wir sie regelmäßig und passen sie jederzeit an deine momentane Lebenssituation an.',
           },
         ]}
       />
@@ -160,9 +160,9 @@ export default function ErnaehrungsberatungKarlsruhePage() {
       {/* 4 — Video-Testimonials im Hochformat */}
       <VideoTestimonials
         label="Echte Ergebnisse"
-        headline="Zwei Selbstständige, die ihre"
-        headlineAccent="Energie zurückhaben."
-        intro="Kein Skript, keine Werbeaussagen. Beide hatten volle Kalender und wenig Spielraum – und trotzdem funktioniert hat, was zu ihrem Alltag passt."
+        headline="So sieht Abnehmen neben"
+        headlineAccent="Job, Familie und Privatleben aus."
+        intro="Nachhaltige Ergebnisse trotz hoher Verantwortung und wenig Zeit."
         videos={[
           {
             src: '/videos/Robert_Testimonial_final.mp4',
@@ -190,15 +190,14 @@ export default function ErnaehrungsberatungKarlsruhePage() {
             badgeVon: '106',
             badgeNach: '92,5 kg',
             vorher: [
-              'Ab 20 Uhr war die Energie komplett weg — Familienzeit fiel dadurch aus',
-              'Ausgeprägtes Mittagstief, Energielevel den ganzen Tag niedrig',
-              'Hohe mentale Belastung durch die Gründungsphase, im eigenen Körper nicht mehr wohlgefühlt',
+              'Ab 20 Uhr keine Energie mehr',
+              'Den ganzen Tag Energielevel niedrig',
+              'Im eigenen Körper unwohl gefühlt',
             ],
             nachher: [
-              '13,5 kg weniger in 10 Wochen — von 106 auf 92,5 kg',
-              'Volle Energie von früh bis abends, Mittagstief verschwunden',
-              'Umsetzbar trotz Gründungsphase und Familie',
-              'Die Ernährung der ganzen Familie hat sich mitverändert',
+              '13,5 kg weniger in 10 Wochen',
+              'Volle Energie von früh bis abends',
+              'Ernährung der ganzen Familie hat sich mitverändert',
             ],
           },
         ]}
@@ -206,29 +205,28 @@ export default function ErnaehrungsberatungKarlsruhePage() {
 
       {/* 5 — Was ich konkret bekomme */}
       <LeistungenSection
-        label="Was du bekommst"
+        label="Was enthalten ist"
         headline="Was in der Zusammenarbeit konkret enthalten ist."
-        intro="Keine ellenlange Leistungsliste – sondern genau die Punkte, die den Unterschied machen."
-        imageSrc="/images/FS-Bild-Hemd-blau.webp"
+        imageSrc="/images/FS-Bild-Zitatsektion.webp"
         imageAlt="Fabian Schönle — Performance Coach aus Karlsruhe"
         name="Fabian Schönle"
         role="M.Sc. Chemie · Triathlet · Karlsruhe"
         items={[
           {
-            headline: 'Umfassende Blut- und DNA-Analyse',
+            headline: 'Umfassende datenbasierte Anamnese',
             body: 'Über 50 Marker, weit über den Standard hinaus: Hormonstatus, Mikronährstoffe, Entzündungswerte und deine genetische Veranlagung. Danach reden wir nicht mehr über Durchschnittswerte, sondern über deinen Körper.',
           },
           {
-            headline: 'Individueller Ernährungsplan auf Basis deiner Werte',
+            headline: 'Individuelle Ernährungsstrategie',
             body: 'Kein Musterplan aus der Schublade. Deine Strategie wird aus den realen Laborwerten abgeleitet – so arbeiten wir an der Ursache statt am Symptom. Und sie passt zu deinem Terminkalender, nicht umgekehrt.',
           },
           {
-            headline: 'Konkrete Nährstoff- und Supplement-Strategie',
-            body: 'Nur das, was dein Körper messbar braucht. Kein Verbotskatalog, keine pauschalen Streichlisten. Ein richtig eingestelltes System kommt ohne ständigen Kampf gegen dich selbst aus.',
+            headline: 'Ganzheitlicher Ansatz',
+            body: 'Die Strategie bezieht neben der Ernährung auch die Bereiche Schlaf, Stress und Training mit ein. Denn diese Faktoren wirken zusammen — einzeln betrachtet bleibt jeder von ihnen wirkungslos.',
           },
           {
-            headline: 'Laufende Anpassung statt starrem Plan',
-            body: 'Dein Körper verändert sich – deine Strategie auch. Sobald sich deine Werte bewegen, justieren wir nach. Alles kompakt in einer App, ohne nerviges Tracken.',
+            headline: 'Persönlicher Support und kontinuierliche Anpassung',
+            body: 'Dein Körper verändert sich – deine Strategie auch. Sobald sich deine Werte bewegen, justieren wir nach. Du schreibst mir direkt, wenn etwas nicht passt.',
           },
         ]}
       />
@@ -293,17 +291,15 @@ export default function ErnaehrungsberatungKarlsruhePage() {
         spalten={{
           generic: ['Klassische', 'Ernährungs-', 'beratung'],
           online: ['Ernährungs-', 'App'],
-          selbst: ['Hausarzt /', 'Standard-', 'Check'],
+          selbst: ['KI-Tools'],
         }}
         zeilen={[
-          { feature: 'Individuelle DNA-/Bluttests',          fs: true, generic: false, online: false, selbst: false },
-          { feature: 'Hormonstatus wird mitgemessen',        fs: true, generic: false, online: false, selbst: false },
-          { feature: 'Über 50 Marker statt Standardwerte',   fs: true, generic: false, online: false, selbst: false },
-          { feature: 'Datenbasierte Strategie',              fs: true, generic: false, online: false, selbst: false },
-          { feature: 'Individuelle Ernährungsstrategie',     fs: true, generic: true,  online: false, selbst: false },
-          { feature: 'Kontinuierliche Strategieoptimierung', fs: true, generic: false, online: true,  selbst: false },
-          { feature: 'Persönlicher Ansprechpartner',         fs: true, generic: true,  online: false, selbst: true  },
-          { feature: '24/7 Chatsupport',                     fs: true, generic: false, online: false, selbst: false },
+          { feature: 'Individuelle DNA-/Bluttests',      fs: true, generic: false, online: false, selbst: false },
+          { feature: 'Individuelle Strategie',           fs: true, generic: true,  online: false, selbst: true  },
+          { feature: 'Ganzheitlicher Ansatz',            fs: true, generic: false, online: false, selbst: false },
+          { feature: 'Alltagsoptimiert',                 fs: true, generic: false, online: true,  selbst: true  },
+          { feature: 'Persönlicher Support',             fs: true, generic: true,  online: false, selbst: false },
+          { feature: 'Kontinuierliche Optimierung',      fs: true, generic: false, online: true,  selbst: true  },
         ]}
       />
 

@@ -56,21 +56,21 @@ const reviewShots = [
     height: 918,
   },
   {
-    src: '/images/Bewertungen 2026-06-24 um 12.45.57.png',
-    alt: 'Google-Rezension von F. Fechner: 13 kg in drei Monaten abgenommen',
-    width: 1012,
-    height: 502,
+    src: '/images/FS-Rezension-Gregory.jpg',
+    alt: 'LinkedIn-Empfehlung von Gregory Niggli: Jahresziel beim Abnehmen bereits zur Jahresmitte erreicht — ohne Hungern oder Fastenkuren.',
+    width: 1548,
+    height: 1016,
   },
   {
-    src: '/images/Bewertungen 2026-06-24 um 12.44.32.png',
-    alt: 'Google-Rezension von Sabine Greiter: 10 kg in drei Monaten abgenommen',
-    width: 1036,
-    height: 506,
+    src: '/images/FS-Rezension-Axel.png',
+    alt: 'LinkedIn-Empfehlung von Axel Krupp: Ernährung besser verstanden, gezielt abgenommen und das Ergebnis ohne großen Aufwand gehalten.',
+    width: 1581,
+    height: 995,
   },
 ]
 
 const stats = [
-  { icon: <IconGroup />, value: '40+', label: 'Klienten', sub: 'bereits begleitet' },
+  { icon: <IconGroup />, value: '+40', label: 'Menschen', sub: 'bereits erfolgreich begleitet' },
   { icon: <IconStarLine />, value: '4,9 / 5', label: 'Durchschnittliche Bewertung', sub: 'auf Basis echter Rezensionen' },
   { icon: <IconShield />, value: '100 %', label: 'Individuell & datenbasiert', sub: 'keine Standardpläne' },
 ]

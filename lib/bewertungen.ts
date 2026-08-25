@@ -24,6 +24,10 @@ export const BEWERTUNGEN: Bewertung[] = [
     alt: 'LinkedIn-Empfehlung von Matthias Karlin: Körperfettreduktion bei gleichzeitigem Muskelerhalt, flexibel auch auf Geschäftsreisen.',
   },
   {
+    src: '/images/FS-Rezension-Axel.png',
+    alt: 'LinkedIn-Empfehlung von Axel Krupp: Ernährung besser verstanden, gezielt abgenommen und das Ergebnis ohne großen Aufwand gehalten.',
+  },
+  {
     src: '/images/FS-Rezension-Hans-Herbert.jpg',
     alt: 'Google-Rezension mit fünf Sternen von Hans Herbert Richard Müller: 15 kg in 90 Tagen abgenommen, deutlich mehr Energie und Fitness.',
   },
