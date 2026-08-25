@@ -111,7 +111,7 @@ export default function ErnaehrungsberatungKarlsruhePage() {
             body: 'Wenig Antrieb, hartnäckiges Bauchfett, kaum Muskelaufbau trotz Training: Das sind Symptome. Die meisten Beratungen schrauben genau daran herum. Was deine Blutwerte über die Ursache sagen, sieht sich niemand an.',
           },
           {
-            wrong: 'Härter',
+            wrong: 'Disziplin',
             right: 'Strategie',
             body: 'Mehr Training und weniger essen klingt nach der logischen Antwort. Für dein Hormonsystem ist es zusätzlicher Stress – und Stress wirkt sich langfristig negativ auf deine Hormone aus. Du arbeitest dann gegen genau den Mechanismus, den du eigentlich brauchst.',
           },
@@ -213,20 +213,20 @@ export default function ErnaehrungsberatungKarlsruhePage() {
         role="M.Sc. Chemie · Triathlet · Karlsruhe"
         items={[
           {
-            headline: 'Umfassende datenbasierte Anamnese',
-            body: 'Über 50 Marker, weit über den Standard hinaus: Hormonstatus, Mikronährstoffe, Entzündungswerte und deine genetische Veranlagung. Danach reden wir nicht mehr über Durchschnittswerte, sondern über deinen Körper.',
+            headline: 'Datenbasierte Anamnese',
+            body: 'Umfassende Analyse deiner aktuellen Situation mittels Daten und Blutwerten.',
           },
           {
             headline: 'Individuelle Ernährungsstrategie',
-            body: 'Kein Musterplan aus der Schublade. Deine Strategie wird aus den realen Laborwerten abgeleitet – so arbeiten wir an der Ursache statt am Symptom. Und sie passt zu deinem Terminkalender, nicht umgekehrt.',
+            body: 'Keine Standard-Diät, sondern eine individuelle Ernährung, die zu deinem Terminkalender und deinen Bedürfnissen passt.',
           },
           {
             headline: 'Ganzheitlicher Ansatz',
-            body: 'Die Strategie bezieht neben der Ernährung auch die Bereiche Schlaf, Stress und Training mit ein. Denn diese Faktoren wirken zusammen — einzeln betrachtet bleibt jeder von ihnen wirkungslos.',
+            body: 'Neben Ernährung schauen wir bei Bedarf auch auf Themen wie Training, Schlaf und Stressmanagement, um alle Bereiche von Gesundheit abzudecken.',
           },
           {
-            headline: 'Persönlicher Support und kontinuierliche Anpassung',
-            body: 'Dein Körper verändert sich – deine Strategie auch. Sobald sich deine Werte bewegen, justieren wir nach. Du schreibst mir direkt, wenn etwas nicht passt.',
+            headline: 'Persönlicher Support',
+            body: 'Dein Körper und Alltag ändern sich – deshalb passen wir deine Strategie an, wann immer es nötig ist, sodass du dich mit deiner Ernährung immer wohlfühlst.',
           },
         ]}
       />
