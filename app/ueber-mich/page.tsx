@@ -115,15 +115,6 @@ const profil = [
   { icon: IconTriathlet,   text: 'Triathlet' },
 ]
 
-/* --- Sektion 1: die drei Aufnahmen im Hero --- */
-
-const heroBilder = [
-  // Freisteller: 'contain', sonst wuerde die Figur an den Kachelraendern abgeschnitten
-  { src: '/images/FS-Bild-Zitatsektion.webp',         alt: 'Fabian Schönle im weißen Hemd',                       pos: 'center bottom', gross: false, contain: true },
-  { src: '/images/Fabian-Schoenle-Blick-Kamera.webp', alt: 'Fabian Schönle — Performance Coach',                  pos: 'center 15%', gross: true  },
-  { src: '/images/FS-Bild-Triathlon.webp',            alt: 'Fabian Schönle mit der Medaille des Ironman 70.3',    pos: 'center 42%', gross: false },
-]
-
 /* --- Sektion 2: Über FS Performance Lab. Aus den frueheren Zeitleisten-
        Stationen zu Fliesstext zusammengezogen. --- */
 
@@ -201,7 +192,8 @@ export default function UeberMichPage() {
     <>
       <PersonSchema />
 
-      {/* ================= 1 — Hero ================= */}
+      {/* ================= 1 — Hero =================
+           Text und Profilzeile links, Portrait rechts. */}
       <section className="relative overflow-hidden">
         <svg className="absolute inset-0 w-full h-full pointer-events-none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="none">
           <defs>
@@ -234,67 +226,56 @@ export default function UeberMichPage() {
           <rect width="100%" height="100%" fill="url(#hero-glow-r)" />
         </svg>
 
-        <div className="relative max-w-7xl mx-auto px-4 md:px-8 pt-24 md:pt-36 pb-20 md:pb-28">
+        <div className="relative max-w-7xl mx-auto px-4 md:px-8 pt-24 md:pt-32 pb-20 md:pb-28">
+          <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_1fr] gap-12 lg:gap-16 items-center">
 
-          {/* Kopf — wie auf der Startseite über die volle Breite zentriert */}
-          <div className="text-center mb-14 md:mb-20 animate-fade-up">
-            <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-5" style={GOLD_TEXT}>
-              Über mich
-            </p>
-            <h1 className="font-barlow font-bold text-4xl md:text-6xl lg:text-7xl leading-[1.05] mb-6" style={{ color: '#E6E8EB' }}>
-              Ich bin Fabian Schönle —<br className="hidden md:block" />{' '}
-              <Gold>Performance Coach aus Karlsruhe</Gold>
-            </h1>
-            <p className="font-inter text-lg md:text-xl leading-relaxed max-w-4xl mx-auto" style={{ color: '#AEB5BE' }}>
-              M.Sc. in Chemie, über zehn Jahre Erfahrung in Ernährung und Training & über 40 erfolgreich begleitete Kunden. Ich helfe leistungsorientierten Menschen dabei, auf Basis individueller Blutwerte trotz vollem Alltag in ihre körperliche und mentale Bestform zu kommen – ohne Diäten, Verzicht und stundenlanges Training.
-            </p>
-          </div>
+            {/* Links: Text und Profilzeile */}
+            <div className="text-left animate-fade-up">
+              <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-5" style={GOLD_TEXT}>
+                Über mich
+              </p>
+              <h1 className="font-barlow font-bold text-4xl md:text-5xl lg:text-6xl leading-[1.05] mb-6" style={{ color: '#E6E8EB' }}>
+                Ich bin Fabian Schönle —{' '}
+                <Gold>Performance Coach aus Karlsruhe</Gold>
+              </h1>
+              <p className="font-inter text-base md:text-lg leading-relaxed mb-10" style={{ color: '#AEB5BE' }}>
+                M.Sc. in Chemie, über zehn Jahre Erfahrung in Ernährung und Training & über 40 erfolgreich begleitete Kunden. Ich helfe leistungsorientierten Menschen dabei, auf Basis individueller Blutwerte trotz vollem Alltag in ihre körperliche und mentale Bestform zu kommen – ohne Diäten, Verzicht und stundenlanges Training.
+              </p>
 
-          {/* Drei Aufnahmen nebeneinander — die mittlere groesser, die aeusseren
-              etwas zurueckgesetzt. Der Rahmen ist derselbe wie bei den Bildern
-              der Startseite: gerundet, duenne Goldkante, Schein dahinter. */}
-          <div className="relative max-w-5xl mx-auto animate-fade-up" style={{ animationDelay: '80ms' }}>
-            <div
-              className="absolute pointer-events-none rounded-full blur-3xl"
-              style={{ inset: '-8% -4%', background: 'radial-gradient(ellipse at center, rgba(201,168,76,0.14) 0%, transparent 70%)' }}
-            />
-            <div className="relative grid grid-cols-[1fr_1.3fr_1fr] gap-3 md:gap-6 items-center">
-              {heroBilder.map((b) => (
-                <div
-                  key={b.src}
-                  className={`relative overflow-hidden rounded-xl md:rounded-2xl ${b.gross ? 'md:-my-8' : ''}`}
-                  style={{
-                    aspectRatio: '3/4',
-                    border: b.gross ? '1px solid rgba(201,168,76,0.45)' : '1px solid rgba(201,168,76,0.22)',
-                    background: 'linear-gradient(135deg, #0D1829 0%, #0B1525 100%)',
-                    boxShadow: b.gross
-                      ? '0 0 40px rgba(201,168,76,0.18), 0 20px 50px rgba(0,0,0,0.45)'
-                      : '0 0 20px rgba(201,168,76,0.08), 0 12px 30px rgba(0,0,0,0.35)',
-                  }}
-                >
-                  <Image
-                    src={b.src}
-                    alt={b.alt}
-                    fill
-                    priority={b.gross}
-                    className={b.contain ? 'object-contain' : 'object-cover'}
-                    style={{ objectPosition: b.pos }}
-                    sizes={b.gross ? '(max-width: 768px) 40vw, 420px' : '(max-width: 768px) 30vw, 320px'}
-                  />
-                </div>
-              ))}
+              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {profil.map((p, i) => (
+                  <li key={i} className="leistung-card rounded-xl px-5 py-3.5 flex items-center gap-3">
+                    <span className="flex-shrink-0">{p.icon}</span>
+                    <span className="font-inter text-sm leading-snug text-left" style={{ color: '#C8D0D9' }}>{p.text}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
-          </div>
 
-          {/* Profilzeile unter den Bildern */}
-          <ul className="flex flex-wrap justify-center gap-2.5 md:gap-3 mt-10 md:mt-14 animate-fade-up" style={{ animationDelay: '160ms' }}>
-            {profil.map((p, i) => (
-              <li key={i} className="symptom-pill rounded-full px-4 py-2.5 flex items-center gap-2.5">
-                <span className="flex-shrink-0">{p.icon}</span>
-                <span className="font-inter text-xs md:text-sm font-medium" style={{ color: '#C8D0D9' }}>{p.text}</span>
-              </li>
-            ))}
-          </ul>
+            {/* Rechts: Portrait */}
+            <div className="animate-fade-up mx-auto lg:mx-0 w-full" style={{ animationDelay: '100ms', maxWidth: 520 }}>
+              <div
+                className="relative w-full rounded-2xl overflow-hidden"
+                style={{
+                  aspectRatio: '4/5',
+                  background: 'linear-gradient(135deg, #0D1829 0%, #0B1525 100%)',
+                  border: '1px solid rgba(201,168,76,0.3)',
+                  boxShadow: '0 0 40px rgba(201,168,76,0.14)',
+                }}
+              >
+                <Image
+                  src="/images/Fabian-Schoenle-Blick-Kamera.webp"
+                  alt="Fabian Schönle — Performance Coach"
+                  fill
+                  priority
+                  className="object-cover"
+                  style={{ objectPosition: 'center 15%' }}
+                  sizes="(max-width: 1024px) 100vw, 520px"
+                />
+              </div>
+            </div>
+
+          </div>
         </div>
       </section>
 
