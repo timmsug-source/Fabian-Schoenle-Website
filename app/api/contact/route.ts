@@ -2,16 +2,22 @@ import { NextResponse } from 'next/server'
 import { SITE_NAME, SITE_URL } from '@/lib/constants'
 
 /**
- * Versand über den Postausgang der eigenen Domain (goneo) statt über einen
- * externen Dienst. Hintergrund: Resend verlangt einen MX-Eintrag auf einer
- * Sende-Subdomain, den goneos DNS-Verwaltung nicht zulässt, solange die
- * MX-Einträge der Domain bestehen — und die dürfen nicht weg, sonst empfängt
- * niemand mehr Mails.
+ * Versand über Resend, mit `send.fabianschoenle.de` als Sende-Subdomain.
  *
- * Für ein Kontaktformular mit wenigen Nachrichten am Tag, das von der eigenen
- * Domain an die eigene Domain schreibt, ist das der einfachere Weg: keine
- * zusätzlichen DNS-Einträge, SPF passt bereits, und der Absender ist dasselbe
- * Postfach, aus dem Fabian ohnehin schreibt.
+ * Warum eine eigene Subdomain und nicht die Hauptdomain: Resend verlangt für
+ * die Verifizierung einen eigenen MX-Eintrag. Auf der Root würde der den
+ * kompletten Posteingang bei goneo wegleiten — Fabian bekäme keine Mails mehr.
+ * Auf `send` stört er nichts, weil dort sonst nichts liegt.
+ *
+ * goneo verlangt dafür, dass die Subdomain zuerst im Kundencenter unter
+ * Domains -> Subdomains angelegt wird; ein reiner DNS-Eintrag genügt nicht.
+ * Erst danach lassen sich MX, SPF und DKIM darunter setzen.
+ *
+ * Wichtig: In Resend ist die Domain `fabianschoenle.de` selbst angelegt, nicht
+ * die Subdomain. `send` ist nur der Return-Path, über den Amazon SES die
+ * Rückläufer annimmt — nicht die Absenderadresse. Der Absender (RESEND_FROM)
+ * gehört deshalb auf die Hauptdomain. Antworten gehen ohnehin über `replyTo`
+ * direkt an den Besucher, und die Anfrage selbst landet in CONTACT_EMAIL.
  */
 
 function escapeHtml(s: string) {
@@ -53,17 +59,15 @@ export async function POST(req: Request) {
     nachricht ? `Nachricht: ${nachricht}` : null,
   ].filter(Boolean) as string[]
 
-  const host = process.env.SMTP_HOST
-  const port = Number(process.env.SMTP_PORT ?? 465)
-  const user = process.env.SMTP_USER
-  const pass = process.env.SMTP_PASS
-  const to = process.env.CONTACT_EMAIL || user
+  const apiKey = process.env.RESEND_API_KEY
+  const to = process.env.CONTACT_EMAIL
+  const from = process.env.RESEND_FROM || `${SITE_NAME} <website@fabianschoenle.de>`
 
   // Ohne konfigurierten Versand bewusst ein Fehler statt einer stillen
   // Erfolgsmeldung — sonst liest der Besucher "Nachricht ist raus", während
   // die Anfrage nirgendwo ankommt.
-  if (!host || !user || !pass || !to) {
-    console.error('[contact] SMTP nicht konfiguriert — Anfrage NICHT versendet:\n' + zeilen.join('\n'))
+  if (!apiKey || apiKey.includes('xxx') || !to) {
+    console.error('[contact] RESEND_API_KEY/CONTACT_EMAIL fehlen — Anfrage NICHT versendet:\n' + zeilen.join('\n'))
     return NextResponse.json(
       { error: 'Das Formular ist gerade nicht erreichbar. Schreib mir bitte direkt per E-Mail.' },
       { status: 503 },
@@ -71,25 +75,16 @@ export async function POST(req: Request) {
   }
 
   try {
-    const nodemailer = (await import('nodemailer')).default
-    const transport = nodemailer.createTransport({
-      host,
-      port,
-      // 465 spricht direkt TLS, 587 startet unverschlüsselt und schaltet per
-      // STARTTLS um. Beides ist verschlüsselt, nur der Ablauf unterscheidet sich.
-      secure: port === 465,
-      auth: { user, pass },
-    })
+    const { Resend } = await import('resend')
+    const resend = new Resend(apiKey)
 
     const domain = SITE_URL.replace('https://', '')
     const betreff = nachricht && !name
       ? `Frage über ${domain}`
       : `Neue Anfrage: ${name}${schwerpunkt ? ` — ${schwerpunkt}` : ''}`
 
-    await transport.sendMail({
-      // Absender muss das authentifizierte Postfach sein — fremde Adressen
-      // weist der Server ab. Der Anzeigename darf frei gewählt werden.
-      from: `${SITE_NAME} <${user}>`,
+    const { error } = await resend.emails.send({
+      from,
       to,
       replyTo: email,
       subject: betreff,
@@ -102,6 +97,8 @@ export async function POST(req: Request) {
         `<p style="font-family:sans-serif;font-size:13px;color:#666">Antworten geht direkt — die Antwortadresse ist auf ${escapeHtml(email)} gesetzt.</p>`,
     })
 
+    // Resend meldet Fehler im Rückgabewert, nicht als Ausnahme.
+    if (error) throw error
     return NextResponse.json({ ok: true })
   } catch (err) {
     console.error('[contact] Versand fehlgeschlagen:', err)

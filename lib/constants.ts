@@ -21,17 +21,22 @@ export const UNTERSEITEN_NOINDEX = true
 export const CALENDLY_URL = process.env.NEXT_PUBLIC_CALENDLY_URL ?? 'https://calendly.com/fuelbyfabian/30min'
 
 /**
- * VORÜBERGEHEND AUS: Solange der Mailversand nicht steht (goneo lässt den
- * MX-Eintrag für Resend nicht zu), führen alle CTAs direkt zu Calendly, statt
- * das Anfrageformular zu öffnen. Ein Formular, dessen Nachrichten nirgends
- * ankommen, ist schlimmer als kein Formular.
+ * Steuert, ob die CTAs das Anfrageformular öffnen oder direkt zu Calendly führen.
  *
- * Auf `true` setzen, sobald der Versand funktioniert — dann greifen wieder alle
- * Elemente mit `data-open-form`, und die Direktnachricht in der FAQ erscheint.
- * Alle betroffenen Schaltflächen haben ohnehin Calendly als Ziel hinterlegt;
- * ohne die Abfangfunktion verhalten sie sich einfach als normale Links.
+ * Stand 01.09.2026 wieder aktiv: Der Versand läuft über Resend mit der
+ * Sende-Subdomain `send.fabianschoenle.de`, die Domain ist verifiziert und die
+ * Variablen sind in Vercel hinterlegt. Damit greifen alle Elemente mit
+ * `data-open-form`, und die Direktnachricht in der FAQ erscheint wieder.
+ *
+ * Zuvor war der Schalter aus, weil der MX-Eintrag für Resend fehlte — goneo
+ * verlangt, dass die Sende-Subdomain zuerst im Kundencenter angelegt wird.
+ *
+ * Wieder auf `false` setzen, falls der Versand ausfällt: Alle betroffenen
+ * Schaltflächen haben ohnehin Calendly als Ziel hinterlegt und verhalten sich
+ * dann einfach als normale Links. Ein Formular, dessen Nachrichten nirgends
+ * ankommen, ist schlimmer als kein Formular.
  */
-export const ANFRAGE_FORMULAR_AKTIV = false
+export const ANFRAGE_FORMULAR_AKTIV = true
 
 /** Profile der Marke. Werden auch als `sameAs` in den strukturierten Daten ausgegeben. */
 export const LINKEDIN_URL = 'https://www.linkedin.com/in/fabian-sch%C3%B6nle-a273a8363/'
