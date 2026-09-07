@@ -20,9 +20,6 @@ type OnlineHeroProps = {
   zitatAkzent?: string
   zitatEnde?: string
   trust: { icon: TrustIcon; titel: string; text: string }[]
-  /** Beschriftungen im Performance-Kreis, im Uhrzeigersinn ab oben */
-  kreis?: [string, string, string, string]
-  kreisMitte?: string
 }
 
 const goldGradient = {
@@ -87,57 +84,6 @@ const TRUST_ICONS: Record<TrustIcon, React.ReactNode> = {
   ),
 }
 
-/** Kreisgrafik über dem Bild — vier Begriffe um einen Mittelpunkt */
-function PerformanceKreis({ labels, mitte }: { labels: [string, string, string, string]; mitte: string }) {
-  const zeilen = mitte.split(' ')
-  return (
-    /*
-      Breiter Rahmen mit kleinem Ring: So bleiben die vier Beschriftungen
-      außerhalb des Rings und kollidieren nicht mit dem Text in der Mitte.
-    */
-    <svg width="360" height="260" viewBox="0 0 360 260" fill="none" aria-hidden="true">
-      <circle cx="180" cy="130" r="64" stroke="rgba(201,168,76,0.45)" strokeWidth="1" />
-      {[
-        [180, 66],
-        [244, 130],
-        [180, 194],
-        [116, 130],
-      ].map(([cx, cy], i) => (
-        <circle key={i} cx={cx} cy={cy} r="2.6" fill="#C9A84C" />
-      ))}
-
-      <text x="180" y="46" textAnchor="middle" fill="#E6E8EB" fontSize="11" letterSpacing="2" className="font-inter">
-        {labels[0]}
-      </text>
-      <text x="258" y="134" textAnchor="start" fill="#E6E8EB" fontSize="11" letterSpacing="2" className="font-inter">
-        {labels[1]}
-      </text>
-      <text x="180" y="222" textAnchor="middle" fill="#E6E8EB" fontSize="11" letterSpacing="2" className="font-inter">
-        {labels[2]}
-      </text>
-      <text x="102" y="134" textAnchor="end" fill="#E6E8EB" fontSize="11" letterSpacing="2" className="font-inter">
-        {labels[3]}
-      </text>
-
-      {zeilen.map((z, i) => (
-        <text
-          key={i}
-          x="180"
-          y={130 - (zeilen.length - 1) * 8 + i * 16}
-          textAnchor="middle"
-          fill="#C9A84C"
-          fontSize="12"
-          letterSpacing="1.2"
-          className="font-barlow"
-          fontWeight="700"
-        >
-          {z}
-        </text>
-      ))}
-    </svg>
-  )
-}
-
 export default function OnlineHero({
   label,
   headline1,
@@ -152,8 +98,6 @@ export default function OnlineHero({
   zitatAkzent,
   zitatEnde,
   trust,
-  kreis = ['KLARHEIT', 'ENERGIE', 'UMSETZUNG', 'ERGEBNISSE'],
-  kreisMitte = 'DEIN PERFORMANCE KREIS',
 }: OnlineHeroProps) {
   return (
     <section className="relative overflow-hidden" style={{ background: '#060E1F' }}>
@@ -170,11 +114,6 @@ export default function OnlineHero({
           className="absolute inset-x-0 bottom-0 h-32 pointer-events-none"
           style={{ background: 'linear-gradient(to bottom, transparent, #060E1F)' }}
         />
-
-        {/* Performance-Kreis über dem Bild */}
-        <div className="absolute top-[14%] left-[4%] hidden xl:block pointer-events-none">
-          <PerformanceKreis labels={kreis} mitte={kreisMitte} />
-        </div>
       </div>
 
       <div className="relative max-w-7xl mx-auto px-4 md:px-8 pt-36 md:pt-44 pb-0">

@@ -51,6 +51,29 @@ body {
   .animate-fade-up { opacity: 1; transform: none; animation: none; }
 }
 
+/*
+  Reglergriffe im Standardplan-Panel: Sie starten versetzt (--regler-von) und
+  fahren auf eine gemeinsame Linie, sobald die Sektion ins Bild kommt. Der
+  Startversatz steht am Element, damit jeder Griff aus einer anderen Richtung
+  kommt — sonst wirkt es wie eine einzelne Bewegung statt wie sechs.
+*/
+@keyframes reglerEinrasten {
+  from { transform: translateY(var(--regler-von, 0)); }
+  to   { transform: translateY(0); }
+}
+
+.regler-griff {
+  transform: translateY(var(--regler-von, 0));
+}
+.in-view .regler-griff {
+  animation: reglerEinrasten 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .regler-griff,
+  .in-view .regler-griff { transform: none; animation: none; }
+}
+
 /* Metallischer Shine-Effekt auf Buttons */
 @keyframes shine {
   0%,  78% { transform: translateX(-100%) skewX(-15deg); opacity: 0; }
