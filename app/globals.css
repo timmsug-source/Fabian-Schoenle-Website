@@ -75,34 +75,26 @@ body {
 }
 
 /*
-  Unterstrich, dessen Laenge am Scrollfortschritt haengt.
+  Fester Unterstrich fuer Ueberschriften ohne Scroll-Effekt.
 
-  Den Wert setzt ScrollUnterstrich als CSS-Variable, waehrend gescrollt wird —
-  0 bedeutet nicht gezeichnet, 1 vollstaendig. Der Strich waechst also mit der
-  Bewegung mit, statt einmalig durchzulaufen.
+  Als Hintergrundbild statt als ::after-Element: Ein absolut gesetztes ::after
+  spannt sich ueber die gesamte Box und laeuft bei mehrzeiligen Ueberschriften
+  auch unter der kurzen letzten Zeile bis zum Rand. Mit
+  `box-decoration-break: clone` bekommt jede Zeile ihren eigenen Strich, genau
+  so breit wie ihr Text.
 
-  `scaleX` statt `width`, weil das auf der GPU laeuft und nicht bei jedem Bild
-  ein neues Layout ausloest.
+  Der scrollabhaengige Strich liegt nicht hier, sondern in ScrollUnterstrich —
+  dort werden die Zeilen einzeln gemessen, damit sie nacheinander statt
+  gleichzeitig gezeichnet werden.
 */
-.unterstrich {
-  position: relative;
-  display: inline-block;
-}
-.unterstrich::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -0.14em;
-  height: 0.07em;
-  border-radius: 999px;
-  background: linear-gradient(90deg, #C9A84C, #E8D49A);
-  transform: scaleX(var(--unterstrich, 0));
-  transform-origin: left center;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .unterstrich::after { transform: scaleX(1); }
+/* Gleicher Strich, aber fest gezeichnet — ohne Bindung an den Scrollfortschritt. */
+.unterstrich-fest {
+  background-image: linear-gradient(90deg, #C9A84C, #E8D49A);
+  background-repeat: no-repeat;
+  background-size: 100% 0.06em;
+  background-position: 0 1.16em;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
 }
 
 /* Metallischer Shine-Effekt auf Buttons */

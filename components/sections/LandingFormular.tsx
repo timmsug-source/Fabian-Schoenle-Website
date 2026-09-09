@@ -194,7 +194,9 @@ export default function LandingFormular() {
                     height: 42,
                     marginLeft: i === 0 ? 0 : -12,
                     border: '2px solid #0B1525',
-                    boxShadow: '0 0 0 1px rgba(201,168,76,0.35)',
+                    // Ring nach innen, damit die Reihe buendig mit dem Knopf darueber steht:
+                    // ein aeusserer Schatten zaehlt nicht zum Layout und ragte daher heraus.
+                    boxShadow: 'inset 0 0 0 1px rgba(201,168,76,0.35)',
                     zIndex: kunden.length - i,
                   }}
                 >

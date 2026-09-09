@@ -2,11 +2,10 @@ import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { CALENDLY_URL, SITE_NAME, SITE_URL } from '@/lib/constants'
-import FallstudienSection from '@/components/sections/FallstudienSection'
+import LandingFallstudien from '@/components/sections/LandingFallstudien'
 import LandingVideo from '@/components/sections/LandingVideo'
 import ScrollUnterstrich from '@/components/ui/ScrollUnterstrich'
 import LandingFormular from '@/components/sections/LandingFormular'
-import { getSiteContent } from '@/lib/cms'
 
 /**
  * Landingpage für bezahlte Werbung (Meta). Läuft ohne Navigation — siehe
@@ -18,10 +17,6 @@ import { getSiteContent } from '@/lib/cms'
  * buildMetadata — UNTERSEITEN_NOINDEX kann irgendwann aufgehoben werden, diese
  * Seite soll trotzdem draußen bleiben.
  */
-// Die Fallstudien beziehen ihre Texte aus dem CMS. Ohne diesen Abruf griffen die
-// Standardinhalte im Code — und die enthalten fuer Richard noch Platzhalter.
-export const revalidate = 60
-
 export const metadata: Metadata = {
   title: { absolute: `Kostenlose Performance-Analyse | ${SITE_NAME}` },
   description:
@@ -31,9 +26,9 @@ export const metadata: Metadata = {
 }
 
 const bausteine = [
-  'Wir schauen gemeinsam an, was deine Leistungsfähigkeit gerade begrenzt — statt zu raten, woran es liegen könnte.',
-  'Nicht zwanzig Baustellen, sondern die zwei, drei Stellschrauben, die bei dir den Unterschied machen.',
-  'Du gehst mit konkreten nächsten Schritten aus dem Gespräch — unabhängig davon, ob wir zusammenarbeiten.',
+  <>Wir schauen gemeinsam an, <strong>was deine Leistungsfähigkeit gerade begrenzt</strong> — statt zu raten, woran es liegen könnte.</>,
+  <>Nicht zwanzig Baustellen, sondern <strong>die zwei, drei Stellschrauben</strong>, die bei dir den Unterschied machen.</>,
+  <>Du gehst mit <strong>konkreten nächsten Schritten</strong> aus dem Gespräch — unabhängig davon, ob wir zusammenarbeiten.</>,
 ]
 
 const goldText = {
@@ -50,7 +45,7 @@ const goldText = {
  * Grossbuchstaben, im selben Goldverlauf wie die hervorgehobenen Woerter der
  * uebrigen Ueberschriften (siehe goldText).
  *
- * Der Verlauf laeuft mit 72 Prozent Deckkraft, sodass der dunkle Seitengrund
+ * Der Verlauf laeuft mit 88 Prozent Deckkraft, sodass der dunkle Seitengrund
  * durchscheint — dieselben zwei Farbwerte wie goldText, nur nicht deckend.
  *
  * Die Schrift darauf bleibt weiss. Auf Gold ist das kontrastarm, weshalb ein
@@ -73,7 +68,7 @@ const goldText = {
  * eines durchgehenden Bands ueber den Umbruch hinweg.
  */
 const markerText = {
-  backgroundImage: 'linear-gradient(rgba(201,168,76,0.72), rgba(232,212,154,0.72))',
+  backgroundImage: 'linear-gradient(rgba(201,168,76,0.88), rgba(232,212,154,0.88))',
   backgroundRepeat: 'no-repeat',
   backgroundSize: '100% 0.86em',
   backgroundPosition: '0 0.2em',
@@ -133,7 +128,9 @@ function KundenReihe() {
               height: 42,
               marginLeft: i === 0 ? 0 : -12,
               border: '2px solid #0B1525',
-              boxShadow: '0 0 0 1px rgba(201,168,76,0.35)',
+              // Ring nach innen, damit die Reihe buendig mit dem Knopf darueber steht:
+                    // ein aeusserer Schatten zaehlt nicht zum Layout und ragte daher heraus.
+                    boxShadow: 'inset 0 0 0 1px rgba(201,168,76,0.35)',
               zIndex: kunden.length - i,
             }}
           >
@@ -164,9 +161,7 @@ function CtaKnopf({ label = 'Kostenlose Performance-Analyse sichern' }: { label?
   )
 }
 
-export default async function DankePage() {
-  const content = await getSiteContent()
-
+export default function DankePage() {
   return (
     <div style={{ background: '#060E1F' }}>
 
@@ -196,8 +191,11 @@ export default async function DankePage() {
               <stop offset="0%" stopColor="rgba(201,168,76,0.1)" />
               <stop offset="100%" stopColor="rgba(201,168,76,0)" />
             </radialGradient>
+            {/* Blendet erst im letzten Viertel aus — bei 60 Prozent begann der
+                Verlauf schon auf Höhe des Videos und das Raster war im halben
+                Hero nicht mehr zu sehen. */}
             <linearGradient id="dk-grid-fade" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="60%" stopColor="white" stopOpacity="1" />
+              <stop offset="82%" stopColor="white" stopOpacity="1" />
               <stop offset="100%" stopColor="white" stopOpacity="0" />
             </linearGradient>
             <mask id="dk-fade-mask">
@@ -279,7 +277,7 @@ export default async function DankePage() {
 
         <ul className="grid md:grid-cols-3 gap-5 md:gap-6">
           {bausteine.map((text, i) => (
-            <li key={text} className="leistung-card karte-glow rounded-2xl p-7 flex items-start gap-4">
+            <li key={i} className="leistung-card karte-glow rounded-2xl p-7 flex items-start gap-4">
               <Haken id={`baustein-haken-${i}`} />
               <p className="font-inter text-sm md:text-base leading-relaxed" style={{ color: '#FFFFFF' }}>
                 {text}
@@ -289,7 +287,50 @@ export default async function DankePage() {
         </ul>
       </section>
 
-      <FallstudienSection content={content} nurFallstudien />
+      <LandingFallstudien
+        headline="Das sagen meine Kunden"
+        fallstudien={[
+          {
+            name: 'Robert',
+            ueberschrift: '−14 kg in 5 Monaten',
+            rolle: '42 Jahre · Projektleiter, nebenbei Finanzberatung',
+            portrait: '/images/kunde-robert.png',
+            link: 'https://www.linkedin.com/in/robert-raschkov-045889230/',
+            video: '/videos/Robert_Testimonial_final.mp4',
+            ergebnisse: [
+              'Von 98 auf 84 kg — ohne Hungern oder Verzicht',
+              'Stabile Energie über den ganzen Tag, ohne Koffein-Spitzen',
+              'Klarer Kopf bis in den Abend statt Einbruch am Nachmittag',
+            ],
+          },
+          {
+            name: 'Richard',
+            ueberschrift: '−13,5 kg in 10 Wochen',
+            rolle: '36 Jahre · Gründer · Familienvater von zwei Kindern',
+            portrait: '/images/kunde-richard.png',
+            link: 'https://www.linkedin.com/in/richard-mueller/',
+            video: '/videos/Richard_Testimonial_kurz.mp4',
+            ergebnisse: [
+              'Von 106 auf 92,5 kg — trotz Familie und eigener Firma',
+              'Volle Energie von früh bis abends statt Leere ab 20 Uhr',
+              'Die Ernährung der ganzen Familie hat sich mitverändert',
+            ],
+          },
+          {
+            name: 'Axel',
+            ueberschrift: '−11 kg und endlich wieder Muskelaufbau',
+            rolle: '38 Jahre · Selbstständiger Unternehmer',
+            portrait: '/images/kunde-axel.png',
+            link: 'https://www.linkedin.com/in/axelkrupp1968/',
+            bild: '/images/19d177bf-4006-4bc2-8fb4-b7e6f8c9719e.jpg',
+            ergebnisse: [
+              'Von 91 auf 80 kg — nach Jahren ohne Fortschritt',
+              'Sichtbarer Muskelaufbau nach 18 Monaten ohne Fortschritt',
+              'Tiefer Schlaf und stabiler Antrieb statt Stimmungsschwankungen',
+            ],
+          },
+        ]}
+      />
 
       <LandingFormular />
 
