@@ -8,6 +8,10 @@ import ScrollReveal from '@/components/ScrollReveal'
 import AnfrageFormular from '@/components/AnfrageFormular'
 import ConsentBanner from '@/components/consent/ConsentBanner'
 import Analytics from '@/components/consent/Analytics'
+import NurAufSeiten from '@/components/layout/NurAufSeiten'
+
+/** Landingpages aus bezahlter Werbung laufen ohne Navigation. */
+const OHNE_NAVIGATION = ['/danke']
 
 const inter = Inter({
   subsets: ['latin'],
@@ -60,9 +64,13 @@ export default function RootLayout({
       <body className="antialiased">
         <ScrollReveal />
         <AnfrageFormular />
-        <Header />
+        <NurAufSeiten ausser={OHNE_NAVIGATION}>
+          <Header />
+        </NurAufSeiten>
         <main>{children}</main>
-        <Footer />
+        <NurAufSeiten ausser={OHNE_NAVIGATION}>
+          <Footer />
+        </NurAufSeiten>
         <ConsentBanner />
         <Analytics />
       </body>

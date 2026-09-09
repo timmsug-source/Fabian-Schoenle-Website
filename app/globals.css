@@ -74,6 +74,37 @@ body {
   .in-view .regler-griff { transform: none; animation: none; }
 }
 
+/*
+  Unterstrich, dessen Laenge am Scrollfortschritt haengt.
+
+  Den Wert setzt ScrollUnterstrich als CSS-Variable, waehrend gescrollt wird —
+  0 bedeutet nicht gezeichnet, 1 vollstaendig. Der Strich waechst also mit der
+  Bewegung mit, statt einmalig durchzulaufen.
+
+  `scaleX` statt `width`, weil das auf der GPU laeuft und nicht bei jedem Bild
+  ein neues Layout ausloest.
+*/
+.unterstrich {
+  position: relative;
+  display: inline-block;
+}
+.unterstrich::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.14em;
+  height: 0.07em;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #C9A84C, #E8D49A);
+  transform: scaleX(var(--unterstrich, 0));
+  transform-origin: left center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .unterstrich::after { transform: scaleX(1); }
+}
+
 /* Metallischer Shine-Effekt auf Buttons */
 @keyframes shine {
   0%,  78% { transform: translateX(-100%) skewX(-15deg); opacity: 0; }
@@ -245,6 +276,25 @@ body {
     0 0 20px rgba(201,168,76,0.12);
   transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
 }
+/*
+  Verstaerkter Schein fuer einzelne Karten — zusaetzlich zu .leistung-card
+  gesetzt, damit die uebrigen Karten der Website unveraendert bleiben.
+  Im Einsatz auf der Werbelandingpage, wo die drei Punkte staerker heraustreten
+  sollen als in einer normalen Aufzaehlung.
+*/
+.karte-glow {
+  border-color: rgba(201,168,76,0.5);
+  box-shadow:
+    inset 0 1px 0 rgba(232,212,154,0.07),
+    0 0 34px rgba(201,168,76,0.28);
+}
+.karte-glow:hover {
+  border-color: rgba(201,168,76,0.78);
+  box-shadow:
+    inset 0 1px 0 rgba(232,212,154,0.1),
+    0 0 46px rgba(201,168,76,0.42);
+}
+
 .leistung-card:hover {
   border-color: rgba(201,168,76,0.55);
   box-shadow:

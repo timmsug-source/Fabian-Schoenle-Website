@@ -193,8 +193,8 @@ export default async function PersonalCoachingOnlinePage() {
 
       <VideoTestimonials
         label="Echte Ergebnisse"
-        headline="Wie das online aussieht,"
-        headlineAccent="wenn es richtig gemacht ist."
+        headline="So sieht Abnehmen mit einem"
+        headlineAccent="online Personal Coaching aus"
         intro="Zwei Klienten, die ich komplett remote begleitet habe — beide mit vollem Terminkalender."
         videos={[
           {

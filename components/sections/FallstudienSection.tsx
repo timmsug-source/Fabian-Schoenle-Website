@@ -193,7 +193,18 @@ function cmsFallstudien(content: Record<string, string>): Fallstudie[] {
     .filter((fs) => fs.name)
 }
 
-export default function FallstudienSection({ content = {} }: { content?: Record<string, string> }) {
+/**
+ * `nurFallstudien` blendet den Nachlade-Knopf und den Abschluss-CTA aus.
+ * Gebraucht auf der Werbelandingpage: Dort gibt es bereits einen eigenen
+ * Abschluss, und ein zweiter Aufruf direkt daneben verwaessert beide.
+ */
+export default function FallstudienSection({
+  content = {},
+  nurFallstudien = false,
+}: {
+  content?: Record<string, string>
+  nurFallstudien?: boolean
+}) {
   const [mehrGeladen, setMehrGeladen] = useState(false)
   const liste = cmsFallstudien(content)
 
@@ -374,6 +385,7 @@ export default function FallstudienSection({ content = {} }: { content?: Record<
           ))}
         </div>
 
+        {!nurFallstudien && (<>
         {/* Weitere Fallstudien laden — blendet Platzhalter ein */}
         <div className="mt-10 flex justify-center animate-fade-up">
           {!mehrGeladen ? (
@@ -453,6 +465,7 @@ export default function FallstudienSection({ content = {} }: { content?: Record<
             </a>
           </div>
         </div>
+        </>)}
 
       </div>
     </section>
