@@ -23,7 +23,7 @@ export const revalidate = 60
 export const metadata: Metadata = buildMetadata({
   title: 'High Performance Coaching für Männer ab 30 | FS Performance Lab',
   description:
-    'Datenbasiertes Performance Coaching — basierend auf DNA- und Blutanalyse. Für Männer, die körperlich und mental auf Maximum performen wollen.',
+    'High Performance Coaching auf Basis deiner DNA- und Blutwerte. Für leistungsorientierte Männer, die körperlich und mental wieder performen wollen.',
 })
 
 export default async function HomePage() {
