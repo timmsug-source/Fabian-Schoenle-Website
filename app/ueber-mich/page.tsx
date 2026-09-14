@@ -289,10 +289,13 @@ export default function UeberMichPage() {
 
             {/* Text */}
             <div className="animate-fade-up text-left">
-              <Label>Über FS Performance Lab</Label>
-              <h2 className="font-barlow font-bold text-3xl md:text-5xl leading-tight mb-8" style={{ color: '#E6E8EB' }}>
-                Wieso ich heute <Gold>Menschen coache.</Gold>
-              </h2>
+              {/* Auf dem Handy zentriert, ab sm linksbündig — gleiche Grenze wie die Expertise-Punkte */}
+              <div className="text-center sm:text-left">
+                <Label>Über FS Performance Lab</Label>
+                <h2 className="font-barlow font-bold text-3xl md:text-5xl leading-tight mb-8" style={{ color: '#E6E8EB' }}>
+                  Wieso ich heute <Gold>Menschen coache.</Gold>
+                </h2>
+              </div>
 
               <div className="flex flex-col gap-5 pl-6" style={{ borderLeft: '2px solid rgba(201,168,76,0.35)' }}>
                 {ueberLab.map((absatz, i) => (
@@ -365,17 +368,21 @@ export default function UeberMichPage() {
 
             {/* Links */}
             <div className="text-left animate-fade-up">
-              <Label>Expertise</Label>
-              <h2 className="font-barlow font-bold text-3xl md:text-5xl leading-tight mb-10" style={{ color: '#E6E8EB' }}>
-                Jahrelange Erfahrung & <Gold>echte Ergebnisse.</Gold>
-              </h2>
+              {/* Auf dem Handy zentriert, ab sm linksbündig — wie die Punkte darunter */}
+              <div className="text-center sm:text-left">
+                <Label>Expertise</Label>
+                <h2 className="font-barlow font-bold text-3xl md:text-5xl leading-tight mb-10" style={{ color: '#E6E8EB' }}>
+                  Jahrelange Erfahrung & <Gold>echte Ergebnisse.</Gold>
+                </h2>
+              </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
                 {haltung.map((h, i) => (
-                  <div key={i}>
+                  // Einspaltig auf dem Handy zentriert, ab drei Spalten linksbündig
+                  <div key={i} className="text-center sm:text-left">
                     <span className="inline-flex mb-3">{h.icon}</span>
-                    <p className="font-barlow font-bold text-base md:text-lg mb-2" style={{ color: '#E6E8EB' }}>{h.titel}</p>
-                    <p className="font-inter text-sm leading-relaxed" style={{ color: '#8A929C' }}>{h.text}</p>
+                    <p className="font-barlow font-bold text-lg md:text-xl mb-2" style={{ color: '#E6E8EB' }}>{h.titel}</p>
+                    <p className="font-inter text-base leading-relaxed" style={{ color: '#A6B0BA' }}>{h.text}</p>
                   </div>
                 ))}
               </div>
@@ -466,11 +473,31 @@ export default function UeberMichPage() {
                 <h3 className="font-barlow font-bold text-xl md:text-2xl mb-3" style={{ color: '#E6E8EB' }}>
                   {a.titel}
                 </h3>
-                <p className="font-inter text-sm md:text-base leading-relaxed" style={{ color: '#A6B0BA' }}>
+                <p className="font-inter text-base leading-relaxed" style={{ color: '#A6B0BA' }}>
                   {a.text}
                 </p>
               </div>
             ))}
+          </div>
+
+          {/* Nur auf dem Handy: Dort stehen die drei Schritte untereinander und
+              die Sektion wird so lang, dass der naechste Knopf erst weit unten
+              kommt. Auf breiten Bildschirmen stehen die Schritte in einer Zeile,
+              da braucht es den Zwischenaufruf nicht. Gleiche Machart wie der
+              Knopf am Seitenende. */}
+          <div className="md:hidden flex justify-center mt-2">
+            <a
+              href={CALENDLY_URL}
+              data-open-form="true"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="cta-metal inline-flex items-center gap-2 px-8 py-4 rounded-xl font-inter font-semibold text-base transition-transform"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" /><line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" />
+              </svg>
+              Performance-Analyse sichern
+            </a>
           </div>
 
           {/* Grundsaetze — schlichte Reihe unter einer feinen Linie */}
@@ -484,8 +511,8 @@ export default function UeberMichPage() {
                   <circle cx="12" cy="12" r="10" stroke="rgba(201,168,76,0.45)" strokeWidth="1.5" />
                   <path d="M7.5 12.5l3 3 6-6.5" stroke="#E8D49A" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
-                <p className="font-barlow font-bold text-base md:text-lg mb-2" style={{ color: '#E6E8EB' }}>{a.titel}</p>
-                <p className="font-inter text-sm leading-relaxed" style={{ color: '#8A929C' }}>{a.text}</p>
+                <p className="font-barlow font-bold text-lg md:text-xl mb-2" style={{ color: '#E6E8EB' }}>{a.titel}</p>
+                <p className="font-inter text-base leading-relaxed" style={{ color: '#A6B0BA' }}>{a.text}</p>
               </div>
             ))}
           </div>
