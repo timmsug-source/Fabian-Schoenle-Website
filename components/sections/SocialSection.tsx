@@ -92,9 +92,10 @@ export default async function SocialSection({ content = {}, nebeneinander = fals
         <div className={nebeneinander ? 'flex flex-col-reverse justify-end gap-8' : 'grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center'}>
           {/* Text */}
           <div className={`animate-fade-up flex flex-col ${nebeneinander ? 'flex-1' : ''}`}>
-            <h2 {...cms('social_youtube_titel')} className="font-barlow font-bold text-3xl md:text-5xl leading-tight mb-6" style={{ color: '#E6E8EB' }}>
+            {/* Absatz statt Überschrift: Beschriftung der Kanal-Karte. Als H2 stand sie gleichrangig neben der Sektionsüberschrift */}
+            <p {...cms('social_youtube_titel')} className="font-barlow font-bold text-3xl md:text-5xl leading-tight mb-6" style={{ color: '#E6E8EB' }}>
               {txt(content, 'social_youtube_titel', 'YouTube')}
-            </h2>
+            </p>
             <p {...cms('social_youtube_text')} className="font-inter text-base md:text-lg leading-relaxed mb-8 max-w-md" style={{ color: '#A6B0BA' }}>
               {txt(content, 'social_youtube_text', 'Auf meinem YouTube-Kanal siehst du regelmäßig wertvolle Studieneinblicke und Diskussionen rund um das Thema Gesundheit & Ernährung.')}
             </p>
@@ -144,9 +145,10 @@ export default async function SocialSection({ content = {}, nebeneinander = fals
         <div className={nebeneinander ? 'flex flex-col-reverse justify-end gap-8' : 'grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center'}>
           {/* Text */}
           <div className={`animate-fade-up flex flex-col ${nebeneinander ? 'flex-1' : ''}`}>
-            <h2 {...cms('social_linkedin_titel')} className="font-barlow font-bold text-3xl md:text-5xl leading-tight mb-6" style={{ color: '#E6E8EB' }}>
+            {/* Absatz statt Überschrift, wie bei YouTube */}
+            <p {...cms('social_linkedin_titel')} className="font-barlow font-bold text-3xl md:text-5xl leading-tight mb-6" style={{ color: '#E6E8EB' }}>
               {txt(content, 'social_linkedin_titel', 'LinkedIn')}
-            </h2>
+            </p>
             <p {...cms('social_linkedin_text')} className="font-inter text-base md:text-lg leading-relaxed mb-8 max-w-md" style={{ color: '#A6B0BA' }}>
               {txt(content, 'social_linkedin_text', 'Auf LinkedIn teile ich regelmäßig, was in der Praxis wirklich funktioniert — konkrete Impulse zu Performance, Ernährung und Mindset. Kein Motivationsspam.')}
             </p>

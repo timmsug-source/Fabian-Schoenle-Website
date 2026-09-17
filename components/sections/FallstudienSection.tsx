@@ -474,13 +474,14 @@ export default function FallstudienSection({
               </span>
             </div>
 
-            <h3 className="font-barlow font-bold text-2xl md:text-4xl leading-snug mb-6 md:mb-8 max-w-3xl mx-auto" style={{ color: '#E6E8EB' }}>
+            {/* Absatz statt Überschrift: Aufruf-Kasten vor dem Knopf, keine Inhaltsgliederung */}
+            <p className="font-barlow font-bold text-2xl md:text-4xl leading-snug mb-6 md:mb-8 max-w-3xl mx-auto" style={{ color: '#E6E8EB' }}>
               <span {...cms('fallstudien_cta_title_1')}>{txt(content, 'fallstudien_cta_title_1', 'Wir entwickeln für dich eine')}</span>{' '}
               <span {...cms('fallstudien_cta_highlight')} style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
                 {txt(content, 'fallstudien_cta_highlight', 'maßgeschneiderte Strategie')}
               </span>
               <span {...cms('fallstudien_cta_title_2')}>{txt(content, 'fallstudien_cta_title_2', ', die deine Bedürfnisse und deinen Terminkalender berücksichtigt')}</span>
-            </h3>
+            </p>
             <a
               href={CALENDLY_URL}
               data-open-form="true"

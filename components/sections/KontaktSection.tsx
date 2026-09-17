@@ -224,9 +224,10 @@ export default function KontaktSection({
               <p {...cms('ablauf_label')} className="font-inter text-xs font-semibold uppercase tracking-widest mb-0.5 text-center" style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
                 {txt(content, 'ablauf_label', 'So läuft es ab')}
               </p>
-              <h3 {...cms('ablauf_title')} className="font-barlow font-bold text-3xl md:text-5xl leading-tight text-center" style={{ color: '#E6E8EB', marginBottom: 0 }}>
+              {/* Absatz statt Überschrift: Teil des Kontakt-Blocks — Überschriften gehören laut Seobility nicht in Formulare und Widgets */}
+              <p {...cms('ablauf_title')} className="font-barlow font-bold text-3xl md:text-5xl leading-tight text-center" style={{ color: '#E6E8EB', marginBottom: 0 }}>
                 {txt(content, 'ablauf_title', 'Drei Schritte bis zu deinem Plan')}
-              </h3>
+              </p>
             </div>
 
             {/* Bild + Button — mobil hinter den Schritten */}
@@ -324,9 +325,10 @@ export default function KontaktSection({
                       durch den Flex-Container links steht. */}
                   <div className={`text-left ${i < arr.length - 1 ? 'pb-8' : ''}`}>
                     <div className="flex items-center" style={{ minHeight: '3.5rem' }}>
-                      <h3 {...cms(`ablauf_schritt${i + 1}_titel`)} className="font-barlow font-bold text-2xl md:text-3xl leading-tight" style={{ color: '#E6E8EB' }}>
+                      {/* Absatz statt Überschrift, wie der Titel des Ablaufs oben */}
+                      <p {...cms(`ablauf_schritt${i + 1}_titel`)} className="font-barlow font-bold text-2xl md:text-3xl leading-tight" style={{ color: '#E6E8EB' }}>
                         {txt(content, `ablauf_schritt${i + 1}_titel`, schritt.titel)}
-                      </h3>
+                      </p>
                     </div>
                     <Rich as="p" className="font-inter text-base leading-relaxed mt-1" style={{ color: '#7B8792' }} cms={`ablauf_schritt${i + 1}_text`} html={txt(content, `ablauf_schritt${i + 1}_text`, schritt.text)} />
                   </div>

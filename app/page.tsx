@@ -21,7 +21,10 @@ import type { Metadata } from 'next'
 export const revalidate = 60
 
 export const metadata: Metadata = buildMetadata({
-  title: 'High Performance Coaching für Männer ab 30 | FS Performance Lab',
+  // 564 statt 613 Pixel: Seobility und Google kürzen ab etwa 580 Pixel. Der
+  // Keyword-Teil vorn bleibt unverändert, nur der Name hinter dem Strich ist
+  // kürzer — "Fabian Schönle" steht so auch im Kopf der Seite.
+  title: 'High Performance Coaching für Männer ab 30 | Fabian Schönle',
   description:
     'High Performance Coaching auf Basis deiner DNA- und Blutwerte. Für leistungsorientierte Männer, die körperlich und mental wieder performen wollen.',
 })

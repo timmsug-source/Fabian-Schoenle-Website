@@ -40,13 +40,45 @@ export const FAQS: FaqEintrag[] = [
 ]
 
 /**
- * Die tatsächlich angezeigten Fragen/Antworten der Startseite — CMS-Werte haben
- * Vorrang. Bewusst dieselbe Auswahllogik wie in FAQSection, damit das Schema nie
- * von dem abweicht, was der Besucher liest.
+ * Baut die Fragen aus dem CMS: faq1_frage/_antwort, faq2_… Die Anzahl ist NICHT
+ * begrenzt, eine im CMS angelegte Frage erscheint automatisch. Vorher bestimmte
+ * die Länge der Standardliste, wie viele Fragen gezeigt wurden — eine achte im
+ * CMS wäre nie sichtbar geworden.
+ *
+ * Einträge ohne Frage werden übersprungen; fehlt eine Antwort, greift die aus
+ * der Standardliste.
+ *
+ * `nr` ist die Nummer im CMS-Schlüssel (faqN_…) — sie bleibt richtig, auch wenn
+ * leere Einträge übersprungen werden (für den visuellen Editor im Website-Hub).
+ */
+export function cmsFaqs(content: Record<string, string>, standard: FaqEintrag[]): (FaqEintrag & { nr: number })[] {
+  const nummern: number[] = []
+  for (const k of Object.keys(content)) {
+    const m = k.match(/^faq(\d+)_frage$/)
+    if (m && !nummern.includes(Number(m[1]))) nummern.push(Number(m[1]))
+  }
+  if (nummern.length === 0) return standard.map((f, i) => ({ ...f, nr: i + 1 }))
+
+  return nummern
+    .sort((a, b) => a - b)
+    .map((n) => ({
+      nr: n,
+      frage: content[`faq${n}_frage`]?.trim() || standard[n - 1]?.frage || '',
+      antwort: content[`faq${n}_antwort`]?.trim() || standard[n - 1]?.antwort || '',
+    }))
+    .filter((f) => f.frage)
+}
+
+/**
+ * Die tatsächlich angezeigten Fragen/Antworten der Startseite — für das
+ * FAQPage-Schema.
+ *
+ * Nutzt bewusst cmsFaqs, dieselbe Funktion wie die FAQ-Sektion. Vorher gab es
+ * hier eine eigene Auswahl, die immer genau die sieben Standardfragen
+ * durchzählte: Kamen im CMS weitere hinzu, standen sie sichtbar auf der Seite,
+ * fehlten aber im Schema. Strukturierte Daten müssen dem sichtbaren Inhalt
+ * entsprechen.
  */
 export function faqsAusCms(content: Record<string, string>): FaqEintrag[] {
-  return FAQS.map((faq, i) => ({
-    frage: content[`faq${i + 1}_frage`] || faq.frage,
-    antwort: content[`faq${i + 1}_antwort`] || faq.antwort,
-  }))
+  return cmsFaqs(content, FAQS)
 }

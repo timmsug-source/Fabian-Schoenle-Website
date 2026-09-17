@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { SITE_NAME } from '@/lib/constants'
+import { NAV_LINKS, SITE_NAME } from '@/lib/constants'
 
 export default function Footer() {
   const year = new Date().getFullYear()
@@ -23,6 +23,18 @@ export default function Footer() {
             <p className="text-xs font-inter" style={{ color: '#7B8792' }}>Karlsruhe, Deutschland</p>
           </div>
         </div>
+        {/* Verweise auf die Unterseiten. Vorher führten von jeder Seite nur
+            Impressum und Datenschutz weiter — der Header besteht aus
+            Sprungmarken, die Suchmaschinen nicht als Links zu anderen Seiten
+            werten. Die Unterseiten waren dadurch nur über die Sitemap
+            auffindbar (Seobility: zu wenige interne Links). */}
+        <nav aria-label="Seiten" className="flex flex-wrap gap-x-6 gap-y-2 text-sm font-inter" style={{ color: '#7B8792' }}>
+          {NAV_LINKS.map((l) => (
+            <Link key={l.href} href={l.href} className="hover:text-white transition-colors">
+              {l.label}
+            </Link>
+          ))}
+        </nav>
         <div className="flex gap-6 text-sm font-inter" style={{ color: '#7B8792' }}>
           <Link href="/impressum" className="hover:text-white transition-colors">
             Impressum

@@ -215,7 +215,8 @@ export default function MusterCheck({ content = {} }: { content?: Record<string,
           </p>
         </div>
 
-        <h3 className="font-barlow font-bold text-2xl md:text-3xl leading-snug mt-3 mb-5" style={{ color: '#E6E8EB' }}>
+        {/* Absatz statt Überschrift: Statusanzeige des Checks, wechselt mit der Auswahl — keine Inhaltsgliederung */}
+        <p className="font-barlow font-bold text-2xl md:text-3xl leading-snug mt-3 mb-5" style={{ color: '#E6E8EB' }}>
           <span {...cms(`muster_stufe_${stufenIndex}`)}>{txt(content, `muster_stufe_${stufenIndex}`, STUFEN[stufenIndex])}</span>
           {schwerpunkt && (
             <>
@@ -223,7 +224,7 @@ export default function MusterCheck({ content = {} }: { content?: Record<string,
               <span {...cms(`muster_cluster_${schwerpunkt}`)} style={goldText}>{txt(content, `muster_cluster_${schwerpunkt}`, CLUSTERS[schwerpunkt].name)}</span>
             </>
           )}
-        </h3>
+        </p>
 
         {/* Fortschrittsbalken — 3 Segmente, durchgehender Verlauf */}
         <div className="flex gap-2 mb-6">

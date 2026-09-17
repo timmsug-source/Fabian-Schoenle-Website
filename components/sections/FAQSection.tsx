@@ -3,7 +3,7 @@
 import { cms, txt } from '@/lib/cms-text'
 import { useId, useState } from 'react'
 import { Rich } from '@/components/Rich'
-import { FAQS, type FaqEintrag } from '@/lib/faq'
+import { FAQS, cmsFaqs, type FaqEintrag } from '@/lib/faq'
 import { ANFRAGE_FORMULAR_AKTIV } from '@/lib/constants'
 
 type FAQSectionProps = {
@@ -13,36 +13,6 @@ type FAQSectionProps = {
   label?: string
   title1?: string
   title2?: string
-}
-
-/**
- * Baut die Fragen aus dem CMS: faq1_frage/_antwort, faq2_… Die Anzahl ist NICHT
- * begrenzt, eine im CMS angelegte Frage erscheint automatisch. Vorher bestimmte
- * die Länge der Standardliste, wie viele Fragen gezeigt wurden — eine achte im
- * CMS wäre nie sichtbar geworden.
- *
- * Einträge ohne Frage werden übersprungen; fehlt eine Antwort, greift die aus
- * der Standardliste.
- *
- * `nr` ist die Nummer im CMS-Schlüssel (faqN_…) — sie bleibt richtig, auch wenn
- * leere Einträge übersprungen werden (für den visuellen Editor im Website-Hub).
- */
-function cmsFaqs(content: Record<string, string>, standard: FaqEintrag[]): (FaqEintrag & { nr: number })[] {
-  const nummern: number[] = []
-  for (const k of Object.keys(content)) {
-    const m = k.match(/^faq(\d+)_frage$/)
-    if (m && !nummern.includes(Number(m[1]))) nummern.push(Number(m[1]))
-  }
-  if (nummern.length === 0) return standard.map((f, i) => ({ ...f, nr: i + 1 }))
-
-  return nummern
-    .sort((a, b) => a - b)
-    .map((n) => ({
-      nr: n,
-      frage: content[`faq${n}_frage`]?.trim() || standard[n - 1]?.frage || '',
-      antwort: content[`faq${n}_antwort`]?.trim() || standard[n - 1]?.antwort || '',
-    }))
-    .filter((f) => f.frage)
 }
 
 export default function FAQSection({ content = {}, items, label, title1, title2 }: FAQSectionProps) {

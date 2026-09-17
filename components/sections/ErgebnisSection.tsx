@@ -124,9 +124,10 @@ export default function ErgebnisSection({ content = {} }: { content?: Record<str
                 <span className="flex-shrink-0" style={{ color: s.farbe }}>
                   {s.icon}
                 </span>
-                <h3 {...cms(`ergebnis_col${i + 1}_label`)} className="font-barlow font-bold text-xl" style={{ color: '#E6E8EB' }}>
+                {/* Absatz statt Überschrift: Beschriftung einer Karte, keine Inhaltsgliederung */}
+                <p {...cms(`ergebnis_col${i + 1}_label`)} className="font-barlow font-bold text-xl" style={{ color: '#E6E8EB' }}>
                   {txt(content, `ergebnis_col${i + 1}_label`, s.label)}
-                </h3>
+                </p>
               </div>
 
               {/* Punkte */}

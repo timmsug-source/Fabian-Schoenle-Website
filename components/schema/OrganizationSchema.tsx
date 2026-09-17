@@ -16,11 +16,13 @@ export default function OrganizationSchema() {
     image: `${SITE_URL}/opengraph-image`,
     description:
       'Datenbasiertes Performance Coaching auf Basis von Blut- und DNA-Analyse — für Männer ab 30 mit hoher beruflicher Belastung.',
+    // Ohne eigene url: Derselbe Knoten (#person) steht vollständig im
+    // PersonSchema daneben, dort mit der Startseite als url. Zwei verschiedene
+    // Werte für dieselbe @id sind ein Widerspruch, den Validatoren anmerken.
     founder: {
       '@type': 'Person',
       '@id': `${SITE_URL}/#person`,
       name: 'Fabian Schönle',
-      url: `${SITE_URL}/ueber-mich`,
     },
     areaServed: 'DE',
     address: {
