@@ -73,6 +73,12 @@ export default function RootLayout({
         </NurAufSeiten>
         <ConsentBanner />
         <Analytics />
+        {/* Visueller Editor: lädt die Hub-Brücke nur im Vorschau-Rahmen des Website-Hubs, nie für normale Besucher */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: "(function(){try{if(window.self===window.top)return;if(location.search.indexOf('cms-vorschau=')<0&&!sessionStorage.getItem('cms-vorschau'))return;var s=document.createElement('script');s.src='/cms-bruecke.js';s.defer=true;document.head.appendChild(s)}catch(e){}})();",
+          }}
+        />
       </body>
     </html>
   )

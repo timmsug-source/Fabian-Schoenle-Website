@@ -1,6 +1,6 @@
 'use client'
 
-import { txt } from '@/lib/cms-text'
+import { cms, txt } from '@/lib/cms-text'
 import { useEffect, useRef, useState } from 'react'
 import { CALENDLY_URL } from '@/lib/constants'
 import { Rich } from '@/components/Rich'
@@ -122,14 +122,14 @@ export default function KontaktSection({
 
           {/* Linke Spalte — Text + Trust */}
           <div className="animate-fade-up lg:sticky lg:top-28 lg:self-start">
-            <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-4" style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+            <p {...(label ? {} : cms('kontakt_label'))} className="font-inter text-xs font-semibold uppercase tracking-widest mb-4" style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
               {label || txt(content, 'kontakt_label', 'High-Performance Coaching starten')}
             </p>
-            <h2 className="font-barlow font-bold text-3xl md:text-5xl leading-tight mb-5" style={{ color: '#E6E8EB' }}>
+            <h2 {...(title ? {} : cms('kontakt_title'))} className="font-barlow font-bold text-3xl md:text-5xl leading-tight mb-5" style={{ color: '#E6E8EB' }}>
               {title || txt(content, 'kontakt_title', 'Finde heraus, was dein System gerade limitiert.')}
             </h2>
-            <Rich as="p" className="font-inter text-base md:text-lg leading-relaxed mb-4" style={{ color: '#7B8792' }} html={intro1 || txt(content, 'kontakt_intro1', 'Kein Verkaufsgespräch. Kein Vertrag. Nur 20 Minuten, in denen wir gemeinsam analysieren, wo der Hebel bei dir liegt.')} />
-            <Rich as="p" className="font-inter text-sm leading-relaxed mb-10" style={{ color: '#7B8792' }} html={intro2 || txt(content, 'kontakt_intro2', 'Der erste Schritt ist eine kostenlose Performance-Analyse. Du bekommst danach Klarheit darüber, warum dein Körper gerade nicht so reagiert wie du es willst — und was konkret dagegen getan werden kann.')} />
+            <Rich as="p" className="font-inter text-base md:text-lg leading-relaxed mb-4" style={{ color: '#7B8792' }} cms={intro1 ? undefined : 'kontakt_intro1'} html={intro1 || txt(content, 'kontakt_intro1', 'Kein Verkaufsgespräch. Kein Vertrag. Nur 20 Minuten, in denen wir gemeinsam analysieren, wo der Hebel bei dir liegt.')} />
+            <Rich as="p" className="font-inter text-sm leading-relaxed mb-10" style={{ color: '#7B8792' }} cms={intro2 ? undefined : 'kontakt_intro2'} html={intro2 || txt(content, 'kontakt_intro2', 'Der erste Schritt ist eine kostenlose Performance-Analyse. Du bekommst danach Klarheit darüber, warum dein Körper gerade nicht so reagiert wie du es willst — und was konkret dagegen getan werden kann.')} />
 
             {/* Einwand-Punkte */}
             <div className="flex flex-col gap-3 mb-10">
@@ -139,8 +139,8 @@ export default function KontaktSection({
                   {/* text-left: hebt die globale Mobil-Zentrierung auf — neben einem
                       Icon stehender Fliesstext gehoert linksbuendig. */}
                   <div className="text-left">
-                    <p className="font-inter text-sm font-semibold" style={{ color: '#E6E8EB' }}>{txt(content, `kontakt_trust${i + 1}_titel`, p.titel)}</p>
-                    <Rich as="p" className="font-inter text-xs leading-relaxed mt-0.5" style={{ color: '#7B8792' }} html={txt(content, `kontakt_trust${i + 1}_text`, p.text)} />
+                    <p {...cms(`kontakt_trust${i + 1}_titel`)} className="font-inter text-sm font-semibold" style={{ color: '#E6E8EB' }}>{txt(content, `kontakt_trust${i + 1}_titel`, p.titel)}</p>
+                    <Rich as="p" className="font-inter text-xs leading-relaxed mt-0.5" style={{ color: '#7B8792' }} cms={`kontakt_trust${i + 1}_text`} html={txt(content, `kontakt_trust${i + 1}_text`, p.text)} />
                   </div>
                 </div>
               ))}
@@ -156,7 +156,7 @@ export default function KontaktSection({
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
               </svg>
-              {txt(content, 'kontakt_cta_button', 'Performance Analyse buchen')}
+              <span {...cms('kontakt_cta_button')}>{txt(content, 'kontakt_cta_button', 'Performance Analyse buchen')}</span>
             </a>
 
             <div className="mb-6" />
@@ -221,10 +221,10 @@ export default function KontaktSection({
           <div className="contents lg:flex lg:flex-col">
             {/* Überschrift — mobil zuerst, auf Desktop oben in der linken Spalte */}
             <div className="order-1">
-              <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-0.5 text-center" style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+              <p {...cms('ablauf_label')} className="font-inter text-xs font-semibold uppercase tracking-widest mb-0.5 text-center" style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
                 {txt(content, 'ablauf_label', 'So läuft es ab')}
               </p>
-              <h3 className="font-barlow font-bold text-3xl md:text-5xl leading-tight text-center" style={{ color: '#E6E8EB', marginBottom: 0 }}>
+              <h3 {...cms('ablauf_title')} className="font-barlow font-bold text-3xl md:text-5xl leading-tight text-center" style={{ color: '#E6E8EB', marginBottom: 0 }}>
                 {txt(content, 'ablauf_title', 'Drei Schritte bis zu deinem Plan')}
               </h3>
             </div>
@@ -254,7 +254,7 @@ export default function KontaktSection({
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
                   </svg>
-                  {txt(content, 'ablauf_cta_button', 'Jetzt kostenlosen Termin sichern')}
+                  <span {...cms('ablauf_cta_button')}>{txt(content, 'ablauf_cta_button', 'Jetzt kostenlosen Termin sichern')}</span>
                 </a>
               </div>
             </div>
@@ -324,11 +324,11 @@ export default function KontaktSection({
                       durch den Flex-Container links steht. */}
                   <div className={`text-left ${i < arr.length - 1 ? 'pb-8' : ''}`}>
                     <div className="flex items-center" style={{ minHeight: '3.5rem' }}>
-                      <h3 className="font-barlow font-bold text-2xl md:text-3xl leading-tight" style={{ color: '#E6E8EB' }}>
+                      <h3 {...cms(`ablauf_schritt${i + 1}_titel`)} className="font-barlow font-bold text-2xl md:text-3xl leading-tight" style={{ color: '#E6E8EB' }}>
                         {txt(content, `ablauf_schritt${i + 1}_titel`, schritt.titel)}
                       </h3>
                     </div>
-                    <Rich as="p" className="font-inter text-base leading-relaxed mt-1" style={{ color: '#7B8792' }} html={txt(content, `ablauf_schritt${i + 1}_text`, schritt.text)} />
+                    <Rich as="p" className="font-inter text-base leading-relaxed mt-1" style={{ color: '#7B8792' }} cms={`ablauf_schritt${i + 1}_text`} html={txt(content, `ablauf_schritt${i + 1}_text`, schritt.text)} />
                   </div>
                 </div>
               ))}

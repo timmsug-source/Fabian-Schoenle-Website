@@ -1,6 +1,6 @@
 'use client'
 
-import { txt } from '@/lib/cms-text'
+import { cms, txt } from '@/lib/cms-text'
 import { useId, useState } from 'react'
 import { Rich } from '@/components/Rich'
 import { FAQS, type FaqEintrag } from '@/lib/faq'
@@ -23,18 +23,22 @@ type FAQSectionProps = {
  *
  * Einträge ohne Frage werden übersprungen; fehlt eine Antwort, greift die aus
  * der Standardliste.
+ *
+ * `nr` ist die Nummer im CMS-Schlüssel (faqN_…) — sie bleibt richtig, auch wenn
+ * leere Einträge übersprungen werden (für den visuellen Editor im Website-Hub).
  */
-function cmsFaqs(content: Record<string, string>, standard: FaqEintrag[]): FaqEintrag[] {
+function cmsFaqs(content: Record<string, string>, standard: FaqEintrag[]): (FaqEintrag & { nr: number })[] {
   const nummern: number[] = []
   for (const k of Object.keys(content)) {
     const m = k.match(/^faq(\d+)_frage$/)
     if (m && !nummern.includes(Number(m[1]))) nummern.push(Number(m[1]))
   }
-  if (nummern.length === 0) return standard
+  if (nummern.length === 0) return standard.map((f, i) => ({ ...f, nr: i + 1 }))
 
   return nummern
     .sort((a, b) => a - b)
     .map((n) => ({
+      nr: n,
       frage: content[`faq${n}_frage`]?.trim() || standard[n - 1]?.frage || '',
       antwort: content[`faq${n}_antwort`]?.trim() || standard[n - 1]?.antwort || '',
     }))
@@ -44,7 +48,7 @@ function cmsFaqs(content: Record<string, string>, standard: FaqEintrag[]): FaqEi
 export default function FAQSection({ content = {}, items, label, title1, title2 }: FAQSectionProps) {
   // Eigene Fragen haben Vorrang. Die CMS-Felder (faq1_frage …) gehören zur
   // Startseite und dürfen seitenspezifische Fragen nicht überschreiben.
-  const eintraege = items ?? cmsFaqs(content, FAQS)
+  const eintraege: (FaqEintrag & { nr?: number })[] = items ?? cmsFaqs(content, FAQS)
   const [offen, setOffen] = useState<number | null>(null)
   const bereichId = useId()
   const [formOffen, setFormOffen] = useState(false)
@@ -92,14 +96,14 @@ export default function FAQSection({ content = {}, items, label, title1, title2 
 
         {/* Header */}
         <div className="mb-12 animate-fade-up">
-          <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-4" style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+          <p {...(label ? {} : cms('faq_label'))} className="font-inter text-xs font-semibold uppercase tracking-widest mb-4" style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
             {label || txt(content, 'faq_label', 'Häufige Fragen')}
           </p>
           <h2 className="font-barlow font-bold text-3xl md:text-5xl leading-tight" style={{ color: '#E6E8EB' }}>
-            {title1 || txt(content, 'faq_title_1', 'Fragen, die in der')}
+            <span {...(title1 ? {} : cms('faq_title_1'))}>{title1 || txt(content, 'faq_title_1', 'Fragen, die in der')}</span>
             {(title2 || !title1) && (
               <>
-                <br className="hidden md:block" /> {title2 || txt(content, 'faq_title_2', 'Vergangenheit gestellt wurden')}
+                <br className="hidden md:block" /> <span {...(title2 ? {} : cms('faq_title_2'))}>{title2 || txt(content, 'faq_title_2', 'Vergangenheit gestellt wurden')}</span>
               </>
             )}
           </h2>
@@ -125,6 +129,7 @@ export default function FAQSection({ content = {}, items, label, title1, title2 
                 aria-controls={`${bereichId}-antwort-${i}`}
               >
                 <span
+                  {...(faq.nr ? cms(`faq${faq.nr}_frage`) : {})}
                   className="font-inter font-semibold text-base leading-snug flex-1"
                   style={{ color: offen === i ? '#E6E8EB' : '#BBC1CA' }}
                 >
@@ -169,7 +174,7 @@ export default function FAQSection({ content = {}, items, label, title1, title2 
                     className="px-5 pb-5 transition-opacity duration-200"
                     style={{ opacity: offen === i ? 1 : 0 }}
                   >
-                    <Rich as="p" className="font-inter text-sm leading-relaxed" style={{ color: '#A6B0BA' }} html={faq.antwort} />
+                    <Rich as="p" className="font-inter text-sm leading-relaxed" style={{ color: '#A6B0BA' }} cms={faq.nr ? `faq${faq.nr}_antwort` : undefined} html={faq.antwort} />
                   </div>
                 </div>
               </div>

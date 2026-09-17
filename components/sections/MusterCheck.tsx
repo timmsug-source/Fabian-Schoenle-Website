@@ -1,6 +1,6 @@
 'use client'
 
-import { txt } from '@/lib/cms-text'
+import { cms, txt } from '@/lib/cms-text'
 import { useState } from 'react'
 import SectionLabel from '@/components/ui/SectionLabel'
 import { CALENDLY_URL } from '@/lib/constants'
@@ -156,11 +156,11 @@ export default function MusterCheck({ content = {} }: { content?: Record<string,
           }}
         />
         <div className="relative">
-          <SectionLabel>{txt(content, 'muster_label', 'Kennst du das?')}</SectionLabel>
+          <SectionLabel cms="muster_label">{txt(content, 'muster_label', 'Kennst du das?')}</SectionLabel>
           <h2 className="font-barlow font-bold text-3xl md:text-5xl leading-tight mt-4 mb-4" style={{ color: '#E6E8EB' }}>
-            {txt(content, 'muster_title_1', 'Wenn dein Körper nicht mehr so')}<br className="hidden md:block" /> {txt(content, 'muster_title_2', 'belastbar ist wie früher')}
+            <span {...cms('muster_title_1')}>{txt(content, 'muster_title_1', 'Wenn dein Körper nicht mehr so')}</span><br className="hidden md:block" /> <span {...cms('muster_title_2')}>{txt(content, 'muster_title_2', 'belastbar ist wie früher')}</span>
           </h2>
-          <Rich as="p" className="font-inter text-base leading-relaxed max-w-2xl mx-auto" style={{ color: '#7B8792' }} html={txt(content, 'muster_intro', 'Diese Symptome sind kein Zufall, sondern ein Signal deines Körpers. Tippe an, was auf dich zutrifft.')} />
+          <Rich as="p" className="font-inter text-base leading-relaxed max-w-2xl mx-auto" style={{ color: '#7B8792' }} cms="muster_intro" html={txt(content, 'muster_intro', 'Diese Symptome sind kein Zufall, sondern ein Signal deines Körpers. Tippe an, was auf dich zutrifft.')} />
         </div>
       </div>
 
@@ -206,7 +206,7 @@ export default function MusterCheck({ content = {} }: { content?: Record<string,
       {/* Ergebnis-Bereich */}
       <div className="mb-8">
         <div className="flex items-start justify-between gap-4">
-          <p className="font-inter text-xs font-semibold uppercase tracking-widest" style={goldText}>
+          <p {...cms('muster_result_label')} className="font-inter text-xs font-semibold uppercase tracking-widest" style={goldText}>
             {txt(content, 'muster_result_label', 'Dein Muster-Check')}
           </p>
           <p className="font-barlow font-bold text-lg leading-none whitespace-nowrap">
@@ -216,11 +216,11 @@ export default function MusterCheck({ content = {} }: { content?: Record<string,
         </div>
 
         <h3 className="font-barlow font-bold text-2xl md:text-3xl leading-snug mt-3 mb-5" style={{ color: '#E6E8EB' }}>
-          {txt(content, `muster_stufe_${stufenIndex}`, STUFEN[stufenIndex])}
+          <span {...cms(`muster_stufe_${stufenIndex}`)}>{txt(content, `muster_stufe_${stufenIndex}`, STUFEN[stufenIndex])}</span>
           {schwerpunkt && (
             <>
-              {txt(content, 'muster_bereich_connector', ' im Bereich: ')}
-              <span style={goldText}>{txt(content, `muster_cluster_${schwerpunkt}`, CLUSTERS[schwerpunkt].name)}</span>
+              <span {...cms('muster_bereich_connector')}>{txt(content, 'muster_bereich_connector', ' im Bereich: ')}</span>
+              <span {...cms(`muster_cluster_${schwerpunkt}`)} style={goldText}>{txt(content, `muster_cluster_${schwerpunkt}`, CLUSTERS[schwerpunkt].name)}</span>
             </>
           )}
         </h3>
@@ -246,7 +246,7 @@ export default function MusterCheck({ content = {} }: { content?: Record<string,
 
         {/* Detail-Zeilen (ab 1 Auswahl) bzw. Hinweis */}
         {count === 0 ? (
-          <Rich as="p" className="font-inter text-sm" style={{ color: '#AEB5BE' }} html={txt(content, 'muster_hint', 'Tippe auf die Punkte, die zutreffen')} />
+          <Rich as="p" className="font-inter text-sm" style={{ color: '#AEB5BE' }} cms="muster_hint" html={txt(content, 'muster_hint', 'Tippe auf die Punkte, die zutreffen')} />
         ) : (
           <div className="flex flex-col gap-3">
             {CLUSTER_ORDER.map((c) => {
@@ -259,6 +259,7 @@ export default function MusterCheck({ content = {} }: { content?: Record<string,
                       {CLUSTERS[c].icon}
                     </span>
                     <span
+                      {...cms(`muster_cluster_${c}`)}
                       className="font-inter text-sm md:text-base font-semibold truncate"
                       style={isFocus ? goldText : { color: '#7B8792' }}
                     >
@@ -291,7 +292,7 @@ export default function MusterCheck({ content = {} }: { content?: Record<string,
           </div>
         )}
 
-        <Rich as="p" className="font-inter text-xs mt-5" style={{ color: '#5B6773' }} html={txt(content, 'muster_disclaimer', 'Keine Diagnostik – erste Orientierung')} />
+        <Rich as="p" className="font-inter text-xs mt-5" style={{ color: '#5B6773' }} cms="muster_disclaimer" html={txt(content, 'muster_disclaimer', 'Keine Diagnostik – erste Orientierung')} />
       </div>
 
       {/* Symptom-Karten */}
@@ -317,10 +318,10 @@ export default function MusterCheck({ content = {} }: { content?: Record<string,
               <span className="block mb-4" style={{ color: on ? '#E8D49A' : '#C9A84C' }}>
                 {s.icon}
               </span>
-              <p className="font-barlow font-bold text-base md:text-lg mb-1.5 pr-6" style={{ color: '#E6E8EB' }}>
+              <p {...cms(`muster_symptom_${s.id}_title`)} className="font-barlow font-bold text-base md:text-lg mb-1.5 pr-6" style={{ color: '#E6E8EB' }}>
                 {txt(content, `muster_symptom_${s.id}_title`, s.title)}
               </p>
-              <Rich as="p" className="font-inter text-sm leading-relaxed" style={{ color: '#9AA4AE' }} html={txt(content, `muster_symptom_${s.id}_desc`, s.desc)} />
+              <Rich as="p" className="font-inter text-sm leading-relaxed" style={{ color: '#9AA4AE' }} cms={`muster_symptom_${s.id}_desc`} html={txt(content, `muster_symptom_${s.id}_desc`, s.desc)} />
             </button>
           )
         })}
@@ -339,7 +340,7 @@ export default function MusterCheck({ content = {} }: { content?: Record<string,
             className="cta-metal inline-flex items-center gap-3 px-7 py-3 rounded-xl font-barlow font-semibold text-base transition-transform"
           >
             <IconCal />
-            {txt(content, 'muster_cta_button', 'Performance Analyse buchen')} ({count})
+            <span><span {...cms('muster_cta_button')}>{txt(content, 'muster_cta_button', 'Performance Analyse buchen')}</span> ({count})</span>
           </a>
         ) : (
           <button
@@ -350,13 +351,14 @@ export default function MusterCheck({ content = {} }: { content?: Record<string,
             style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', color: '#5B6773' }}
           >
             <IconCal />
-            {txt(content, 'muster_cta_button', 'Performance Analyse buchen')}
+            <span {...cms('muster_cta_button')}>{txt(content, 'muster_cta_button', 'Performance Analyse buchen')}</span>
           </button>
         )}
         <Rich
           as="p"
           className="mt-3 font-inter text-sm"
           style={{ color: '#7B8792' }}
+          cms={count >= 1 ? 'muster_cta_note_active' : 'muster_cta_note_inactive'}
           html={count >= 1
             ? (txt(content, 'muster_cta_note_active', 'Wir besprechen genau die Punkte, die du markiert hast.'))
             : (txt(content, 'muster_cta_note_inactive', 'Markiere zuerst, was auf dich zutrifft.'))}

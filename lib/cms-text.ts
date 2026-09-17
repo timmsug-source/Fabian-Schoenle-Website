@@ -16,3 +16,9 @@
 export function txt(content: Record<string, string>, key: string, standard: string): string {
   return key in content ? content[key] : standard
 }
+
+export type CmsArt = 'text' | 'html' | 'bild' | 'feld' | 'markdown'
+/** Markiert ein Element für den visuellen Editor im Website-Hub (siehe CMS-VISUELL.md). */
+export function cms(id: string, art: CmsArt = 'text'): { 'data-cms': string; 'data-cms-art'?: CmsArt } {
+  return art === 'text' ? { 'data-cms': id } : { 'data-cms': id, 'data-cms-art': art }
+}

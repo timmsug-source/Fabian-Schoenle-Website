@@ -18,6 +18,14 @@ const RAHMEN = {
 /** Ablehnen und Akzeptieren teilen sich bewusst dieselbe Optik. */
 const KNOPF = 'flex-1 sm:flex-none sm:min-w-[150px] px-6 py-3 rounded-xl font-inter font-semibold text-sm transition-opacity hover:opacity-85'
 
+function imCmsEditor() {
+  try {
+    return window.self !== window.top && (location.search.includes('cms-vorschau=') || !!sessionStorage.getItem('cms-vorschau'))
+  } catch {
+    return false
+  }
+}
+
 export default function ConsentBanner() {
   const [sichtbar, setSichtbar] = useState(false)
   const [einstellungen, setEinstellungen] = useState(false)
@@ -25,6 +33,9 @@ export default function ConsentBanner() {
 
   // Erst nach dem Mounten entscheiden — der Server kennt den Cookie nicht.
   useEffect(() => {
+    // Im visuellen Editor des Website-Hubs (Website im Rahmen) würde die Leiste
+    // die Seite verdecken – dort gibt es keine Besucher, die zustimmen müssten.
+    if (imCmsEditor()) return
     const vorhanden = leseEinwilligung()
     if (!vorhanden) setSichtbar(true)
     else setStatistik(vorhanden.statistik)

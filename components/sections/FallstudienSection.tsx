@@ -1,6 +1,6 @@
 'use client'
 
-import { txt } from '@/lib/cms-text'
+import { cms, txt } from '@/lib/cms-text'
 import Image from 'next/image'
 import { useRef, useState } from 'react'
 import { CALENDLY_URL } from '@/lib/constants'
@@ -20,6 +20,25 @@ interface Fallstudie {
   loesung: string
   vorher: { gewicht: string; punkte: string[] }
   nachher: { gewicht: string; punkte: string[] }
+}
+
+/** Ein Vorher-/Nachher-Punkt samt CMS-Schlüssel (für den visuellen Editor im Website-Hub). */
+type Punkt = { key: string; text: string }
+
+/**
+ * Eine angezeigte Fallstudie. `nr` ist die Nummer im CMS-Schlüssel
+ * (fallstudienN_…) — sie bleibt auch dann richtig, wenn Einträge ohne Namen
+ * herausgefiltert werden und sich die Reihenfolge dadurch verschiebt.
+ */
+type AngezeigteFallstudie = Omit<Fallstudie, 'vorher' | 'nachher'> & {
+  nr: number
+  vorher: { gewicht: string; punkte: Punkt[] }
+  nachher: { gewicht: string; punkte: Punkt[] }
+}
+
+/** Ordnet Standardpunkten ihre CMS-Schlüssel zu (…_punkt1, _punkt2, …). */
+function standardPunkte(nr: number, seite: 'vorher' | 'nachher', punkte: string[]): Punkt[] {
+  return punkte.map((text, j) => ({ key: `fallstudien${nr}_${seite}_punkt${j + 1}`, text }))
 }
 
 /** Standardinhalte. Greifen, solange das CMS für eine Fallstudie nichts liefert. */
@@ -125,14 +144,14 @@ function cmsPunkte(
   nr: number,
   seite: 'vorher' | 'nachher',
   fallback: string[]
-): string[] {
+): Punkt[] {
   const prefix = `fallstudien${nr}_${seite}_punkt`
   const ausCms = Object.keys(content)
     .filter((k) => k.startsWith(prefix) && /^\d+$/.test(k.slice(prefix.length)))
     .sort((a, b) => Number(a.slice(prefix.length)) - Number(b.slice(prefix.length)))
-    .map((k) => content[k])
-    .filter((v) => v && v.trim())
-  return ausCms.length > 0 ? ausCms : fallback
+    .map((k) => ({ key: k, text: content[k] }))
+    .filter((p) => p.text && p.text.trim())
+  return ausCms.length > 0 ? ausCms : standardPunkte(nr, seite, fallback)
 }
 
 /**
@@ -146,13 +165,19 @@ function cmsPunkte(
  * Ohne Namen wird eine Fallstudie übersprungen — so taucht ein frisch im CMS
  * angelegter, noch leerer Eintrag nicht sofort auf der Website auf.
  */
-function cmsFallstudien(content: Record<string, string>): Fallstudie[] {
+function cmsFallstudien(content: Record<string, string>): AngezeigteFallstudie[] {
   const nummern: number[] = []
   for (const k of Object.keys(content)) {
     const m = k.match(/^fallstudien(\d+)_/)
     if (m && !nummern.includes(Number(m[1]))) nummern.push(Number(m[1]))
   }
-  if (nummern.length === 0) return fallstudien
+  if (nummern.length === 0)
+    return fallstudien.map((fs, i) => ({
+      ...fs,
+      nr: i + 1,
+      vorher: { gewicht: fs.vorher.gewicht, punkte: standardPunkte(i + 1, 'vorher', fs.vorher.punkte) },
+      nachher: { gewicht: fs.nachher.gewicht, punkte: standardPunkte(i + 1, 'nachher', fs.nachher.punkte) },
+    }))
 
   return nummern
     .sort((a, b) => a - b)
@@ -170,6 +195,7 @@ function cmsFallstudien(content: Record<string, string>): Fallstudie[] {
       const m = (feld: string) => content[`fallstudien${nr}_${feld}`]?.trim() || undefined
 
       return {
+        nr,
         name: t('name') ?? standard?.name ?? '',
         alter: t('alter') ?? standard?.alter ?? '',
         beruf: t('beruf') ?? standard?.beruf ?? '',
@@ -238,11 +264,11 @@ export default function FallstudienSection({
 
         {/* Header */}
         <div className="mb-12 animate-fade-up text-center">
-          <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-4" style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+          <p {...cms('fallstudien_label')} className="font-inter text-xs font-semibold uppercase tracking-widest mb-4" style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
             {txt(content, 'fallstudien_label', 'Echte Ergebnisse')}
           </p>
           <h2 className="font-barlow font-bold text-3xl md:text-5xl leading-tight" style={{ color: '#E6E8EB' }}>
-            {txt(content, 'fallstudien_title_1', 'So fühlt es sich an, wenn man sich')}<br className="hidden md:block" /> {txt(content, 'fallstudien_title_2', 'die Kontrolle zurückholt')}
+            <span {...cms('fallstudien_title_1')}>{txt(content, 'fallstudien_title_1', 'So fühlt es sich an, wenn man sich')}</span><br className="hidden md:block" /> <span {...cms('fallstudien_title_2')}>{txt(content, 'fallstudien_title_2', 'die Kontrolle zurückholt')}</span>
           </h2>
         </div>
 
@@ -266,7 +292,7 @@ export default function FallstudienSection({
               >
                 <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#C9A84C' }} />
                 <p className="font-inter text-xs font-semibold uppercase tracking-widest" style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-                  Fallstudie: {fs.name}
+                  Fallstudie: <span {...cms(`fallstudien${fs.nr}_name`)}>{fs.name}</span>
                 </p>
               </div>
 
@@ -275,15 +301,16 @@ export default function FallstudienSection({
                 {/* Linke Spalte: Story */}
                 <div className="lg:col-span-6 flex flex-col gap-6">
                   {[
-                    { label: 'Problem', text: fs.problem },
-                    { label: 'Ziel',    text: fs.ziel },
-                    { label: 'Lösung',  text: fs.loesung },
-                  ].map(({ label, text }) => (
+                    { label: 'Problem', feld: 'problem', text: fs.problem },
+                    { label: 'Ziel',    feld: 'ziel',    text: fs.ziel },
+                    { label: 'Lösung',  feld: 'loesung', text: fs.loesung },
+                  ].map(({ label, feld, text }) => (
                     <div key={label}>
                       <p className="font-barlow font-bold text-sm uppercase tracking-wider mb-1.5" style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
                         {label}:
                       </p>
                       <p
+                        {...cms(`fallstudien${fs.nr}_${feld}`, 'feld')}
                         className="font-inter text-sm md:text-base leading-relaxed"
                         style={{ color: '#A6B0BA' }}
                         dangerouslySetInnerHTML={{ __html: text.replace(/<strong>/g, '<strong style="color:#C8D0D9;font-weight:600">') }}
@@ -299,7 +326,7 @@ export default function FallstudienSection({
                       <VideoPlayer src={fs.video} />
                     ) : fs.bild ? (
                       <div className="relative aspect-video overflow-hidden rounded-t-xl" style={{ border: '1px solid rgba(201,168,76,0.4)' }}>
-                        <img src={fs.bild} alt={fs.name} className="absolute inset-0 w-full h-full object-cover" style={{ objectPosition: 'center 22%' }} />
+                        <img {...cms(`fallstudien${fs.nr}_bild`, 'bild')} src={fs.bild} alt={fs.name} className="absolute inset-0 w-full h-full object-cover" style={{ objectPosition: 'center 22%' }} />
                       </div>
                     ) : (
                       <div className="relative aspect-video overflow-hidden flex items-center justify-center" style={{ background: 'rgba(0,0,0,0.4)' }}>
@@ -309,21 +336,21 @@ export default function FallstudienSection({
                       </div>
                     )}
                     <div className="px-5 py-4 text-center flex flex-col gap-1">
-                      <p className="font-barlow font-bold text-xl" style={{ color: '#E6E8EB' }}>{fs.name}</p>
-                      <p className="font-inter text-sm" style={{ color: '#7B8792' }}>{fs.alter} · {fs.beruf}</p>
+                      <p {...cms(`fallstudien${fs.nr}_name`)} className="font-barlow font-bold text-xl" style={{ color: '#E6E8EB' }}>{fs.name}</p>
+                      <p className="font-inter text-sm" style={{ color: '#7B8792' }}><span {...cms(`fallstudien${fs.nr}_alter`)}>{fs.alter}</span> · <span {...cms(`fallstudien${fs.nr}_beruf`)}>{fs.beruf}</span></p>
                       {fs.link ? (
                         <a href={fs.link} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-1.5 mt-1 transition-colors hover:text-white" style={{ color: '#7B8792' }}>
                           <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.44-2.13 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/>
                           </svg>
-                          <span className="font-inter text-xs font-medium">{fs.instagram}</span>
+                          <span {...cms(`fallstudien${fs.nr}_kontakt`)} className="font-inter text-xs font-medium">{fs.instagram}</span>
                         </a>
                       ) : (
                         <div className="flex items-center justify-center gap-1.5 mt-1">
                           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#7B8792" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                             <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
                           </svg>
-                          <span className="font-inter text-xs font-medium" style={{ color: '#7B8792' }}>{fs.instagram}</span>
+                          <span {...cms(`fallstudien${fs.nr}_kontakt`)} className="font-inter text-xs font-medium" style={{ color: '#7B8792' }}>{fs.instagram}</span>
                         </div>
                       )}
                     </div>
@@ -339,7 +366,7 @@ export default function FallstudienSection({
                   <div className="p-8 md:p-10 flex flex-col gap-4 rounded-2xl" style={{ background: 'rgba(180,30,30,0.15)' }}>
                     <div className="flex items-center gap-3 flex-wrap">
                       <span className="font-barlow font-bold text-base uppercase tracking-wide" style={{ color: '#E6E8EB' }}>Ausgangssituation</span>
-                      <span className="font-inter text-xs font-bold px-3 py-1 rounded-md" style={{ background: '#C0392B', color: '#fff' }}>{fs.vorher.gewicht}</span>
+                      <span {...cms(`fallstudien${fs.nr}_vorher_gewicht`)} className="font-inter text-xs font-bold px-3 py-1 rounded-md" style={{ background: '#C0392B', color: '#fff' }}>{fs.vorher.gewicht}</span>
                     </div>
                     <ul className="flex flex-col gap-3">
                       {fs.vorher.punkte.map((p, i) => (
@@ -348,7 +375,7 @@ export default function FallstudienSection({
                             <defs><linearGradient id={`fx-${idx}-${i}`} x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#C9A84C"/><stop offset="100%" stopColor="#E8D49A"/></linearGradient></defs>
                             <path d="M8 8L30 30M30 8L8 30" stroke={`url(#fx-${idx}-${i})`} strokeWidth="4" strokeLinecap="round"/>
                           </svg>
-                          <Rich html={p} />
+                          <Rich cms={p.key} html={p.text} />
                         </li>
                       ))}
                     </ul>
@@ -359,7 +386,7 @@ export default function FallstudienSection({
                     <span className="absolute right-4 bottom-2 font-barlow font-bold select-none pointer-events-none" style={{ fontSize: 96, lineHeight: 1, color: 'rgba(255,255,255,0.04)', letterSpacing: '-2px' }}>FS</span>
                     <div className="relative flex items-center gap-3 flex-wrap">
                       <span className="font-barlow font-bold text-base uppercase tracking-wide text-white">Ergebnis</span>
-                      <span className="font-inter text-xs font-bold px-3 py-1 rounded-md" style={{ background: 'rgba(52,211,153,0.15)', color: '#6EE7B7', border: '1px solid rgba(52,211,153,0.35)' }}>{fs.nachher.gewicht}</span>
+                      <span className="font-inter text-xs font-bold px-3 py-1 rounded-md" style={{ background: 'rgba(52,211,153,0.15)', color: '#6EE7B7', border: '1px solid rgba(52,211,153,0.35)' }} {...cms(`fallstudien${fs.nr}_nachher_gewicht`)}>{fs.nachher.gewicht}</span>
                     </div>
                     <ul className="relative flex flex-col gap-3">
                       {fs.nachher.punkte.map((p, i) => (
@@ -368,7 +395,7 @@ export default function FallstudienSection({
                             <defs><linearGradient id={`fck-${idx}-${i}`} x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#0E9E6E"/><stop offset="45%" stopColor="#34D399"/><stop offset="75%" stopColor="#A7F3D0"/><stop offset="100%" stopColor="#34D399"/></linearGradient></defs>
                             <polygon points="5,21 10.38,24.62 14,27.5 22.55,18.18 33,8 24.45,19.82 14,32.5 8.62,26.38" fill={`url(#fck-${idx}-${i})`}/>
                           </svg>
-                          <Rich html={p} />
+                          <Rich cms={p.key} html={p.text} />
                         </li>
                       ))}
                     </ul>
@@ -448,11 +475,11 @@ export default function FallstudienSection({
             </div>
 
             <h3 className="font-barlow font-bold text-2xl md:text-4xl leading-snug mb-6 md:mb-8 max-w-3xl mx-auto" style={{ color: '#E6E8EB' }}>
-              {txt(content, 'fallstudien_cta_title_1', 'Wir entwickeln für dich eine')}{' '}
-              <span style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+              <span {...cms('fallstudien_cta_title_1')}>{txt(content, 'fallstudien_cta_title_1', 'Wir entwickeln für dich eine')}</span>{' '}
+              <span {...cms('fallstudien_cta_highlight')} style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
                 {txt(content, 'fallstudien_cta_highlight', 'maßgeschneiderte Strategie')}
               </span>
-              {txt(content, 'fallstudien_cta_title_2', ', die deine Bedürfnisse und deinen Terminkalender berücksichtigt')}
+              <span {...cms('fallstudien_cta_title_2')}>{txt(content, 'fallstudien_cta_title_2', ', die deine Bedürfnisse und deinen Terminkalender berücksichtigt')}</span>
             </h3>
             <a
               href={CALENDLY_URL}
@@ -460,6 +487,7 @@ export default function FallstudienSection({
               target="_blank"
               rel="noopener noreferrer"
               className="cta-metal inline-flex items-center justify-center px-6 py-3 md:px-9 md:py-4 rounded-xl font-inter font-semibold text-sm md:text-lg transition-transform"
+              {...cms('fallstudien_cta_button')}
             >
               {txt(content, 'fallstudien_cta_button', 'Kostenlose Performance-Analyse buchen')}
             </a>

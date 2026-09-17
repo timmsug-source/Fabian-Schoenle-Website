@@ -1,10 +1,12 @@
 import { Fragment } from 'react'
-import { txt } from '@/lib/cms-text'
+import { cms, txt } from '@/lib/cms-text'
 import { Rich } from '@/components/Rich'
 import Image from 'next/image'
 
 export interface Zeile {
   feature: string
+  /** Nummer N des CMS-Feldpaars vergleich_featureN / _haken — nur bei Zeilen aus dem CMS bzw. den Standardzeilen der Startseite (für den visuellen Editor). */
+  cmsNr?: number
   fs: boolean
   generic: boolean
   online: boolean
@@ -75,7 +77,7 @@ function cmsZeilen(content: Record<string, string>): Zeile[] {
     const m = k.match(/^vergleich_feature(\d+)$/)
     if (m) nummern.push(Number(m[1]))
   }
-  if (nummern.length === 0) return rows
+  if (nummern.length === 0) return rows.map((z, i) => ({ ...z, cmsNr: i + 1 }))
 
   return nummern
     .sort((a, b) => a - b)
@@ -94,6 +96,7 @@ function cmsZeilen(content: Record<string, string>): Zeile[] {
 
       return {
         feature: txt(content, `vergleich_feature${nr}`, standard?.feature ?? ''),
+        cmsNr: nr,
         fs: hat(SPALTEN_WOERTER.fs, standard?.fs ?? false),
         generic: hat(SPALTEN_WOERTER.generic, standard?.generic ?? false),
         online: hat(SPALTEN_WOERTER.online, standard?.online ?? false),
@@ -101,6 +104,14 @@ function cmsZeilen(content: Record<string, string>): Zeile[] {
       }
     })
     .filter((z) => z.feature)
+}
+
+/**
+ * Markiert eine Häkchen-Zelle für den visuellen Editor. Das Feld _haken wird nur
+ * umgewandelt angezeigt (Häkchen/Kreuz je Spalte), daher Art "feld" auf jeder Zelle.
+ */
+function haken(row: Zeile) {
+  return row.cmsNr ? cms(`vergleich_feature${row.cmsNr}_haken`, 'feld') : {}
 }
 
 const FS_BG    = 'linear-gradient(170deg, #16213A 0%, #0D1829 55%, #091122 100%)'
@@ -179,20 +190,21 @@ export default function VergleichSection({
 
         {/* Header */}
         <div className="mb-20 animate-fade-up text-center">
-          <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-4" style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+          <p {...cms('vergleich_label')} className="font-inter text-xs font-semibold uppercase tracking-widest mb-4" style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
             {txt(content, 'vergleich_label', 'Der Unterschied')}
           </p>
           <h2 className="font-barlow font-bold text-3xl md:text-5xl leading-tight" style={{ color: '#E6E8EB' }}>
-            {txt(content, 'vergleich_title_1', 'Warum du')}{' '}
-            <span style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+            <span {...cms('vergleich_title_1')}>{txt(content, 'vergleich_title_1', 'Warum du')}</span>{' '}
+            <span {...cms('vergleich_highlight')} style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
               {txt(content, 'vergleich_highlight', 'mit mir')}
             </span>{' '}
-            {txt(content, 'vergleich_title_2', 'zusammenarbeiten solltest')}
+            <span {...cms('vergleich_title_2')}>{txt(content, 'vergleich_title_2', 'zusammenarbeiten solltest')}</span>
           </h2>
           <Rich
             as="p"
             className="font-inter text-base md:text-lg leading-relaxed max-w-2xl mx-auto mt-5"
             style={{ color: '#7B8792' }}
+            cms={intro === undefined ? 'vergleich_intro' : undefined}
             html={
               intro ??
               txt(
@@ -260,13 +272,14 @@ export default function VergleichSection({
                     className="py-5 pr-6"
                     style={{ borderTop: ROW_LINE, boxShadow: '0 -1px 6px rgba(255,255,255,0.04)' }}
                   >
-                    <span className="font-inter text-base md:text-lg font-medium" style={{ color: '#E6E8EB' }}>
+                    <span {...(row.cmsNr ? cms(`vergleich_feature${row.cmsNr}`) : {})} className="font-inter text-base md:text-lg font-medium" style={{ color: '#E6E8EB' }}>
                       {row.feature}
                     </span>
                   </td>
 
                   {/* FS Performance Lab — Kachel-Körper */}
                   <td
+                    {...haken(row)}
                     className="py-5 text-center px-4"
                     style={{
                       background: FS_BG,
@@ -279,13 +292,13 @@ export default function VergleichSection({
                     {row.fs ? <Check /> : <Cross />}
                   </td>
 
-                  <td className="py-5 text-center px-3" style={{ borderTop: ROW_LINE, boxShadow: '0 -1px 6px rgba(255,255,255,0.04)' }}>
+                  <td {...haken(row)} className="py-5 text-center px-3" style={{ borderTop: ROW_LINE, boxShadow: '0 -1px 6px rgba(255,255,255,0.04)' }}>
                     {row.generic ? <Check /> : <Cross />}
                   </td>
-                  <td className="py-5 text-center px-3" style={{ borderTop: ROW_LINE, boxShadow: '0 -1px 6px rgba(255,255,255,0.04)' }}>
+                  <td {...haken(row)} className="py-5 text-center px-3" style={{ borderTop: ROW_LINE, boxShadow: '0 -1px 6px rgba(255,255,255,0.04)' }}>
                     {row.online ? <Check /> : <Cross />}
                   </td>
-                  <td className="py-5 text-center px-3" style={{ borderTop: ROW_LINE, boxShadow: '0 -1px 6px rgba(255,255,255,0.04)' }}>
+                  <td {...haken(row)} className="py-5 text-center px-3" style={{ borderTop: ROW_LINE, boxShadow: '0 -1px 6px rgba(255,255,255,0.04)' }}>
                     {row.selbst ? <Check /> : <Cross />}
                   </td>
                 </tr>
@@ -363,9 +376,10 @@ export default function VergleichSection({
                 return (
                   <tr key={i}>
                     <td className="py-3 pr-2" style={{ borderTop: ROW_LINE }}>
-                      <span className="font-inter text-xs font-medium leading-snug" style={{ color: '#E6E8EB' }}>{row.feature}</span>
+                      <span {...(row.cmsNr ? cms(`vergleich_feature${row.cmsNr}`) : {})} className="font-inter text-xs font-medium leading-snug" style={{ color: '#E6E8EB' }}>{row.feature}</span>
                     </td>
                     <td
+                      {...haken(row)}
                       className="py-3 text-center"
                       style={{
                         background: FS_BG,
@@ -378,9 +392,9 @@ export default function VergleichSection({
                     >
                       {row.fs ? <MiniCheck i={i} /> : <MiniCross />}
                     </td>
-                    <td className="py-3 text-center" style={{ borderTop: ROW_LINE }}>{row.generic ? <MiniCheck i={i + 100} /> : <MiniCross />}</td>
-                    <td className="py-3 text-center" style={{ borderTop: ROW_LINE }}>{row.online ? <MiniCheck i={i + 200} /> : <MiniCross />}</td>
-                    <td className="py-3 text-center" style={{ borderTop: ROW_LINE }}>{row.selbst ? <MiniCheck i={i + 300} /> : <MiniCross />}</td>
+                    <td {...haken(row)} className="py-3 text-center" style={{ borderTop: ROW_LINE }}>{row.generic ? <MiniCheck i={i + 100} /> : <MiniCross />}</td>
+                    <td {...haken(row)} className="py-3 text-center" style={{ borderTop: ROW_LINE }}>{row.online ? <MiniCheck i={i + 200} /> : <MiniCross />}</td>
+                    <td {...haken(row)} className="py-3 text-center" style={{ borderTop: ROW_LINE }}>{row.selbst ? <MiniCheck i={i + 300} /> : <MiniCross />}</td>
                   </tr>
                 )
               })}

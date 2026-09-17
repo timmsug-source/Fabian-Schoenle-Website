@@ -1,4 +1,4 @@
-import { txt } from '@/lib/cms-text'
+import { cms, txt } from '@/lib/cms-text'
 import Image from 'next/image'
 import { CALENDLY_URL } from '@/lib/constants'
 import { Rich } from '@/components/Rich'
@@ -62,13 +62,14 @@ function cmsCredentials(content: Record<string, string>) {
     const m = k.match(/^uebermich_credential(\d+)$/)
     if (m && !nummern.includes(Number(m[1]))) nummern.push(Number(m[1]))
   }
-  if (nummern.length === 0) return credentials
+  if (nummern.length === 0) return credentials.map((c, i) => ({ ...c, key: `uebermich_credential${i + 1}` }))
 
   return nummern
     .sort((a, b) => a - b)
     .map((n) => ({
       icon: (credentials[n - 1] ?? credentials[credentials.length - 1]).icon,
       text: (content[`uebermich_credential${n}`] ?? '').trim(),
+      key: `uebermich_credential${n}`,
     }))
     .filter((c) => c.text)
 }
@@ -97,17 +98,19 @@ function cmsAbsaetze(content: Record<string, string>) {
     if (m && !nummern.includes(Number(m[1]))) nummern.push(Number(m[1]))
   }
 
+  // Der CMS-Schlüssel wird mitgeführt, damit der visuelle Editor auch nach dem
+  // Überspringen leerer Absätze das richtige Feld öffnet.
   const roh =
     nummern.length > 0
-      ? nummern.sort((a, b) => a - b).map((n) => content[`uebermich_para${n}`] ?? '')
-      : absaetze
+      ? nummern.sort((a, b) => a - b).map((n) => ({ key: `uebermich_para${n}`, t: content[`uebermich_para${n}`] ?? '' }))
+      : absaetze.map((t, i) => ({ key: `uebermich_para${i + 1}`, t }))
 
   return roh
-    .map((t) => t.trim())
-    .filter(Boolean)
-    .map((t) => {
+    .map(({ key, t }) => ({ key, t: t.trim() }))
+    .filter(({ t }) => Boolean(t))
+    .map(({ key, t }) => {
       const hervor = /^\*\*[\s\S]+\*\*$/.test(t)
-      return { text: hervor ? t.slice(2, -2).trim() : t, hervor }
+      return { key, text: hervor ? t.slice(2, -2).trim() : t, hervor }
     })
 }
 
@@ -144,7 +147,7 @@ export default function UeberMichSection({ content = {} }: { content?: Record<st
       <div className="relative max-w-7xl mx-auto px-4 md:px-8 py-24 md:py-32">
 
         {/* Label */}
-        <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-4 animate-fade-up" style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+        <p {...cms('uebermich_label')} className="font-inter text-xs font-semibold uppercase tracking-widest mb-4 animate-fade-up" style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
           {txt(content, 'uebermich_label', 'Über Fabian Schönle')}
         </p>
 
@@ -154,7 +157,7 @@ export default function UeberMichSection({ content = {} }: { content?: Record<st
           {/* Linke Spalte — Text */}
           <div className="animate-fade-up" style={{ animationDelay: '60ms' }}>
             <h2 className="font-barlow font-bold text-3xl md:text-5xl leading-tight mb-8" style={{ color: '#E6E8EB' }}>
-              {txt(content, 'uebermich_title_1', 'Ich war selbst da,')}<br /> {txt(content, 'uebermich_title_2', 'wo du gerade stehst.')}
+              <span {...cms('uebermich_title_1')}>{txt(content, 'uebermich_title_1', 'Ich war selbst da,')}</span><br /> <span {...cms('uebermich_title_2')}>{txt(content, 'uebermich_title_2', 'wo du gerade stehst.')}</span>
             </h2>
 
             <div className="flex flex-col gap-5">
@@ -167,6 +170,8 @@ export default function UeberMichSection({ content = {} }: { content?: Record<st
                     color: absatz.hervor ? '#E6E8EB' : '#A6B0BA',
                     fontWeight: absatz.hervor ? 600 : 400,
                   }}
+                  cms={absatz.key}
+                  cmsArt={absatz.hervor ? 'feld' : 'html'}
                   html={absatz.text}
                 />
               ))}
@@ -180,7 +185,7 @@ export default function UeberMichSection({ content = {} }: { content?: Record<st
               rel="noopener noreferrer"
               className="cta-metal mt-8 inline-flex items-center gap-2 px-6 py-3.5 rounded-lg font-inter font-semibold text-sm transition-transform"
             >
-              {txt(content, 'uebermich_cta_button', 'Performance Analyse buchen')}
+              <span {...cms('uebermich_cta_button')}>{txt(content, 'uebermich_cta_button', 'Performance Analyse buchen')}</span>
               <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
                 <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
@@ -267,7 +272,7 @@ export default function UeberMichSection({ content = {} }: { content?: Record<st
                   <span className="flex-shrink-0">
                     {c.icon}
                   </span>
-                  <p className="font-inter text-sm leading-relaxed" style={{ color: '#C8D0D9' }}>
+                  <p {...cms(c.key)} className="font-inter text-sm leading-relaxed" style={{ color: '#C8D0D9' }}>
                     {c.text}
                   </p>
                 </div>
