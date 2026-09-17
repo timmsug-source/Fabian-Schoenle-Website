@@ -18,6 +18,13 @@ export const SITE_NAME = 'FS Performance Lab'
  */
 export const UNTERSEITEN_NOINDEX = true
 
+/**
+ * Unterseiten, die trotz UNTERSEITEN_NOINDEX schon indexierbar sind und in der
+ * Sitemap stehen. So lassen sich Seiten einzeln freigeben, sobald sie fertig
+ * sind, statt alle auf einmal. Eingetragen wird der `slug` aus buildMetadata.
+ */
+export const FREIGEGEBENE_UNTERSEITEN: readonly string[] = ['ueber-mich']
+
 export const CALENDLY_URL = process.env.NEXT_PUBLIC_CALENDLY_URL ?? 'https://calendly.com/fuelbyfabian/30min'
 
 /**

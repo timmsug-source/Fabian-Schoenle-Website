@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { SITE_NAME, SITE_URL, UNTERSEITEN_NOINDEX } from '@/lib/constants'
+import { FREIGEGEBENE_UNTERSEITEN, SITE_NAME, SITE_URL, UNTERSEITEN_NOINDEX } from '@/lib/constants'
 
 export function buildMetadata({
   title,
@@ -22,8 +22,9 @@ export function buildMetadata({
     alt: `${SITE_NAME} — Datenbasiertes Performance Coaching`,
   }
 
-  // Unterseite = Aufruf mit slug. Siehe UNTERSEITEN_NOINDEX in lib/constants.ts.
-  const aufNoindex = Boolean(slug) && UNTERSEITEN_NOINDEX
+  // Unterseite = Aufruf mit slug. Siehe UNTERSEITEN_NOINDEX und
+  // FREIGEGEBENE_UNTERSEITEN in lib/constants.ts.
+  const aufNoindex = Boolean(slug) && UNTERSEITEN_NOINDEX && !FREIGEGEBENE_UNTERSEITEN.includes(slug!)
 
   return {
     ...(aufNoindex ? { robots: { index: false, follow: true } } : {}),
