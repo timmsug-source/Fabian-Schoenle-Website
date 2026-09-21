@@ -2,7 +2,33 @@ import { cms, txt } from '@/lib/cms-text'
 import Image from 'next/image'
 import { Rich } from '@/components/Rich'
 
-export default function HypotheseSection({ content = {} }: { content?: Record<string, string> }) {
+type HypotheseSectionProps = {
+  content?: Record<string, string>
+  /*
+    Seitenspezifische Texte — haben Vorrang vor den CMS-Feldern der Startseite.
+    Wo eines gesetzt ist, entfaellt die CMS-Markierung: Der visuelle Editor
+    soll auf einer Unterseite nicht die Texte der Startseite bearbeiten.
+  */
+  label?: string
+  title1?: string
+  title2?: string
+  body?: string
+  quote?: string
+  quoteAuthor?: string
+  quoteRole?: string
+}
+
+export default function HypotheseSection({
+  content = {},
+  label,
+  title1,
+  title2,
+  body,
+  quote,
+  quoteAuthor,
+  quoteRole,
+}: HypotheseSectionProps) {
+  const eigen = (wert: string | undefined, key: string) => (wert !== undefined ? {} : cms(key))
   return (
     <section className="relative overflow-hidden" style={{ background: 'transparent' }}>
 
@@ -42,12 +68,12 @@ export default function HypotheseSection({ content = {} }: { content?: Record<st
 
           {/* Left: Titel + Text */}
           <div className="flex-1 min-w-0">
-            <p {...cms('wahrheit_label')} className="font-inter text-xs font-semibold uppercase tracking-widest mb-6" style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-              {txt(content, 'wahrheit_label', 'Die Wahrheit')}
+            <p {...eigen(label, 'wahrheit_label')} className="font-inter text-xs font-semibold uppercase tracking-widest mb-6" style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+              {label ?? txt(content, 'wahrheit_label', 'Die Wahrheit')}
             </p>
 
             <h2 className="font-barlow font-bold text-3xl md:text-5xl leading-tight mb-10" style={{ color: '#E6E8EB' }}>
-              <span {...cms('wahrheit_title_1')}>{txt(content, 'wahrheit_title_1', 'Warum deine Ansätze bisher')}</span><br className="hidden md:block" /> <span {...cms('wahrheit_title_2')}>{txt(content, 'wahrheit_title_2', 'keine Ergebnisse lieferten')}</span>
+              <span {...eigen(title1, 'wahrheit_title_1')}>{title1 ?? txt(content, 'wahrheit_title_1', 'Warum deine Ansätze bisher')}</span><br className="hidden md:block" /> <span {...eigen(title2, 'wahrheit_title_2')}>{title2 ?? txt(content, 'wahrheit_title_2', 'keine Ergebnisse lieferten')}</span>
             </h2>
 
             <div
@@ -55,7 +81,7 @@ export default function HypotheseSection({ content = {} }: { content?: Record<st
               style={{ height: 1, background: 'linear-gradient(to right, rgba(201,168,76,0.4), transparent)' }}
             />
 
-            <Rich as="p" className="font-inter text-base md:text-lg leading-relaxed" style={{ color: '#A6B0BA' }} cms="wahrheit_body" html={txt(content, 'wahrheit_body', 'Leistungsorientierte Menschen wollen ihr Problem mit mehr Disziplin lösen, weil sie das aus ihrem beruflichen Leben gewohnt sind. Dadurch wählen sie radikale Ansätze, die zu Heißhunger und Jo-Jo-Effekt führen — und dann entsteht Frustration, die sich durch mehr Stress und damit ein hormonelles Ungleichgewicht (Testosteron sinkt usw.) äußert. Die meisten lassen dann einige Monate vergehen und fangen mit dem nächsten Motivationsschub und noch mehr Disziplin wieder von vorne an…')} />
+            <Rich as="p" className="font-inter text-base md:text-lg leading-relaxed" style={{ color: '#A6B0BA' }} cms={body !== undefined ? undefined : 'wahrheit_body'} html={body ?? txt(content, 'wahrheit_body', 'Leistungsorientierte Menschen wollen ihr Problem mit mehr Disziplin lösen, weil sie das aus ihrem beruflichen Leben gewohnt sind. Dadurch wählen sie radikale Ansätze, die zu Heißhunger und Jo-Jo-Effekt führen — und dann entsteht Frustration, die sich durch mehr Stress und damit ein hormonelles Ungleichgewicht (Testosteron sinkt usw.) äußert. Die meisten lassen dann einige Monate vergehen und fangen mit dem nächsten Motivationsschub und noch mehr Disziplin wieder von vorne an…')} />
 
           </div>
 
@@ -94,12 +120,12 @@ export default function HypotheseSection({ content = {} }: { content?: Record<st
               as="p"
               className="font-barlow font-bold text-2xl md:text-3xl leading-snug mb-6"
               style={{ color: '#E8D49A' }}
-              cms="wahrheit_quote"
-              html={txt(content, 'wahrheit_quote', 'Wir nutzen die uns zur Verfügung stehenden Ressourcen, um neben Job, Familie und Alltag das Beste rauszuholen.')}
+              cms={quote !== undefined ? undefined : 'wahrheit_quote'}
+              html={quote ?? txt(content, 'wahrheit_quote', 'Wir nutzen die uns zur Verfügung stehenden Ressourcen, um neben Job, Familie und Alltag das Beste rauszuholen.')}
             />
             <div>
-              <p {...cms('wahrheit_quote_author')} className="font-barlow font-bold text-base" style={{ color: '#E6E8EB' }}>{txt(content, 'wahrheit_quote_author', 'Fabian Schönle')}</p>
-              <p {...cms('wahrheit_quote_role')} className="font-inter text-sm" style={{ color: '#7B8792' }}>{txt(content, 'wahrheit_quote_role', 'Performance Coach · PhD Chemie')}</p>
+              <p {...eigen(quoteAuthor, 'wahrheit_quote_author')} className="font-barlow font-bold text-base" style={{ color: '#E6E8EB' }}>{quoteAuthor ?? txt(content, 'wahrheit_quote_author', 'Fabian Schönle')}</p>
+              <p {...eigen(quoteRole, 'wahrheit_quote_role')} className="font-inter text-sm" style={{ color: '#7B8792' }}>{quoteRole ?? txt(content, 'wahrheit_quote_role', 'Performance Coach · PhD Chemie')}</p>
             </div>
           </div>
 

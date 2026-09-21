@@ -19,6 +19,85 @@ export type LandingFallstudie = {
   bild?: string
   /** Was am Ende herausgekommen ist */
   ergebnisse: string[]
+  /** Optional: Wo die Person gestartet ist — ein kurzer Absatz */
+  ausgangspunkt?: string
+  /** Optional: Was wir daraus gemacht haben — ein kurzer Absatz */
+  prozess?: string
+  /** Optional: Gewicht vorher und nachher fuer das Zahlen-Panel, z. B. „103 kg" */
+  gewichtVon?: string
+  gewichtNach?: string
+  /** Optional: Zitat der Person, samt Quelle („LinkedIn-Empfehlung") */
+  zitat?: string
+  zitatQuelle?: string
+  /** Optional: Einordnung statt Zitat, wenn keine schriftliche Aussage vorliegt */
+  notiz?: { label: string; text: string }
+}
+
+const goldText = {
+  backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)',
+  backgroundSize: '100% 1.2em',
+  backgroundRepeat: 'repeat-y',
+  WebkitBackgroundClip: 'text',
+  WebkitTextFillColor: 'transparent',
+  backgroundClip: 'text',
+} as const
+
+/** „92,5 kg" → 92.5. Ohne lesbare Zahl bleibt der Balken aus. */
+function zahl(wert?: string): number | undefined {
+  const treffer = wert?.replace(',', '.').match(/[\d.]+/)
+  return treffer ? Number(treffer[0]) : undefined
+}
+
+/**
+ * Das Ergebnis als Zahl: Ausgangsgewicht, Zielgewicht und der Balken dazwischen.
+ * Steht dort, wo sonst das Video sitzt — die Zahl ist auf dieser Seite der
+ * Beweis, das Video kommt in der Sektion darunter.
+ */
+function ZahlenPanel({ von, nach }: { von: string; nach: string }) {
+  const a = zahl(von)
+  const b = zahl(nach)
+  const anteil = a && b ? Math.round((b / a) * 100) : undefined
+
+  return (
+    <div className="px-6 py-7 md:px-8 md:py-9">
+      <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-5" style={{ color: '#7B8792' }}>
+        Körpergewicht
+      </p>
+
+      <div className="flex items-end gap-4 mb-7">
+        <span className="font-barlow font-bold text-4xl md:text-5xl leading-none" style={{ color: '#7B8792' }}>
+          {von}
+        </span>
+        <svg width="26" height="14" viewBox="0 0 22 12" fill="none" aria-hidden="true" className="mb-1.5 flex-shrink-0" style={{ color: '#C9A84C' }}>
+          <path d="M1 6h18M14.5 1.5L20 6l-5.5 4.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+        <span className="font-barlow font-bold text-4xl md:text-5xl leading-none" style={goldText}>
+          {nach}
+        </span>
+      </div>
+
+      {/* Balken: die volle Breite ist das Ausgangsgewicht, der goldene Teil das
+          heutige. Kein Diagramm, nur das Verhaeltnis — alles andere waere
+          Ausschmueckung um zwei Zahlen herum. */}
+      {anteil && (
+        <div className="flex flex-col gap-4">
+          {[
+            { label: 'Vorher', breite: 100, farbe: 'rgba(255,255,255,0.14)', schein: undefined },
+            { label: 'Danach', breite: anteil, farbe: 'linear-gradient(90deg, #B8832A, #F2D27A)', schein: '0 0 14px rgba(201,168,76,0.35)' },
+          ].map((b) => (
+            <div key={b.label} className="flex flex-col gap-1.5">
+              <span className="font-inter text-xs font-semibold uppercase tracking-widest" style={{ color: '#7B8792' }}>
+                {b.label}
+              </span>
+              <span className="block h-2.5 rounded-full overflow-hidden" style={{ background: 'rgba(255,255,255,0.08)' }}>
+                <span className="block h-full rounded-full" style={{ width: `${b.breite}%`, background: b.farbe, boxShadow: b.schein }} />
+              </span>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  )
 }
 
 /**
@@ -98,10 +177,17 @@ function Haken({ id }: { id: string }) {
 }
 
 export default function LandingFallstudien({
+  label,
   headline,
+  headlineAccent,
+  intro,
   fallstudien,
 }: {
+  /** Mit Label steht die Ueberschrift im Stil der uebrigen Sektionen, ohne im Stil der Landingpage */
+  label?: string
   headline?: string
+  headlineAccent?: string
+  intro?: string
   fallstudien: LandingFallstudie[]
 }) {
   return (
@@ -139,11 +225,33 @@ export default function LandingFallstudien({
       </svg>
 
       <div className="relative max-w-7xl mx-auto px-4 md:px-8 py-16 md:py-24">
-        {headline && (
+        {headline && (label || headlineAccent || intro ? (
+          <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16 animate-fade-up">
+            {label && (
+              <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-4" style={goldText}>
+                {label}
+              </p>
+            )}
+            <h2 className="font-barlow font-bold text-3xl md:text-5xl leading-tight mb-5" style={{ color: '#E6E8EB' }}>
+              {headline}
+              {headlineAccent && (
+                <>
+                  {' '}
+                  <span style={goldText}>{headlineAccent}</span>
+                </>
+              )}
+            </h2>
+            {intro && (
+              <p className="font-inter text-base md:text-lg leading-relaxed" style={{ color: '#A6B0BA' }}>
+                {intro}
+              </p>
+            )}
+          </div>
+        ) : (
           <h2 className="font-barlow font-bold text-3xl md:text-5xl leading-[1.35] text-center mb-12 md:mb-16" style={{ color: '#E6E8EB' }}>
             <ScrollUnterstrich>{headline}</ScrollUnterstrich>
           </h2>
-        )}
+        ))}
 
         <div className="flex flex-col gap-10">
         {fallstudien.map((fs, idx) => (
@@ -189,6 +297,29 @@ export default function LandingFallstudien({
                       untereinander, mitlaufende Animationen wuerden unruhig wirken. */}
                   <span className="unterstrich-fest">{fs.ueberschrift}</span>
                 </h3>
+
+                {(fs.ausgangspunkt || fs.prozess) && (
+                  <div className="flex flex-col gap-5 mb-8">
+                    {[
+                      { label: 'Ausgangspunkt', text: fs.ausgangspunkt },
+                      { label: 'Der Weg dahin', text: fs.prozess },
+                    ].map(({ label, text }) =>
+                      text ? (
+                        <div key={label}>
+                          <p className="font-barlow font-bold text-sm uppercase tracking-wider mb-1.5" style={goldText}>
+                            {label}:
+                          </p>
+                          <p className="font-inter text-sm md:text-base leading-relaxed" style={{ color: '#A6B0BA' }}>
+                            {text}
+                          </p>
+                        </div>
+                      ) : null
+                    )}
+                    <p className="font-barlow font-bold text-sm uppercase tracking-wider -mb-2" style={goldText}>
+                      Ergebnis:
+                    </p>
+                  </div>
+                )}
 
                 <ul className="flex flex-col gap-5">
                   {fs.ergebnisse.map((e, i) => (
@@ -262,7 +393,36 @@ export default function LandingFallstudien({
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img src={fs.bild} alt={fs.name} className="absolute inset-0 w-full h-full object-cover" style={{ objectPosition: 'center 22%' }} />
                     </div>
+                  ) : fs.gewichtVon && fs.gewichtNach ? (
+                    <ZahlenPanel von={fs.gewichtVon} nach={fs.gewichtNach} />
                   ) : null}
+
+                  {fs.zitat && (
+                    <blockquote
+                      className="px-6 py-6 md:px-8"
+                      style={{ borderTop: '1px solid rgba(201,168,76,0.18)' }}
+                    >
+                      <p className="font-inter italic text-base leading-relaxed" style={{ color: '#D4D9DF' }}>
+                        &bdquo;{fs.zitat}&ldquo;
+                      </p>
+                      {fs.zitatQuelle && (
+                        <footer className="font-inter text-xs uppercase tracking-widest mt-3" style={{ color: '#7B8792' }}>
+                          {fs.zitatQuelle}
+                        </footer>
+                      )}
+                    </blockquote>
+                  )}
+
+                  {fs.notiz && (
+                    <div className="px-6 py-6 md:px-8" style={{ borderTop: '1px solid rgba(201,168,76,0.18)' }}>
+                      <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#7B8792' }}>
+                        {fs.notiz.label}
+                      </p>
+                      <p className="font-inter text-base leading-relaxed" style={{ color: '#D4D9DF' }}>
+                        {fs.notiz.text}
+                      </p>
+                    </div>
+                  )}
 
                 </div>
               </div>

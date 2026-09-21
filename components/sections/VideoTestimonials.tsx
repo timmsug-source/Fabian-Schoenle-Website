@@ -14,8 +14,9 @@ type VideoTestimonial = {
   zitat?: string
   /** Optionales LinkedIn-Profil — macht die Person überprüfbar. */
   linkedin?: string
-  vorher: string[]
-  nachher: string[]
+  /** Optional — ohne beide Listen zeigt die Karte nur Video und Zitat. */
+  vorher?: string[]
+  nachher?: string[]
 }
 
 type VideoTestimonialsProps = {
@@ -127,9 +128,14 @@ function TestimonialKarte({ video, index }: { video: VideoTestimonial; index: nu
         className="relative aspect-video rounded-xl overflow-hidden"
         style={{ background: '#060E1F', border: '1px solid rgba(201,168,76,0.28)' }}
       >
+        {/*
+          Ohne Poster-Bild haengt #t=0.1 am Pfad: Der Browser springt beim Laden
+          der Metadaten auf Sekunde 0.1 und zeichnet diesen Frame — sonst bliebe
+          die Flaeche schwarz.
+        */}
         <video
           ref={ref}
-          src={video.src}
+          src={video.poster ? video.src : `${video.src}#t=0.1`}
           poster={video.poster}
           className="absolute inset-0 w-full h-full object-cover"
           controls={laeuft}
@@ -212,6 +218,7 @@ function TestimonialKarte({ video, index }: { video: VideoTestimonial; index: nu
         hier ausprobiert und wieder verworfen: In den halb so breiten Spalten
         dieser Sektion wirkt sie gedrängt und der Text bricht zu oft um.
       */}
+      {(video.vorher?.length || video.nachher?.length) ? (
       <div
         className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-6 pt-6"
         style={{ borderTop: '1px solid rgba(201,168,76,0.18)' }}
@@ -221,7 +228,7 @@ function TestimonialKarte({ video, index }: { video: VideoTestimonial; index: nu
             Ausgangssituation
           </p>
           <ul className="flex flex-col gap-2.5">
-            {video.vorher.map((p, i) => (
+            {(video.vorher ?? []).map((p, i) => (
               <li key={i} className="flex gap-2.5">
                 <Kreuz />
                 <span className="font-inter text-sm leading-snug" style={{ color: '#98A4B1' }}>
@@ -241,7 +248,7 @@ function TestimonialKarte({ video, index }: { video: VideoTestimonial; index: nu
             Ergebnis
           </p>
           <ul className="flex flex-col gap-2.5">
-            {video.nachher.map((p, i) => (
+            {(video.nachher ?? []).map((p, i) => (
               <li key={i} className="flex gap-2.5">
                 <Haken id={`vt-haken-${index}-${i}`} />
                 <span className="font-inter text-sm leading-snug" style={{ color: '#C4CAD2' }}>
@@ -252,6 +259,7 @@ function TestimonialKarte({ video, index }: { video: VideoTestimonial; index: nu
           </ul>
         </div>
       </div>
+      ) : null}
     </div>
   )
 }
