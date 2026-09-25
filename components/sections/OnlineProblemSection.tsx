@@ -1,4 +1,5 @@
 import SectionLabel from '@/components/ui/SectionLabel'
+import VideoPlayerBox from '@/components/ui/VideoPlayerBox'
 
 type Problem = {
   titel: string
@@ -17,6 +18,20 @@ type OnlineProblemSectionProps = {
   /** Zitat unter der Grafik — ordnet das Bild ein, bevor die Lösung folgt. */
   zitat?: string
   zitatAutor?: string
+  /**
+   * Optionales Video unter den Problemen — gleiche Anordnung wie in der
+   * Problem-Sektion der Karlsruher Seite: Text links, Video rechts. Es steht
+   * bewusst hier und nicht bei der Lösung: An dieser Stelle fragt man sich,
+   * woran es liegt, und genau das beantwortet das Video.
+   */
+  videoId?: string
+  /** Lokales Vorschaubild — kein Abruf bei Google beim Seitenaufruf */
+  videoPosterSrc?: string
+  videoTitle?: string
+  videoLabel?: string
+  videoHeadline?: string
+  videoBody?: string
+  videoPoints?: string[]
 }
 
 const goldText = {
@@ -186,6 +201,13 @@ export default function OnlineProblemSection({
   grafik = 'regler',
   zitat,
   zitatAutor = 'Fabian Schönle',
+  videoId,
+  videoPosterSrc,
+  videoTitle,
+  videoLabel,
+  videoHeadline,
+  videoBody,
+  videoPoints,
 }: OnlineProblemSectionProps) {
   return (
     <section className="relative overflow-hidden" style={{ background: '#060E1F' }}>
@@ -263,6 +285,92 @@ export default function OnlineProblemSection({
           </div>
 
         </div>
+
+        {/*
+          Video unter den Problemen — Text links, Video rechts.
+
+          Der Abstand nach oben ist so gewaehlt, dass er dem Abstand nach unten
+          entspricht: 96 Pixel Innenabstand dieser Sektion plus 96 der naechsten
+          ergeben 192, auf dem Handy jeweils 64, also 128.
+        */}
+        {videoId && videoPosterSrc && (
+          <div
+            className="animate-fade-up relative rounded-3xl p-6 md:p-12 mt-32 md:mt-48"
+            style={{
+              background: 'linear-gradient(135deg, #0D1829 0%, #0B1525 100%)',
+              border: '1px solid rgba(201,168,76,0.3)',
+              boxShadow: 'inset 0 1px 0 rgba(232,212,154,0.05), 0 0 24px rgba(201,168,76,0.12)',
+            }}
+          >
+            {/* Rastermuster wie im Rahmen der App-Sektion weiter unten: feines
+                Gitter plus Diagonalen, beides in Weiss. */}
+            <div className="absolute inset-0 rounded-3xl overflow-hidden pointer-events-none">
+              <svg
+                className="absolute inset-0 w-full h-full"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+                preserveAspectRatio="none"
+              >
+                <defs>
+                  <pattern id="op-video-grid" width="60" height="60" patternUnits="userSpaceOnUse">
+                    <path d="M 60 0 L 0 0 0 60" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="1" />
+                  </pattern>
+                  <pattern id="op-video-diag" width="60" height="60" patternUnits="userSpaceOnUse">
+                    <line x1="0" y1="60" x2="60" y2="0" stroke="rgba(255,255,255,0.04)" strokeWidth="1" />
+                  </pattern>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#op-video-grid)" />
+                <rect width="100%" height="100%" fill="url(#op-video-diag)" />
+              </svg>
+            </div>
+
+            <div className="relative grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 items-center">
+            <div>
+              {videoLabel && (
+                <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-3" style={goldText}>
+                  {videoLabel}
+                </p>
+              )}
+              {videoHeadline && (
+                <h3 className="font-barlow font-bold text-xl md:text-2xl leading-tight mb-3" style={{ color: '#E6E8EB' }}>
+                  {videoHeadline}
+                </h3>
+              )}
+              {videoBody && (
+                <p className="font-inter text-sm md:text-base leading-relaxed" style={{ color: '#98A4B1' }}>
+                  {videoBody}
+                </p>
+              )}
+
+              {videoPoints && videoPoints.length > 0 && (
+                <ul className="flex flex-col gap-2.5 mt-5">
+                  {videoPoints.map((punkt) => (
+                    <li key={punkt} className="flex gap-3">
+                      {/* Pfeil statt Haken: die Punkte sind Themen des Videos, keine Vorteile */}
+                      <span className="flex-shrink-0 flex items-center h-6">
+                        <svg width="18" height="12" viewBox="0 0 18 12" fill="none" aria-hidden="true">
+                          <path
+                            d="M1 6h13M10.5 1.5L16 6l-5.5 4.5"
+                            stroke="#C9A84C"
+                            strokeWidth="1.8"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                      </span>
+                      <span className="font-inter text-sm md:text-base leading-relaxed" style={{ color: '#98A4B1' }}>
+                        {punkt}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+
+            <VideoPlayerBox videoId={videoId} posterSrc={videoPosterSrc} title={videoTitle} />
+            </div>
+          </div>
+        )}
       </div>
     </section>
   )

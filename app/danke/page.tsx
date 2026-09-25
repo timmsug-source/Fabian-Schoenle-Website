@@ -27,7 +27,7 @@ export const metadata: Metadata = {
 }
 
 const bausteine = [
-  <>Wir schauen gemeinsam an, <strong>was deine Leistungsfähigkeit gerade begrenzt</strong> — statt zu raten, woran es liegen könnte.</>,
+  <>Wir schauen gemeinsam an, <strong>was deine Leistungsfähigkeit gerade begrenzt</strong>.</>,
   <>Nicht zwanzig Baustellen, sondern <strong>die zwei, drei Stellschrauben</strong>, die bei dir den Unterschied machen.</>,
   <>Du gehst mit <strong>konkreten nächsten Schritten</strong> aus dem Gespräch — unabhängig davon, ob wir zusammenarbeiten.</>,
 ]
@@ -198,8 +198,13 @@ export default function DankePage() {
 
       <section className="relative max-w-7xl mx-auto px-4 md:px-8 pt-8 pb-16 md:pb-24">
         <h1 className="font-barlow font-bold text-3xl md:text-5xl leading-[1.45] text-center max-w-5xl mx-auto mb-12 md:mb-16" style={{ color: '#E6E8EB' }}>
-          Als Mann ab 30 trotz vollem Kalender zurück zu{' '}
-          <span style={markerText}>stabiler Energie, klarem Kopf</span> und einem Körper, der mitmacht
+          {/* Setzt fort, was /danke2 versprochen hat: Dort ging es um die 12 kg
+              in 4 Monaten, hier kommt die Einlösung. Deshalb keine Wiederholung
+              der Zusage, sondern der nächste Schritt — im selben Format und mit
+              derselben Markierung. */}
+          Dein Video ist freigeschaltet:{' '}
+          <span style={markerText}>So funktioniert das System</span> hinter den 12 kg, und so
+          sieht dein erster Schritt aus
         </h1>
 
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
@@ -207,8 +212,8 @@ export default function DankePage() {
 
           <div>
             <p className="font-inter text-base md:text-lg leading-relaxed mb-8" style={{ color: '#C6CDD5' }}>
-              Wenn du wissen willst, was das konkret für dich bedeutet, sichere dir hier deine
-              kostenlose Performance-Analyse.
+              Schau dir das Video in Ruhe an. Wenn du danach wissen willst, welche Hebel bei dir
+              konkret zählen, sicher dir deine kostenlose Performance-Analyse.
             </p>
 
             <CtaKnopf />

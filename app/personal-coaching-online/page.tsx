@@ -110,6 +110,17 @@ export default async function PersonalCoachingOnlinePage() {
             text: 'Empfehlungen auf Verdacht, ohne dass je ein Blutwert auf dem Tisch lag. Damit bleibt offen, ob überhaupt an der richtigen Stelle gedreht wird.',
           },
         ]}
+        videoId="L0IFQexW1Ss"
+        videoPosterSrc="/images/video-thumb-L0IFQexW1Ss.jpg"
+        videoTitle="Metabolische Flexibilität: Warum dein Körper zwischen Fett- und Zuckerverbrennung wechseln muss — Video von Fabian Schönle"
+        videoLabel="Das steckt dahinter"
+        videoHeadline="Warum dein Körper zwischen Fett und Zucker wechseln können muss."
+        videoBody="Metabolische Flexibilität entscheidet mit, ob du nachmittags einbrichst oder durchziehst — und ob dein Körper an die eigenen Fettreserven kommt. Ich erkläre dir, was dahintersteckt und woran du erkennst, dass es bei dir gerade nicht funktioniert."
+        videoPoints={[
+          'Was metabolische Flexibilität im Alltag konkret bedeutet',
+          'Welche Anzeichen dafür sprechen, dass dein Stoffwechsel festhängt',
+          'Warum sich das nur mit Daten statt mit Vermutungen klären lässt',
+        ]}
       />
 
       {/* Vorherige Programm-Sektion — vorerst ausgeblendet, ersetzt durch

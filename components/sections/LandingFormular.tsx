@@ -1,16 +1,23 @@
 'use client'
 
 import Image from 'next/image'
-import KontaktFormular, { type KontaktFormularProps } from '@/components/ui/KontaktFormular'
+import KundenReihe from '@/components/ui/KundenReihe'
+import { CALENDLY_URL } from '@/lib/constants'
 
 /**
- * Abschluss der Werbelandingpage: links das Formular, rechts die Argumente.
+ * Abschluss der Werbelandingpage: links der Weg zum Termin, rechts die
+ * Argumente.
  *
- * Die Eingabemaske selbst steht in KontaktFormular — sie wird auch im Popup
- * der vorgeschalteten Seite gebraucht.
+ * Kein Formular mehr an dieser Stelle: Wer hier ankommt, hat seine Angaben auf
+ * der vorgeschalteten Seite schon gemacht. Ein zweites Mal danach zu fragen
+ * kostet nur einen Schritt zwischen Entschluss und Termin.
+ *
+ * Auch kein eingebetteter Kalender, sondern ein Verweis: So wird beim
+ * Seitenaufruf nichts von Calendly geladen, es geht also keine Anfrage dorthin
+ * ohne Zutun des Besuchers.
  */
 
-type LandingFormularProps = KontaktFormularProps & {
+type LandingFormularProps = {
   /** Anker fuer einen Knopf weiter oben auf der Seite */
   id?: string
   titel?: string
@@ -22,13 +29,6 @@ const punkte = [
   <>Du bekommst <strong>die zwei, drei Hebel</strong>, die bei dir zählen, statt einer Liste mit zwanzig Baustellen.</>,
   <>Du gehst mit <strong>konkreten nächsten Schritten</strong> heraus — unabhängig davon, ob wir zusammenarbeiten.</>,
   <>Kein Verkaufsgespräch, kein Vertrag. <strong>20 Minuten, kostenlos.</strong></>,
-]
-
-const kunden = [
-  { src: '/images/kunde-gregory.png', name: 'Gregory' },
-  { src: '/images/kunde-axel.png', name: 'Axel' },
-  { src: '/images/kunde-hansherbert.png', name: 'Hans-Herbert' },
-  { src: '/images/kunde-matthias.png', name: 'Matthias' },
 ]
 
 function Haken({ id }: { id: string }) {
@@ -54,7 +54,6 @@ export default function LandingFormular({
   id,
   titel = 'Sichere dir deine kostenlose Performance-Analyse',
   intro = '20 Minuten mit mir persönlich, in denen wir anschauen, woran es bei dir gerade hakt — und was die nächsten sinnvollen Schritte sind.',
-  ...formular
 }: LandingFormularProps = {}) {
   return (
     <section id={id} className="max-w-7xl mx-auto px-4 md:px-8 py-16 md:py-24 scroll-mt-8">
@@ -69,9 +68,46 @@ export default function LandingFormular({
 
       <div className="grid lg:grid-cols-2 gap-8 lg:gap-14 items-center">
 
-        {/* Formular */}
-        <div className="leistung-card rounded-2xl p-7 md:p-10">
-          <KontaktFormular {...formular} />
+        {/* Weg zum Termin: Calendly, in einem neuen Tab */}
+        <div className="leistung-card rounded-2xl px-7 py-10 md:px-10 md:py-14 flex flex-col items-center text-center">
+          {/* Das Logo zeigt vor dem Klick, wo der Termin landet. Die
+              mitgelieferte Datei hatte einen weissen Grund mit eingebackenem
+              Karomuster — beides ist herausgerechnet, damit es auf dem dunklen
+              Kasten steht. */}
+          <Image
+            src="/images/calendly-logo.png"
+            alt="Calendly"
+            width={296}
+            height={72}
+            className="h-9 md:h-10 w-auto mb-7"
+          />
+
+          <p className="font-barlow font-bold text-2xl md:text-3xl leading-snug mb-3" style={{ color: '#E6E8EB' }}>
+            Such dir deinen Termin aus
+          </p>
+          <p className="font-inter text-sm md:text-base leading-relaxed mb-8 max-w-sm" style={{ color: '#A6B0BA' }}>
+            Du siehst meine freien Zeiten und buchst in unter einer Minute. Bestätigung kommt
+            sofort per E-Mail.
+          </p>
+
+          <a
+            href={CALENDLY_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="cta-metal flex w-full max-w-[420px] items-center justify-center gap-3 px-6 py-4 rounded-xl font-barlow font-semibold text-lg transition-transform"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+              <line x1="16" y1="2" x2="16" y2="6" />
+              <line x1="8" y1="2" x2="8" y2="6" />
+              <line x1="3" y1="10" x2="21" y2="10" />
+            </svg>
+            Kostenlose Performance-Analyse sichern
+          </a>
+
+          <p className="font-inter text-xs mt-4" style={{ color: '#7B8792' }}>
+            Öffnet Calendly in einem neuen Tab · 20 Minuten · kostenlos
+          </p>
         </div>
 
         {/* Argumente und Vertrauen */}
@@ -87,40 +123,7 @@ export default function LandingFormular({
             ))}
           </ul>
 
-          <div className="flex items-center gap-4">
-            <div className="flex">
-              {kunden.map((k, i) => (
-                <span
-                  key={k.src}
-                  className="relative rounded-full overflow-hidden"
-                  style={{
-                    width: 42,
-                    height: 42,
-                    marginLeft: i === 0 ? 0 : -12,
-                    border: '2px solid #0B1525',
-                    // Ring nach innen, damit die Reihe buendig mit dem Knopf darueber steht:
-                    // ein aeusserer Schatten zaehlt nicht zum Layout und ragte daher heraus.
-                    boxShadow: 'inset 0 0 0 1px rgba(201,168,76,0.35)',
-                    zIndex: kunden.length - i,
-                  }}
-                >
-                  <Image src={k.src} alt={`${k.name} — Klient von Fabian Schönle`} width={160} height={160} className="w-full h-full object-cover" />
-                </span>
-              ))}
-            </div>
-            <div>
-              <div className="flex gap-0.5 mb-1" aria-hidden="true">
-                {[0, 1, 2, 3, 4].map((i) => (
-                  <svg key={i} width="15" height="15" viewBox="0 0 20 20" fill="#C9A84C">
-                    <path d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8L1.5 7.7l5.9-.9z" />
-                  </svg>
-                ))}
-              </div>
-              <p className="font-inter text-sm" style={{ color: '#C6CDD5' }}>
-                <span className="font-semibold" style={{ color: '#E8D49A' }}>40+</span> zufriedene Kunden
-              </p>
-            </div>
-          </div>
+          <KundenReihe sterne />
         </div>
 
       </div>

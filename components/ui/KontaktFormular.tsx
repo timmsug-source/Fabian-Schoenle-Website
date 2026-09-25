@@ -44,6 +44,7 @@ export default function KontaktFormular({
 }: KontaktFormularProps) {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
+  const [telefon, setTelefon] = useState('')
   const [consent, setConsent] = useState(false)
   const [sendet, setSendet] = useState(false)
   const [fehler, setFehler] = useState<string | null>(null)
@@ -52,6 +53,10 @@ export default function KontaktFormular({
     e.preventDefault()
     if (!name.trim()) { setFehler('Bitte gib deinen Namen an.'); return }
     if (!/.+@.+\..+/.test(email)) { setFehler('Bitte gib eine gültige E-Mail-Adresse an.'); return }
+    // Nur zaehlen, ob genug Ziffern da sind: Schreibweisen wie +49 170 1234567
+    // oder 0170/1234567 sind alle in Ordnung, eine strengere Pruefung wuerde
+    // nur gueltige Nummern abweisen.
+    if ((telefon.match(/\d/g) ?? []).length < 6) { setFehler('Bitte gib deine Telefonnummer an.'); return }
     if (!consent) { setFehler('Bitte stimme der Datenschutzerklärung zu.'); return }
 
     setFehler(null)
@@ -60,7 +65,7 @@ export default function KontaktFormular({
       await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, schwerpunkt: quelle }),
+        body: JSON.stringify({ name, email, telefon, schwerpunkt: quelle }),
       })
     } catch {
       // bewusst ignoriert — der Termin ist wichtiger, siehe Kommentar oben
@@ -100,6 +105,17 @@ export default function KontaktFormular({
           onChange={(e) => { setEmail(e.target.value); setFehler(null) }}
           placeholder="Deine E-Mail-Adresse"
           autoComplete="email"
+          className="w-full rounded-xl px-5 py-4 font-inter text-sm md:text-base outline-none focus:border-[rgba(201,168,76,0.65)] transition-colors"
+          style={feldStil}
+        />
+
+        <input
+          type="tel"
+          value={telefon}
+          onChange={(e) => { setTelefon(e.target.value); setFehler(null) }}
+          placeholder="Deine Telefonnummer"
+          autoComplete="tel"
+          inputMode="tel"
           className="w-full rounded-xl px-5 py-4 font-inter text-sm md:text-base outline-none focus:border-[rgba(201,168,76,0.65)] transition-colors"
           style={feldStil}
         />

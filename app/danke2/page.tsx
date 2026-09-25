@@ -154,18 +154,12 @@ export default function Danke2Page() {
           Kostenloses Video für Unternehmer &amp; Führungskräfte
         </p>
 
-        {/* Gewichtswechsel wie in der Vorlage: die Ueberschrift laeuft in der
-            leichten Schnittstaerke, fett stehen nur die Stellen, die haengen
-            bleiben sollen. Dazu eine Markierung auf der Zahl und ein Strich
-            unter dem Einwand, den die meisten im Kopf haben. */}
-        <h1 className="font-barlow font-normal text-3xl md:text-5xl leading-[1.35] md:leading-[1.3] mb-10 md:mb-12" style={{ color: '#E6E8EB' }}>
-          <strong className="font-bold">EXKLUSIV</strong>: Wie du als{' '}
-          <strong className="font-bold">Unternehmer und Führungskraft</strong> innerhalb von{' '}
-          <strong className="font-bold">4 Monaten</strong>{' '}
-          <span style={markerText}>durchschnittlich 12 kg Körperfett</span> verlierst und deine{' '}
-          <strong className="font-bold">mentale und körperliche Leistungsfähigkeit</strong> verbesserst —{' '}
-          <span className="unterstrich-fest">ohne Diät, Verzicht</span> und ohne die Familie
-          hintenanzustellen
+        {/* Gleiches Format wie die Überschrift auf /danke: durchgehend fett,
+            mittig, und eine Markierung auf der Zahl. */}
+        <h1 className="font-barlow font-bold text-3xl md:text-5xl leading-[1.45] text-center max-w-5xl mx-auto mb-10 md:mb-12" style={{ color: '#E6E8EB' }}>
+          EXKLUSIV: Wie du als Unternehmer und Führungskraft innerhalb von 4 Monaten{' '}
+          <span style={markerText}>durchschnittlich 12 kg Körperfett</span> verlierst und deine
+          mentale und körperliche Leistungsfähigkeit verbesserst
         </h1>
 
         <LandingOptIn
@@ -175,7 +169,7 @@ export default function Danke2Page() {
           knopfUnterzeile="Du siehst das Video direkt im Anschluss"
           formular={{
             kartenLabel: 'Angaben machen & Video ansehen',
-            kartenTitel: 'Zwei Angaben, dann geht es los',
+            kartenTitel: 'Kurz eintragen, dann geht es los',
             knopfLabel: 'Absenden & Video ansehen',
             weiterLeitungZu: NACH_DEM_ABSENDEN,
             quelle: 'Video-Landingpage (Werbeanzeige)',

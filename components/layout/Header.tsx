@@ -75,8 +75,8 @@ export default function Header() {
               <a
                 key={link.href}
                 href={link.href}
-                className="font-inter text-sm transition-colors hover:opacity-100"
-                style={{ color: '#AEB5BE' }}
+                className="font-inter text-base transition-colors hover:opacity-100"
+                style={{ color: '#FFFFFF' }}
               >
                 {link.label}
               </a>
@@ -141,8 +141,8 @@ export default function Header() {
                 key={link.href}
                 href={link.href}
                 onClick={() => setMenuOpen(false)}
-                className="font-inter text-sm py-3 transition-colors"
-                style={{ color: '#AEB5BE', borderBottom: '1px solid rgba(201,168,76,0.08)' }}
+                className="font-inter text-base py-3 transition-colors"
+                style={{ color: '#FFFFFF', borderBottom: '1px solid rgba(201,168,76,0.08)' }}
               >
                 {link.label}
               </a>
