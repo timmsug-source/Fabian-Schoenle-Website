@@ -252,12 +252,10 @@ export default async function PersonalCoachingOnlinePage() {
         headline="Was das Coaching bei mir"
         headlineAccent="ausmacht."
         intro="Personal Coaching online heißt bei mir nicht, dass du zwischen unseren Gesprächen allein läufst. In der App liegt alles an einer Stelle — und ich sehe, was bei dir passiert, ohne dass du Listen führen musst."
+        stapeln
         bloecke={[
           {
-            src: '/images/app-dashboard-checkin.png',
-            alt: 'Dashboard der Coaching-App mit wöchentlichem Check-In, Kalorien- und Makroübersicht',
-            breite: 1320,
-            hoehe: 2868,
+            grafik: 'app',
             icon: 'rezept',
             titel: 'Dein Tag, ohne Zettelwirtschaft',
             text: 'Mahlzeiten, Makros, Wasser — alles an einer Stelle statt in drei Apps und einer Notiz. Die hinterlegten Rezepte passen zu deinen Werten und zu dem, was du realistisch kochst.',
@@ -268,10 +266,7 @@ export default async function PersonalCoachingOnlinePage() {
             ],
           },
           {
-            src: '/images/app-gewichtstracking.png',
-            alt: 'Gewichtsverlauf der letzten zehn Tage als Kurve, daneben der Reiter für Check-Ins',
-            breite: 1320,
-            hoehe: 2868,
+            grafik: 'verlauf',
             icon: 'waage',
             titel: 'Verlauf statt Momentaufnahme',
             text: 'Ein einzelner Wert auf der Waage sagt wenig — die Richtung über Wochen sagt alles. Dazu ein kurzer Fragebogen pro Woche, in dem steht, was die Zahlen nicht zeigen.',
@@ -282,10 +277,7 @@ export default async function PersonalCoachingOnlinePage() {
             ],
           },
           {
-            src: '/images/app-trainingsplan.png',
-            alt: 'Trainingsplan der Woche mit drei Einheiten und Angabe der nächsten Ausführung',
-            breite: 1320,
-            hoehe: 2868,
+            grafik: 'trainingsplan',
             icon: 'training',
             titel: 'Trainingsplan mit Tracking',
             text: 'Deine Einheiten liegen in der App, samt Gewichten und Wiederholungen. Du siehst deinen Fortschritt schwarz auf weiß — und ich sehe, ob der Plan noch zu deiner Woche passt.',

@@ -1,15 +1,18 @@
 import Image from 'next/image'
 import SectionLabel from '@/components/ui/SectionLabel'
+import BegleitungGrafik, { type BegleitungGrafikName } from '@/components/ui/BegleitungGrafiken'
 
 export type MerkmalIcon = 'video' | 'rezept' | 'training' | 'waage' | 'fragebogen' | 'uhr'
 
 /** Ein Bild mit dem Text, der zu genau diesem Bild gehört. */
 type Block = {
-  src: string
-  alt: string
+  /** Zeichnung statt Bildschirmfoto — dann entfallen src, alt und die Maße */
+  grafik?: BegleitungGrafikName
+  src?: string
+  alt?: string
   /** Echte Bildmaße — nötig, damit next/image die Fläche vorab reservieren kann. */
-  breite: number
-  hoehe: number
+  breite?: number
+  hoehe?: number
   icon: MerkmalIcon
   titel: string
   text: string
@@ -29,6 +32,12 @@ type CoachingAppSectionProps = {
   headlineAccent?: string
   intro?: string
   bloecke: Block[]
+  /**
+   * Legt die Blöcke beim Scrollen übereinander: Jeder bleibt kurz stehen und
+   * wird vom nächsten überdeckt. Ohne die Angabe laufen sie wie bisher
+   * untereinander durch.
+   */
+  stapeln?: boolean
   /** Eigenständige Karte unter dem Rahmen — eine Zahl, die für sich steht. */
   kennzahl?: {
     label: string
@@ -117,10 +126,13 @@ export default function CoachingAppSection({
   headlineAccent,
   intro,
   bloecke,
+  stapeln = false,
   kennzahl,
 }: CoachingAppSectionProps) {
   return (
-    <section className="relative overflow-hidden" style={{ background: '#060E1F' }}>
+    /* Kein overflow-hidden: Das wuerde das Kleben der Bloecke beim Scrollen
+       unterbinden — ein abschneidender Vorfahre schaltet position:sticky ab. */
+    <section className="relative" style={{ background: '#060E1F' }}>
       <div className="max-w-7xl mx-auto px-4 md:px-8 py-16 md:py-24">
 
         <div className="animate-fade-up text-center max-w-3xl mx-auto mb-14 md:mb-20">
@@ -152,18 +164,27 @@ export default function CoachingAppSection({
           duenne Linie.
         */}
         <div
-          className="animate-fade-up relative rounded-3xl p-6 md:p-12 flex flex-col"
-          style={{
-            background: 'linear-gradient(135deg, #0D1829 0%, #0B1525 100%)',
-            border: '1px solid rgba(201,168,76,0.3)',
-            boxShadow: 'inset 0 1px 0 rgba(232,212,154,0.05), 0 0 24px rgba(201,168,76,0.12)',
-          }}
+          className={
+            stapeln
+              ? 'animate-fade-up relative flex flex-col'
+              : 'animate-fade-up relative rounded-3xl p-6 md:p-12 flex flex-col'
+          }
+          style={
+            stapeln
+              ? undefined
+              : {
+                  background: 'linear-gradient(135deg, #0D1829 0%, #0B1525 100%)',
+                  border: '1px solid rgba(201,168,76,0.3)',
+                  boxShadow: 'inset 0 1px 0 rgba(232,212,154,0.05), 0 0 24px rgba(201,168,76,0.12)',
+                }
+          }
         >
           {/*
             Rastermuster wie in den Sektionen der Startseite: feines Gitter plus
             Diagonalen, beides in Weiss. Gold war hier zuerst im Einsatz und auf
             dem dunklen Grund praktisch nicht zu sehen.
           */}
+          {!stapeln && (
           <div className="absolute inset-0 rounded-3xl overflow-hidden pointer-events-none">
             <svg
               className="absolute inset-0 w-full h-full"
@@ -183,27 +204,48 @@ export default function CoachingAppSection({
               <rect width="100%" height="100%" fill="url(#ca-bg-diag)" />
             </svg>
           </div>
+          )}
 
           {bloecke.map((b, i) => (
             <div
-              key={b.src}
-              className={`relative flex flex-col gap-8 md:gap-14 lg:items-center ${
-                i % 2 === 1 ? 'lg:flex-row-reverse' : 'lg:flex-row'
-              } ${i > 0 ? 'mt-12 md:mt-16 pt-12 md:pt-16' : ''}`}
-              style={i > 0 ? { borderTop: '1px solid rgba(201,168,76,0.18)' } : undefined}
+              key={b.src ?? b.grafik}
+              className={
+                stapeln
+                  ? 'sticky flex flex-col gap-8 md:gap-14 lg:flex-row lg:items-center rounded-3xl p-6 md:p-10 mb-6 md:mb-8 last:mb-0'
+                  : `relative flex flex-col gap-8 md:gap-14 lg:items-center ${
+                      i % 2 === 1 ? 'lg:flex-row-reverse' : 'lg:flex-row'
+                    } ${i > 0 ? 'mt-12 md:mt-16 pt-12 md:pt-16' : ''}`
+              }
+              style={
+                stapeln
+                  ? {
+                      /* Jede Karte klebt ein Stueck tiefer als die vorige, damit
+                         von der darunterliegenden ein Rand sichtbar bleibt. */
+                      top: `calc(6rem + ${i * 14}px)`,
+                      background: 'linear-gradient(135deg, #0D1829 0%, #0B1525 100%)',
+                      border: '1px solid rgba(201,168,76,0.3)',
+                      boxShadow:
+                        'inset 0 1px 0 rgba(232,212,154,0.05), 0 -12px 40px rgba(6,14,31,0.75), 0 0 24px rgba(201,168,76,0.12)',
+                    }
+                  : i > 0
+                    ? { borderTop: '1px solid rgba(201,168,76,0.18)' }
+                    : undefined
+              }
             >
               {/* Bild */}
               <div
                 className={`relative flex-shrink-0 mx-auto lg:mx-0 w-full ${
-                  b.quer ? 'lg:w-[46%]' : 'max-w-[260px]'
+                  b.grafik ? 'lg:w-[46%]' : b.quer ? 'lg:w-[46%]' : 'max-w-[260px]'
                 }`}
               >
-                {b.quer ? (
+                {b.grafik ? (
+                  <BegleitungGrafik name={b.grafik} />
+                ) : b.quer ? (
                   <Image
-                    src={b.src}
-                    alt={b.alt}
-                    width={b.breite}
-                    height={b.hoehe}
+                    src={b.src!}
+                    alt={b.alt ?? ''}
+                    width={b.breite!}
+                    height={b.hoehe!}
                     className="w-full h-auto"
                     sizes="(max-width: 1024px) 100vw, 46vw"
                   />
@@ -217,10 +259,10 @@ export default function CoachingAppSection({
                     }}
                   >
                     <Image
-                      src={b.src}
-                      alt={b.alt}
-                      width={b.breite}
-                      height={b.hoehe}
+                      src={b.src!}
+                      alt={b.alt ?? ''}
+                      width={b.breite!}
+                      height={b.hoehe!}
                       className="w-full h-auto"
                       sizes="260px"
                     />
@@ -230,7 +272,9 @@ export default function CoachingAppSection({
 
               {/* Text zum Screenshot */}
               <div className="flex-1 min-w-0">
-                <span className="block mb-4">{MERKMAL_ICONS[b.icon]}</span>
+                {/* Symbol nur in der durchlaufenden Fassung. In den gestapelten
+                    Karten trägt die Zeichnung daneben die Aussage schon. */}
+                {!stapeln && <span className="block mb-4">{MERKMAL_ICONS[b.icon]}</span>}
                 <h3 className="font-barlow font-bold text-2xl md:text-4xl mb-4" style={{ color: '#E6E8EB' }}>
                   {b.titel}
                 </h3>
