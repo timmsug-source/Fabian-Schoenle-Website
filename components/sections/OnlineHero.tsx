@@ -121,7 +121,11 @@ export default function OnlineHero({
 
           {/* Bild oben — nur Mobile */}
           <div className="lg:hidden relative w-full aspect-[4/3] rounded-xl overflow-hidden mb-8">
-            <Image src={imageSrc} alt={imageAlt} fill className="object-cover object-center" sizes="100vw" priority />
+            {/* Der Kasten ist hoechstens 672 px breit (max-w-2xl). Mit 100vw
+                fragte das Vorabladen am Desktop eine zweite, viel groessere
+                Variante an als das Desktop-Bild, obwohl dieses hier dort gar
+                nicht sichtbar ist. So landen beide meist auf derselben Datei. */}
+            <Image src={imageSrc} alt={imageAlt} fill className="object-cover object-center" sizes="(max-width: 704px) 100vw, 672px" priority />
             <div className="absolute inset-x-0 bottom-0 h-16 pointer-events-none" style={{ background: 'linear-gradient(to bottom, transparent, #060E1F)' }} />
           </div>
 
