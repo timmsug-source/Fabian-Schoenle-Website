@@ -26,7 +26,13 @@ const START = 0.9
 const ENDE = 0.45
 const DICKE = 2
 
-export default function ScrollUnterstrich({ children }: { children: React.ReactNode }) {
+/**
+ * Standard ist der Goldverlauf der Seite; `farbe` ersetzt ihn, etwa rot fuer
+ * eine Abgrenzung. `schein` legt optional einen Glow (box-shadow) um den Strich.
+ */
+const GOLD = 'linear-gradient(90deg, #C9A84C, #E8D49A)'
+
+export default function ScrollUnterstrich({ children, farbe = GOLD, schein }: { children: React.ReactNode; farbe?: string; schein?: string }) {
   const boxRef = useRef<HTMLSpanElement>(null)
   const textRef = useRef<HTMLSpanElement>(null)
   const stricheRef = useRef<(HTMLSpanElement | null)[]>([])
@@ -131,7 +137,8 @@ export default function ScrollUnterstrich({ children }: { children: React.ReactN
             width: z.width,
             height: DICKE,
             borderRadius: 999,
-            background: 'linear-gradient(90deg, #C9A84C, #E8D49A)',
+            background: farbe,
+            boxShadow: schein,
             transform: 'scaleX(0)',
             transformOrigin: 'left center',
             pointerEvents: 'none',

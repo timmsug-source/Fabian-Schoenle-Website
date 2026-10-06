@@ -1,12 +1,12 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
-import { CALENDLY_URL, SITE_NAME, SITE_URL } from '@/lib/constants'
+import { SITE_NAME, SITE_URL } from '@/lib/constants'
 import LandingFallstudien from '@/components/sections/LandingFallstudien'
 import LandingVideo from '@/components/sections/LandingVideo'
 import ScrollUnterstrich from '@/components/ui/ScrollUnterstrich'
-import LandingFormular from '@/components/sections/LandingFormular'
-import KundenReihe from '@/components/ui/KundenReihe'
+import LandingTermin from '@/components/sections/LandingTermin'
+import FAQSection from '@/components/sections/FAQSection'
 
 /**
  * Landingpage für bezahlte Werbung (Meta). Läuft ohne Navigation — siehe
@@ -19,17 +19,42 @@ import KundenReihe from '@/components/ui/KundenReihe'
  * Seite soll trotzdem draußen bleiben.
  */
 export const metadata: Metadata = {
-  title: { absolute: `Kostenlose Performance-Analyse | ${SITE_NAME}` },
+  title: { absolute: `Dein Video | ${SITE_NAME}` },
   description:
-    'Datenbasiertes Coaching für Männer ab 30. Sichere dir eine kostenlose Performance-Analyse und finde heraus, welche Hebel bei dir wirklich zählen.',
+    'Wie du neben Job und Familie einen fitten Körper aufbaust, der auch in stressigen Phasen hält. Danach: kostenlose Performance-Analyse, 20 Minuten, online.',
   robots: { index: false, follow: false },
   alternates: { canonical: `${SITE_URL}/danke` },
 }
 
+/**
+ * Was die Analyse bringt. Bewusst ohne Versprechen zu Blutwerten: Die gibt es
+ * im kostenlosen Gespräch noch nicht, das Gespräch dreht sich um den Alltag.
+ */
 const bausteine = [
-  <>Wir schauen gemeinsam an, <strong>was deine Leistungsfähigkeit gerade begrenzt</strong>.</>,
-  <>Nicht zwanzig Baustellen, sondern <strong>die zwei, drei Stellschrauben</strong>, die bei dir den Unterschied machen.</>,
-  <>Du gehst mit <strong>konkreten nächsten Schritten</strong> aus dem Gespräch — unabhängig davon, ob wir zusammenarbeiten.</>,
+  <>Wir schauen auf <strong>deinen Alltag</strong>: Job, Familie, Essen, Bewegung, Schlaf.</>,
+  <>Wir klären, <strong>woran es bisher gehakt hat</strong>.</>,
+  <>Du gehst mit <strong>den ein, zwei Hebeln</strong> raus, mit denen du sofort anfangen kannst. Auch wenn wir nicht zusammenarbeiten.</>,
+]
+
+const nichtFuer = [
+  'Wenn du 10 Kilo in 6 Wochen willst.',
+  'Wenn du eine Radikaldiät suchst.',
+  'Wenn du an deinem Alltag gar nichts ändern möchtest.',
+]
+
+const fragen = [
+  {
+    frage: 'Kostet das etwas?',
+    antwort: 'Nein. Die Performance-Analyse ist kostenlos und unverbindlich.',
+  },
+  {
+    frage: 'Bist du Arzt?',
+    antwort: 'Nein. Ich bin Chemiker. Die Blutanalysen macht ein externes Labor, und ich stelle keine Diagnosen.',
+  },
+  {
+    frage: 'Ich habe gerade extrem viel um die Ohren. Passt das trotzdem?',
+    antwort: 'Ja. Genau dafür ist es gebaut: Der Plan richtet sich nach deinem Kalender, nicht umgekehrt.',
+  },
 ]
 
 const goldText = {
@@ -42,7 +67,7 @@ const goldText = {
 } as const
 
 /**
- * Markierung hinter einer Textstelle: ein Streifen genau so hoch wie die
+ * Markierung hinter einer Textstelle, hoechstens einmal pro Seite: ein Streifen genau so hoch wie die
  * Grossbuchstaben, im selben Goldverlauf wie die hervorgehobenen Woerter der
  * uebrigen Ueberschriften (siehe goldText).
  *
@@ -101,12 +126,14 @@ function Haken({ id }: { id: string }) {
   )
 }
 
-function CtaKnopf({ label = 'Kostenlose Performance-Analyse sichern' }: { label?: string }) {
+/**
+ * Fuehrt zum Kalender weiter unten auf derselben Seite, nicht in einen neuen
+ * Tab: Jeder Tabwechsel kostet Buchungen.
+ */
+function CtaKnopf({ label }: { label: string }) {
   return (
     <a
-      href={CALENDLY_URL}
-      target="_blank"
-      rel="noopener noreferrer"
+      href="#termin"
       className="cta-metal inline-flex items-center justify-center gap-3 px-8 py-4 rounded-xl font-inter font-semibold text-sm md:text-base transition-transform"
     >
       {label}
@@ -196,35 +223,40 @@ export default function DankePage() {
         </div>
       </header>
 
-      <section className="relative max-w-7xl mx-auto px-4 md:px-8 pt-8 pb-16 md:pb-24">
-        <h1 className="font-barlow font-bold text-3xl md:text-5xl leading-[1.45] text-center max-w-5xl mx-auto mb-12 md:mb-16" style={{ color: '#E6E8EB' }}>
-          {/* Setzt fort, was /danke2 versprochen hat: Dort ging es um die 12 kg
-              in 4 Monaten, hier kommt die Einlösung. Deshalb keine Wiederholung
-              der Zusage, sondern der nächste Schritt — im selben Format und mit
-              derselben Markierung. */}
-          Dein Video ist freigeschaltet:{' '}
-          <span style={markerText}>So funktioniert das System</span> hinter den 12 kg, und so
-          sieht dein erster Schritt aus
+      <section className="relative max-w-5xl mx-auto px-4 md:px-8 pt-8 pb-16 md:pb-24 flex flex-col items-center text-center">
+        <p
+          className="font-inter text-xs font-semibold uppercase tracking-widest px-5 py-2.5 rounded-xl mb-8"
+          style={{ background: 'rgba(201,168,76,0.08)', border: '1px solid rgba(201,168,76,0.35)', color: '#E8D49A' }}
+        >
+          Dein Video ist freigeschaltet
+        </p>
+
+        {/* Überschrift = Titel des Videos, wortgleich auf /kostenloses-video,
+            mit derselben Markierung an derselben Stelle. */}
+        <h1 className="font-barlow font-bold text-3xl md:text-5xl leading-[1.45] max-w-5xl mx-auto mb-6" style={{ color: '#E6E8EB' }}>
+          Wie du neben Job und Familie einen fitten Körper aufbaust,{' '}
+          <span style={markerText}>der auch in stressigen Phasen hält</span>
         </h1>
 
-        <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
+        <p className="font-inter text-base md:text-lg leading-relaxed max-w-2xl mx-auto mb-10 md:mb-12" style={{ color: '#C6CDD5' }}>
+          Nimm dir 12 Minuten Zeit. Am Ende zeige ich dir, wie du herausfindest, was bei dir den
+          Unterschied macht.
+        </p>
+
+        <div className="w-full max-w-4xl">
           <LandingVideo />
-
-          <div>
-            <p className="font-inter text-base md:text-lg leading-relaxed mb-8" style={{ color: '#C6CDD5' }}>
-              Schau dir das Video in Ruhe an. Wenn du danach wissen willst, welche Hebel bei dir
-              konkret zählen, sicher dir deine kostenlose Performance-Analyse.
-            </p>
-
-            <CtaKnopf />
-
-            <p className="font-inter text-sm mt-5 mb-7" style={{ color: '#7B8792' }}>
-              Call mit mir persönlich · 20 Minuten · unverbindlich
-            </p>
-
-            <KundenReihe />
-          </div>
         </div>
+
+        <p className="font-inter text-base md:text-lg leading-relaxed max-w-2xl mx-auto mt-10 mb-8" style={{ color: '#C6CDD5' }}>
+          Wenn du nach dem Video wissen willst, wo du stehst und welche Hebel bei dir am meisten
+          bringen, buch dir eine kostenlose Performance-Analyse.
+        </p>
+
+        <CtaKnopf label="Performance-Analyse buchen" />
+
+        <p className="font-inter text-sm mt-5" style={{ color: '#7B8792' }}>
+          20 Minuten · online · mit mir persönlich
+        </p>
       </section>
       </div>
 
@@ -246,54 +278,91 @@ export default function DankePage() {
             </li>
           ))}
         </ul>
+
+        <p className="font-inter text-base md:text-lg leading-relaxed text-center max-w-2xl mx-auto mt-10" style={{ color: '#A6B0BA' }}>
+          Wenn es passt, zeige ich dir, wie eine Zusammenarbeit aussehen würde. Entscheiden kannst
+          du danach in Ruhe.
+        </p>
       </section>
 
+      {/* Zahlen wie in den Fallstudien der Startseite: Wer beide Seiten sieht,
+          vergleicht. Reihenfolge, Personen und Fotos wie im Video. Die runden
+          Porträts sind Kopf-Ausschnitte aus den *-Bild.webp. */}
       <LandingFallstudien
-        headline="Das sagen meine Kunden"
+        headline="Drei Personen, die ich begleitet habe"
         fallstudien={[
           {
-            name: 'Robert',
-            ueberschrift: '−14 kg in 5 Monaten',
-            rolle: '42 Jahre · Projektleiter, nebenbei Finanzberatung',
-            portrait: '/images/kunde-robert.png',
-            link: 'https://www.linkedin.com/in/robert-raschkov-045889230/',
-            video: '/videos/Robert_Testimonial_final.mp4',
-            ergebnisse: [
-              'Von 98 auf 84 kg — ohne Hungern oder Verzicht',
-              'Stabile Energie über den ganzen Tag, ohne Koffein-Spitzen',
-              'Klarer Kopf bis in den Abend statt Einbruch am Nachmittag',
-            ],
+            name: 'Gregory',
+            rolle: 'Senior Manager, 60-Stunden-Woche',
+            portrait: '/images/Gregory-Portrait.jpg',
+            // Original ist quadratisch; die breite Fassung ist seitlich mit dem
+            // Studiohintergrund verlängert, damit im 16:9-Rahmen der ganze Kopf
+            // Platz hat.
+            bild: '/images/Gregory-Bild-breit.jpg',
+            vorher: 'Über 10 Jahre ohne Bewegung am Schreibtisch.',
+            heute: '30 kg weniger und wieder Freude an Bewegung.',
           },
           {
             name: 'Richard',
-            ueberschrift: '−13,5 kg in 10 Wochen',
-            rolle: '36 Jahre · Gründer · Familienvater von zwei Kindern',
-            portrait: '/images/kunde-richard.png',
+            alter: 36,
+            rolle: 'Gründer, zwei Kinder',
+            portrait: '/images/Richard-Portrait.jpg',
             link: 'https://www.linkedin.com/in/richard-mueller/',
             video: '/videos/Richard_Testimonial_kurz.mp4',
-            ergebnisse: [
-              'Von 106 auf 92,5 kg — trotz Familie und eigener Firma',
-              'Volle Energie von früh bis abends statt Leere ab 20 Uhr',
-              'Die Ernährung der ganzen Familie hat sich mitverändert',
-            ],
+            vorher: 'Ab 20 Uhr keine Energie mehr, Familienzeit fiel aus.',
+            heute: 'Energie von früh bis abends, 13,5 kg weniger in 10 Wochen, die ganze Familie isst mittlerweile gesünder.',
           },
           {
-            name: 'Axel',
-            ueberschrift: '−11 kg und endlich wieder Muskelaufbau',
-            rolle: '38 Jahre · Selbstständiger Unternehmer',
-            portrait: '/images/kunde-axel.png',
-            link: 'https://www.linkedin.com/in/axelkrupp1968/',
-            bild: '/images/19d177bf-4006-4bc2-8fb4-b7e6f8c9719e.jpg',
-            ergebnisse: [
-              'Von 91 auf 80 kg — nach Jahren ohne Fortschritt',
-              'Sichtbarer Muskelaufbau nach 18 Monaten ohne Fortschritt',
-              'Tiefer Schlaf und stabiler Antrieb statt Stimmungsschwankungen',
-            ],
+            name: 'Robert',
+            alter: 42,
+            rolle: 'Projektleiter',
+            portrait: '/images/Robert-Portrait.jpg',
+            link: 'https://www.linkedin.com/in/robert-raschkov-045889230/',
+            video: '/videos/Robert_Testimonial_final.mp4',
+            vorher: '7 bis 19 Uhr Montage, danach Hotel, gegessen wurde, was es beim Bäcker gab. Müde und unkonzentriert.',
+            heute: '16 kg weniger und wieder voll leistungsfähig im Job.',
           },
         ]}
       />
 
-      <LandingFormular />
+      {/* Für wen das nichts ist */}
+      <section className="max-w-3xl mx-auto px-4 md:px-8 py-16 md:py-24">
+        <h2 className="font-barlow font-bold text-3xl md:text-5xl leading-tight text-center mb-10 md:mb-12" style={{ color: '#E6E8EB' }}>
+          <ScrollUnterstrich farbe="linear-gradient(90deg, #C0392B, #E35D50)" schein="0 0 10px rgba(227,93,80,0.55)">Für wen das nichts ist</ScrollUnterstrich>
+        </h2>
+
+        <ul className="flex flex-col gap-4">
+          {nichtFuer.map((text) => (
+            <li key={text} className="leistung-card rounded-2xl px-6 py-5 flex items-center gap-4">
+              <span
+                className="flex items-center justify-center w-10 h-10 rounded-full flex-shrink-0"
+                style={{ border: '1px solid rgba(201,168,76,0.4)', color: '#C9A84C' }}
+                aria-hidden="true"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                  <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" />
+                </svg>
+              </span>
+              <p className="font-inter text-base md:text-lg leading-relaxed text-left" style={{ color: '#FFFFFF' }}>
+                {text}
+              </p>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <LandingTermin id="termin" />
+
+      {/* Kurze Fragen im Akkordeon der Startseite */}
+      <FAQSection
+        items={fragen}
+        label={false}
+        title1="Kurze Fragen"
+        alleOffen
+        ohneNachricht
+        ohneTrennlinie
+        bild={{ src: '/images/Fabian-Schoenle-Blick-Kamera.webp', alt: 'Fabian Schönle', position: 'center 22%' }}
+      />
 
       {/* Pflichtangaben — schlank statt vollem Footer */}
       <footer className="px-4 md:px-8 py-10" style={{ borderTop: '1px solid rgba(201,168,76,0.15)' }}>

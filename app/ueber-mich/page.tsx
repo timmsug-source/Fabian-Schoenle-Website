@@ -149,7 +149,7 @@ const haltung = [
 
 /** Die Zahlenkachel — zwei mal zwei Felder, durch feine Linien getrennt. */
 const kennzahlen = [
-  { icon: IconGruender,    wert: '40+',   text: 'Menschen begleitet' },
+  { icon: IconGruender,    wert: '30+',   text: 'Personen begleitet' },
   { icon: IconPerformance, wert: '10+',   text: 'Jahre Erfahrung' },
   { icon: IconChemie,      wert: '50+',   text: 'Blut- und DNA-Marker' },
   { icon: IconTriathlet,   wert: '4,9/5', text: 'durchschnittliche Bewertung' },

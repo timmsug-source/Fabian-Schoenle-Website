@@ -174,8 +174,8 @@ export default function LocalHero({
   ctaNote = 'Call mit mir persönlich · 20 Minuten · unverbindlich',
   imageSrc = '/images/vsl-poster.jpg',
   imageAlt = 'Fabian Schönle',
-  statNumber = '40+',
-  statText = 'Selbstständige & Unternehmer bereits erfolgreich begleitet',
+  statNumber = '30+',
+  statText = 'Selbstständige & Unternehmer begleitet',
 }: LocalHeroProps) {
   return (
     <section className="relative overflow-hidden" style={{ background: '#060E1F' }}>

@@ -11,7 +11,7 @@ import Analytics from '@/components/consent/Analytics'
 import NurAufSeiten from '@/components/layout/NurAufSeiten'
 
 /** Landingpages aus bezahlter Werbung laufen ohne Navigation. */
-const OHNE_NAVIGATION = ['/danke', '/danke2']
+const OHNE_NAVIGATION = ['/danke', '/kostenloses-video']
 
 const inter = Inter({
   subsets: ['latin'],

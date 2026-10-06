@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { CALENDLY_URL } from '@/lib/constants'
 
 /**
- * Die eigentliche Eingabemaske: Name, E-Mail, Einwilligung.
+ * Die eigentliche Eingabemaske: Vorname, E-Mail, Telefon, Einwilligung.
  *
  * Zwei Schritte in einem: Die Angaben gehen an /api/contact, damit die Anfrage
  * auch dann ankommt, wenn danach niemand mehr weiterklickt. Erst anschliessend
@@ -14,8 +14,7 @@ import { CALENDLY_URL } from '@/lib/constants'
  * mehr wert als eine Fehlermeldung, und im Gespraech ist die Adresse ohnehin
  * bekannt.
  *
- * Steht sowohl in der Formularsektion der Landingpage als auch im Popup der
- * vorgeschalteten Seite — deshalb eine eigene Komponente.
+ * Steht im Popup der vorgeschalteten Werbeseite /kostenloses-video.
  */
 
 const feldStil = {
@@ -51,7 +50,7 @@ export default function KontaktFormular({
 
   async function absenden(e: React.FormEvent) {
     e.preventDefault()
-    if (!name.trim()) { setFehler('Bitte gib deinen Namen an.'); return }
+    if (!name.trim()) { setFehler('Bitte gib deinen Vornamen an.'); return }
     if (!/.+@.+\..+/.test(email)) { setFehler('Bitte gib eine gültige E-Mail-Adresse an.'); return }
     // Nur zaehlen, ob genug Ziffern da sind: Schreibweisen wie +49 170 1234567
     // oder 0170/1234567 sind alle in Ordnung, eine strengere Pruefung wuerde
@@ -94,8 +93,8 @@ export default function KontaktFormular({
           type="text"
           value={name}
           onChange={(e) => { setName(e.target.value); setFehler(null) }}
-          placeholder="Dein Name"
-          autoComplete="name"
+          placeholder="Dein Vorname"
+          autoComplete="given-name"
           className="w-full rounded-xl px-5 py-4 font-inter text-sm md:text-base outline-none focus:border-[rgba(201,168,76,0.65)] transition-colors"
           style={feldStil}
         />
@@ -154,6 +153,10 @@ export default function KontaktFormular({
             </svg>
           )}
         </button>
+
+        <p className="font-inter text-xs text-center" style={{ color: '#7B8792' }}>
+          Deine Daten werden vertraulich behandelt.
+        </p>
       </form>
     </>
   )

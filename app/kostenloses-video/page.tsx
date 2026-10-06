@@ -2,15 +2,16 @@ import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { SITE_NAME, SITE_URL } from '@/lib/constants'
-import KundenReihe from '@/components/ui/KundenReihe'
-import LandingCountdown from '@/components/sections/LandingCountdown'
 import LandingOptIn from '@/components/sections/LandingOptIn'
 
 /**
- * Erste Seite der Werbestrecke: Überschrift, Vorschau auf das Video, Knopf.
- * Mehr nicht — wer aus einer Anzeige kommt, entscheidet hier in Sekunden, ob
- * er weiterliest. Alles Weitere (Video, Fallstudien, Formular) steht auf
- * /danke, wohin jeder Knopf dieser Seite führt.
+ * Erste Seite der Werbestrecke: Überschrift, Vorschau auf das Video, Knopf,
+ * darunter drei Gründe, sich einzutragen, und wer dahintersteht. Wer aus einer
+ * Anzeige kommt, entscheidet hier in Sekunden, ob er weiterliest. Alles Weitere
+ * (Video, Fallstudien, Termin) steht auf /danke, wohin das Formular führt.
+ *
+ * Kein Countdown und keine Verknappung: Das Video bleibt kostenlos, ein
+ * künstlicher Stichtag würde dem Ton der übrigen Seite widersprechen.
  *
  * Läuft ohne Navigation — siehe OHNE_NAVIGATION in app/layout.tsx.
  *
@@ -19,11 +20,11 @@ import LandingOptIn from '@/components/sections/LandingOptIn'
  * Konkurrenz machen.
  */
 export const metadata: Metadata = {
-  title: { absolute: `Kostenloses Video für Unternehmer & Führungskräfte | ${SITE_NAME}` },
+  title: { absolute: `Kostenloses Video: Fit neben Job und Familie | ${SITE_NAME}` },
   description:
-    'Wie du als Unternehmer innerhalb von 4 Monaten durchschnittlich 12 kg Körperfett verlierst — ohne Diät, Verzicht und ohne die Familie hintenanzustellen.',
+    'Wie du neben Job und Familie einen fitten Körper aufbaust, der auch in stressigen Phasen hält. Kostenloses Video, ca. 12 Minuten.',
   robots: { index: false, follow: false },
-  alternates: { canonical: `${SITE_URL}/danke2` },
+  alternates: { canonical: `${SITE_URL}/kostenloses-video` },
 }
 
 /**
@@ -32,13 +33,6 @@ export const metadata: Metadata = {
  * weiterklickt.
  */
 const NACH_DEM_ABSENDEN = '/danke'
-
-/**
- * Stichtag des Countdowns. Hier eintragen, bis wann das Video kostenfrei
- * verfügbar ist — läuft der Termin ab, steht der Zähler auf null. Also
- * rechtzeitig weitersetzen oder den Block entfernen.
- */
-const AKTION_BIS = '2026-10-31T23:59:59+02:00'
 
 const goldText = {
   backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)',
@@ -50,8 +44,8 @@ const goldText = {
 } as const
 
 /**
- * Markierung hinter einer Textstelle — identisch zur Überschrift auf /danke,
- * damit beide Seiten als eine Strecke wirken. Höhe und Sitz kommen über
+ * Markierung hinter einer Textstelle, identisch zur Überschrift auf /danke,
+ * damit beide Seiten als eine Strecke wirken. Höchstens einmal pro Seite. Höhe und Sitz kommen über
  * backgroundSize und backgroundPosition in em, nicht über Innenabstand: em
  * bezieht sich auf die Schriftgröße, sodass der Streifen auf dem Handy genauso
  * zur Schrift sitzt wie auf dem Bildschirm.
@@ -69,6 +63,32 @@ const markerText = {
   WebkitBoxDecorationBreak: 'clone',
 } as const
 
+const imVideo = [
+  'warum es bisher nicht gehalten hat, obwohl es dir weder an Disziplin noch an Wissen fehlt',
+  'das 3-Schritte-System, mit dem vielbeschäftigte Männer abnehmen und wieder mehr Energie haben',
+  'wie das bei dir aussehen kann, ohne Job, Freunde oder Familie zu vernachlässigen',
+]
+
+function Haken({ id }: { id: string }) {
+  return (
+    /* Gleiche Form wie die Haken im Hero der Startseite */
+    <svg width="30" height="30" viewBox="0 0 38 38" fill="none" className="flex-shrink-0" aria-hidden="true">
+      <defs>
+        <linearGradient id={id} x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#B8832A" />
+          <stop offset="45%" stopColor="#C9A84C" />
+          <stop offset="75%" stopColor="#F2D27A" />
+          <stop offset="100%" stopColor="#C9A84C" />
+        </linearGradient>
+      </defs>
+      <polygon
+        points="5,21 10.38,24.62 14,27.5 22.55,18.18 33,8 24.45,19.82 14,32.5 8.62,26.38"
+        fill={`url(#${id})`}
+      />
+    </svg>
+  )
+}
+
 /**
  * Knopf im Zuschnitt der Vorlage: eine breite, gefuellte Flaeche statt eines
  * schmalen Knopfes. Auf dem Handy laeuft er ueber die volle Breite, auf dem
@@ -78,7 +98,7 @@ const markerText = {
  * Ohne Pfeil: Die Flaeche traegt nur den Satz, der Pfeil wuerde ihn aus der
  * Mitte schieben.
  */
-export default function Danke2Page() {
+export default function KostenlosesVideoPage() {
   return (
     <div className="relative overflow-hidden" style={{ background: '#060E1F', minHeight: '100vh' }}>
       {/* Gitter, Diagonalen und Lichtschein wie auf /danke — beide Seiten sollen
@@ -145,43 +165,69 @@ export default function Danke2Page() {
       </header>
 
       <section className="relative max-w-5xl mx-auto px-4 md:px-8 pt-8 pb-16 md:pt-10 md:pb-24 flex flex-col items-center text-center">
-        {/* Einordnung vor der Überschrift: sagt in vier Worten, was einen hier
+        {/* Einordnung vor der Überschrift: sagt in wenigen Worten, was einen hier
             erwartet, bevor der lange Satz beginnt. */}
         <p
           className="font-inter text-xs font-semibold uppercase tracking-widest px-5 py-2.5 rounded-xl mb-8"
           style={{ background: 'rgba(201,168,76,0.08)', border: '1px solid rgba(201,168,76,0.35)', color: '#E8D49A' }}
         >
-          Kostenloses Video für Unternehmer &amp; Führungskräfte
+          Kostenloses Video · ca. 12 Minuten
         </p>
 
-        {/* Gleiches Format wie die Überschrift auf /danke: durchgehend fett,
-            mittig, und eine Markierung auf der Zahl. */}
-        <h1 className="font-barlow font-bold text-3xl md:text-5xl leading-[1.45] text-center max-w-5xl mx-auto mb-10 md:mb-12" style={{ color: '#E6E8EB' }}>
-          EXKLUSIV: Wie du als Unternehmer und Führungskraft innerhalb von 4 Monaten{' '}
-          <span style={markerText}>durchschnittlich 12 kg Körperfett</span> verlierst und deine
-          mentale und körperliche Leistungsfähigkeit verbesserst
+        {/* Überschrift = Titel des Videos, wortgleich auf /danke. */}
+        <h1 className="font-barlow font-bold text-3xl md:text-5xl leading-[1.45] text-center max-w-5xl mx-auto mb-6" style={{ color: '#E6E8EB' }}>
+          Wie du neben Job und Familie einen fitten Körper aufbaust,{' '}
+          <span style={markerText}>der auch in stressigen Phasen hält</span>
         </h1>
+
+        <p className="font-inter text-base md:text-lg leading-relaxed max-w-2xl mx-auto mb-10 md:mb-12" style={{ color: '#C6CDD5' }}>
+          Für Männer ab 30 mit vollem Kalender, die merken, dass ihr Körper nicht mehr so
+          mitkommt wie früher.
+        </p>
 
         <LandingOptIn
           bildSrc="/images/vsl-poster.jpg"
           bildAlt="Fabian Schönle im Video über datenbasiertes Coaching"
-          knopfLabel="Jetzt kostenlos anfordern"
-          knopfUnterzeile="Du siehst das Video direkt im Anschluss"
+          knopfLabel="Video jetzt kostenlos ansehen"
+          knopfUnterzeile="Du siehst das Video direkt im Anschluss."
           formular={{
-            kartenLabel: 'Angaben machen & Video ansehen',
-            kartenTitel: 'Kurz eintragen, dann geht es los',
-            knopfLabel: 'Absenden & Video ansehen',
+            kartenLabel: 'Fast geschafft',
+            kartenTitel: 'Kurz eintragen, dann startet das Video.',
+            knopfLabel: 'Video ansehen',
             weiterLeitungZu: NACH_DEM_ABSENDEN,
             quelle: 'Video-Landingpage (Werbeanzeige)',
           }}
         />
 
-        <div className="mt-8">
-          <KundenReihe />
+        {/* Der Grund, sich einzutragen: was im Video steckt. */}
+        <div className="w-full max-w-2xl mt-14 md:mt-16 text-left">
+          <p className="font-barlow font-bold text-2xl md:text-3xl mb-6 text-center" style={{ color: '#E6E8EB' }}>
+            Im Video erfährst du:
+          </p>
+          <ul className="flex flex-col gap-5">
+            {imVideo.map((punkt, i) => (
+              <li key={i} className="flex items-start gap-4">
+                <Haken id={`im-video-haken-${i}`} />
+                <span className="font-inter text-base md:text-lg leading-relaxed" style={{ color: '#FFFFFF' }}>
+                  {punkt}
+                </span>
+              </li>
+            ))}
+          </ul>
         </div>
 
-        <div className="mt-16 md:mt-20 w-full">
-          <LandingCountdown bis={AKTION_BIS} />
+        {/* Wer dahintersteht, in einer Zeile. */}
+        <div className="flex items-center gap-4 mt-12 md:mt-14">
+          <span
+            className="relative rounded-full overflow-hidden flex-shrink-0"
+            style={{ width: 52, height: 52, border: '2px solid rgba(201,168,76,0.5)' }}
+          >
+            <Image src="/images/fabian-rund.jpg" alt="Fabian Schönle" width={104} height={104} className="w-full h-full object-cover" />
+          </span>
+          <p className="font-inter text-sm md:text-base text-left" style={{ color: '#C6CDD5' }}>
+            <span className="font-semibold" style={{ color: '#E6E8EB' }}>Fabian Schönle</span>
+            {' · '}M.Sc. Chemie{' · '}Über 30 Personen begleitet
+          </p>
         </div>
       </section>
 

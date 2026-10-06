@@ -58,7 +58,7 @@ export default function KundenReihe({ sterne = false, gross = false }: { sterne?
           </div>
         )}
         <p className={`font-inter ${gross ? 'text-lg md:text-xl' : 'text-sm'}`} style={{ color: '#C6CDD5' }}>
-          <span className="font-semibold" style={{ color: '#E8D49A' }}>40+</span> zufriedene Kunden
+          <span className="font-semibold" style={{ color: '#E8D49A' }}>Über 30</span> Personen begleitet
         </p>
       </div>
     </div>

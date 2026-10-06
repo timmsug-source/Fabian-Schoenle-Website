@@ -86,8 +86,8 @@ export default function ErnaehrungsberatungKarlsruhePage() {
         ctaNote="Call mit mir persönlich · 20 Minuten · unverbindlich"
         imageSrc="/images/IMG_1550-hero.jpg"
         imageAlt="Fabian Schönle — Performance Coach aus Karlsruhe"
-        statNumber="+40"
-        statText="Menschen bereits erfolgreich begleitet"
+        statNumber="30+"
+        statText="Personen begleitet"
       />
 
       {/* Rezensionen */}

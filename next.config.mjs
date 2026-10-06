@@ -11,6 +11,13 @@ const nextConfig = {
       { protocol: 'https', hostname: 'img.youtube.com', pathname: '/vi/**' },
     ],
   },
+  async redirects() {
+    return [
+      // Die Werbeseite hiess frueher /danke2. Bestehende Anzeigen und
+      // geteilte Links sollen weiter ankommen statt auf einer 404.
+      { source: '/danke2', destination: '/kostenloses-video', permanent: true },
+    ];
+  },
 };
 
 export default nextConfig;

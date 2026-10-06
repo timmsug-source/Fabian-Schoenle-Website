@@ -1,6 +1,7 @@
 'use client'
 
 import { cms, txt } from '@/lib/cms-text'
+import Image from 'next/image'
 import { useId, useState } from 'react'
 import { Rich } from '@/components/Rich'
 import { FAQS, cmsFaqs, type FaqEintrag } from '@/lib/faq'
@@ -10,16 +11,40 @@ type FAQSectionProps = {
   content?: Record<string, string>
   /** Eigene Fragen — z. B. auf Unterseiten. Ohne Angabe greifen die Fragen der Startseite. */
   items?: FaqEintrag[]
-  label?: string
+  /** false blendet die Zeile ueber der Ueberschrift ganz aus */
+  label?: string | false
   title1?: string
   title2?: string
+  /** Alle Antworten stehen von Anfang an offen und lassen sich einzeln zuklappen */
+  alleOffen?: boolean
+  /** Blendet „Schreib mir direkt“ aus, etwa auf Landingpages mit nur einem Ziel */
+  ohneNachricht?: boolean
+  /** Blendet die goldene Linie am oberen Rand der Sektion aus */
+  ohneTrennlinie?: boolean
+  /** Bild rechts neben den Fragen (ab Desktop-Breite), so hoch wie die Fragen.
+      `position` steuert den Ausschnitt, z. B. „center 25%“. */
+  bild?: { src: string; alt: string; position?: string }
 }
 
-export default function FAQSection({ content = {}, items, label, title1, title2 }: FAQSectionProps) {
+export default function FAQSection({ content = {}, items, label, title1, title2, alleOffen = false, ohneNachricht = false, ohneTrennlinie = false, bild }: FAQSectionProps) {
   // Eigene Fragen haben Vorrang. Die CMS-Felder (faq1_frage …) gehören zur
   // Startseite und dürfen seitenspezifische Fragen nicht überschreiben.
   const eintraege: (FaqEintrag & { nr?: number })[] = items ?? cmsFaqs(content, FAQS)
-  const [offen, setOffen] = useState<number | null>(null)
+  // Menge statt einzelnem Index, damit alleOffen mehrere zugleich offen halten
+  // kann. Ohne alleOffen bleibt es beim Akkordeon: eine auf, die anderen zu.
+  const [offen, setOffen] = useState<Set<number>>(
+    () => new Set(alleOffen ? eintraege.map((_, i) => i) : [])
+  )
+  function umschalten(i: number) {
+    setOffen((vorher) => {
+      const istOffen = vorher.has(i)
+      if (!alleOffen) return new Set(istOffen ? [] : [i])
+      const neu = new Set(vorher)
+      if (istOffen) neu.delete(i)
+      else neu.add(i)
+      return neu
+    })
+  }
   const bereichId = useId()
   const [formOffen, setFormOffen] = useState(false)
   const [nachricht, setNachricht] = useState('')
@@ -57,18 +82,22 @@ export default function FAQSection({ content = {}, items, label, title1, title2 
 
   return (
     <section id="faq" className="relative" style={{ background: '#060E1F' }}>
-      <div
-        className="absolute top-0 left-0 right-0 h-px"
-        style={{ background: 'linear-gradient(to right, transparent, rgba(201,168,76,0.3), transparent)' }}
-      />
+      {!ohneTrennlinie && (
+        <div
+          className="absolute top-0 left-0 right-0 h-px"
+          style={{ background: 'linear-gradient(to right, transparent, rgba(201,168,76,0.3), transparent)' }}
+        />
+      )}
 
-      <div className="max-w-3xl mx-auto px-4 md:px-8 py-24 md:py-32">
+      <div className={`${bild ? 'max-w-6xl' : 'max-w-3xl'} mx-auto px-4 md:px-8 py-24 md:py-32`}>
 
         {/* Header */}
         <div className="mb-12 animate-fade-up">
+          {label !== false && (
           <p {...(label ? {} : cms('faq_label'))} className="font-inter text-xs font-semibold uppercase tracking-widest mb-4" style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
             {label || txt(content, 'faq_label', 'Häufige Fragen')}
           </p>
+          )}
           <h2 className="font-barlow font-bold text-3xl md:text-5xl leading-tight" style={{ color: '#E6E8EB' }}>
             <span {...(title1 ? {} : cms('faq_title_1'))}>{title1 || txt(content, 'faq_title_1', 'Fragen, die in der')}</span>
             {(title2 || !title1) && (
@@ -79,29 +108,35 @@ export default function FAQSection({ content = {}, items, label, title1, title2 
           </h2>
         </div>
 
-        {/* Accordion */}
-        <div className="flex flex-col gap-3 animate-fade-up" style={{ animationDelay: '60ms' }}>
+        {/* Accordion, mit Bild daneben: Das Raster streckt die Bildspalte auf
+            die Hoehe der Fragen, das Foto fuellt sie per object-cover. */}
+        <div className={bild ? 'lg:grid lg:grid-cols-12 lg:gap-6' : undefined}>
+        <div className={`flex flex-col gap-3 animate-fade-up ${bild ? 'lg:col-span-7' : ''}`} style={{ animationDelay: '60ms' }}>
           {eintraege.map((faq, i) => (
             <div
               key={i}
               className="rounded-xl overflow-hidden"
               style={{
                 background: 'linear-gradient(135deg, #0D1829 0%, #091122 100%)',
-                border: `1px solid ${offen === i ? 'rgba(201,168,76,0.5)' : 'rgba(201,168,76,0.2)'}`,
-                boxShadow: offen === i ? '0 0 24px rgba(201,168,76,0.08)' : 'none',
+                border: `1px solid ${offen.has(i) ? 'rgba(201,168,76,0.5)' : 'rgba(201,168,76,0.2)'}`,
+                boxShadow: offen.has(i) ? '0 0 24px rgba(201,168,76,0.08)' : 'none',
                 transition: 'border-color 0.2s ease, box-shadow 0.2s ease',
               }}
             >
               <button
-                onClick={() => setOffen(offen === i ? null : i)}
-                className="w-full flex items-center gap-4 px-5 py-4 text-left"
-                aria-expanded={offen === i}
+                onClick={() => umschalten(i)}
+                className="w-full flex items-center gap-4 px-5 py-4 text-center md:text-left"
+                aria-expanded={offen.has(i)}
                 aria-controls={`${bereichId}-antwort-${i}`}
               >
+                {/* Mobil zentriert wie die Antwort darunter. Der Platzhalter
+                    links ist so breit wie das Plus/Minus rechts, sonst saesse
+                    die Frage um dessen Breite aus der Mitte verschoben. */}
+                <span className="w-[22px] flex-shrink-0 md:hidden" aria-hidden="true" />
                 <span
                   {...(faq.nr ? cms(`faq${faq.nr}_frage`) : {})}
                   className="font-inter font-semibold text-base leading-snug flex-1"
-                  style={{ color: offen === i ? '#E6E8EB' : '#BBC1CA' }}
+                  style={{ color: offen.has(i) ? '#E6E8EB' : '#BBC1CA' }}
                 >
                   {faq.frage}
                 </span>
@@ -109,7 +144,7 @@ export default function FAQSection({ content = {}, items, label, title1, title2 
                 {/* Gold Plus/Minus */}
                 <span className="flex-shrink-0">
                   <svg width="22" height="22" viewBox="0 0 38 38" fill="none">
-                    {offen === i ? (
+                    {offen.has(i) ? (
                       <line x1="8" y1="19" x2="30" y2="19" stroke="#C9A84C" strokeWidth="3" strokeLinecap="round" />
                     ) : (
                       <>
@@ -137,12 +172,12 @@ export default function FAQSection({ content = {}, items, label, title1, title2 
                 id={`${bereichId}-antwort-${i}`}
                 role="region"
                 className="grid"
-                style={{ gridTemplateRows: offen === i ? '1fr' : '0fr' }}
+                style={{ gridTemplateRows: offen.has(i) ? '1fr' : '0fr' }}
               >
                 <div className="overflow-hidden">
                   <div
                     className="px-5 pb-5 transition-opacity duration-200"
-                    style={{ opacity: offen === i ? 1 : 0 }}
+                    style={{ opacity: offen.has(i) ? 1 : 0 }}
                   >
                     <Rich as="p" className="font-inter text-sm leading-relaxed" style={{ color: '#A6B0BA' }} cms={faq.nr ? `faq${faq.nr}_antwort` : undefined} html={faq.antwort} />
                   </div>
@@ -152,10 +187,29 @@ export default function FAQSection({ content = {}, items, label, title1, title2 
           ))}
         </div>
 
+        {/* Auf dem Handy entfaellt das Bild: Dort gaebe es kein Daneben, nur
+            eine laengere Seite. */}
+        {bild && (
+          <div
+            className="hidden lg:block lg:col-span-5 relative rounded-xl overflow-hidden animate-fade-up"
+            style={{ border: '1px solid rgba(201,168,76,0.2)', animationDelay: '120ms' }}
+          >
+            <Image
+              src={bild.src}
+              alt={bild.alt}
+              fill
+              sizes="(min-width: 1024px) 440px, 0px"
+              className="object-cover"
+              style={{ objectPosition: bild.position ?? 'center' }}
+            />
+          </div>
+        )}
+        </div>
+
         {/* Finaler Mini-CTA — nur solange der Versand funktioniert. Eine
             Direktnachricht anzubieten, die niemanden erreicht, wäre schlechter
             als sie wegzulassen. Siehe ANFRAGE_FORMULAR_AKTIV. */}
-        {ANFRAGE_FORMULAR_AKTIV && (
+        {ANFRAGE_FORMULAR_AKTIV && !ohneNachricht && (
         <div className="mt-12 text-center animate-fade-up" style={{ animationDelay: '120ms' }}>
           <p className="font-inter text-sm mb-3" style={{ color: '#7B8792' }}>
             Deine Frage ist nicht dabei?
@@ -176,6 +230,7 @@ export default function FAQSection({ content = {}, items, label, title1, title2 
           </button>
         </div>
         )}
+
 
         {/* Popup-Modal */}
         {formOffen && (
