@@ -11,7 +11,7 @@
 const ergebnisse = [
   { name: 'Matthias K.', role: 'Director Global Aftermarket', result: '6 kg' },
   { name: 'Hagen F.', role: 'Unternehmer', result: '13 kg' },
-  { name: 'Gregory N.', role: 'Wealth Management', result: '25 kg' },
+  { name: 'Gregory N.', role: 'Wealth Management', result: '30 kg' },
   { name: 'Axel K.', role: 'Geschäftsführer', result: '4 kg' },
   { name: 'Robert R.', role: 'Unternehmer', result: '16 kg' },
   { name: 'Michael C.', role: 'Selbstständiger', result: '8 kg' },

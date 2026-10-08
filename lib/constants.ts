@@ -52,7 +52,7 @@ export const SAME_AS = [LINKEDIN_URL, YOUTUBE_URL]
 
 export const NAV_LINKS = [
   { label: 'Über mich',                  href: '/ueber-mich' },
-  { label: 'Ernährungsberatung',         href: '/ernaehrungsberatung-karlsruhe' },
+  { label: 'Ernährungsberatung',         href: '/ernaehrungsberatung-frankfurt' },
   { label: 'Personal Coaching online',   href: '/personal-coaching-online' },
   { label: 'Abnehmcoaching',             href: '/abnehmcoaching' },
 ] as const

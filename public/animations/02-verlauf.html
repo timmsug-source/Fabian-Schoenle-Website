@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Verlauf statt Momentaufnahme</title>
+<style>html,body{margin:0;background:#0D1A2E;}</style>
+</head>
+<body>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 260" role="img" aria-label="Verlauf statt Momentaufnahme" style="width:100%;height:auto;display:block;letter-spacing:0" font-family="ui-monospace,Menlo,monospace">
+<defs>
+<filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<linearGradient id="area" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E3C06A" stop-opacity="0.28"/><stop offset="1" stop-color="#E3C06A" stop-opacity="0"/></linearGradient>
+<symbol id="i-food" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3v18M4.5 3v5a2.5 2.5 0 0 0 5 0V3M17 21V3c-2.5 1.5-3.5 4.5-3.5 8H17"/></symbol>
+<symbol id="i-dumb" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 9.5v5M6.5 6.5v11M17.5 6.5v11M21 9.5v5M6.5 12h11"/></symbol>
+<symbol id="i-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 19v-6M12 19V6M18 19v-9M3 21h18"/></symbol>
+<symbol id="i-chat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M4 5h16v11H10l-6 4z"/></symbol>
+</defs>
+<rect x="0" y="0" width="400" height="260" rx="16" fill="#0D1A2E"/>
+<line x1="24" y1="80" x2="376" y2="80" stroke="#1A2638"/><line x1="24" y1="140" x2="376" y2="140" stroke="#1A2638"/><line x1="24" y1="200" x2="376" y2="200" stroke="#1A2638"/>
+<path d="M40 131.99999999999932 C47.8 125.0, 71.3 90.0, 87 90.0 C102.7 90.0, 118.3 127.0, 134 132.0 C149.7 137.0, 165.3 111.0, 181 120.0 C196.7 129.0, 212.3 169.0, 228 186.0 C243.7 203.0, 259.3 220.0, 275 222.0 C290.7 224.0, 306.3 202.0, 322 198.0 C337.7 194.0, 361.2 198.0, 369 198.0 L369 224 L40 224 Z" fill="url(#area)"/>
+<path d="M40 131.99999999999932 C47.8 125.0, 71.3 90.0, 87 90.0 C102.7 90.0, 118.3 127.0, 134 132.0 C149.7 137.0, 165.3 111.0, 181 120.0 C196.7 129.0, 212.3 169.0, 228 186.0 C243.7 203.0, 259.3 220.0, 275 222.0 C290.7 224.0, 306.3 202.0, 322 198.0 C337.7 194.0, 361.2 198.0, 369 198.0" fill="none" stroke="#E3C06A" stroke-width="3" stroke-linecap="round" filter="url(#glow)"/>
+<circle cx="40" cy="132.0" r="3.5" fill="#0D1A2E" stroke="#E3C06A" stroke-width="1.5"/><circle cx="87" cy="90.0" r="3.5" fill="#0D1A2E" stroke="#E3C06A" stroke-width="1.5"/><circle cx="134" cy="132.0" r="3.5" fill="#0D1A2E" stroke="#E3C06A" stroke-width="1.5"/><circle cx="181" cy="120.0" r="3.5" fill="#0D1A2E" stroke="#E3C06A" stroke-width="1.5"/><circle cx="228" cy="186.0" r="3.5" fill="#0D1A2E" stroke="#E3C06A" stroke-width="1.5"/><circle cx="275" cy="222.0" r="3.5" fill="#0D1A2E" stroke="#E3C06A" stroke-width="1.5"/><circle cx="322" cy="198.0" r="3.5" fill="#0D1A2E" stroke="#E3C06A" stroke-width="1.5"/><circle cx="369" cy="198.0" r="3.5" fill="#0D1A2E" stroke="#E3C06A" stroke-width="1.5"/>
+<rect x="161" y="98" width="40" height="44" rx="8" fill="none" stroke="#7F8EA3" stroke-dasharray="4 4"/>
+<text x="40" y="160.0" font-size="13" fill="#7F8EA3">88,0</text>
+<text x="369" y="225.99999999999898" text-anchor="end" font-size="15" fill="#E3C06A">87,5 kg</text>
+</svg>
+</body>
+</html>

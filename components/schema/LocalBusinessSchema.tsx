@@ -7,14 +7,20 @@ export default function LocalBusinessSchema() {
     name: SITE_NAME,
     url: SITE_URL,
     telephone: '',
+    // VORLAEUFIG ohne Ort: Fabian zieht in die Naehe von Frankfurt, die genaue
+    // Adresse steht noch nicht fest. Sobald sie da ist, addressLocality (und
+    // ggf. postalCode) ergaenzen, passend zum Google-Unternehmensprofil.
     address: {
       '@type': 'PostalAddress',
-      addressLocality: 'Karlsruhe',
-      addressRegion: 'Baden-Württemberg',
+      addressRegion: 'Hessen',
       addressCountry: 'DE',
     },
+    areaServed: [
+      { '@type': 'City', name: 'Frankfurt am Main' },
+      { '@type': 'Place', name: 'Rhein-Main-Gebiet' },
+    ],
     priceRange: '€€€',
-    description: 'Datenbasiertes Performance Coaching und Ernährungsberatung in Karlsruhe.',
+    description: 'Datenbasiertes Performance Coaching und Ernährungsberatung in Frankfurt und Rhein-Main.',
   }
 
   return (

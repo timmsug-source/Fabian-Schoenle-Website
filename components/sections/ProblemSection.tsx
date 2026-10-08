@@ -1,5 +1,6 @@
 import SectionLabel from '@/components/ui/SectionLabel'
 import VideoPlayerBox from '@/components/ui/VideoPlayerBox'
+import ProblemGrafik, { type ProblemGrafikName } from '@/components/ui/ProblemGrafiken'
 
 type ProblemPoint = {
   /** Das durchgestrichene „Falsch"-Wort */
@@ -7,6 +8,8 @@ type ProblemPoint = {
   /** Das Gold-„Fix"-Wort darunter */
   right: string
   body: string
+  /** Optionale Zeichnung unter dem Text — zeigt den Punkt, statt ihn nur zu behaupten */
+  grafik?: ProblemGrafikName
 }
 
 type ProblemSectionProps = {
@@ -25,6 +28,12 @@ type ProblemSectionProps = {
   videoHeadline?: string
   videoBody?: string
   videoPoints?: string[]
+  /**
+   * Zeigt „Fehler 01/02/03" über jeder Karte. Auf der Karlsruher Seite steht
+   * die Nummerierung, auf dem Abnehmcoaching nicht — dort tragen die Grafiken
+   * den Kopf der Karte.
+   */
+  nummern?: boolean
 }
 
 const goldText = {
@@ -49,6 +58,7 @@ export default function ProblemSection({
   videoHeadline,
   videoBody,
   videoPoints,
+  nummern = true,
 }: ProblemSectionProps) {
   return (
     <section className="relative overflow-hidden">
@@ -118,13 +128,14 @@ export default function ProblemSection({
                 className={`p-6 md:p-8 ${i > 0 ? 'border-t md:border-t-0 md:border-l' : ''}`}
                 style={i > 0 ? { borderColor: 'rgba(201,168,76,0.14)' } : undefined}
               >
-                {/* Label + Fehler-Punkt */}
-                <div className="flex items-center justify-between mb-6">
-                  <span className="font-mono text-xs uppercase tracking-[0.2em]" style={{ color: '#6B7684' }}>
-                    Fehler 0{i + 1}
-                  </span>
-                  <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: '#E0715A' }} />
-                </div>
+                {nummern && (
+                  <div className="flex items-center justify-between mb-6">
+                    <span className="font-mono text-xs uppercase tracking-[0.2em]" style={{ color: '#6B7684' }}>
+                      Fehler 0{i + 1}
+                    </span>
+                    <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: '#E0715A' }} />
+                  </div>
+                )}
 
                 {/* Falsch → Richtig */}
                 <div className="mb-5 flex flex-col gap-1.5">
@@ -143,6 +154,15 @@ export default function ProblemSection({
                     {point.right}
                   </span>
                 </div>
+
+                {/* Die Zeichnung steht zwischen Aussage und Erklaerung: Erst
+                    sagen die zwei Woerter, worum es geht, dann zeigt das Bild
+                    es, dann folgt der Text fuer alle, die weiterlesen. */}
+                {point.grafik && (
+                  <div className="mb-6">
+                    <ProblemGrafik name={point.grafik} />
+                  </div>
+                )}
 
                 <p className="font-inter text-sm md:text-base leading-relaxed" style={{ color: '#98A4B1' }}>
                   {point.body}

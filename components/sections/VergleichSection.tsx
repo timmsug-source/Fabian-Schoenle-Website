@@ -175,6 +175,8 @@ type VergleichSectionProps = {
   spalten?: Spaltenkoepfe
   /** Einleitung unter der Überschrift. Ohne Angabe die aus dem CMS. */
   intro?: string
+  /** Blendet den Kicker („Der Unterschied“) aus */
+  ohneKicker?: boolean
 }
 
 export default function VergleichSection({
@@ -182,6 +184,7 @@ export default function VergleichSection({
   zeilen: zeilenProp,
   spalten = SPALTEN_STARTSEITE,
   intro,
+  ohneKicker = false,
 }: VergleichSectionProps) {
   const zeilen = zeilenProp ?? cmsZeilen(content)
   return (
@@ -190,9 +193,11 @@ export default function VergleichSection({
 
         {/* Header */}
         <div className="mb-20 animate-fade-up text-center">
+          {!ohneKicker && (
           <p {...cms('vergleich_label')} className="font-inter text-xs font-semibold uppercase tracking-widest mb-4" style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
             {txt(content, 'vergleich_label', 'Der Unterschied')}
           </p>
+          )}
           <h2 className="font-barlow font-bold text-3xl md:text-5xl leading-tight" style={{ color: '#E6E8EB' }}>
             <span {...cms('vergleich_title_1')}>{txt(content, 'vergleich_title_1', 'Warum du')}</span>{' '}
             <span {...cms('vergleich_highlight')} style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
