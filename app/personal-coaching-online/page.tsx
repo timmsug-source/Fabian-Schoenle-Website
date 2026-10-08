@@ -213,15 +213,15 @@ export default async function PersonalCoachingOnlinePage() {
             name: 'Robert',
             rolle: '42 Jahre · Projektleiter, nebenbei Finanzberatung · spielt Squash',
             linkedin: 'https://www.linkedin.com/in/robert-raschkov-045889230/',
-            badgeVon: '98',
-            badgeNach: '84 kg',
+            badgeVon: '103',
+            badgeNach: '87 kg',
             vorher: [
               '14 kg zugenommen, Bauchfett trotz Sport',
               'Permanent erschöpft trotz 7 Stunden Schlaf',
               'Konzentration bricht nachmittags komplett ein',
             ],
             nachher: [
-              '−14 kg Körpergewicht in 5 Monaten',
+              '−16 kg Körpergewicht',
               'Stabile Energie ohne Koffein-Spitzen',
               'Klarer Kopf bis in den Abend',
             ],
@@ -314,7 +314,7 @@ export default async function PersonalCoachingOnlinePage() {
       {/* Über mich: gleiche Sektion und dieselben CMS-Texte wie auf der Startseite */}
       <UeberMichSection content={content} />
 
-      {/* Ablauf & Kontakt: gleiche Sektion wie auf der Startseite und in Karlsruhe */}
+      {/* Ablauf & Kontakt: gleiche Sektion wie auf der Startseite und in Frankfurt */}
       <KontaktSection
         label="Personal Coaching online starten"
         title="Finde heraus, woran es bei dir gerade hakt."

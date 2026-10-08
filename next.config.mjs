@@ -16,6 +16,9 @@ const nextConfig = {
       // Die Werbeseite hiess frueher /danke2. Bestehende Anzeigen und
       // geteilte Links sollen weiter ankommen statt auf einer 404.
       { source: '/danke2', destination: '/kostenloses-video', permanent: true },
+      // Fabian zieht von Karlsruhe in die Naehe von Frankfurt. Die alte Seite
+      // ist zur Frankfurter geworden, Links und Rankings sollen mitziehen.
+      { source: '/ernaehrungsberatung-karlsruhe', destination: '/ernaehrungsberatung-frankfurt', permanent: true },
     ];
   },
 };

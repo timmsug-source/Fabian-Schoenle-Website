@@ -70,20 +70,23 @@ const reviewShots = [
 ]
 
 const stats = [
-  { icon: <IconGroup />, value: '+40', label: 'Menschen', sub: 'bereits erfolgreich begleitet' },
+  { icon: <IconGroup />, value: '30+', label: 'Personen', sub: 'begleitet' },
   { icon: <IconStarLine />, value: '4,9 / 5', label: 'Durchschnittliche Bewertung', sub: 'auf Basis echter Rezensionen' },
   { icon: <IconShield />, value: '100 %', label: 'Individuell & datenbasiert', sub: 'keine Standardpläne' },
 ]
 
-export default function ReviewsSection() {
+/** ohneKicker blendet „Rezensionen“ über der Überschrift aus */
+export default function ReviewsSection({ ohneKicker = false }: { ohneKicker?: boolean } = {}) {
   return (
     <section id="rezensionen" className="max-w-7xl mx-auto px-4 md:px-8 py-16 md:py-24">
 
       {/* Kopf */}
       <div className="text-center mb-12 md:mb-16">
-        <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-4" style={goldText}>
-          Rezensionen
-        </p>
+        {!ohneKicker && (
+          <p className="font-inter text-xs font-semibold uppercase tracking-widest mb-4" style={goldText}>
+            Rezensionen
+          </p>
+        )}
         <h2 className="font-barlow font-bold text-3xl md:text-5xl leading-tight" style={{ color: '#E6E8EB' }}>
           Ergebnisse meiner <span style={goldText}>Kunden</span>
         </h2>

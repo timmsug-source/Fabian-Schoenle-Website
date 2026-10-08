@@ -12,6 +12,29 @@ type LocalHeroProps = {
   imageAlt?: string
   statNumber?: string
   statText?: string
+  /**
+   * Stadtbild hinter dem ganzen Hero, abgedunkelt. Dann sollte `imageSrc` ein
+   * freigestelltes Foto sein (PNG mit transparentem Grund): Es steht rechts
+   * unten vor dem Stadtbild statt als eigenes Rechteck daneben.
+   */
+  hintergrundSrc?: string
+  /** Ausschnitt des Stadtbilds, z. B. „center 40%“ */
+  hintergrundPosition?: string
+  /**
+   * Foto rechts als gerahmte Spalte, so hoch wie der Text links, statt
+   * randlos ueber die halbe Breite bis an den oberen Rand.
+   */
+  bildRahmen?: boolean
+  /** Ausschnitt des Fotos im Rahmen, z. B. „center 38%“ */
+  bildPosition?: string
+  /**
+   * Zusammen mit bildRahmen: Das Foto ist freigestellt (transparenter Grund).
+   * Dann ohne Rahmen, unten aufstehend, und es laeuft bis an die Unterkante
+   * der Sektion aus statt mitten im Raum zu enden.
+   */
+  bildFreigestellt?: boolean
+  /** Echte Pixelmasse des freigestellten Fotos, fuer das Seitenverhaeltnis */
+  bildMasse?: { breite: number; hoehe: number }
 }
 
 /* ---------- Icons ---------- */
@@ -166,8 +189,8 @@ function ImageDecor() {
 }
 
 export default function LocalHero({
-  label = 'Ernährungsberatung Karlsruhe',
-  headline = 'Ernährungsberatung in Karlsruhe für',
+  label = 'Ernährungsberatung Frankfurt',
+  headline = 'Ernährungsberatung in Frankfurt für',
   headlineAccent = 'Selbstständige & Unternehmer',
   subheadline = 'Datenbasiert wieder in Bestform – auf Basis deiner Blut- und DNA-Werte. Ohne Verbotskatalog und ohne das Gefühl, auf Diät zu sein.',
   ctaLabel = 'Performance Analyse sichern',
@@ -176,11 +199,68 @@ export default function LocalHero({
   imageAlt = 'Fabian Schönle',
   statNumber = '30+',
   statText = 'Selbstständige & Unternehmer begleitet',
+  hintergrundSrc,
+  hintergrundPosition = 'center 40%',
+  bildRahmen = false,
+  bildPosition = 'center 38%',
+  bildFreigestellt = false,
+  bildMasse = { breite: 1200, hoehe: 1500 },
 }: LocalHeroProps) {
+  const mitHintergrund = Boolean(hintergrundSrc)
+  // Freigestellte Fotos werden eingepasst statt beschnitten, sonst fehlen Haende oder Kopf
+  const freigestellt = bildFreigestellt || (mitHintergrund && !bildRahmen)
+
+  const badge = (
+    <div
+      className="absolute bottom-8 right-8 flex items-center gap-4 rounded-2xl px-5 py-4 max-w-[300px]"
+      style={{
+        background: 'linear-gradient(135deg, rgba(13,24,41,0.85) 0%, rgba(11,21,37,0.8) 100%)',
+        border: '1px solid rgba(201,168,76,0.35)',
+        boxShadow: '0 8px 30px rgba(0,0,0,0.45), inset 0 0 20px rgba(201,168,76,0.05)',
+        backdropFilter: 'blur(4px)',
+      }}
+    >
+      <span style={{ color: '#C9A84C' }}>
+        <IconGroup />
+      </span>
+      <span className="flex flex-col leading-tight">
+        <span className="font-barlow font-bold text-2xl" style={{ color: '#F2D27A' }}>{statNumber}</span>
+        <span className="font-inter text-xs leading-snug" style={{ color: '#AEB5BE' }}>{statText}</span>
+      </span>
+    </div>
+  )
+
   return (
     <section className="relative overflow-hidden" style={{ background: '#060E1F' }}>
 
+      {/* Stadtbild ueber die volle Breite. Links stark abgedunkelt, damit der
+          Text lesbar bleibt, rechts heller, damit die Stadt erkennbar ist. */}
+      {hintergrundSrc && (
+        <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+          <Image
+            src={hintergrundSrc}
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover"
+            style={{ objectPosition: hintergrundPosition }}
+          />
+          {/* Handy: Text laeuft ueber die volle Breite, deshalb gleichmaessig dunkel */}
+          <div className="absolute inset-0 lg:hidden" style={{ background: 'rgba(6,14,31,0.86)' }} />
+          <div
+            className="absolute inset-0 hidden lg:block"
+            style={{ background: 'linear-gradient(to right, rgba(6,14,31,0.96) 0%, rgba(6,14,31,0.88) 38%, rgba(6,14,31,0.55) 70%, rgba(6,14,31,0.4) 100%)' }}
+          />
+          <div
+            className="absolute inset-x-0 bottom-0 h-40"
+            style={{ background: 'linear-gradient(to bottom, rgba(6,14,31,0), #060E1F)' }}
+          />
+        </div>
+      )}
+
       {/* Rastermuster — nur Mobil, auf Desktop übernimmt das Bild die rechte Hälfte */}
+      {!mitHintergrund && (
       <svg
         className="lg:hidden absolute inset-0 w-full h-full pointer-events-none"
         xmlns="http://www.w3.org/2000/svg"
@@ -208,51 +288,58 @@ export default function LocalHero({
           <rect width="100%" height="100%" fill="url(#lh-bg-diag)" />
         </g>
       </svg>
+      )}
 
       {/* Bild rechts — volle Höhe bis zum oberen Rand */}
+      {!bildRahmen && (
       <div className="hidden lg:block absolute inset-y-0 right-0 w-[52%] xl:w-[50%]">
-        <Image
-          src={imageSrc}
-          alt={imageAlt}
-          fill
-          className="object-cover object-[42%_18%]"
-          sizes="52vw"
-          priority
-        />
-        <ImageDecor />
-        {/* Fade nach links in den Hintergrund */}
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{ background: 'linear-gradient(to right, #060E1F 0%, rgba(6,14,31,0.5) 13%, rgba(6,14,31,0) 40%)' }}
-        />
-        {/* Fade unten */}
-        <div
-          className="absolute inset-x-0 bottom-0 h-24 pointer-events-none"
-          style={{ background: 'linear-gradient(to bottom, transparent, #060E1F)' }}
-        />
+        {mitHintergrund ? (
+          /* Freigestelltes Foto: steht unten auf, ohne eigene Verlaeufe */
+          <div className="absolute inset-0 pt-28">
+            <div className="relative w-full h-full">
+              <Image
+                src={imageSrc}
+                alt={imageAlt}
+                fill
+                className="object-contain object-[70%_100%]"
+                sizes="52vw"
+                priority
+              />
+            </div>
+          </div>
+        ) : (
+          <>
+            <Image
+              src={imageSrc}
+              alt={imageAlt}
+              fill
+              className="object-cover object-[42%_18%]"
+              sizes="52vw"
+              priority
+            />
+            <ImageDecor />
+            {/* Fade nach links in den Hintergrund */}
+            <div
+              className="absolute inset-0 pointer-events-none"
+              style={{ background: 'linear-gradient(to right, #060E1F 0%, rgba(6,14,31,0.5) 13%, rgba(6,14,31,0) 40%)' }}
+            />
+            {/* Fade unten */}
+            <div
+              className="absolute inset-x-0 bottom-0 h-24 pointer-events-none"
+              style={{ background: 'linear-gradient(to bottom, transparent, #060E1F)' }}
+            />
+          </>
+        )}
 
         {/* Kennzahl-Badge */}
-        <div
-          className="absolute bottom-8 right-8 flex items-center gap-4 rounded-2xl px-5 py-4 max-w-[300px]"
-          style={{
-            background: 'linear-gradient(135deg, rgba(13,24,41,0.85) 0%, rgba(11,21,37,0.8) 100%)',
-            border: '1px solid rgba(201,168,76,0.35)',
-            boxShadow: '0 8px 30px rgba(0,0,0,0.45), inset 0 0 20px rgba(201,168,76,0.05)',
-            backdropFilter: 'blur(4px)',
-          }}
-        >
-          <span style={{ color: '#C9A84C' }}>
-            <IconGroup />
-          </span>
-          <span className="flex flex-col leading-tight">
-            <span className="font-barlow font-bold text-2xl" style={{ color: '#F2D27A' }}>{statNumber}</span>
-            <span className="font-inter text-xs leading-snug" style={{ color: '#AEB5BE' }}>{statText}</span>
-          </span>
-        </div>
+        {badge}
       </div>
+      )}
 
       {/* Text links */}
       <div className="relative max-w-7xl mx-auto px-4 md:px-8 pt-36 md:pt-48 pb-16 md:pb-24">
+        {/* Mit Rahmen: zwei Spalten, items-stretch macht das Foto so hoch wie den Text */}
+        <div className={bildRahmen ? 'lg:grid lg:grid-cols-2 lg:gap-14 lg:items-stretch' : undefined}>
         <div className="max-w-2xl">
 
           {label && (
@@ -261,7 +348,13 @@ export default function LocalHero({
             </p>
           )}
 
-          <h1 className="font-barlow font-bold text-4xl md:text-6xl leading-[1.05] mb-5" style={{ color: '#E6E8EB' }}>
+          {/* Mit Bildspalte ist der Text nur halb so breit: Schrift ab lg kleiner,
+              damit die Ueberschrift hoechstens drei Zeilen hat (gemessen: 40 px
+              bei 1024 px Fensterbreite, 52 px ab 1280 px). */}
+          <h1
+            className={`font-barlow font-bold text-4xl md:text-6xl leading-[1.05] mb-5 ${bildRahmen ? 'lg:text-[2.5rem] xl:text-[3.25rem]' : ''}`}
+            style={{ color: '#E6E8EB' }}
+          >
             {headline}{headlineAccent ? ' ' : ''}
             {headlineAccent && <span style={goldGradient}>{headlineAccent}</span>}
           </h1>
@@ -285,7 +378,14 @@ export default function LocalHero({
 
           {/* Bild — nur Mobile, nach den Bullets: Argumentationskette bleibt zusammen */}
           <div className="lg:hidden relative w-full aspect-square rounded-xl overflow-hidden mb-10">
-            <Image src={imageSrc} alt={imageAlt} fill className="object-cover object-center" sizes="100vw" />
+            <Image
+              src={imageSrc}
+              alt={imageAlt}
+              fill
+              className={freigestellt ? 'object-contain object-bottom' : 'object-cover'}
+              style={bildRahmen && !freigestellt ? { objectPosition: bildPosition } : undefined}
+              sizes="100vw"
+            />
             <div className="absolute inset-x-0 bottom-0 h-16 pointer-events-none" style={{ background: 'linear-gradient(to bottom, transparent, #060E1F)' }} />
           </div>
 
@@ -305,6 +405,57 @@ export default function LocalHero({
             {ctaNote}
           </p>
 
+        </div>
+
+        {bildRahmen && (
+          <div
+            className={
+              bildFreigestellt
+                ? 'hidden lg:block relative'
+                : 'hidden lg:block relative rounded-2xl overflow-hidden'
+            }
+            style={
+              bildFreigestellt
+                ? undefined
+                : {
+                    background: '#0B1525',
+                    border: '1px solid rgba(201,168,76,0.35)',
+                    boxShadow: '0 0 40px rgba(201,168,76,0.12)',
+                  }
+            }
+          >
+            {bildFreigestellt ? (
+              /* So hoch wie die Textspalte (h-full), Breite folgt dem Seitenverhaeltnis.
+                 Wird die Spalte zu schmal, begrenzt max-w-full und das Foto
+                 schrumpft mit, statt in den Text zu ragen. Unten blendet eine
+                 Maske die Jeans in das Stadtbild aus. */
+              <Image
+                src={imageSrc}
+                alt={imageAlt}
+                width={bildMasse.breite}
+                height={bildMasse.hoehe}
+                priority
+                sizes="(min-width: 1280px) 600px, 45vw"
+                className="absolute bottom-0 left-1/2 -translate-x-1/2 h-full w-auto max-w-full object-contain object-bottom"
+                style={{
+                  maskImage: 'linear-gradient(to bottom, black 78%, transparent 100%)',
+                  WebkitMaskImage: 'linear-gradient(to bottom, black 78%, transparent 100%)',
+                }}
+              />
+            ) : (
+              <Image
+                src={imageSrc}
+                alt={imageAlt}
+                fill
+                priority
+                sizes="(min-width: 1280px) 580px, 45vw"
+                className="object-cover"
+                style={{ objectPosition: bildPosition }}
+              />
+            )}
+            {badge}
+          </div>
+        )}
         </div>
       </div>
     </section>

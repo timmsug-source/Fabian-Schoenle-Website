@@ -16,15 +16,15 @@ import LocalBusinessSchema from '@/components/schema/LocalBusinessSchema'
 import FAQSchema from '@/components/schema/FAQSchema'
 
 export const metadata: Metadata = buildMetadata({
-  title: 'Ernährungsberatung Karlsruhe — datenbasiert & individuell | FS Performance Lab',
+  title: 'Ernährungsberatung Frankfurt — datenbasiert & individuell | FS Performance Lab',
   description:
-    'Ernährungsberatung in Karlsruhe basierend auf deinen Blutwerten — kein generischer Diätplan, sondern ein System das zu deiner Biologie passt.',
-  slug: 'ernaehrungsberatung-karlsruhe',
+    'Ernährungsberatung in Frankfurt und Rhein-Main auf Basis deiner Blutwerte: kein generischer Diätplan, sondern ein System, das zu deiner Biologie passt.',
+  slug: 'ernaehrungsberatung-frankfurt',
 })
 
 const faqItems = [
   {
-    question: 'Findet die Ernährungsberatung in Karlsruhe vor Ort statt?',
+    question: 'Findet die Ernährungsberatung in Frankfurt vor Ort statt?',
     answer:
       'Die Zusammenarbeit läuft komplett online — Erstgespräch, Auswertung und laufende Betreuung. Für dich heißt das: kein Anfahrtsweg und kein fester Termin vor Ort. Weil der Ansatz auf deinen Blut- und DNA-Werten basiert, spielt der Ort ohnehin keine Rolle.',
   },
@@ -41,7 +41,7 @@ const faqItems = [
   {
     question: 'Welche Qualifikation bringst du mit?',
     answer:
-      'Ich habe Chemie studiert und einen M.Sc. in Chemie. Daraus kommt das Handwerk, das meine Arbeit trägt: komplexe Systeme analysieren und Laborwerte richtig lesen. Dazu über 200 begleitete Klienten und die eigene Praxis als Triathlet. Wichtig zur Einordnung: Ich bin kein Diätassistent und keine Ernährungsfachkraft mit Kassenzulassung, sondern auf datenbasierte Optimierung für Selbstständige und Unternehmer spezialisiert.',
+      'Ich habe Chemie studiert und einen M.Sc. in Chemie. Daraus kommt das Handwerk, das meine Arbeit trägt: komplexe Systeme analysieren und Laborwerte richtig lesen. Dazu über 30 begleitete Personen und die eigene Praxis als Triathlet. Wichtig zur Einordnung: Ich bin kein Diätassistent und keine Ernährungsfachkraft mit Kassenzulassung, sondern auf datenbasierte Optimierung für Selbstständige und Unternehmer spezialisiert.',
   },
   {
     question: 'Wie läuft die Zusammenarbeit ab?',
@@ -49,7 +49,7 @@ const faqItems = [
       'Nach dem kostenlosen Erstgespräch folgt die Blut- und DNA-Analyse. Auf Basis der Auswertung erhältst du dein individuelles Protokoll — das wir laufend an deine Werte anpassen.',
   },
   {
-    question: 'Was kostet die Ernährungsberatung in Karlsruhe?',
+    question: 'Was kostet die Ernährungsberatung in Frankfurt?',
     answer:
       'Die Zusammenarbeit ist individuell und richtet sich nach Umfang und Zieldefinition. Den konkreten Rahmen besprechen wir transparent im kostenlosen Erstgespräch — dort erfährst du genau, was auf dich zukommt.',
   },
@@ -70,33 +70,34 @@ const faqItems = [
   },
 ]
 
-export default function ErnaehrungsberatungKarlsruhePage() {
+export default function ErnaehrungsberatungFrankfurtPage() {
   return (
     <>
       <LocalBusinessSchema />
       <FAQSchema items={faqItems} />
 
-      {/* 1 — Hero: Text links, Foto rechts */}
+      {/* 1 — Hero: Text links, Foto im Rahmen rechts (so hoch wie der Text), Frankfurter Skyline dahinter */}
       <LocalHero
-        label="Ernährungsberatung Karlsruhe"
-        headline="Ernährungsberatung in Karlsruhe für"
+        label="Ernährungsberatung Frankfurt"
+        headline="Ernährungsberatung in Frankfurt für"
         headlineAccent="leistungsorientierte Menschen"
         subheadline="Ohne Raten und Verzicht in Bestform – auf Basis individueller DNA- und Blutwerte."
         ctaLabel="Performance Analyse sichern"
         ctaNote="Call mit mir persönlich · 20 Minuten · unverbindlich"
         imageSrc="/images/IMG_1550-hero.jpg"
-        imageAlt="Fabian Schönle — Performance Coach aus Karlsruhe"
+        imageAlt="Fabian Schönle, Performance Coach für Frankfurt und Rhein-Main"
+        bildRahmen
+        hintergrundSrc="/images/frankfurt-skyline.webp"
         statNumber="30+"
         statText="Personen begleitet"
       />
 
       {/* Rezensionen */}
-      <ReviewsSection />
+      <ReviewsSection ohneKicker />
 
       {/* 2 — Das Problem mit klassischer Ernährungsberatung */}
       <ProblemSection
-        label="Das Problem"
-        headline="Warum die meisten Ernährungspläne"
+        headline="Warum die meisten Ernährungsberatungen"
         headlineAccent="scheitern."
         intro="Es liegt nicht an deiner Disziplin. Es liegt daran, dass generische Pläne und radikale Ansätze deinen Alltag und deine individuelle Physiologie bzw. Anatomie völlig ignorieren. Alles, was du dadurch verlierst, ist deine wertvollste Ressource – nämlich Zeit."
         points={[
@@ -130,7 +131,6 @@ export default function ErnaehrungsberatungKarlsruhePage() {
 
       {/* 3 — Mein Ansatz: Wissenschaft trifft auf Ernährung */}
       <SolutionSection
-        label="Mein Ansatz"
         headline="Wissenschaft trifft auf Ernährung."
         intro="Durch einen datenbasierten Ansatz ermitteln wir gemeinsam die Hebel, die bei dir wirklich den Unterschied machen."
         karten
@@ -159,7 +159,6 @@ export default function ErnaehrungsberatungKarlsruhePage() {
 
       {/* 4 — Video-Testimonials im Hochformat */}
       <VideoTestimonials
-        label="Echte Ergebnisse"
         headline="So sieht Abnehmen neben"
         headlineAccent="Job, Familie und Privatleben aus."
         intro="Nachhaltige Ergebnisse trotz hoher Verantwortung und wenig Zeit."
@@ -169,15 +168,15 @@ export default function ErnaehrungsberatungKarlsruhePage() {
             name: 'Robert',
             rolle: '42 Jahre · Projektleiter, nebenbei Finanzberatung · spielt Squash',
             linkedin: 'https://www.linkedin.com/in/robert-raschkov-045889230/',
-            badgeVon: '98',
-            badgeNach: '84 kg',
+            badgeVon: '103',
+            badgeNach: '87 kg',
             vorher: [
               '14 kg zugenommen, Bauchfett trotz Sport',
               'Permanent erschöpft trotz 7 Stunden Schlaf',
               'Konzentration bricht nachmittags komplett ein',
             ],
             nachher: [
-              '−14 kg Körpergewicht in 5 Monaten',
+              '−16 kg Körpergewicht',
               'Stabile Energie ohne Koffein-Spitzen',
               'Klarer Kopf bis in den Abend',
             ],
@@ -205,12 +204,11 @@ export default function ErnaehrungsberatungKarlsruhePage() {
 
       {/* 5 — Was ich konkret bekomme */}
       <LeistungenSection
-        label="Was enthalten ist"
         headline="Was in der Zusammenarbeit konkret enthalten ist."
         imageSrc="/images/FS-Bild-Zitatsektion.webp"
-        imageAlt="Fabian Schönle — Performance Coach aus Karlsruhe"
+        imageAlt="Fabian Schönle, Performance Coach für Frankfurt und Rhein-Main"
         name="Fabian Schönle"
-        role="M.Sc. Chemie · Triathlet · Karlsruhe"
+        role="M.Sc. Chemie · Triathlet · Rhein-Main"
         items={[
           {
             headline: 'Datenbasierte Anamnese',
@@ -241,7 +239,6 @@ export default function ErnaehrungsberatungKarlsruhePage() {
 
       {/* 7 — Ergebnisse: Karten mit Popup */}
       <ErgebnisKartenSection
-        label="Ergebnisse"
         headline="Was sich verändert, wenn dein System"
         headlineAccent="richtig eingestellt ist."
         intro="Kein kurzfristiger Effekt auf der Waage. Sondern Veränderungen, die du im Alltag merkst – körperlich, mental und im Job."
@@ -287,6 +284,7 @@ export default function ErnaehrungsberatungKarlsruhePage() {
 
       {/* 8 — Vergleich: gleiche Sektion wie auf der Startseite */}
       <VergleichSection
+        ohneKicker
         intro="Du bekommst keinen Standardplan aus der Schublade – sondern eine Strategie, die auf deinen eigenen Werten aufbaut."
         spalten={{
           generic: ['Klassische', 'Ernährungs-', 'beratung'],
@@ -305,19 +303,19 @@ export default function ErnaehrungsberatungKarlsruhePage() {
 
       {/* 9 — Ablauf & Kontakt: gleiche Sektion wie auf der Startseite */}
       <KontaktSection
-        label="Ernährungsberatung in Karlsruhe starten"
+        ohneKicker
         title="Finde heraus, was deine Ernährung gerade limitiert."
         intro1="Kein Verkaufsgespräch. Kein Vertrag. Nur 20 Minuten, in denen wir gemeinsam anschauen, warum deine bisherigen Ernährungsansätze nicht gehalten haben."
         intro2="Der erste Schritt ist eine kostenlose Analyse deiner Ausgangslage. Du bekommst danach Klarheit darüber, welche Hebel bei dir wirklich zählen — und wie eine Ernährung aussieht, die zu deinem Arbeitstag passt." />
 
       {/* 10 — Socials: gleiche Sektion wie auf der Startseite */}
-      <SocialSection />
+      <SocialSection ohneKicker />
 
       {/* 11 — FAQ: lokale Fragen im Design der Startseite */}
       <FAQSection
-        label="Häufige Fragen"
+        label={false}
         title1="Fragen zur Ernährungsberatung"
-        title2="in Karlsruhe"
+        title2="in Frankfurt"
         items={faqItems.map((f) => ({ frage: f.question, antwort: f.answer }))}
       />
     </>

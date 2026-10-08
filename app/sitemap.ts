@@ -3,7 +3,7 @@ import { FREIGEGEBENE_UNTERSEITEN, SITE_URL, UNTERSEITEN_NOINDEX } from '@/lib/c
 
 const unterseiten: MetadataRoute.Sitemap = [
   { url: `${SITE_URL}/ueber-mich`,                    lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
-  { url: `${SITE_URL}/ernaehrungsberatung-karlsruhe`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.9 },
+  { url: `${SITE_URL}/ernaehrungsberatung-frankfurt`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.9 },
   { url: `${SITE_URL}/personal-coaching-online`,      lastModified: new Date(), changeFrequency: 'monthly', priority: 0.9 },
   { url: `${SITE_URL}/abnehmcoaching`,                lastModified: new Date(), changeFrequency: 'monthly', priority: 0.9 },
 ]
