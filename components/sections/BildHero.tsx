@@ -1,9 +1,8 @@
+import Image from 'next/image'
 import SectionLabel from '@/components/ui/SectionLabel'
-import VideoPlayerBox from '@/components/ui/VideoPlayerBox'
-import KundenReihe from '@/components/ui/KundenReihe'
 import { CALENDLY_URL } from '@/lib/constants'
 
-type VideoHeroProps = {
+type BildHeroProps = {
   /** Kleine Zeile über der Überschrift, im Stil der übrigen Sektionen */
   label?: string
   headline: string
@@ -12,11 +11,10 @@ type VideoHeroProps = {
   subheadline?: string
   /** Zeile neben den Sternen, z. B. „Ø 4,9 / 5 aus echten Rezensionen" */
   bewertung?: string
-  /** YouTube-Video-ID */
-  videoId: string
-  /** Lokales Vorschaubild — kein Abruf bei Google beim Seitenaufruf */
-  videoPosterSrc: string
-  videoTitle?: string
+  bildSrc: string
+  bildAlt: string
+  /** Ausschnitt im Rahmen, z. B. „center 20%“ */
+  bildPosition?: string
   ctaLabel?: string
   /** Hinweiszeile unter dem Knopf */
   ctaNote?: string
@@ -44,29 +42,28 @@ function Sterne() {
 }
 
 /**
- * Hero mit Video: links die Argumentation, rechts das Video und darunter der
- * Beleg dafür, dass schon andere da waren.
+ * Hero mit Bild: links die Argumentation, rechts ein Foto im Rahmen.
  *
- * Anders als auf der Startseite kommt das Video nicht aus dem Projekt, sondern
- * von YouTube. Deshalb VideoPlayerBox — die Einbindung laedt erst nach einem
- * Klick und laeuft ueber youtube-nocookie.com.
+ * Frueher stand rechts das Video. Es hat jetzt eine eigene Sektion direkt
+ * darunter (VideoSektion), damit der Einstieg ruhiger ist und das Video
+ * gross genug wirkt.
  *
  * Die Texte stehen als Angaben in der Seite, nicht im CMS: Der Hero der
  * Startseite haengt an dessen Feldern, und dieselben Felder auf einer
  * Unterseite zu verwenden hiesse, beide Seiten aneinanderzubinden.
  */
-export default function VideoHero({
+export default function BildHero({
   label,
   headline,
   headlineAccent,
   subheadline,
   bewertung,
-  videoId,
-  videoPosterSrc,
-  videoTitle,
+  bildSrc,
+  bildAlt,
+  bildPosition = 'center 20%',
   ctaLabel = 'Performance Analyse buchen',
   ctaNote = 'Call mit mir persönlich · 20 Minuten',
-}: VideoHeroProps) {
+}: BildHeroProps) {
   return (
     <div className="relative overflow-hidden" style={{ background: '#060E1F' }}>
 
@@ -110,7 +107,8 @@ export default function VideoHero({
       </svg>
 
       <section className="relative max-w-7xl mx-auto px-4 md:px-8 pt-28 md:pt-40 pb-16 md:pb-24">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+        {/* items-stretch: Das Foto rechts wird so hoch wie der Text links */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 lg:items-stretch">
 
           {/* Links: Einordnung, Überschrift, Bewertung, Aufruf */}
           <div>
@@ -169,20 +167,26 @@ export default function VideoHero({
             )}
           </div>
 
-          {/* Rechts: Video, darunter der Beleg */}
-          <div className="flex flex-col">
-            <VideoPlayerBox videoId={videoId} posterSrc={videoPosterSrc} title={videoTitle} />
-
-            <div
-              className="rounded-b-xl px-6 py-6 flex justify-center"
-              style={{
-                background: 'rgba(13,24,41,0.85)',
-                border: '1px solid rgba(201,168,76,0.3)',
-                borderTop: 'none',
-              }}
-            >
-              <KundenReihe gross />
-            </div>
+          {/* Rechts: nur das Foto, im selben Rahmen wie die Kaesten der Seite.
+              Ab Desktop ohne eigenes Seitenverhaeltnis, damit es die Hoehe
+              der linken Spalte uebernimmt. */}
+          <div
+            className="relative aspect-[4/5] lg:aspect-auto lg:h-full rounded-2xl overflow-hidden"
+            style={{
+              background: '#0B1525',
+              border: '1px solid rgba(201,168,76,0.35)',
+              boxShadow: '0 0 40px rgba(201,168,76,0.12)',
+            }}
+          >
+            <Image
+              src={bildSrc}
+              alt={bildAlt}
+              fill
+              priority
+              sizes="(min-width: 1280px) 590px, (min-width: 1024px) 45vw, 100vw"
+              className="object-cover"
+              style={{ objectPosition: bildPosition }}
+            />
           </div>
 
         </div>

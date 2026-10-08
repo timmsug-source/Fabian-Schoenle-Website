@@ -50,6 +50,8 @@ type KontaktSectionProps = {
   title?: string
   intro1?: string
   intro2?: string
+  /** Blendet beide Kicker aus (über dem Kontakt-Teil und „So läuft es ab“) */
+  ohneKicker?: boolean
 }
 
 export default function KontaktSection({
@@ -58,6 +60,7 @@ export default function KontaktSection({
   title,
   intro1,
   intro2,
+  ohneKicker = false,
 }: KontaktSectionProps) {
   const [fills, setFills] = useState<number[]>([])
   const ablaufRef = useRef<HTMLDivElement>(null)
@@ -93,9 +96,11 @@ export default function KontaktSection({
 
           {/* Linke Spalte — Text + Trust */}
           <div className="animate-fade-up lg:sticky lg:top-28 lg:self-start">
+            {!ohneKicker && (
             <p {...(label ? {} : cms('kontakt_label'))} className="font-inter text-xs font-semibold uppercase tracking-widest mb-4" style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
               {label || txt(content, 'kontakt_label', 'High-Performance Coaching starten')}
             </p>
+            )}
             <h2 {...(title ? {} : cms('kontakt_title'))} className="font-barlow font-bold text-3xl md:text-5xl leading-tight mb-5" style={{ color: '#E6E8EB' }}>
               {title || txt(content, 'kontakt_title', 'Finde heraus, was dein System gerade limitiert.')}
             </h2>
@@ -177,9 +182,11 @@ export default function KontaktSection({
           <div className="contents lg:flex lg:flex-col">
             {/* Überschrift — mobil zuerst, auf Desktop oben in der linken Spalte */}
             <div className="order-1">
+              {!ohneKicker && (
               <p {...cms('ablauf_label')} className="font-inter text-xs font-semibold uppercase tracking-widest mb-0.5 text-center" style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
                 {txt(content, 'ablauf_label', 'So läuft es ab')}
               </p>
+              )}
               {/* Absatz statt Überschrift: Teil des Kontakt-Blocks — Überschriften gehören laut Seobility nicht in Formulare und Widgets */}
               <p {...cms('ablauf_title')} className="font-barlow font-bold text-3xl md:text-5xl leading-tight text-center" style={{ color: '#E6E8EB', marginBottom: 0 }}>
                 {txt(content, 'ablauf_title', 'Drei Schritte bis zu deinem Plan')}

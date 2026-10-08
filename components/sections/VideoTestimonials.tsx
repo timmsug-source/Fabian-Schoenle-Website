@@ -17,6 +17,10 @@ type VideoTestimonial = {
   /** Optional — ohne beide Listen zeigt die Karte nur Video und Zitat. */
   vorher?: string[]
   nachher?: string[]
+  /** Ergebnisse als Haken-Liste — gebraucht in der gestapelten Anordnung */
+  ergebnisse?: string[]
+  /** Das Ergebnis in einer Zeile über den Punkten, z. B. „−16 kg Körpergewicht" */
+  ergebnisTitel?: string
 }
 
 type VideoTestimonialsProps = {
@@ -25,6 +29,13 @@ type VideoTestimonialsProps = {
   headlineAccent?: string
   intro?: string
   videos: VideoTestimonial[]
+  /**
+   * 'raster' stellt die Karten nebeneinander, Video oben und Text darunter.
+   * 'gestapelt' legt sie untereinander: links das Video, rechts das Ergebnis
+   * auf derselben Hoehe. Die zweite Fassung braucht mehr Platz je Person und
+   * lohnt sich, wo es nur zwei sind.
+   */
+  anordnung?: 'raster' | 'gestapelt'
 }
 
 const goldText = {
@@ -105,7 +116,15 @@ function Zuordnung({ video }: { video: VideoTestimonial }) {
   )
 }
 
-function TestimonialKarte({ video, index }: { video: VideoTestimonial; index: number }) {
+function TestimonialKarte({
+  video,
+  index,
+  gestapelt = false,
+}: {
+  video: VideoTestimonial
+  index: number
+  gestapelt?: boolean
+}) {
   const ref = useRef<HTMLVideoElement>(null)
   const [laeuft, setLaeuft] = useState(false)
 
@@ -116,7 +135,9 @@ function TestimonialKarte({ video, index }: { video: VideoTestimonial; index: nu
 
   return (
     <div
-      className="rounded-2xl p-5 md:p-7 flex flex-col"
+      className={`rounded-2xl p-5 md:p-7 ${
+        gestapelt ? 'grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 items-stretch' : 'flex flex-col'
+      }`}
       style={{
         background: 'linear-gradient(135deg, rgba(13,24,41,0.75) 0%, rgba(11,21,37,0.6) 100%)',
         border: '1px solid rgba(201,168,76,0.3)',
@@ -125,7 +146,7 @@ function TestimonialKarte({ video, index }: { video: VideoTestimonial; index: nu
     >
       {/* Video */}
       <div
-        className="relative aspect-video rounded-xl overflow-hidden"
+        className="relative aspect-video rounded-xl overflow-hidden self-center w-full"
         style={{ background: '#060E1F', border: '1px solid rgba(201,168,76,0.28)' }}
       >
         {/*
@@ -192,13 +213,40 @@ function TestimonialKarte({ video, index }: { video: VideoTestimonial; index: nu
       </div>
 
       {/*
+        Rechte Spalte der gestapelten Fassung. `justify-center` haelt sie auf
+        der Hoehe des Videos daneben, statt sie oben anzusetzen.
+      */}
+      <div className={gestapelt ? 'flex flex-col justify-center' : 'contents'}>
+
+      {gestapelt && video.ergebnisTitel && (
+        /* Die Zahl zuerst — sie bleibt haengen, bevor die Punkte sie aufschluesseln.
+           Fester Strich wie in den Fallstudien der Werbeseite. */
+        <p className="font-barlow font-bold text-2xl md:text-4xl leading-[1.3] mb-6" style={{ color: '#E6E8EB' }}>
+          <span className="unterstrich-fest">{video.ergebnisTitel}</span>
+        </p>
+      )}
+
+      {gestapelt && video.ergebnisse && video.ergebnisse.length > 0 && (
+        <ul className="flex flex-col gap-4 mb-6">
+          {video.ergebnisse.map((e, i) => (
+            <li key={e} className="flex items-start gap-3">
+              <Haken id={`vt-ergebnis-${index}-${i}`} />
+              <span className="font-inter text-base md:text-lg leading-relaxed" style={{ color: '#FFFFFF' }}>
+                {e}
+              </span>
+            </li>
+          ))}
+        </ul>
+      )}
+
+      {/*
         Zitat ist optional. Ohne Zitat bleibt die Zuordnung trotzdem stehen —
         sie ordnet die Vorher/Nachher-Liste darunter einer Person zu. Fiele sie
         mit weg, stünden dort anonyme Zahlen. Der Zitat-Rahmen (Goldbalken,
         Kursivsatz) entfällt dann, weil es nichts mehr zu zitieren gibt.
       */}
       {video.zitat ? (
-        <blockquote className="mt-6 pl-4" style={{ borderLeft: '2px solid rgba(201,168,76,0.5)' }}>
+        <blockquote className={`${gestapelt ? '' : 'mt-6'} pl-4`} style={{ borderLeft: '2px solid rgba(201,168,76,0.5)' }}>
           <p className="font-inter italic text-base leading-relaxed" style={{ color: '#D4D9DF' }}>
             &bdquo;{video.zitat}&ldquo;
           </p>
@@ -207,7 +255,7 @@ function TestimonialKarte({ video, index }: { video: VideoTestimonial; index: nu
           </footer>
         </blockquote>
       ) : (
-        <div className="mt-6">
+        <div className={gestapelt ? '' : 'mt-6'}>
           <Zuordnung video={video} />
         </div>
       )}
@@ -260,6 +308,8 @@ function TestimonialKarte({ video, index }: { video: VideoTestimonial; index: nu
         </div>
       </div>
       ) : null}
+
+      </div>
     </div>
   )
 }
@@ -273,7 +323,9 @@ export default function VideoTestimonials({
   headlineAccent,
   intro,
   videos,
+  anordnung = 'raster',
 }: VideoTestimonialsProps) {
+  const gestapelt = anordnung === 'gestapelt'
   return (
     <section className="max-w-7xl mx-auto px-4 md:px-8 py-16 md:py-24">
       <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16 animate-fade-up">
@@ -298,9 +350,13 @@ export default function VideoTestimonials({
         )}
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 animate-fade-up">
+      <div
+        className={`animate-fade-up ${
+          gestapelt ? 'flex flex-col gap-6 md:gap-8' : 'grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8'
+        }`}
+      >
         {videos.map((v, i) => (
-          <TestimonialKarte key={i} video={v} index={i} />
+          <TestimonialKarte key={i} video={v} index={i} gestapelt={gestapelt} />
         ))}
       </div>
     </section>
