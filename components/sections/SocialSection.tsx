@@ -60,9 +60,11 @@ type SocialSectionProps = {
    * dann intern: Medium oben, Text darunter.
    */
   nebeneinander?: boolean
+  /** Blendet den Kicker „Social Media“ aus */
+  ohneKicker?: boolean
 }
 
-export default async function SocialSection({ content = {}, nebeneinander = false }: SocialSectionProps) {
+export default async function SocialSection({ content = {}, nebeneinander = false, ohneKicker = false }: SocialSectionProps) {
   const youtubeUrl = txt(content, 'social_youtube_url', YOUTUBE_URL)
   const linkedinUrl = txt(content, 'social_linkedin_url', LINKEDIN_URL)
   const videos = await getLatestVideos()
@@ -78,9 +80,11 @@ export default async function SocialSection({ content = {}, nebeneinander = fals
 
         {/* Header */}
         <div className="text-center animate-fade-up">
+          {!ohneKicker && (
           <p {...cms('social_label')} className="font-inter text-xs font-semibold uppercase tracking-widest mb-4" style={{ backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)', backgroundSize: '100% 1.2em', backgroundRepeat: 'repeat-y', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
             {txt(content, 'social_label', 'Social Media')}
           </p>
+          )}
           <h2 {...cms('social_title')} className="font-barlow font-bold text-3xl md:text-5xl leading-tight" style={{ color: '#E6E8EB' }}>
             {txt(content, 'social_title', 'Folg mir für mehr')}
           </h2>

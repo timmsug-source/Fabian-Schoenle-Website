@@ -3,6 +3,11 @@ import { buildMetadata } from '@/lib/metadata'
 import BildHero from '@/components/sections/BildHero'
 import VideoSektion from '@/components/sections/VideoSektion'
 import ErgebnisStreifen from '@/components/ui/ErgebnisStreifen'
+import ComparisonTable from '@/components/sections/ComparisonTable'
+import KontaktSection from '@/components/sections/KontaktSection'
+import SocialSection from '@/components/sections/SocialSection'
+import FAQ from '@/components/sections/FAQ'
+import FAQSchema from '@/components/schema/FAQSchema'
 import ProblemStapel from '@/components/sections/ProblemStapel'
 import SolutionSection from '@/components/sections/SolutionSection'
 import VideoTestimonials from '@/components/sections/VideoTestimonials'
@@ -14,10 +19,59 @@ export const metadata: Metadata = buildMetadata({
   slug: 'abnehmcoaching',
 })
 
-/** Die Seite wird gerade neu aufgebaut: bisher Hero und Video-Testimonials. */
+/**
+ * Fragen zum Abnehmcoaching. Stehen sichtbar in der FAQ und als FAQPage-Schema.
+ * Zahlen nur, wo sie schon auf der Website stehen (12 kg im Schnitt in 16
+ * Wochen, Startseite) — keine Preise, keine Garantien.
+ */
+const faqItems = [
+  {
+    question: 'Für wen ist das Abnehmcoaching gedacht?',
+    answer:
+      'Für Männer ab 30 mit vollem Kalender: Unternehmer, Führungskräfte, Selbstständige. Meistens haben sie schon einiges ausprobiert und gemerkt, dass es im Alltag nicht hält. Nicht passend ist es, wenn du 10 Kilo in 6 Wochen willst oder eine Radikaldiät suchst.',
+  },
+  {
+    question: 'Wie viel verliere ich in 16 Wochen?',
+    answer:
+      'Das hängt von deiner Ausgangslage ab. Im Schnitt verlieren meine Klienten in 16 Wochen rund 12 kg. Wichtiger als die Zahl ist mir, dass es Körperfett ist und nicht Muskulatur, und dass das Ergebnis nach dem Coaching bleibt.',
+  },
+  {
+    question: 'Muss ich auf bestimmte Lebensmittel verzichten?',
+    answer:
+      'Nein, es gibt keine Verbotsliste. Der Plan baut auf dem auf, was du gern isst und realistisch umsetzen kannst, auch im Restaurant und auf Geschäftsreisen. Verzicht hält selten länger als ein paar Wochen, Struktur schon.',
+  },
+  {
+    question: 'Wozu brauche ich die Blut- und DNA-Analyse?',
+    answer:
+      'Sie zeigt, was dein Körper gerade macht: Hormonstatus, Blutzucker, Entzündungswerte und Nährstoffe. Damit arbeiten wir an den Ursachen statt zu raten. Die Analysen macht ein externes Partnerlabor, der Test kommt zu dir nach Hause. Ich bin Chemiker, kein Arzt, und stelle keine Diagnosen.',
+  },
+  {
+    question: 'Wie viel Zeit kostet mich das im Alltag?',
+    answer:
+      'Weniger, als du denkst. Mahlzeiten eintragen, Gewicht notieren und einmal pro Woche den Check-In ausfüllen, das sind meist keine zehn Minuten am Tag. Das Training wird so geplant, dass es in deine Woche passt, nicht umgekehrt.',
+  },
+  {
+    question: 'Wie läuft die Betreuung ab?',
+    answer:
+      'Alles läuft online. Deinen Plan findest du in der Coaching-App, jede Woche bekommst du nach deinem Check-In ein persönliches Video von mir mit Rückblick und Anpassungen. Dazwischen erreichst du mich direkt in der App.',
+  },
+  {
+    question: 'Ist das Erstgespräch wirklich kostenlos?',
+    answer:
+      'Ja. 20 Minuten, online, unverbindlich. Wir schauen auf deinen Alltag und klären, woran es bisher gehakt hat. Wenn es passt, zeige ich dir, wie eine Zusammenarbeit aussehen würde. Entscheiden kannst du danach in Ruhe.',
+  },
+]
+
+/**
+ * Abnehmcoaching: Hero mit Foto, Ergebnis-Streifen, Video, Problem,
+ * Video-Testimonials, Lösung, Vergleich, Ablauf & Kontakt, Socials, FAQ.
+ * Ausser im Hero bewusst ohne Kicker ueber den Ueberschriften.
+ */
 export default function AbnehmcoachingPage() {
   return (
     <>
+      <FAQSchema items={faqItems} />
+
       <BildHero
         label="1:1 Online-Abnehmcoaching für Männer ab 30"
         headline="Du hast alles versucht."
@@ -50,7 +104,6 @@ export default function AbnehmcoachingPage() {
       {/* Problem — Inhalt von der Karlsruher Seite, Aufbau in zwei Spalten:
           links die Einordnung, rechts die drei Punkte als Karten mit Zeichnung. */}
       <ProblemStapel
-        label="Das Problem"
         headline="Warum die meisten Abnehmcoachings"
         headlineAccent="scheitern."
         intro="Es liegt nicht an deiner Disziplin. Es liegt daran, dass die meisten Abnehmcoachings mit Plänen von der Stange arbeiten und dabei deinen Alltag und deine individuelle Physiologie völlig ignorieren."
@@ -76,7 +129,6 @@ export default function AbnehmcoachingPage() {
       />
 
       <VideoTestimonials
-        label="Im Originalton"
         headline="Hör es dir von"
         headlineAccent="Robert und Richard selbst an."
         intro="Zwei Männer, die vorher schon einiges probiert hatten — und erzählen, was diesmal anders war."
@@ -113,7 +165,6 @@ export default function AbnehmcoachingPage() {
           der vierte Schritt hält das Ergebnis. Aufbau wie „Mein Ansatz" auf der
           Karlsruher Seite. */}
       <SolutionSection
-        label="Die Lösung"
         headline="Ein Abnehmcoaching,"
         headlineAccent="mit dem du deine Ziele erreichst."
         intro="Statt gegen deinen Stoffwechsel zu arbeiten, stellen wir ihn ein. In drei Schritten, von der Messung bis zu den Routinen, die in deinen Alltag passen."
@@ -139,6 +190,39 @@ export default function AbnehmcoachingPage() {
           },
         ]}
       />
+
+      {/* Vergleich: Wo sich das Coaching von üblichen Abnehmprogrammen unterscheidet */}
+      <ComparisonTable
+        headline="Standard-Abnehmcoaching"
+        // Geschützte Leerzeichen: „vs. FS Performance Lab“ bricht nur als Ganzes um
+        headlineAccent={'vs.\u00A0FS\u00A0Performance\u00A0Lab'}
+        intro="Der Unterschied liegt nicht im Ehrgeiz, sondern im System dahinter."
+        spalteStandard="Standard-Abnehmcoaching"
+        spalteFs="FS Performance Lab"
+        rows={[
+          { criterion: 'Ausgangspunkt', standard: 'Kalorienrechner und Fragebogen', fsPerformance: 'Blut- und DNA-Analyse aus dem Labor' },
+          { criterion: 'Plan', standard: 'Ernährungsplan von der Stange', fsPerformance: 'Strategie nach deinen Werten' },
+          { criterion: 'Alltag', standard: 'Setzt freie Zeit und feste Abläufe voraus', fsPerformance: 'Richtet sich nach Job, Familie und Reisen' },
+          { criterion: 'Training', standard: 'Standardplan, oft fünf Einheiten pro Woche', fsPerformance: 'Routine, die in deine Woche passt' },
+          { criterion: 'Fokus', standard: 'Die Zahl auf der Waage', fsPerformance: 'Körperkomposition, Energie und Schlaf' },
+          { criterion: 'Anpassung', standard: 'Einmal erstellt, selten angepasst', fsPerformance: 'Laufend angepasst anhand deiner Daten' },
+          { criterion: 'Betreuung', standard: 'Wechselnde Ansprechpartner oder Chatbot', fsPerformance: 'Persönlich mit mir, Chat-Support im Alltag' },
+          { criterion: 'Nach dem Programm', standard: 'Jo-Jo-Effekt, sobald der Plan endet', fsPerformance: 'Routinen, die bleiben' },
+        ]}
+      />
+
+      {/* Ablauf & Kontakt: gleiche Sektion wie auf der Startseite und den
+          übrigen Unterseiten, nur die Texte aufs Abnehmcoaching zugeschnitten */}
+      <KontaktSection
+        ohneKicker
+        title="Finde heraus, warum es bei dir bisher nicht gehalten hat."
+        intro1="Kein klassisches Verkaufsgespräch, kein Vertrag. 20 Minuten, in denen wir auf deinen Alltag schauen: Job, Familie, Essen, Bewegung, Schlaf. Und klären, woran es bisher gehakt hat."
+        intro2="Du gehst mit den ein, zwei Hebeln raus, mit denen du direkt anfangen kannst. Wenn es passt, zeige ich dir, wie die 16 Wochen mit mir aussehen würden. Entscheiden kannst du danach in Ruhe."
+      />
+
+      <SocialSection ohneKicker />
+
+      <FAQ headline="Fragen zum Abnehmcoaching." items={faqItems} />
     </>
   )
 }
