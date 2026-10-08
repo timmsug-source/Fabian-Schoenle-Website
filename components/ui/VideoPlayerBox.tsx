@@ -9,19 +9,21 @@ type VideoPlayerBoxProps = {
   /** Lokal ausgeliefertes Vorschaubild — kein Abruf bei Google beim Seitenaufruf */
   posterSrc: string
   title?: string
+  /** Ohne eigenen Rand und ohne Rundung — für den Einbau in einen Rahmen */
+  rahmenlos?: boolean
 }
 
 /**
  * 16:9-Videokachel mit dauerhaft sichtbarem Vorschaubild. Das YouTube-iframe
  * wird erst nach einem Klick eingehängt und läuft über youtube-nocookie.com.
  */
-export default function VideoPlayerBox({ videoId, posterSrc, title = 'Video' }: VideoPlayerBoxProps) {
+export default function VideoPlayerBox({ videoId, posterSrc, title = 'Video', rahmenlos = false }: VideoPlayerBoxProps) {
   const [geladen, setGeladen] = useState(false)
 
   return (
     <div
-      className="relative aspect-video rounded-xl overflow-hidden"
-      style={{ background: '#060E1F', border: '1px solid rgba(201,168,76,0.3)' }}
+      className={`relative aspect-video overflow-hidden ${rahmenlos ? '' : 'rounded-xl'}`}
+      style={{ background: '#060E1F', border: rahmenlos ? undefined : '1px solid rgba(201,168,76,0.3)' }}
     >
       {geladen ? (
         <iframe

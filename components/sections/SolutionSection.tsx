@@ -1,7 +1,19 @@
 import { Fragment } from 'react'
+import ProblemGrafik, { type ProblemGrafikName } from '@/components/ui/ProblemGrafiken'
 import Image from 'next/image'
 import SectionLabel from '@/components/ui/SectionLabel'
 import ZitatModul from '@/components/ui/ZitatModul'
+
+/** Zweite Zeile der Überschrift im Goldverlauf — wie in der Problemsektion. */
+const goldText = {
+  backgroundImage: 'linear-gradient(#C9A84C, #E8D49A)',
+  backgroundSize: '100% 1.2em',
+  backgroundRepeat: 'repeat-y',
+  WebkitBackgroundClip: 'text',
+  WebkitTextFillColor: 'transparent',
+  backgroundClip: 'text',
+} as const
+
 
 /**
  * Verbindungspfeil zwischen zwei Schritten — waagerecht ab md, darunter senkrecht.
@@ -80,6 +92,8 @@ const LEISTUNG_ICONS: Record<LeistungIcon, React.ReactNode> = {
 type Step = {
   /** Nummer für Abfolgen. Entfällt, wenn stattdessen ein Symbol gesetzt ist. */
   number?: string
+  /** Zeichnung über dem Text — dieselbe wie in der Problemsektion, hier scharf */
+  grafik?: ProblemGrafikName
   /** Symbol statt Nummer — für Aufzählungen ohne Reihenfolge. */
   icon?: LeistungIcon
   headline: string
@@ -89,6 +103,8 @@ type Step = {
 type SolutionSectionProps = {
   label?: string
   headline: string
+  /** Zweite Zeile der Überschrift, im Goldverlauf wie in der Problemsektion */
+  headlineAccent?: string
   intro?: string
   steps: Step[]
   /** Schritte als Karten mit Goldrahmen statt als schlichte Spalten */
@@ -110,6 +126,7 @@ type SolutionSectionProps = {
 export default function SolutionSection({
   label,
   headline,
+  headlineAccent,
   intro,
   steps,
   karten,
@@ -151,8 +168,14 @@ export default function SolutionSection({
             <SectionLabel>{label}</SectionLabel>
           </div>
         )}
-        <h2 className="text-3xl md:text-5xl font-bold font-barlow mb-6" style={{ color: '#E6E8EB' }}>
+        <h2 className="text-3xl md:text-5xl font-bold font-barlow mb-6 leading-[1.3]" style={{ color: '#E6E8EB' }}>
           {headline}
+          {headlineAccent && (
+            <>
+              <br />
+              <span style={goldText}>{headlineAccent}</span>
+            </>
+          )}
         </h2>
         {intro && (
           <p
@@ -182,7 +205,7 @@ export default function SolutionSection({
           >
             {step.icon ? (
               <span className="block">{LEISTUNG_ICONS[step.icon]}</span>
-            ) : (
+            ) : step.number ? (
               <span
                 className="text-5xl font-bold font-barlow"
                 style={{
@@ -196,10 +219,16 @@ export default function SolutionSection({
               >
                 {step.number}
               </span>
-            )}
+            ) : null}
             <h3 className="text-xl md:text-2xl font-semibold font-barlow" style={{ color: '#E6E8EB' }}>
               {step.headline}
             </h3>
+            {/* Dieselbe Zeichnung wie in der Problemsektion, hier scharf: Was
+                dort nur zu erahnen war, liegt hier offen. Sie steht zwischen
+                Ueberschrift und Text — erst die Aussage, dann das Bild dazu,
+                dann die Erklaerung. */}
+            {step.grafik && <ProblemGrafik name={step.grafik} />}
+
             <p className="font-inter leading-relaxed" style={{ color: '#A6B0BA' }}>{step.body}</p>
           </li>
 
