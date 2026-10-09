@@ -65,7 +65,7 @@ const faqItems = [
 /**
  * Abnehmcoaching: Hero mit Foto, Ergebnis-Streifen, Video, Problem,
  * Video-Testimonials, Lösung, Vergleich, Ablauf & Kontakt, Socials, FAQ.
- * Ausser im Hero bewusst ohne Kicker ueber den Ueberschriften.
+ * Bewusst ohne Kicker ueber den Ueberschriften, auch im Hero.
  */
 export default function AbnehmcoachingPage() {
   return (
@@ -73,10 +73,9 @@ export default function AbnehmcoachingPage() {
       <FAQSchema items={faqItems} />
 
       <BildHero
-        label="1:1 Online-Abnehmcoaching für Männer ab 30"
-        headline="Du hast alles versucht."
+        headline="Abnehmcoaching für Männer ab 30."
         headlineAccent="Das Problem war nie deine Disziplin."
-        subheadline="Hartnäckiges Bauchfett ab 30 ist kein Willensproblem, sondern ein Stoffwechsel, der falsch eingestellt ist — sichtbar in deinen Blut- und DNA-Werten. Im Video erkläre ich, woran es liegt und wie sich das in 16 Wochen ändern lässt."
+        subheadline="Du hast alles versucht, aber das Bauchfett bleibt? Dann liegt es nicht an deinem Willen, sondern an einem Stoffwechsel, der falsch eingestellt ist. Im Abnehmcoaching finden wir anhand deiner Blut- und DNA-Werte heraus, woran es bei dir hakt, und stellen es in 16 Wochen neu ein."
         bewertung="Ø 4,9 / 5 aus echten Rezensionen"
         bildSrc="/images/FS-Bild-Über-Fabian.webp"
         bildAlt="Fabian Schönle, Performance Coach"
@@ -98,7 +97,7 @@ export default function AbnehmcoachingPage() {
         intro="Im Video erkläre ich, warum es bei Männern mit vollem Kalender so oft nicht hält, obwohl es weder an Wissen noch an Disziplin fehlt, und wie sich das in 16 Wochen ändern lässt."
         videoId="uTtxN9ycObQ"
         videoPosterSrc="/images/video-thumb-uTtxN9ycObQ.jpg"
-        videoTitle="Warum Abnehmen für CEOs scheitert und wie du das in 16 Wochen änderst — Video von Fabian Schönle"
+        videoTitle="Warum Abnehmen für CEOs scheitert und wie du das in 16 Wochen änderst. Video von Fabian Schönle"
       />
 
       {/* Problem — Inhalt von der Karlsruher Seite, Aufbau in zwei Spalten:
@@ -106,24 +105,24 @@ export default function AbnehmcoachingPage() {
       <ProblemStapel
         headline="Warum die meisten Abnehmcoachings"
         headlineAccent="scheitern."
-        intro="Es liegt nicht an deiner Disziplin. Es liegt daran, dass die meisten Abnehmcoachings mit Plänen von der Stange arbeiten und dabei deinen Alltag und deine individuelle Physiologie völlig ignorieren."
-        intro2="Alles, was du dadurch verlierst, ist deine wertvollste Ressource — nämlich Zeit. An diesen drei Punkten scheitert es fast immer:"
+        intro="Es liegt daran, dass die meisten Abnehmcoachings mit Plänen von der Stange arbeiten und dabei deinen Alltag und deine individuelle Physiologie völlig ignorieren."
+        intro2="Alles, was du dadurch verlierst, ist deine wertvollste Ressource: Zeit. An diesen drei Punkten scheitert es fast immer:"
         ctaLabel="Performance Analyse buchen"
         punkte={[
           {
             titel: 'Nur Kalorien gezählt',
             grafik: 'hormone',
-            body: 'Die meisten Abnehmcoachings rechnen nur mit Kalorien. Was dein Hormonsystem dazu sagt, bleibt außen vor: Testosteron, Cortisol, Schilddrüse. Du hältst das Defizit sauber ein — und trotzdem bewegt sich nichts.',
+            body: 'Die meisten Abnehmcoachings rechnen nur mit Kalorien. Was dein Hormonsystem dazu sagt, bleibt außen vor: Testosteron, Cortisol, Schilddrüse. Du hältst das Defizit sauber ein, und trotzdem bewegt sich nichts.',
           },
           {
             titel: 'Am Symptom herumgeschraubt',
             grafik: 'ursachen',
-            body: 'Wenig Antrieb, hartnäckiges Bauchfett, kaum Muskelaufbau trotz Training: Daran wird herumgeschraubt. Woher es kommt, schaut sich niemand an — ein Blutwert liegt in diesen Coachings nie auf dem Tisch.',
+            body: 'Wenig Antrieb, hartnäckiges Bauchfett, kaum Muskelaufbau trotz Training: Daran wird herumgeschraubt. Woher es kommt, schaut sich niemand an. Ein Blutwert liegt in diesen Coachings nie auf dem Tisch.',
           },
           {
             titel: 'Auf Disziplin gebaut',
             grafik: 'strategie',
-            body: 'Mehr trainieren, weniger essen, mehr durchhalten — darauf läuft fast jedes Abnehmcoaching hinaus. Klappt es nicht, liegt es angeblich an dir. Dabei ist dauernder Verzicht zusätzlicher Stress, und der arbeitet gegen deine Hormone.',
+            body: 'Mehr trainieren, weniger essen, mehr durchhalten: Darauf läuft fast jedes Abnehmcoaching hinaus. Klappt es nicht, liegt es angeblich an dir. Dabei ist dauernder Verzicht zusätzlicher Stress, und der arbeitet gegen deine Hormone.',
           },
         ]}
       />
@@ -131,7 +130,7 @@ export default function AbnehmcoachingPage() {
       <VideoTestimonials
         headline="Hör es dir von"
         headlineAccent="Robert und Richard selbst an."
-        intro="Zwei Männer, die vorher schon einiges probiert hatten — und erzählen, was diesmal anders war."
+        intro="Zwei Männer, die vorher schon einiges probiert hatten, erzählen, was diesmal anders war."
         anordnung="gestapelt"
         videos={[
           {
