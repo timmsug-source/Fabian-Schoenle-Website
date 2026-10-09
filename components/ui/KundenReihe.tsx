@@ -1,12 +1,11 @@
 import Image from 'next/image'
 
 /**
- * Vier Kundengesichter, leicht ueberlappend, daneben die Zahl.
+ * Drei Kundengesichter, leicht ueberlappend, daneben die Zahl.
  *
- * Die Bilder stammen aus den LinkedIn-Empfehlungen, die ohnehin im
- * Bewertungsraster der Seite stehen — es sind also echte Klienten, keine
- * Symbolfotos. Der weisse Ring setzt sie voneinander ab, `zIndex` legt den
- * ersten nach vorn, damit sie sich von links nach rechts staffeln.
+ * Echte Klienten, keine Symbolfotos: Gregory, Richard und Robert, deren
+ * Fallstudien auch auf /danke stehen. `zIndex` legt den ersten nach vorn,
+ * damit sie sich von links nach rechts staffeln.
  *
  * `sterne` blendet fuenf goldene Sterne ueber der Zeile ein — dort, wo die
  * Reihe als Bewertung gelesen werden soll und nicht nur als Anzahl.
@@ -15,15 +14,17 @@ import Image from 'next/image'
  * neben dem Video steht und nicht als Randnotiz unter einem Knopf.
  */
 export default function KundenReihe({ sterne = false, gross = false }: { sterne?: boolean; gross?: boolean }) {
+  // Dieselben drei Personen und Porträts wie in den Fallstudien auf /danke.
+  // Die quadratischen Ausschnitte sind 320 px gross und bleiben auch bei
+  // doppelter Pixeldichte scharf (vorher 160-px-Bilder von LinkedIn).
   const kunden = [
-    { src: '/images/kunde-gregory.png', name: 'Gregory' },
-    { src: '/images/kunde-axel.png', name: 'Axel' },
-    { src: '/images/kunde-hansherbert.png', name: 'Hans-Herbert' },
-    { src: '/images/kunde-matthias.png', name: 'Matthias' },
+    { src: '/images/Gregory-Portrait.jpg', name: 'Gregory' },
+    { src: '/images/Richard-Portrait.jpg', name: 'Richard' },
+    { src: '/images/Robert-Portrait.jpg', name: 'Robert' },
   ]
 
-  const kante = gross ? 64 : 42
-  const ueberlappung = gross ? -18 : -12
+  const kante = gross ? 64 : 48
+  const ueberlappung = gross ? -16 : -12
 
   return (
     <div className={`flex items-center ${gross ? 'gap-5' : 'gap-4'}`}>
@@ -31,19 +32,20 @@ export default function KundenReihe({ sterne = false, gross = false }: { sterne?
         {kunden.map((k, i) => (
           <span
             key={k.src}
-            className="relative rounded-full overflow-hidden"
+            className="relative rounded-full overflow-hidden flex-shrink-0"
             style={{
               width: kante,
               height: kante,
               marginLeft: i === 0 ? 0 : ueberlappung,
-              border: '2px solid #0B1525',
-              // Ring nach innen, damit die Reihe buendig mit dem Knopf darueber steht:
-                    // ein aeusserer Schatten zaehlt nicht zum Layout und ragte daher heraus.
-                    boxShadow: 'inset 0 0 0 1px rgba(201,168,76,0.35)',
+              // Dunkler Rand trennt die ueberlappenden Gesichter, der goldene
+              // Ring aussen haelt sie als Reihe zusammen. Als box-shadow, weil
+              // ein Ring innen vom Bild verdeckt wuerde.
+              border: '2px solid #060E1F',
+              boxShadow: '0 0 0 1.5px rgba(201,168,76,0.55)',
               zIndex: kunden.length - i,
             }}
           >
-            <Image src={k.src} alt={`${k.name} — Klient von Fabian Schönle`} width={160} height={160} className="w-full h-full object-cover" />
+            <Image src={k.src} alt={`${k.name}, Klient von Fabian Schönle`} width={160} height={160} className="w-full h-full object-cover" />
           </span>
         ))}
       </div>

@@ -118,7 +118,10 @@ export default function BildHero({
               </div>
             )}
 
-            <h1 className="font-barlow font-bold text-4xl md:text-5xl lg:text-6xl leading-[1.08] mb-6" style={{ color: '#E6E8EB' }}>
+            {/* Ab lg steht der Text neben dem Bild, also halb so breit: Schrift so
+                gewaehlt, dass die Ueberschrift hoechstens drei Zeilen hat
+                (gemessen: 44 px bei 1024 px Fensterbreite, 56 px ab 1280 px). */}
+            <h1 className="font-barlow font-bold text-4xl md:text-5xl lg:text-[2.75rem] xl:text-[3.5rem] leading-[1.08] mb-6" style={{ color: '#E6E8EB' }}>
               {headline}
               {headlineAccent && (
                 <>
