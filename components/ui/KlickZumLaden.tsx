@@ -3,7 +3,8 @@
 import Link from 'next/link'
 
 type KlickZumLadenProps = {
-  titel: string
+  /** Leer lassen, wenn die Sektion darüber schon eine Überschrift hat */
+  titel?: string
   hinweis: string
   knopf: string
   onLaden: () => void
@@ -43,9 +44,11 @@ export default function KlickZumLaden({
         </svg>
       </span>
 
-      <p className="font-barlow font-bold text-xl md:text-2xl mb-2" style={{ color: '#E6E8EB' }}>
-        {titel}
-      </p>
+      {titel && (
+        <p className="font-barlow font-bold text-xl md:text-2xl mb-2" style={{ color: '#E6E8EB' }}>
+          {titel}
+        </p>
+      )}
       <p className="font-inter text-sm leading-relaxed max-w-sm mb-6" style={{ color: '#7B8792' }}>
         {hinweis}
       </p>

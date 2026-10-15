@@ -13,7 +13,8 @@ import { useState } from 'react'
  * schaltet dann von "kommt in Kürze" auf den Player um.
  */
 const VIDEO_SRC: string | null = null
-const POSTER_SRC = '/images/vsl-poster.jpg'
+// Standbild aus vsl.mp4 in voller Auflösung, dasselbe wie auf /kostenloses-video
+const POSTER_SRC = '/images/lp-video-setup.jpg'
 
 export default function LandingVideo() {
   const [geladen, setGeladen] = useState(false)
@@ -27,18 +28,23 @@ export default function LandingVideo() {
         <video className="absolute inset-0 w-full h-full object-cover" src={VIDEO_SRC} poster={POSTER_SRC} controls autoPlay playsInline />
       ) : (
         <>
-          <Image src={POSTER_SRC} alt="" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" priority />
-          <div className="absolute inset-0" style={{ background: 'rgba(6,14,31,0.45)' }} />
+          <Image src={POSTER_SRC} alt="" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 900px" priority />
+          {/* Leichter Schleier wie auf /kostenloses-video: Fabian und das Setup
+              sollen klar zu erkennen sein. */}
+          <div
+            className="absolute inset-0"
+            style={{ background: 'linear-gradient(180deg, rgba(6,14,31,0.12) 0%, rgba(6,14,31,0.18) 55%, rgba(6,14,31,0.55) 100%)' }}
+          />
 
           <button
             type="button"
             onClick={() => VIDEO_SRC && setGeladen(true)}
             disabled={!VIDEO_SRC}
-            className="absolute inset-0 w-full h-full flex flex-col items-center justify-center gap-4 group"
+            className="absolute inset-0 w-full h-full flex flex-col items-center justify-end gap-2 md:gap-4 pb-[5%] md:pb-[8%] group"
             aria-label={VIDEO_SRC ? 'Video abspielen' : 'Video folgt in Kürze'}
           >
             <span
-              className="flex items-center justify-center w-16 h-16 md:w-20 md:h-20 rounded-full transition-transform group-hover:scale-105"
+              className="flex items-center justify-center w-12 h-12 md:w-20 md:h-20 rounded-full transition-transform group-hover:scale-105"
               style={{ background: 'linear-gradient(135deg, #C9A84C, #E8D49A)' }}
             >
               <svg width="26" height="26" viewBox="0 0 24 24" fill="#0B1525" aria-hidden="true">
@@ -46,7 +52,7 @@ export default function LandingVideo() {
               </svg>
             </span>
             {!VIDEO_SRC && (
-              <span className="font-inter text-xs font-semibold uppercase tracking-widest" style={{ color: '#E8D49A' }}>
+              <span className="font-inter text-[10px] md:text-xs font-semibold uppercase tracking-widest" style={{ color: '#E8D49A' }}>
                 Video folgt in Kürze
               </span>
             )}

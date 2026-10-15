@@ -75,17 +75,25 @@ export default function LandingOptIn({ bildSrc, bildAlt, knopfLabel, knopfUnterz
         }}
       >
         <Image src={bildSrc} alt={bildAlt} fill className="object-cover" sizes="(max-width: 768px) 100vw, 900px" priority />
-        <span className="absolute inset-0" style={{ background: 'rgba(6,14,31,0.45)' }} />
-        <span className="absolute inset-0 flex flex-col items-center justify-center gap-4">
+        {/* Leichter Schleier statt flächigem Abdunkeln: Fabian und das Setup
+            sollen klar zu erkennen sein. Nur zum unteren Rand hin dunkler, damit
+            die Beschriftung unter dem Knopf lesbar bleibt. */}
+        <span
+          className="absolute inset-0"
+          style={{ background: 'linear-gradient(180deg, rgba(6,14,31,0.12) 0%, rgba(6,14,31,0.18) 55%, rgba(6,14,31,0.55) 100%)' }}
+        />
+        {/* Knopf im unteren Drittel statt mittig: Mittig läge er auf Fabians
+            Gesicht. */}
+        <span className="absolute inset-0 flex flex-col items-center justify-end gap-2 md:gap-4 pb-[5%] md:pb-[8%]">
           <span
-            className="flex items-center justify-center w-16 h-16 md:w-20 md:h-20 rounded-full transition-transform group-hover:scale-105"
+            className="flex items-center justify-center w-12 h-12 md:w-20 md:h-20 rounded-full transition-transform group-hover:scale-105"
             style={{ background: 'linear-gradient(135deg, #C9A84C, #E8D49A)', boxShadow: '0 0 30px rgba(201,168,76,0.4)' }}
           >
             <svg width="26" height="26" viewBox="0 0 24 24" fill="#0B1525" aria-hidden="true">
               <path d="M8 5.5v13l11-6.5z" />
             </svg>
           </span>
-          <span className="font-inter text-xs font-semibold uppercase tracking-widest" style={{ color: '#E8D49A' }}>
+          <span className="font-inter text-[10px] md:text-xs font-semibold uppercase tracking-widest" style={{ color: '#E8D49A' }}>
             Video ansehen
           </span>
         </span>

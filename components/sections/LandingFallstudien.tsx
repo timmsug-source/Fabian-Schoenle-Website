@@ -7,6 +7,8 @@ import ScrollUnterstrich from '@/components/ui/ScrollUnterstrich'
 export type LandingFallstudie = {
   /** Steht in der Kopfleiste der Karte und neben dem Porträt */
   name: string
+  /** Ergebnis in Kurzform hinter dem Namen in der Kopfleiste, z. B. „−30 kg“ */
+  ergebnis?: string
   alter?: number
   /** Zeile unter dem Namen, z. B. „Gründer, zwei Kinder“ */
   rolle: string
@@ -166,7 +168,7 @@ export default function LandingFallstudien({
                   backgroundClip: 'text',
                 }}
               >
-                Fallstudie: {fs.name}
+                Fallstudie: {fs.name}{fs.ergebnis ? ` · ${fs.ergebnis}` : ''}
               </p>
             </div>
 

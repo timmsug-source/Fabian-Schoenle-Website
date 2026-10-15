@@ -16,7 +16,12 @@ import KlickZumLaden from '@/components/ui/KlickZumLaden'
  * Steht im Kontaktblock der Hauptseiten und auf /danke — deshalb eine eigene
  * Komponente, damit Hinweistext und Verhalten an beiden Stellen gleich sind.
  */
-export default function CalendlyEinbettung() {
+/**
+ * `ohneTitel`: auf /danke steht die Aufforderung schon in der Überschrift der
+ * Sektion („Such dir deinen Termin aus“), ein zweiter Titel im Platzhalter
+ * wäre doppelt.
+ */
+export default function CalendlyEinbettung({ ohneTitel = false }: { ohneTitel?: boolean }) {
   const [widgetHeight, setWidgetHeight] = useState(500)
   const [kalenderGeladen, setKalenderGeladen] = useState(false)
 
@@ -50,7 +55,7 @@ export default function CalendlyEinbettung() {
     />
   ) : (
     <KlickZumLaden
-      titel="Termin direkt im Kalender wählen"
+      titel={ohneTitel ? undefined : 'Termin direkt im Kalender wählen'}
       hinweis="Mit dem Klick wird der Kalender von Calendly geladen. Dabei wird deine IP-Adresse an Calendly übertragen."
       knopf="Kalender laden"
       datenschutzHinweis

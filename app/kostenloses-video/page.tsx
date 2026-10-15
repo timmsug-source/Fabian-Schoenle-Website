@@ -3,10 +3,11 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { SITE_NAME, SITE_URL } from '@/lib/constants'
 import LandingOptIn from '@/components/sections/LandingOptIn'
+import { GoldHervorhebung } from '@/components/ui/GoldAkzente'
 
 /**
  * Erste Seite der Werbestrecke: Überschrift, Vorschau auf das Video, Knopf,
- * darunter drei Gründe, sich einzutragen, und wer dahintersteht. Wer aus einer
+ * darunter, was im Video steckt, und wer dahintersteht. Wer aus einer
  * Anzeige kommt, entscheidet hier in Sekunden, ob er weiterliest. Alles Weitere
  * (Video, Fallstudien, Termin) steht auf /danke, wohin das Formular führt.
  *
@@ -20,9 +21,9 @@ import LandingOptIn from '@/components/sections/LandingOptIn'
  * Konkurrenz machen.
  */
 export const metadata: Metadata = {
-  title: { absolute: `Kostenloses Video: Fit neben Job und Familie | ${SITE_NAME}` },
+  title: { absolute: `Kostenloses Video: 10 bis 20 Kilo mit vollem Kalender | ${SITE_NAME}` },
   description:
-    'Wie du neben Job und Familie einen fitten Körper aufbaust, der auch in stressigen Phasen hält. Kostenloses Video, ca. 12 Minuten.',
+    'Wie Männer mit vollem Kalender 10 bis 20 Kilo abnehmen und wieder Energie für sich und ihre Liebsten haben. Kostenloses Video, ca. 12 Minuten.',
   robots: { index: false, follow: false },
   alternates: { canonical: `${SITE_URL}/kostenloses-video` },
 }
@@ -43,29 +44,10 @@ const goldText = {
   backgroundClip: 'text',
 } as const
 
-/**
- * Markierung hinter einer Textstelle, identisch zur Überschrift auf /danke,
- * damit beide Seiten als eine Strecke wirken. Höchstens einmal pro Seite. Höhe und Sitz kommen über
- * backgroundSize und backgroundPosition in em, nicht über Innenabstand: em
- * bezieht sich auf die Schriftgröße, sodass der Streifen auf dem Handy genauso
- * zur Schrift sitzt wie auf dem Bildschirm.
- */
-const markerText = {
-  backgroundImage: 'linear-gradient(rgba(201,168,76,0.88), rgba(232,212,154,0.88))',
-  backgroundRepeat: 'no-repeat',
-  backgroundSize: '100% 0.86em',
-  backgroundPosition: '0 0.2em',
-  color: '#FFFFFF',
-  textShadow: '0 1px 3px rgba(6,14,31,0.5)',
-  padding: '0 0.18em',
-  margin: '0 -0.1em',
-  boxDecorationBreak: 'clone',
-  WebkitBoxDecorationBreak: 'clone',
-} as const
-
 const imVideo = [
-  'warum es bisher nicht gehalten hat, obwohl es dir weder an Disziplin noch an Wissen fehlt',
-  'das 3-Schritte-System, mit dem vielbeschäftigte Männer abnehmen und wieder mehr Energie haben',
+  'warum es bisher trotz Disziplin und Wissen nicht geklappt hat',
+  'die FSP-Methode: wie Männer mit vollem Kalender Ernährung und Bewegung so einbauen, dass es auch in stressigen Wochen läuft',
+  'warum „beim Arzt ist alles okay“ nicht heißt, dass du dich fit fühlst',
   'wie das bei dir aussehen kann, ohne Job, Freunde oder Familie zu vernachlässigen',
 ]
 
@@ -165,31 +147,27 @@ export default function KostenlosesVideoPage() {
       </header>
 
       <section className="relative max-w-5xl mx-auto px-4 md:px-8 pt-8 pb-16 md:pt-10 md:pb-24 flex flex-col items-center text-center">
-        {/* Einordnung vor der Überschrift: sagt in wenigen Worten, was einen hier
-            erwartet, bevor der lange Satz beginnt. */}
-        <p
-          className="font-inter text-xs font-semibold uppercase tracking-widest px-5 py-2.5 rounded-xl mb-8"
-          style={{ background: 'rgba(201,168,76,0.08)', border: '1px solid rgba(201,168,76,0.35)', color: '#E8D49A' }}
-        >
-          Kostenloses Video · ca. 12 Minuten
-        </p>
-
-        {/* Überschrift = Titel des Videos, wortgleich auf /danke. */}
-        <h1 className="font-barlow font-bold text-3xl md:text-5xl leading-[1.45] text-center max-w-5xl mx-auto mb-6" style={{ color: '#E6E8EB' }}>
-          Wie du neben Job und Familie einen fitten Körper aufbaust,{' '}
-          <span style={markerText}>der auch in stressigen Phasen hält</span>
+        {/* Überschrift = Titel des Videos, wortgleich auf /danke, mit derselben
+            Hervorhebung an derselben Stelle. Bewusst ohne Dachzeile darüber —
+            der Text folgt Fabians Vorlage wortgleich, und die hat keine.
+            28 statt 30 Pixel auf dem Handy: So passt „Wie Männer mit vollem
+            Kalender“ in eine Zeile, sonst stünde „Kalender“ allein. */}
+        <h1 className="font-barlow font-bold text-[28px] md:text-5xl leading-[1.2] text-center max-w-5xl mx-auto mb-6" style={{ color: '#E6E8EB' }}>
+          Wie Männer mit vollem Kalender <GoldHervorhebung>10 bis 20 Kilo abnehmen</GoldHervorhebung> und
+          wieder Energie für sich und ihre Liebsten haben
         </h1>
 
         <p className="font-inter text-base md:text-lg leading-relaxed max-w-2xl mx-auto mb-10 md:mb-12" style={{ color: '#C6CDD5' }}>
-          Für Männer ab 30 mit vollem Kalender, die merken, dass ihr Körper nicht mehr so
-          mitkommt wie früher.
+          Ohne Radikaldiät, ohne 4x die Woche Gym und ohne bei Job oder Familie zurückzustecken.
         </p>
 
+        {/* Vorschau mit dem Foto aus dem Video-Setup (Standbild aus vsl.mp4 in
+            voller Auflösung — vsl-poster.jpg ist nur 720 Pixel breit). */}
         <LandingOptIn
-          bildSrc="/images/vsl-poster.jpg"
-          bildAlt="Fabian Schönle im Video über datenbasiertes Coaching"
+          bildSrc="/images/lp-video-setup.jpg"
+          bildAlt="Fabian Schönle am Schreibtisch in seinem Video-Setup"
           knopfLabel="Video jetzt kostenlos ansehen"
-          knopfUnterzeile="Du siehst das Video direkt im Anschluss."
+          knopfUnterzeile="Kostenlos · kein Abo notwendig"
           formular={{
             kartenLabel: 'Fast geschafft',
             kartenTitel: 'Kurz eintragen, dann startet das Video.',
@@ -226,7 +204,7 @@ export default function KostenlosesVideoPage() {
           </span>
           <p className="font-inter text-sm md:text-base text-left" style={{ color: '#C6CDD5' }}>
             <span className="font-semibold" style={{ color: '#E6E8EB' }}>Fabian Schönle</span>
-            {' · '}M.Sc. Chemie{' · '}Über 30 Personen begleitet
+            {' · '}M.Sc. Chemie{' · '}über 30 Personen begleitet
           </p>
         </div>
       </section>

@@ -24,7 +24,7 @@ export default function LandingTermin({ id }: { id?: string }) {
       </div>
 
       <div className="rounded-2xl overflow-hidden" style={{ border: '1px solid rgba(201,168,76,0.3)', boxShadow: '0 0 34px rgba(201,168,76,0.12)' }}>
-        <CalendlyEinbettung />
+        <CalendlyEinbettung ohneTitel />
       </div>
     </section>
   )
