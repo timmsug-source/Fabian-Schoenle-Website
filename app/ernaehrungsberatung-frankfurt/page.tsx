@@ -82,7 +82,7 @@ export default function ErnaehrungsberatungFrankfurtPage() {
         headline="Ernährungsberatung in Frankfurt für"
         headlineAccent="leistungsorientierte Menschen"
         subheadline="Ohne Raten und Verzicht in Bestform – auf Basis individueller DNA- und Blutwerte."
-        ctaLabel="Performance Analyse sichern"
+        ctaLabel="Performance-Analyse sichern"
         ctaNote="Call mit mir persönlich · 20 Minuten · unverbindlich"
         imageSrc="/images/IMG_1550-hero.jpg"
         imageAlt="Fabian Schönle, Performance Coach für Frankfurt und Rhein-Main"
@@ -233,7 +233,7 @@ export default function ErnaehrungsberatungFrankfurtPage() {
       <CTABanner
         headline="Klingt nach dem, was du suchst?"
         body="Im kostenlosen Erstgespräch schauen wir uns deine Situation an — unverbindlich und ohne Druck."
-        buttonLabel="Performance Analyse sichern"
+        buttonLabel="Performance-Analyse sichern"
         note="20 Minuten · persönlich mit mir"
       />
 

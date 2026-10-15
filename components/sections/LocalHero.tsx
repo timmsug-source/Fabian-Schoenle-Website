@@ -193,7 +193,7 @@ export default function LocalHero({
   headline = 'Ernährungsberatung in Frankfurt für',
   headlineAccent = 'Selbstständige & Unternehmer',
   subheadline = 'Datenbasiert wieder in Bestform – auf Basis deiner Blut- und DNA-Werte. Ohne Verbotskatalog und ohne das Gefühl, auf Diät zu sein.',
-  ctaLabel = 'Performance Analyse sichern',
+  ctaLabel = 'Performance-Analyse sichern',
   ctaNote = 'Call mit mir persönlich · 20 Minuten · unverbindlich',
   imageSrc = '/images/vsl-poster.jpg',
   imageAlt = 'Fabian Schönle',

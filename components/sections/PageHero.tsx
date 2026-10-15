@@ -37,7 +37,7 @@ export default function PageHero({ label, headline, subheadline, body, ctaLabel 
           rel="noopener noreferrer"
           className="cta-metal inline-flex items-center gap-2 px-7 py-4 rounded-xl font-inter font-semibold text-sm transition-transform"
         >
-          {ctaLabel ?? 'Performance Analyse buchen'}
+          {ctaLabel ?? 'Performance-Analyse buchen'}
         </a>
       </div>
     </section>

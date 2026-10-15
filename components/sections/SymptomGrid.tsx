@@ -132,7 +132,7 @@ export default function SymptomGrid({
   intro = 'Diese Symptome sind kein Zufall, sondern ein Signal deines Körpers, welches du nicht ignorieren solltest.',
   symptome = standardSymptome,
   mitBild = true,
-  ctaLabel = 'Performance Analyse buchen',
+  ctaLabel = 'Performance-Analyse buchen',
 }: SymptomGridProps) {
   return (
     <section style={{ background: 'transparent' }}>

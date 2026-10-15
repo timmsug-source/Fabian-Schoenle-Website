@@ -185,7 +185,7 @@ export default function UeberMichSection({ content = {} }: { content?: Record<st
               rel="noopener noreferrer"
               className="cta-metal mt-8 inline-flex items-center gap-2 px-6 py-3.5 rounded-lg font-inter font-semibold text-sm transition-transform"
             >
-              <span {...cms('uebermich_cta_button')}>{txt(content, 'uebermich_cta_button', 'Performance Analyse buchen')}</span>
+              <span {...cms('uebermich_cta_button')}>{txt(content, 'uebermich_cta_button', 'Performance-Analyse buchen')}</span>
               <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
                 <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>

@@ -16,7 +16,7 @@ type CTABannerProps = {
 export default function CTABanner({
   headline,
   body,
-  buttonLabel = 'Performance Analyse sichern',
+  buttonLabel = 'Performance-Analyse sichern',
   note,
 }: CTABannerProps) {
   return (

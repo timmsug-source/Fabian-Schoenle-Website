@@ -341,7 +341,7 @@ export default function MusterCheck({ content = {} }: { content?: Record<string,
             className="cta-metal inline-flex items-center gap-3 px-7 py-3 rounded-xl font-barlow font-semibold text-base transition-transform"
           >
             <IconCal />
-            <span><span {...cms('muster_cta_button')}>{txt(content, 'muster_cta_button', 'Performance Analyse buchen')}</span> ({count})</span>
+            <span><span {...cms('muster_cta_button')}>{txt(content, 'muster_cta_button', 'Performance-Analyse buchen')}</span> ({count})</span>
           </a>
         ) : (
           <button
@@ -352,7 +352,7 @@ export default function MusterCheck({ content = {} }: { content?: Record<string,
             style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', color: '#5B6773' }}
           >
             <IconCal />
-            <span {...cms('muster_cta_button')}>{txt(content, 'muster_cta_button', 'Performance Analyse buchen')}</span>
+            <span {...cms('muster_cta_button')}>{txt(content, 'muster_cta_button', 'Performance-Analyse buchen')}</span>
           </button>
         )}
         <Rich

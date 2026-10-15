@@ -80,7 +80,7 @@ export default function AbnehmcoachingPage() {
         bildSrc="/images/FS-Bild-Über-Fabian.webp"
         bildAlt="Fabian Schönle, Performance Coach"
         bildPosition="center 62%"
-        ctaLabel="Performance Analyse buchen"
+        ctaLabel="Performance-Analyse buchen"
         ctaNote="Call mit mir persönlich · 20 Minuten · unverbindlich"
       />
 
@@ -107,7 +107,7 @@ export default function AbnehmcoachingPage() {
         headlineAccent="scheitern."
         intro="Es liegt daran, dass die meisten Abnehmcoachings mit Plänen von der Stange arbeiten und dabei deinen Alltag und deine individuelle Physiologie völlig ignorieren."
         intro2="Alles, was du dadurch verlierst, ist deine wertvollste Ressource: Zeit. An diesen drei Punkten scheitert es fast immer:"
-        ctaLabel="Performance Analyse buchen"
+        ctaLabel="Performance-Analyse buchen"
         punkte={[
           {
             titel: 'Nur Kalorien gezählt',

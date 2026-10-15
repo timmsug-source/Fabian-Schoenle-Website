@@ -61,7 +61,7 @@ export default function BildHero({
   bildSrc,
   bildAlt,
   bildPosition = 'center 20%',
-  ctaLabel = 'Performance Analyse buchen',
+  ctaLabel = 'Performance-Analyse buchen',
   ctaNote = 'Call mit mir persönlich · 20 Minuten',
 }: BildHeroProps) {
   return (

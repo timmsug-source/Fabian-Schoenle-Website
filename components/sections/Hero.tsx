@@ -181,7 +181,7 @@ export default function Hero({ content = {} }: { content?: Record<string, string
                   <line x1="8" y1="2" x2="8" y2="6" />
                   <line x1="3" y1="10" x2="21" y2="10" />
                 </svg>
-                <span {...cms('hero_cta')}>{txt(content, 'hero_cta', 'Performance Analyse buchen')}</span>
+                <span {...cms('hero_cta')}>{txt(content, 'hero_cta', 'Performance-Analyse buchen')}</span>
               </a>
               <p {...cms('hero_cta_note')} className="mt-3 font-inter text-xs" style={{ color: '#7B8792' }}>
                 {txt(content, 'hero_cta_note', 'Call mit mir persönlich · 20 Minuten')}
