@@ -60,7 +60,7 @@ export default async function PersonalCoachingOnlinePage() {
 
       <OnlineHero
         label="Online-Personal-Coaching"
-        headline="Online-Personal-Coaching für Unternehmer,"
+        headline="Personal-Coaching-Online für Unternehmer,"
         headlineAccent="die keine Zeit fürs Studio haben."
         subheadline="Online-Personal-Coaching auf Basis deiner Blut- und DNA-Werte. In 4 Monaten zu stabiler Energie und durchschnittlich 12 kg weniger Körpergewicht, ohne Anfahrt und ohne feste Termine."
         ctaLabel="Performance-Analyse buchen"

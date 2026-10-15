@@ -67,10 +67,8 @@ export default function OnlineHero({
               </p>
             )}
 
-            {/* Vier Zeilen ab lg wie in der Vorlage: „Online-Personal-“ /
-                „Coaching für“ / „Unternehmer, die keine“ / „Zeit fürs Studio
-                haben.“ Die Größen sind auf die Spaltenbreite bei 1024 und
-                1280 px abgestimmt. */}
+            {/* Höchstens vier Zeilen ab lg. Die Größen sind auf die
+                Spaltenbreite bei 1024 und 1280 px abgestimmt. */}
             <h1
               className="font-barlow font-bold text-[2.75rem] md:text-6xl lg:text-[3.6rem] xl:text-[4.5rem] leading-[1.08] mb-7 md:mb-8"
               style={{ color: '#E6E8EB' }}
