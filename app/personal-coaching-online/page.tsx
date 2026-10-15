@@ -1,10 +1,14 @@
 import type { Metadata } from 'next'
 import { buildMetadata } from '@/lib/metadata'
 import OnlineHero from '@/components/sections/OnlineHero'
+import ErgebnisStreifen from '@/components/ui/ErgebnisStreifen'
 import LeistungenSection from '@/components/sections/LeistungenSection'
-import OnlineProblemSection from '@/components/sections/OnlineProblemSection'
-import VideoTestimonials from '@/components/sections/VideoTestimonials'
+import ProgrammVorteile from '@/components/sections/ProgrammVorteile'
+import OnlineStattStudio from '@/components/sections/OnlineStattStudio'
+import OnlineFallstudien from '@/components/sections/OnlineFallstudien'
 import CoachingAppSection from '@/components/sections/CoachingAppSection'
+import VergleichSection from '@/components/sections/VergleichSection'
+import ZeitaufwandKarte from '@/components/sections/ZeitaufwandKarte'
 import Testimonials from '@/components/sections/Testimonials'
 import KontaktSection from '@/components/sections/KontaktSection'
 import SocialSection from '@/components/sections/SocialSection'
@@ -55,73 +59,27 @@ export default async function PersonalCoachingOnlinePage() {
       <FAQSchema items={faqItems} />
 
       <OnlineHero
-        label="Personal Coaching online"
-        headline1="Mehr Klarheit."
-        headline2="Mehr Energie."
-        headlineAccent="Messbare Ergebnisse."
-        subheadline="Datenbasiertes 1:1 Coaching für Selbstständige und Unternehmer — komplett online. DNA-Analyse, Blutbild und ein Plan, der zu deinem Alltag passt."
-        ctaLabel="Performance Analyse buchen"
+        label="Online-Personal-Coaching"
+        headline="Online-Personal-Coaching für Unternehmer,"
+        headlineAccent="die keine Zeit fürs Studio haben."
+        subheadline="Online-Personal-Coaching auf Basis deiner Blut- und DNA-Werte. In 4 Monaten zu stabiler Energie und durchschnittlich 12 kg weniger Körpergewicht, ohne Anfahrt und ohne feste Termine."
+        ctaLabel="Performance-Analyse buchen"
+        ctaNote="Kostenlos · 20 Minuten · online mit mir persönlich"
         imageSrc="/images/Fabian-Schoenle-Blick-Kamera.webp"
         imageAlt="Fabian Schönle — Performance Coach"
-        features={[
-          {
-            icon: 'ziel',
-            titel: 'Klarheit statt Raten',
-            text: 'Über 50 Blut- und DNA-Marker zeigen, welche Hebel bei dir zählen.',
-          },
-          {
-            icon: 'kurve',
-            titel: 'Mehr Performance',
-            text: 'Stabile Energie, besserer Schlaf, klarer Kopf über den ganzen Tag.',
-          },
-          {
-            icon: 'diamant',
-            titel: 'Nachhaltige Ergebnisse',
-            text: 'Ein eingestelltes System, das bleibt — kein kurzfristiger Effekt.',
-          },
-        ]}
-        zitat="Dein Erfolg ist nur so stabil wie dein System. Ich helfe dir, es"
-        zitatAkzent="richtig einzustellen."
-        trust={[
-          { icon: 'monitor', titel: '100 % online', text: 'Flexibel & ortsunabhängig' },
-          { icon: 'person', titel: '1:1 Coaching', text: 'Individuell & auf Augenhöhe' },
-          { icon: 'schloss', titel: 'Vertraulich', text: 'Deine Daten bleiben deine' },
-        ]}
       />
 
-      <OnlineProblemSection
-        grafik="menschen"
-        label="Häufige Probleme"
-        headline="Warum Personal Coaching online"
-        headlineAccent="meistens nicht funktioniert."
-        intro="Online zu arbeiten ist kein Nachteil — schlecht gemachtes Online-Coaching schon. Das sind die drei Punkte, an denen es in der Regel scheitert."
-        zitat="Die meisten Online-Coachings können gar nicht individuell auf dich eingehen — ihnen fehlen schlicht die Daten dafür."
-        probleme={[
-          {
-            titel: 'Ein Plan von der Stange',
-            text: 'Dasselbe PDF für jeden, unabhängig davon, wie dein Körper arbeitet und wie dein Alltag aussieht. Was bei einem funktioniert, geht beim nächsten ins Leere.',
-          },
-          {
-            titel: 'Niemand, der wirklich hinschaut',
-            text: 'Betreuung per App und Standardnachricht. Wenn es hakt, sitzt niemand auf der anderen Seite, der deine Situation kennt.',
-          },
-          {
-            titel: 'Geraten statt gemessen',
-            text: 'Empfehlungen auf Verdacht, ohne dass je ein Blutwert auf dem Tisch lag. Damit bleibt offen, ob überhaupt an der richtigen Stelle gedreht wird.',
-          },
-        ]}
-        videoId="L0IFQexW1Ss"
-        videoPosterSrc="/images/video-thumb-L0IFQexW1Ss.jpg"
-        videoTitle="Metabolische Flexibilität: Warum dein Körper zwischen Fett- und Zuckerverbrennung wechseln muss — Video von Fabian Schönle"
-        videoLabel="Das steckt dahinter"
-        videoHeadline="Warum dein Körper zwischen Fett und Zucker wechseln können muss."
-        videoBody="Metabolische Flexibilität entscheidet mit, ob du nachmittags einbrichst oder durchziehst — und ob dein Körper an die eigenen Fettreserven kommt. Ich erkläre dir, was dahintersteckt und woran du erkennst, dass es bei dir gerade nicht funktioniert."
-        videoPoints={[
-          'Was metabolische Flexibilität im Alltag konkret bedeutet',
-          'Welche Anzeichen dafür sprechen, dass dein Stoffwechsel festhängt',
-          'Warum sich das nur mit Daten statt mit Vermutungen klären lässt',
-        ]}
-      />
+      {/* Ergebnis-Streifen wie unter dem Hero von /abnehmcoaching, gleiche Breite */}
+      <div style={{ background: '#060E1F' }}>
+        <div className="max-w-7xl mx-auto">
+          <ErgebnisStreifen />
+        </div>
+      </div>
+
+      {/* Online statt Studio — ersetzt die frühere Problem-Sektion
+          (OnlineProblemSection: drei Probleme und Video zur metabolischen
+          Flexibilität). */}
+      <OnlineStattStudio />
 
       {/* Vorherige Programm-Sektion — vorerst ausgeblendet, ersetzt durch
           LeistungenSection darunter. Zum Zurueckholen den Kommentar aufloesen,
@@ -182,6 +140,7 @@ export default async function PersonalCoachingOnlinePage() {
         imageAlt="Fabian Schönle — Performance Coach"
         name="Fabian Schönle"
         role="M.Sc. Chemie · Triathlet · 100 % online"
+        nachInhalt={<ProgrammVorteile />}
         items={[
           {
             headline: 'Datenbasierte Anamnese',
@@ -202,50 +161,71 @@ export default async function PersonalCoachingOnlinePage() {
         ]}
       />
 
-      <VideoTestimonials
+      {/* Ergebnisse: eigene Karten für diese Seite (Foto, Gewicht, wie das
+          Coaching online lief, Gewichtsverlauf). Die Videos öffnen sich über
+          den Knopf auf dem Foto. */}
+      <OnlineFallstudien
         label="Echte Ergebnisse"
-        headline="So sieht Abnehmen mit einem"
-        headlineAccent="online Personal Coaching aus"
-        intro="Zwei Klienten, die ich komplett remote begleitet habe — beide mit vollem Terminkalender."
-        videos={[
+        headline="Zwei Unternehmer mit vollem Kalender,"
+        headlineAccent="komplett online begleitet"
+        faelle={[
           {
-            src: '/videos/Robert_Testimonial_final.mp4',
             name: 'Robert',
             rolle: '42 Jahre · Projektleiter, nebenbei Finanzberatung · spielt Squash',
+            foto: '/images/Robert-Bild.webp',
+            fotoPosition: '45% center',
             linkedin: 'https://www.linkedin.com/in/robert-raschkov-045889230/',
-            badgeVon: '103',
-            badgeNach: '87 kg',
+            video: '/videos/Robert_Testimonial_final.mp4',
+            von: 103,
+            nach: 87,
+            zeitraum: 'nach 5 Monaten',
+            zitat: {
+              text: 'Unter der Woche auf Montage und im Hotel.',
+              akzent: 'Das Coaching lief trotzdem komplett über App und Video.',
+            },
             vorher: [
-              '14 kg zugenommen, Bauchfett trotz Sport',
-              'Permanent erschöpft trotz 7 Stunden Schlaf',
-              'Konzentration bricht nachmittags komplett ein',
+              'Der Tag fand im Auto, im Büro oder auf Montage statt',
+              'Kaffee, belegte Brötchen und Süßes vom Bäcker',
+              'Müde zur Arbeit, Konzentration ließ nach',
             ],
             nachher: [
-              '−16 kg Körpergewicht',
-              'Stabile Energie ohne Koffein-Spitzen',
-              'Klarer Kopf bis in den Abend',
+              '16 kg weniger in 5 Monaten',
+              'Volle Leistungsfähigkeit im Job zurück',
+              'Umgesetzt trotz Montage und Überstunden',
             ],
           },
           {
-            src: '/videos/Richard_Testimonial_kurz.mp4',
             name: 'Richard',
             rolle: '36 Jahre · Gründer · Familienvater von zwei Kindern',
+            foto: '/images/Richard-Bild.webp',
+            fotoPosition: '64% center',
             linkedin: 'https://www.linkedin.com/in/richard-mueller/',
-            badgeVon: '106',
-            badgeNach: '92,5 kg',
+            video: '/videos/Richard_Testimonial_kurz.mp4',
+            von: 106,
+            nach: 92.5,
+            zeitraum: 'nach 10 Wochen',
+            zitat: {
+              akzent: 'Richard und ich haben uns nie persönlich getroffen.',
+              text: 'Alles lief online, neben Gründung und Familie.',
+              akzentZuerst: true,
+            },
             vorher: [
-              'Ab 20 Uhr keine Energie mehr',
-              'Den ganzen Tag Energielevel niedrig',
-              'Im eigenen Körper unwohl gefühlt',
+              'Ab 20 Uhr keine Energie mehr, Familienzeit fiel aus',
+              'Ausgeprägtes Mittagstief',
+              'Im eigenen Körper nicht mehr wohlgefühlt',
             ],
             nachher: [
               '13,5 kg weniger in 10 Wochen',
               'Volle Energie von früh bis abends',
-              'Ernährung der ganzen Familie hat sich mitverändert',
+              'Die Ernährung der ganzen Familie hat sich mitverändert',
             ],
           },
         ]}
       />
+
+      {/* Vergleich: gleiche Sektion wie auf der Startseite (Personaltrainer,
+          Gruppencoaching, AI-Coach), Texte aus denselben CMS-Feldern */}
+      <VergleichSection content={content} />
 
       <CoachingAppSection
         label="Deine Begleitung"
@@ -257,52 +237,46 @@ export default async function PersonalCoachingOnlinePage() {
           {
             grafik: 'app',
             icon: 'rezept',
-            titel: 'Dein Tag, ohne Zettelwirtschaft',
-            text: 'Mahlzeiten, Makros, Wasser — alles an einer Stelle statt in drei Apps und einer Notiz. Die hinterlegten Rezepte passen zu deinen Werten und zu dem, was du realistisch kochst.',
+            titel: 'Dein Tag ohne Zettelwirtschaft',
+            text: 'Mahlzeiten, Wasser und Gewicht an einer Stelle statt in drei Apps und einer Notiz. Die Rezepte passen zu deinen Werten und zu dem, was du realistisch kochst.',
             punkte: [
-              'Rezepte passend zu deinen Werten und deinem Alltag',
-              'Kalorien und Makros ohne Kopfrechnen',
-              'Kein Wiegen nach Vorschrift',
+              'Eiweiß, Kohlenhydrate und Fett ohne Kopfrechnen',
+              'Kein Abwiegen nach Vorschrift',
             ],
           },
           {
             grafik: 'verlauf',
             icon: 'waage',
             titel: 'Verlauf statt Momentaufnahme',
-            text: 'Ein einzelner Wert auf der Waage sagt wenig — die Richtung über Wochen sagt alles. Dazu ein kurzer Fragebogen pro Woche, in dem steht, was die Zahlen nicht zeigen.',
+            text: 'Ein einzelner Wert auf der Waage sagt wenig. Wichtig ist die Richtung über mehrere Wochen. Dazu kommen kurze Check-ins zu Schlaf, Energie und Stress.',
             punkte: [
-              'Gewichtskurve statt Tagesform',
-              'Wöchentliche Check-Ins zu Schlaf, Energie und Stress',
               'Muster werden sichtbar, bevor sie zum Problem werden',
+              'Daten deiner Smartwatch fließen mit ein',
             ],
           },
           {
             grafik: 'trainingsplan',
             icon: 'training',
             titel: 'Trainingsplan mit Tracking',
-            text: 'Deine Einheiten liegen in der App, samt Gewichten und Wiederholungen. Du siehst deinen Fortschritt schwarz auf weiß — und ich sehe, ob der Plan noch zu deiner Woche passt.',
+            text: 'Deine Einheiten liegen in der App, samt Gewichten und Wiederholungen. Du siehst deinen Fortschritt, und ich sehe, ob der Plan noch zu deiner Woche passt.',
             punkte: [
-              'Einheiten mit Gewichten und Wiederholungen',
-              'Fortschritt über Wochen nachvollziehbar',
+              'Kurze Einheiten, zu Hause, im Hotel oder im Studio',
               'Anpassung, sobald sich dein Alltag ändert',
             ],
           },
           {
             src: '/images/FS-Ablauf-Mockup-Neu.webp',
-            alt: 'Fabian Schönle im Video-Call — so sieht dein wöchentlicher Rückblick aus',
+            alt: 'Fabian Schönle im Video-Call — so sieht dein Rückblick per Video aus',
             breite: 1536,
             hoehe: 1024,
             quer: true,
             icon: 'video',
-            titel: 'Jede Woche ein Video von mir',
-            text: 'Auf deinen Check-In bekommst du keinen Standardtext, sondern einen persönlichen Rückblick per Loom — was gut lief, woran es hakte und was wir in der kommenden Woche anders machen. Den Teil kann dir keine App abnehmen.',
+            titel: 'Regelmäßiges Video-Feedback',
+            text: 'Wann immer es nötig ist, bekommst du einen persönlichen Rückblick per Video: was gut lief, wo es gehakt hat und was wir als Nächstes anpassen.',
+            punkte: ['Dazwischen erreichst du mich jederzeit im Chat'],
           },
         ]}
-        kennzahl={{
-          label: 'Dein Zeitaufwand pro Tag',
-          wert: '10 Min',
-          text: 'Wenn es hoch kommt. Mahlzeit eintragen, Gewicht notieren, einmal pro Woche den Check-In ausfüllen — mehr verlangt das System nicht von dir. Das Auswerten ist mein Teil.',
-        }}
+        nachRahmen={<ZeitaufwandKarte />}
       />
 
       <Testimonials
@@ -312,7 +286,10 @@ export default async function PersonalCoachingOnlinePage() {
       />
 
       {/* Über mich: gleiche Sektion und dieselben CMS-Texte wie auf der Startseite */}
-      <UeberMichSection content={content} />
+      {/* Knopftext auf dieser Seite fest: Hier heißen alle Knöpfe
+          „Performance-Analyse buchen“, im CMS steht für die Startseite
+          „… sichern“. */}
+      <UeberMichSection content={{ ...content, uebermich_cta_button: 'Performance-Analyse buchen' }} />
 
       {/* Ablauf & Kontakt: gleiche Sektion wie auf der Startseite und in Frankfurt */}
       <KontaktSection

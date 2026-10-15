@@ -17,6 +17,8 @@ type LeistungenSectionProps = {
   name?: string
   /** Zeile darunter, z. B. Abschluss oder Rolle */
   role?: string
+  /** Zusätzlicher Inhalt unter Liste und Bild, z. B. eine Merkmalsleiste */
+  nachInhalt?: React.ReactNode
 }
 
 export default function LeistungenSection({
@@ -28,6 +30,7 @@ export default function LeistungenSection({
   imageAlt,
   name,
   role,
+  nachInhalt,
 }: LeistungenSectionProps) {
   return (
     <section className="relative overflow-hidden">
@@ -188,6 +191,8 @@ export default function LeistungenSection({
         )}
 
       </div>
+
+      {nachInhalt && <div className="mt-10 md:mt-12">{nachInhalt}</div>}
       </div>
     </section>
   )

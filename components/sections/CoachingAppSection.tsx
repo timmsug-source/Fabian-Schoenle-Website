@@ -38,12 +38,8 @@ type CoachingAppSectionProps = {
    * untereinander durch.
    */
   stapeln?: boolean
-  /** Eigenständige Karte unter dem Rahmen — eine Zahl, die für sich steht. */
-  kennzahl?: {
-    label: string
-    wert: string
-    text: string
-  }
+  /** Eigenständige Karte unter dem Rahmen, z. B. der Zeitaufwand. */
+  nachRahmen?: React.ReactNode
 }
 
 const goldText = {
@@ -127,7 +123,7 @@ export default function CoachingAppSection({
   intro,
   bloecke,
   stapeln = false,
-  kennzahl,
+  nachRahmen,
 }: CoachingAppSectionProps) {
   return (
     /* Kein overflow-hidden: Das wuerde das Kleben der Bloecke beim Scrollen
@@ -299,52 +295,7 @@ export default function CoachingAppSection({
           ))}
         </div>
 
-        {kennzahl && (
-          <div
-            className="animate-fade-up leistung-card relative rounded-2xl mt-8 md:mt-10 p-8 md:p-12 flex flex-col md:flex-row md:items-center gap-6 md:gap-12"
-          >
-            {/* Gleiches Raster wie im Rahmen darüber */}
-            <div className="absolute inset-0 rounded-2xl overflow-hidden pointer-events-none">
-              <svg
-                className="absolute inset-0 w-full h-full"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true"
-                preserveAspectRatio="none"
-              >
-                <defs>
-                  <pattern id="ca-kz-grid" width="60" height="60" patternUnits="userSpaceOnUse">
-                    <path d="M 60 0 L 0 0 0 60" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="1" />
-                  </pattern>
-                  <pattern id="ca-kz-diag" width="60" height="60" patternUnits="userSpaceOnUse">
-                    <line x1="0" y1="60" x2="60" y2="0" stroke="rgba(255,255,255,0.04)" strokeWidth="1" />
-                  </pattern>
-                </defs>
-                <rect width="100%" height="100%" fill="url(#ca-kz-grid)" />
-                <rect width="100%" height="100%" fill="url(#ca-kz-diag)" />
-              </svg>
-            </div>
-
-            <div className="relative flex-shrink-0 flex items-center gap-5">
-              <span>{MERKMAL_ICONS.uhr}</span>
-              <span className="font-barlow font-bold text-5xl md:text-7xl leading-none" style={goldText}>
-                {kennzahl.wert}
-              </span>
-            </div>
-
-            <div className="relative min-w-0">
-              <p
-                className="font-inter text-xs font-semibold uppercase tracking-widest mb-2"
-                style={{ color: '#7B8792' }}
-              >
-                {kennzahl.label}
-              </p>
-              <p className="font-inter text-base md:text-lg leading-relaxed" style={{ color: '#A6B0BA' }}>
-                {kennzahl.text}
-              </p>
-            </div>
-          </div>
-        )}
-
+        {nachRahmen && <div className="mt-8 md:mt-10">{nachRahmen}</div>}
       </div>
     </section>
   )

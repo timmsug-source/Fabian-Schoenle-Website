@@ -35,8 +35,8 @@ function Pfeil() {
 }
 
 /**
- * Symbole für die Leistungsbausteine. Gleiche Machart wie die Icons im
- * OnlineHero: 32er-Raster, goldene Linien, keine Flächen.
+ * Symbole für die Leistungsbausteine: 32er-Raster, goldene Linien, keine
+ * Flächen.
  */
 export type LeistungIcon =
   | 'blut'
