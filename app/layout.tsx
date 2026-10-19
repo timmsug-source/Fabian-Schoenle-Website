@@ -52,6 +52,11 @@ export const metadata: Metadata = {
       { url: '/images/apple-touch-icon-120x120.png', sizes: '120x120' },
     ],
   },
+  // Domain-Bestätigung für Meta (Facebook/Instagram-Werbung). Muss auf der
+  // Startseite im <head> stehen, Next.js rendert `other` als <meta name content>.
+  other: {
+    'facebook-domain-verification': 'kfd25ye4ha1gx54zh7crg70gxful8a',
+  },
 }
 
 export default function RootLayout({
