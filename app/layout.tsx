@@ -8,6 +8,7 @@ import ScrollReveal from '@/components/ScrollReveal'
 import AnfrageFormular from '@/components/AnfrageFormular'
 import ConsentBanner from '@/components/consent/ConsentBanner'
 import Analytics from '@/components/consent/Analytics'
+import MetaPixel from '@/components/consent/MetaPixel'
 import NurAufSeiten from '@/components/layout/NurAufSeiten'
 
 /** Landingpages aus bezahlter Werbung laufen ohne Navigation. */
@@ -78,6 +79,7 @@ export default function RootLayout({
         </NurAufSeiten>
         <ConsentBanner />
         <Analytics />
+        <MetaPixel />
         {/* Visueller Editor: lädt die Hub-Brücke nur im Vorschau-Rahmen des Website-Hubs, nie für normale Besucher */}
         <script
           dangerouslySetInnerHTML={{

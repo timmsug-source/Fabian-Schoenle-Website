@@ -6,6 +6,7 @@ import {
   CONSENT_OEFFNEN_ATTRIBUT,
   leseEinwilligung,
   loescheAnalyticsCookies,
+  loescheMetaCookies,
   speichereEinwilligung,
 } from '@/lib/consent'
 
@@ -30,6 +31,7 @@ export default function ConsentBanner() {
   const [sichtbar, setSichtbar] = useState(false)
   const [einstellungen, setEinstellungen] = useState(false)
   const [statistik, setStatistik] = useState(false)
+  const [marketing, setMarketing] = useState(false)
 
   // Erst nach dem Mounten entscheiden — der Server kennt den Cookie nicht.
   useEffect(() => {
@@ -38,7 +40,10 @@ export default function ConsentBanner() {
     if (imCmsEditor()) return
     const vorhanden = leseEinwilligung()
     if (!vorhanden) setSichtbar(true)
-    else setStatistik(vorhanden.statistik)
+    else {
+      setStatistik(vorhanden.statistik)
+      setMarketing(vorhanden.marketing)
+    }
   }, [])
 
   // Widerruf: jeder Klick auf ein Element mit data-cookie-einstellungen
@@ -49,6 +54,7 @@ export default function ConsentBanner() {
       if (!ziel) return
       e.preventDefault()
       setStatistik(leseEinwilligung()?.statistik ?? false)
+      setMarketing(leseEinwilligung()?.marketing ?? false)
       setEinstellungen(true)
       setSichtbar(true)
     }
@@ -56,11 +62,13 @@ export default function ConsentBanner() {
     return () => document.removeEventListener('click', onClick)
   }, [])
 
-  const speichern = useCallback((mitStatistik: boolean) => {
-    // Beim Widerruf die bereits gesetzten Google-Cookies entfernen.
+  const speichern = useCallback((mitStatistik: boolean, mitMarketing: boolean) => {
+    // Beim Widerruf die bereits gesetzten Cookies von Google bzw. Meta entfernen.
     if (!mitStatistik) loescheAnalyticsCookies()
-    speichereEinwilligung(mitStatistik)
+    if (!mitMarketing) loescheMetaCookies()
+    speichereEinwilligung(mitStatistik, mitMarketing)
     setStatistik(mitStatistik)
+    setMarketing(mitMarketing)
     setEinstellungen(false)
     setSichtbar(false)
   }, [])
@@ -92,9 +100,10 @@ export default function ConsentBanner() {
         {!einstellungen ? (
           <>
             <p className="font-inter text-sm leading-relaxed mb-5 text-left" style={{ color: '#A6B0BA' }}>
-              Ich nutze Google Analytics, um zu verstehen, wie diese Seite genutzt wird. Das
+              Ich nutze Google Analytics, um zu verstehen, wie diese Seite genutzt wird, und den
+              Meta-Pixel, um zu messen, ob meine Werbung auf Facebook und Instagram ankommt. Beides
               passiert nur mit deiner Einwilligung. Lehnst du ab, funktioniert die Seite
-              vollständig weiter — es wird dann nichts gemessen. Mehr dazu in der{' '}
+              vollständig weiter, es wird dann nichts gemessen. Mehr dazu in der{' '}
               <Link href="/datenschutz" className="underline" style={{ color: '#E8D49A' }}>
                 Datenschutzerklärung
               </Link>
@@ -112,7 +121,7 @@ export default function ConsentBanner() {
               </button>
               <button
                 type="button"
-                onClick={() => speichern(false)}
+                onClick={() => speichern(false, false)}
                 className={KNOPF}
                 style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(201,168,76,0.45)', color: '#E6E8EB' }}
               >
@@ -120,7 +129,7 @@ export default function ConsentBanner() {
               </button>
               <button
                 type="button"
-                onClick={() => speichern(true)}
+                onClick={() => speichern(true, true)}
                 className={KNOPF}
                 style={{ background: 'rgba(201,168,76,0.14)', border: '1px solid rgba(201,168,76,0.45)', color: '#E6E8EB' }}
               >
@@ -155,7 +164,24 @@ export default function ConsentBanner() {
                     Statistik
                   </span>
                   <span className="block font-inter text-xs leading-relaxed mt-0.5" style={{ color: '#7B8792' }}>
-                    Google Analytics — misst anonymisiert, welche Seiten aufgerufen werden. Setzt Cookies von Google.
+                    Google Analytics: misst anonymisiert, welche Seiten aufgerufen werden. Setzt Cookies von Google.
+                  </span>
+                </span>
+              </label>
+
+              <label className="flex items-start gap-3 rounded-xl px-4 py-3 cursor-pointer" style={{ background: 'rgba(255,255,255,0.03)' }}>
+                <input
+                  type="checkbox"
+                  checked={marketing}
+                  onChange={(e) => setMarketing(e.target.checked)}
+                  className="mt-1 h-4 w-4 flex-shrink-0 accent-[#C9A84C]"
+                />
+                <span className="text-left">
+                  <span className="block font-inter text-sm font-semibold" style={{ color: '#E6E8EB' }}>
+                    Marketing
+                  </span>
+                  <span className="block font-inter text-xs leading-relaxed mt-0.5" style={{ color: '#7B8792' }}>
+                    Meta-Pixel: misst, ob Besucher über Facebook- oder Instagram-Werbung kommen, und hilft, die Werbung passender auszuspielen. Setzt Cookies von Meta.
                   </span>
                 </span>
               </label>
@@ -164,7 +190,7 @@ export default function ConsentBanner() {
             <div className="flex flex-col sm:flex-row sm:justify-end gap-2.5">
               <button
                 type="button"
-                onClick={() => speichern(false)}
+                onClick={() => speichern(false, false)}
                 className={KNOPF}
                 style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(201,168,76,0.45)', color: '#E6E8EB' }}
               >
@@ -172,7 +198,7 @@ export default function ConsentBanner() {
               </button>
               <button
                 type="button"
-                onClick={() => speichern(statistik)}
+                onClick={() => speichern(statistik, marketing)}
                 className={KNOPF}
                 style={{ background: 'rgba(201,168,76,0.14)', border: '1px solid rgba(201,168,76,0.45)', color: '#E6E8EB' }}
               >

@@ -93,6 +93,27 @@ export default async function DatenschutzPage() {
           html={txt(content, 'datenschutz_7_text3', 'Widerrufst du die Einwilligung über die Cookie-Einstellungen, werden die von Google gesetzten Cookies gelöscht und es findet keine weitere Messung statt.')}
         />
 
+        {/* 7a statt 8: Die Nummern 1–11 stehen im CMS, ein neuer Abschnitt 8
+            haette eine doppelte 8 ergeben. Thematisch gehoert der Pixel direkt
+            hinter Google Analytics. */}
+        <H2 id="datenschutz_7a_titel">{txt(content, 'datenschutz_7a_titel', '7a. Meta-Pixel (Facebook und Instagram)')}</H2>
+        <P
+          id="datenschutz_7a_text1"
+          html={txt(content, 'datenschutz_7a_text1', 'Um zu messen, ob meine Werbung auf Facebook und Instagram ankommt, nutze ich den Meta-Pixel der Meta Platforms Ireland Limited, Merrion Road, Dublin 4, D04 X2K5, Irland. Der Pixel wird <strong>erst geladen, nachdem du in die Kategorie „Marketing“ eingewilligt hast</strong>. Ohne Einwilligung wird kein Skript von Meta geladen und keine Verbindung zu Meta hergestellt.')}
+        />
+        <P
+          id="datenschutz_7a_text2"
+          html={txt(content, 'datenschutz_7a_text2', 'Mit deiner Einwilligung erfasst der Pixel unter anderem, welche Seiten du aufrufst, ob du über eine Anzeige gekommen bist, deine IP-Adresse sowie Angaben zu Browser und Gerät, und setzt dafür Cookies (zum Beispiel _fbp). Meta kann diese Informationen deinem Facebook- oder Instagram-Konto zuordnen, wenn du dort angemeldet bist. Ich nutze die Daten, um die Wirkung meiner Anzeigen zu messen und sie passenden Personen anzuzeigen. Personenbezogene Auswertungen über einzelne Besucher erhalte ich nicht.')}
+        />
+        <P
+          id="datenschutz_7a_text3"
+          html={txt(content, 'datenschutz_7a_text3', 'Rechtsgrundlage ist deine Einwilligung nach Art. 6 Abs. 1 lit. a DSGVO und § 25 Abs. 1 TDDDG. Für die Erhebung und Übermittlung der Daten an Meta bin ich gemeinsam mit Meta verantwortlich (Art. 26 DSGVO); die Vereinbarung dazu findest du unter <a href="https://www.facebook.com/legal/controller_addendum" target="_blank" rel="noopener noreferrer" class="underline">facebook.com/legal/controller_addendum</a>. Die weitere Verarbeitung verantwortet Meta selbst. Dabei können Daten an die Meta Platforms, Inc. in den USA übermittelt werden; Meta ist nach dem EU-US Data Privacy Framework zertifiziert. Mehr dazu in der <a href="https://www.facebook.com/privacy/policy" target="_blank" rel="noopener noreferrer" class="underline">Datenschutzrichtlinie von Meta</a>.')}
+        />
+        <P
+          id="datenschutz_7a_text4"
+          html={txt(content, 'datenschutz_7a_text4', 'Widerrufst du die Einwilligung über die Cookie-Einstellungen im Seitenfuß, sendet der Pixel keine Daten mehr und die von Meta gesetzten Cookies werden gelöscht.')}
+        />
+
         <H2 id="datenschutz_8_titel">{txt(content, 'datenschutz_8_titel', '8. Terminbuchung über Calendly')}</H2>
         <P
           id="datenschutz_8_text1"

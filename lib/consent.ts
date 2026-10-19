@@ -1,9 +1,10 @@
 /**
  * Einwilligungsverwaltung — bewusst klein gehalten, kein externer Dienst.
  *
- * Es gibt genau zwei Kategorien:
+ * Es gibt drei Kategorien:
  *   notwendig  — immer an, nicht abwählbar (nur der Einwilligungs-Cookie selbst)
  *   statistik  — Google Analytics
+ *   marketing  — Meta-Pixel (Messung der Facebook-/Instagram-Werbung)
  *
  * „Externe Medien" braucht es nicht: Calendly und die YouTube-Videos laden erst
  * auf Klick, das YouTube-Vorschaubild kommt über den eigenen Server. Damit ist
@@ -12,14 +13,19 @@
 
 export type Einwilligung = {
   statistik: boolean
+  marketing: boolean
   /** ISO-Zeitstempel der Entscheidung — Nachweispflicht. */
   zeitpunkt: string
   /** Bei neuen Diensten hochzählen, dann wird erneut gefragt. */
   version: number
 }
 
-/** Hochzählen, sobald ein Dienst dazukommt oder sich der Zweck ändert. */
-export const CONSENT_VERSION = 1
+/**
+ * Hochzählen, sobald ein Dienst dazukommt oder sich der Zweck ändert.
+ * 2: Meta-Pixel (Kategorie Marketing) dazugekommen. Alte Einwilligungen
+ * deckten ihn nicht ab, deshalb wird jeder erneut gefragt.
+ */
+export const CONSENT_VERSION = 2
 
 const COOKIE_NAME = 'fs_consent'
 const EIN_JAHR = 60 * 60 * 24 * 365
@@ -40,15 +46,21 @@ export function leseEinwilligung(): Einwilligung | null {
     const wert = JSON.parse(decodeURIComponent(treffer.slice(COOKIE_NAME.length + 1)))
     // Aeltere Fassung? Dann gilt sie nicht mehr — es wird erneut gefragt.
     if (wert?.version !== CONSENT_VERSION) return null
-    return { statistik: Boolean(wert.statistik), zeitpunkt: String(wert.zeitpunkt ?? ''), version: CONSENT_VERSION }
+    return {
+      statistik: Boolean(wert.statistik),
+      marketing: Boolean(wert.marketing),
+      zeitpunkt: String(wert.zeitpunkt ?? ''),
+      version: CONSENT_VERSION,
+    }
   } catch {
     return null
   }
 }
 
-export function speichereEinwilligung(statistik: boolean): Einwilligung {
+export function speichereEinwilligung(statistik: boolean, marketing: boolean): Einwilligung {
   const wert: Einwilligung = {
     statistik,
+    marketing,
     zeitpunkt: new Date().toISOString(),
     version: CONSENT_VERSION,
   }
@@ -73,6 +85,27 @@ export function loescheAnalyticsCookies() {
     .filter((n) => n === '_ga' || n.startsWith('_ga_') || n === '_gid' || n.startsWith('_gat'))
 
   // Auch auf der uebergeordneten Domain loeschen — dort setzt gtag sie.
+  const domains = [location.hostname, `.${location.hostname}`, `.${location.hostname.split('.').slice(-2).join('.')}`]
+  for (const name of namen) {
+    for (const domain of domains) {
+      document.cookie = `${name}=; Path=/; Domain=${domain}; Max-Age=0`
+    }
+    document.cookie = `${name}=; Path=/; Max-Age=0`
+  }
+}
+
+/**
+ * Loescht die vom Meta-Pixel gesetzten Cookies (_fbp, _fbc). Wird beim
+ * Widerruf der Kategorie Marketing aufgerufen, aus demselben Grund wie bei
+ * Google Analytics.
+ */
+export function loescheMetaCookies() {
+  if (typeof document === 'undefined') return
+  const namen = document.cookie
+    .split('; ')
+    .map((c) => c.split('=')[0])
+    .filter((n) => n === '_fbp' || n === '_fbc')
+
   const domains = [location.hostname, `.${location.hostname}`, `.${location.hostname.split('.').slice(-2).join('.')}`]
   for (const name of namen) {
     for (const domain of domains) {

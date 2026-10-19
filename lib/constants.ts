@@ -48,6 +48,9 @@ export const ANFRAGE_FORMULAR_AKTIV = true
 
 /** Profile der Marke. Werden auch als `sameAs` in den strukturierten Daten ausgegeben. */
 export const LINKEDIN_URL = 'https://www.linkedin.com/in/fabian-sch%C3%B6nle-a273a8363/'
+/** Meta-Pixel fuer die Facebook-/Instagram-Werbung. Laedt nur mit Einwilligung „Marketing“. */
+export const META_PIXEL_ID = '1790344968532836'
+
 // Der Kanal hiess frueher @FuelByFabian, der alte Name liefert inzwischen 404.
 // Gleicher Kanal (ID UC6pwxF5Ngw8kYbJgjd-eqMg, siehe SocialSection).
 export const YOUTUBE_URL = 'https://www.youtube.com/@FS-Performance-Lab'
