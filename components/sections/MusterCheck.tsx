@@ -3,7 +3,7 @@
 import { cms, txt } from '@/lib/cms-text'
 import { useState } from 'react'
 import SectionLabel from '@/components/ui/SectionLabel'
-import { CALENDLY_URL } from '@/lib/constants'
+import { ANFRAGE_ANKER } from '@/lib/constants'
 import { Rich } from '@/components/Rich'
 
 const goldText = {
@@ -332,12 +332,10 @@ export default function MusterCheck({ content = {} }: { content?: Record<string,
       <div className="mt-8">
         {count >= 1 ? (
           <a
-            href={CALENDLY_URL}
+            href={ANFRAGE_ANKER}
             data-open-form="true"
             data-symptome={selectedTitles}
             data-schwerpunkt={schwerpunktName}
-            target="_blank"
-            rel="noopener noreferrer"
             className="cta-metal inline-flex items-center gap-3 px-7 py-3 rounded-xl font-barlow font-semibold text-base transition-transform"
           >
             <IconCal />

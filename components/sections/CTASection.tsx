@@ -1,6 +1,5 @@
 import Button from '@/components/ui/Button'
 import SectionLabel from '@/components/ui/SectionLabel'
-import { CALENDLY_URL } from '@/lib/constants'
 
 type CTASectionProps = {
   label?: string
@@ -29,7 +28,7 @@ export default function CTASection({
         <p className="text-base md:text-lg font-inter leading-relaxed mb-8" style={{ color: '#A6B0BA' }}>
           {body}
         </p>
-        <Button href={CALENDLY_URL} size="lg" external popup>
+        <Button formular size="lg">
           {ctaLabel}
         </Button>
       </div>

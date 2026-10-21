@@ -29,22 +29,15 @@ export const FREIGEGEBENE_UNTERSEITEN: readonly string[] = ['ueber-mich']
 export const CALENDLY_URL = process.env.NEXT_PUBLIC_CALENDLY_URL ?? 'https://calendly.com/fsperformancelab/30min'
 
 /**
- * Steuert, ob die CTAs das Anfrageformular öffnen oder direkt zu Calendly führen.
+ * Ziel aller Schaltflächen, die das Anfrageformular öffnen (`data-open-form`).
  *
- * Stand 01.09.2026 wieder aktiv: Der Versand läuft über Resend mit der
- * Sende-Subdomain `send.fabianschoenle.de`, die Domain ist verifiziert und die
- * Variablen sind in Vercel hinterlegt. Damit greifen alle Elemente mit
- * `data-open-form`, und die Direktnachricht in der FAQ erscheint wieder.
- *
- * Zuvor war der Schalter aus, weil der MX-Eintrag für Resend fehlte — goneo
- * verlangt, dass die Sende-Subdomain zuerst im Kundencenter angelegt wird.
- *
- * Wieder auf `false` setzen, falls der Versand ausfällt: Alle betroffenen
- * Schaltflächen haben ohnehin Calendly als Ziel hinterlegt und verhalten sich
- * dann einfach als normale Links. Ein Formular, dessen Nachrichten nirgends
- * ankommen, ist schlimmer als kein Formular.
+ * Bewusst kein Calendly-Link: Früher stand hier Calendly als Rückfallebene.
+ * Bis das JavaScript geladen war, führten die Knöpfe dadurch zu Calendly statt
+ * ins Formular, auf dem Handy oft die ersten Sekunden. Ein Klick in dieser Zeit
+ * setzt jetzt nur den Anker, AnfrageFormular öffnet sich, sobald es bereit ist.
+ * Funktioniert auch als Direktlink, z. B. fabianschoenle.de/#anfrage.
  */
-export const ANFRAGE_FORMULAR_AKTIV = true
+export const ANFRAGE_ANKER = '#anfrage'
 
 /** Profile der Marke. Werden auch als `sameAs` in den strukturierten Daten ausgegeben. */
 export const LINKEDIN_URL = 'https://www.linkedin.com/in/fabian-sch%C3%B6nle-a273a8363/'

@@ -3,7 +3,7 @@
 import { cms, txt } from '@/lib/cms-text'
 import { useState } from 'react'
 import Image from 'next/image'
-import { CALENDLY_URL } from '@/lib/constants'
+import { ANFRAGE_ANKER } from '@/lib/constants'
 import { BEWERTUNGEN } from '@/lib/bewertungen'
 import { Rich } from '@/components/Rich'
 
@@ -266,10 +266,8 @@ export default function ErgebnisSection({ content = {} }: { content?: Record<str
             </p>
             <Rich as="p" className="font-inter text-sm leading-relaxed mb-6" style={{ color: '#A6B0BA' }} cms="ergebnis_cta_body" html={txt(content, 'ergebnis_cta_body', 'Im kostenlosen Erstgespräch finden wir heraus, was dein System gerade limitiert — unverbindlich und ohne Druck.')} />
             <a
-              href={CALENDLY_URL}
+              href={ANFRAGE_ANKER}
               data-open-form="true"
-              target="_blank"
-              rel="noopener noreferrer"
               className="cta-metal inline-flex items-center gap-2 px-6 py-3 rounded-xl font-inter font-semibold text-sm transition-transform"
             >
               <span {...cms('ergebnis_cta_button')}>{txt(content, 'ergebnis_cta_button', 'Performance-Analyse buchen')}</span>

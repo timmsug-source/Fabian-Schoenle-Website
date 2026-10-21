@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
-import { CALENDLY_URL } from '@/lib/constants'
+import { ANFRAGE_ANKER } from '@/lib/constants'
 
 const ANCHOR_LINKS = [
   { label: 'Methode',     href: '#methode' },
@@ -85,10 +85,8 @@ export default function Header() {
 
           {/* Desktop CTA */}
           <a
-            href={CALENDLY_URL}
+            href={ANFRAGE_ANKER}
             data-open-form="true"
-            target="_blank"
-            rel="noopener noreferrer"
             className="cta-metal hidden md:flex items-center gap-2 font-inter font-semibold text-sm px-6 h-11 rounded-lg transition-transform"
           >
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -148,10 +146,8 @@ export default function Header() {
               </a>
             ))}
             <a
-              href={CALENDLY_URL}
+              href={ANFRAGE_ANKER}
               data-open-form="true"
-              target="_blank"
-              rel="noopener noreferrer"
               onClick={() => setMenuOpen(false)}
               className="cta-metal mt-3 flex items-center justify-center gap-2 font-inter font-semibold text-sm h-11 rounded-lg"
             >

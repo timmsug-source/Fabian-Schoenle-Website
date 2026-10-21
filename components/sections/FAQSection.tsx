@@ -5,7 +5,6 @@ import Image from 'next/image'
 import { useId, useState } from 'react'
 import { Rich } from '@/components/Rich'
 import { FAQS, cmsFaqs, type FaqEintrag } from '@/lib/faq'
-import { ANFRAGE_FORMULAR_AKTIV } from '@/lib/constants'
 
 type FAQSectionProps = {
   content?: Record<string, string>
@@ -206,10 +205,8 @@ export default function FAQSection({ content = {}, items, label, title1, title2,
         )}
         </div>
 
-        {/* Finaler Mini-CTA — nur solange der Versand funktioniert. Eine
-            Direktnachricht anzubieten, die niemanden erreicht, wäre schlechter
-            als sie wegzulassen. Siehe ANFRAGE_FORMULAR_AKTIV. */}
-        {ANFRAGE_FORMULAR_AKTIV && !ohneNachricht && (
+        {/* Finaler Mini-CTA */}
+        {!ohneNachricht && (
         <div className="mt-12 text-center animate-fade-up" style={{ animationDelay: '120ms' }}>
           <p className="font-inter text-sm mb-3" style={{ color: '#7B8792' }}>
             Deine Frage ist nicht dabei?

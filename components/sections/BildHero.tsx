@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import SectionLabel from '@/components/ui/SectionLabel'
-import { CALENDLY_URL } from '@/lib/constants'
+import { ANFRAGE_ANKER } from '@/lib/constants'
 
 type BildHeroProps = {
   /** Kleine Zeile über der Überschrift, im Stil der übrigen Sektionen */
@@ -149,10 +149,8 @@ export default function BildHero({
             {/* Knopf wie im Hero der Startseite: Kalendersymbol, eine Zeile,
                 der Hinweis darunter in Grau. */}
             <a
-              href={CALENDLY_URL}
+              href={ANFRAGE_ANKER}
               data-open-form="true"
-              target="_blank"
-              rel="noopener noreferrer"
               className="cta-metal inline-flex items-center gap-3 px-7 py-4 rounded-xl font-barlow font-semibold text-lg transition-transform"
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">

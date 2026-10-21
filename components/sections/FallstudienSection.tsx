@@ -3,7 +3,7 @@
 import { cms, txt } from '@/lib/cms-text'
 import Image from 'next/image'
 import { useRef, useState } from 'react'
-import { CALENDLY_URL } from '@/lib/constants'
+import { ANFRAGE_ANKER } from '@/lib/constants'
 import { Rich } from '@/components/Rich'
 
 interface Fallstudie {
@@ -483,10 +483,8 @@ export default function FallstudienSection({
               <span {...cms('fallstudien_cta_title_2')}>{txt(content, 'fallstudien_cta_title_2', ', die deine Bedürfnisse und deinen Terminkalender berücksichtigt')}</span>
             </p>
             <a
-              href={CALENDLY_URL}
+              href={ANFRAGE_ANKER}
               data-open-form="true"
-              target="_blank"
-              rel="noopener noreferrer"
               className="cta-metal inline-flex items-center justify-center px-6 py-3 md:px-9 md:py-4 rounded-xl font-inter font-semibold text-sm md:text-lg transition-transform"
               {...cms('fallstudien_cta_button')}
             >

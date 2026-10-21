@@ -2,7 +2,6 @@
 
 import { useId, useState } from 'react'
 import SectionLabel from '@/components/ui/SectionLabel'
-import { ANFRAGE_FORMULAR_AKTIV } from '@/lib/constants'
 
 type FAQItem = {
   question: string
@@ -113,31 +112,27 @@ export default function FAQ({ label, headline, items }: FAQProps) {
 
         {/* Abschluss wie in der FAQ der Startseite. Der Knopf traegt
             data-open-form und wird dadurch vom Anfrageformular im Layout
-            abgefangen — dieselbe Mechanik wie bei allen anderen CTAs.
-            Steht der Versand still, entfaellt der Knopf: Eine Direktnachricht
-            anzubieten, die niemanden erreicht, waere schlechter als keine. */}
-        {ANFRAGE_FORMULAR_AKTIV && (
-          <div className="mt-12 text-center animate-fade-up" style={{ animationDelay: '120ms' }}>
-            <p className="font-inter text-sm mb-3" style={{ color: '#7B8792' }}>
-              Deine Frage ist nicht dabei?
-            </p>
-            <button
-              type="button"
-              data-open-form="true"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg font-inter font-semibold text-sm transition-opacity hover:opacity-80"
-              style={{
-                background: 'rgba(201,168,76,0.06)',
-                border: '1px solid rgba(201,168,76,0.4)',
-                color: '#E8D49A',
-              }}
-            >
-              Schreib mir direkt
-              <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </button>
-          </div>
-        )}
+            abgefangen — dieselbe Mechanik wie bei allen anderen CTAs. */}
+        <div className="mt-12 text-center animate-fade-up" style={{ animationDelay: '120ms' }}>
+          <p className="font-inter text-sm mb-3" style={{ color: '#7B8792' }}>
+            Deine Frage ist nicht dabei?
+          </p>
+          <button
+            type="button"
+            data-open-form="true"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg font-inter font-semibold text-sm transition-opacity hover:opacity-80"
+            style={{
+              background: 'rgba(201,168,76,0.06)',
+              border: '1px solid rgba(201,168,76,0.4)',
+              color: '#E8D49A',
+            }}
+          >
+            Schreib mir direkt
+            <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </button>
+        </div>
       </div>
     </section>
   )

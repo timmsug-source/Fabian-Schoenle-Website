@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { CALENDLY_URL } from '@/lib/constants'
+import { ANFRAGE_ANKER } from '@/lib/constants'
 
 type LocalHeroProps = {
   label?: string
@@ -391,10 +391,8 @@ export default function LocalHero({
 
           {/* CTA */}
           <a
-            href={CALENDLY_URL}
+            href={ANFRAGE_ANKER}
             data-open-form="true"
-            target="_blank"
-            rel="noopener noreferrer"
             className="cta-metal inline-flex items-center gap-3 px-7 py-4 rounded-xl font-barlow font-semibold text-lg transition-transform"
           >
             <IconCalendarCta />

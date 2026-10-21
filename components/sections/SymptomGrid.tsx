@@ -1,4 +1,4 @@
-import { CALENDLY_URL } from '@/lib/constants'
+import { ANFRAGE_ANKER } from '@/lib/constants'
 
 const GOLD = 'url(#ico-gold)'
 
@@ -199,10 +199,8 @@ export default function SymptomGrid({
           {/* CTA */}
           <div className="mt-12 flex justify-center">
             <a
-              href={CALENDLY_URL}
+              href={ANFRAGE_ANKER}
               data-open-form="true"
-              target="_blank"
-              rel="noopener noreferrer"
               className="cta-metal inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-inter font-semibold text-sm transition-transform"
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

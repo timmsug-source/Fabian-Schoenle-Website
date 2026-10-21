@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { ANFRAGE_ANKER } from '@/lib/constants'
 
 type ButtonProps = {
   href?: string
@@ -8,8 +9,8 @@ type ButtonProps = {
   children: React.ReactNode
   className?: string
   external?: boolean
-  /** Öffnet bei Klick das Calendly-Popup (statt zu navigieren) */
-  popup?: boolean
+  /** Öffnet das Anfrageformular, `href` wird dann ignoriert */
+  formular?: boolean
 }
 
 export default function Button({
@@ -20,7 +21,7 @@ export default function Button({
   children,
   className = '',
   external = false,
-  popup = false,
+  formular = false,
 }: ButtonProps) {
   const base = 'inline-flex items-center justify-center rounded-xl font-inter font-semibold transition-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold'
 
@@ -38,9 +39,17 @@ export default function Button({
 
   const classes = `${base} ${variants[variant]} ${sizes[size]} ${className}`
 
+  if (formular) {
+    return (
+      <a href={ANFRAGE_ANKER} data-open-form="true" className={classes}>
+        {children}
+      </a>
+    )
+  }
+
   if (href) {
     return external ? (
-      <a href={href} data-open-form={popup ? 'true' : undefined} className={classes} target="_blank" rel="noopener noreferrer">
+      <a href={href} className={classes} target="_blank" rel="noopener noreferrer">
         {children}
       </a>
     ) : (

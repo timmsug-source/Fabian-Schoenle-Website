@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { createPortal } from 'react-dom'
 import Image from 'next/image'
-import { ANFRAGE_FORMULAR_AKTIV } from '@/lib/constants'
+import { ANFRAGE_ANKER } from '@/lib/constants'
 
 type Feld = {
   key: 'name' | 'email' | 'telefon'
@@ -39,10 +39,12 @@ export default function AnfrageFormular() {
   useEffect(() => setMounted(true), [])
 
   // Öffnet das Formular bei Klick auf ein Element mit data-open-form.
-  // Ist ANFRAGE_FORMULAR_AKTIV aus, wird nichts abgefangen — die Schaltflächen
-  // sind dann normale Links und führen zu ihrem Ziel (Calendly).
+  //
+  // Die Schaltflächen verweisen auf ANFRAGE_ANKER. Wer klickt, bevor dieses
+  // Skript läuft (auf dem Handy oft die ersten Sekunden), setzt nur den Anker
+  // in der Adresse. Den greift `ankerPruefen` beim Start auf, ebenso einen
+  // Direktlink wie fabianschoenle.de/#anfrage.
   useEffect(() => {
-    if (!ANFRAGE_FORMULAR_AKTIV) return
     function onClick(e: MouseEvent) {
       const el = (e.target as HTMLElement | null)?.closest<HTMLElement>('[data-open-form]')
       if (!el) return
@@ -50,8 +52,20 @@ export default function AnfrageFormular() {
       setKontext({ symptome: el.dataset.symptome || undefined, schwerpunkt: el.dataset.schwerpunkt || undefined })
       setOffen(true)
     }
+    function ankerPruefen() {
+      if (window.location.hash !== ANFRAGE_ANKER) return
+      // Anker wieder entfernen, sonst bliebe er nach dem Schließen in der
+      // Adresse stehen und ein erneuter Klick löste kein hashchange mehr aus.
+      history.replaceState(history.state, '', window.location.pathname + window.location.search)
+      setOffen(true)
+    }
+    ankerPruefen()
     document.addEventListener('click', onClick)
-    return () => document.removeEventListener('click', onClick)
+    window.addEventListener('hashchange', ankerPruefen)
+    return () => {
+      document.removeEventListener('click', onClick)
+      window.removeEventListener('hashchange', ankerPruefen)
+    }
   }, [])
 
   const aktuell = felder[step]

@@ -1,6 +1,6 @@
 import { cms, txt } from '@/lib/cms-text'
 import Image from 'next/image'
-import { CALENDLY_URL } from '@/lib/constants'
+import { ANFRAGE_ANKER } from '@/lib/constants'
 import { Rich } from '@/components/Rich'
 
 const credentials = [
@@ -179,10 +179,8 @@ export default function UeberMichSection({ content = {} }: { content?: Record<st
 
             {/* CTA */}
             <a
-              href={CALENDLY_URL}
+              href={ANFRAGE_ANKER}
               data-open-form="true"
-              target="_blank"
-              rel="noopener noreferrer"
               className="cta-metal mt-8 inline-flex items-center gap-2 px-6 py-3.5 rounded-lg font-inter font-semibold text-sm transition-transform"
             >
               <span {...cms('uebermich_cta_button')}>{txt(content, 'uebermich_cta_button', 'Performance-Analyse buchen')}</span>

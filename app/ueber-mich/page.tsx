@@ -4,7 +4,7 @@ import { buildMetadata } from '@/lib/metadata'
 import PersonSchema from '@/components/schema/PersonSchema'
 import SocialSection from '@/components/sections/SocialSection'
 import ZitatModul from '@/components/ui/ZitatModul'
-import { CALENDLY_URL } from '@/lib/constants'
+import { ANFRAGE_ANKER } from '@/lib/constants'
 
 export const metadata: Metadata = buildMetadata({
   title: 'Über Fabian Schönle — Performance Coach & Chemiker | FS Performance Lab',
@@ -487,10 +487,8 @@ export default function UeberMichPage() {
               Knopf am Seitenende. */}
           <div className="md:hidden flex justify-center mt-2">
             <a
-              href={CALENDLY_URL}
+              href={ANFRAGE_ANKER}
               data-open-form="true"
-              target="_blank"
-              rel="noopener noreferrer"
               className="cta-metal inline-flex items-center gap-2 px-8 py-4 rounded-xl font-inter font-semibold text-base transition-transform"
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -551,10 +549,8 @@ export default function UeberMichPage() {
           </p>
 
           <a
-            href={CALENDLY_URL}
+            href={ANFRAGE_ANKER}
             data-open-form="true"
-            target="_blank"
-            rel="noopener noreferrer"
             className="cta-metal inline-flex items-center gap-2 px-8 py-4 rounded-xl font-inter font-semibold text-base transition-transform animate-fade-up"
             style={{ animationDelay: '120ms' }}
           >

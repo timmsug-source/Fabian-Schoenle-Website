@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { CALENDLY_URL } from '@/lib/constants'
+import { ANFRAGE_ANKER } from '@/lib/constants'
 
 type OnlineHeroProps = {
   /** Kleine Zeile über der Überschrift */
@@ -90,10 +90,8 @@ export default function OnlineHero({
 
             <div>
               <a
-                href={CALENDLY_URL}
+                href={ANFRAGE_ANKER}
                 data-open-form="true"
-                target="_blank"
-                rel="noopener noreferrer"
                 className="cta-metal inline-flex items-center gap-3 px-8 py-4 rounded-xl font-inter font-semibold text-base md:text-lg transition-transform"
               >
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">

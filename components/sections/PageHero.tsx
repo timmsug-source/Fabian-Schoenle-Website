@@ -1,4 +1,4 @@
-import { CALENDLY_URL } from '@/lib/constants'
+import { ANFRAGE_ANKER } from '@/lib/constants'
 
 type PageHeroProps = {
   label?: string
@@ -31,10 +31,8 @@ export default function PageHero({ label, headline, subheadline, body, ctaLabel 
           </p>
         )}
         <a
-          href={CALENDLY_URL}
+          href={ANFRAGE_ANKER}
           data-open-form="true"
-          target="_blank"
-          rel="noopener noreferrer"
           className="cta-metal inline-flex items-center gap-2 px-7 py-4 rounded-xl font-inter font-semibold text-sm transition-transform"
         >
           {ctaLabel ?? 'Performance-Analyse buchen'}
