@@ -103,7 +103,7 @@ export default async function DatenschutzPage() {
         />
         <P
           id="datenschutz_7a_text2"
-          html={txt(content, 'datenschutz_7a_text2', 'Mit deiner Einwilligung erfasst der Pixel unter anderem, welche Seiten du aufrufst, ob du über eine Anzeige gekommen bist, deine IP-Adresse sowie Angaben zu Browser und Gerät, und setzt dafür Cookies (zum Beispiel _fbp). Meta kann diese Informationen deinem Facebook- oder Instagram-Konto zuordnen, wenn du dort angemeldet bist. Ich nutze die Daten, um die Wirkung meiner Anzeigen zu messen und sie passenden Personen anzuzeigen. Personenbezogene Auswertungen über einzelne Besucher erhalte ich nicht.')}
+          html={txt(content, 'datenschutz_7a_text2', 'Mit deiner Einwilligung erfasst der Pixel unter anderem, welche Seiten du aufrufst, ob du über eine Anzeige gekommen bist, deine IP-Adresse sowie Angaben zu Browser und Gerät, und setzt dafür Cookies (zum Beispiel _fbp). Meta kann diese Informationen deinem Facebook- oder Instagram-Konto zuordnen, wenn du dort angemeldet bist. Außerdem meldet die Seite dem Pixel, wenn du eine Anfrage über ein Formular abschickst, mir über die FAQ schreibst oder über den eingebundenen Kalender von Calendly einen Termin buchst. Gemeldet wird nur, dass das passiert ist, nicht dein Name, deine E-Mail-Adresse oder deine Telefonnummer. Ich nutze die Daten, um die Wirkung meiner Anzeigen zu messen und sie passenden Personen anzuzeigen. Personenbezogene Auswertungen über einzelne Besucher erhalte ich nicht.')}
         />
         <P
           id="datenschutz_7a_text3"

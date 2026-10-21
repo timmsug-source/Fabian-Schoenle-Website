@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { useId, useState } from 'react'
 import { Rich } from '@/components/Rich'
 import { FAQS, cmsFaqs, type FaqEintrag } from '@/lib/faq'
+import { metaEreignis } from '@/lib/meta'
 
 type FAQSectionProps = {
   content?: Record<string, string>
@@ -72,6 +73,8 @@ export default function FAQSection({ content = {}, items, label, title1, title2,
         throw new Error(daten?.error || 'Senden fehlgeschlagen.')
       }
       setGesendet(true)
+      // Meist eine Frage, keine Anfrage, deshalb nicht als Lead gezählt
+      metaEreignis('Contact')
     } catch (e) {
       setFehler(e instanceof Error ? e.message : 'Senden fehlgeschlagen. Bitte versuche es später erneut.')
     } finally {

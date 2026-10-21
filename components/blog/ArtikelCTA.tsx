@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { CALENDLY_URL } from '@/lib/constants'
+import { KALENDER_ANKER } from '@/lib/constants'
 import { kastenStil } from '@/components/blog/Bausteine'
 
 /**
@@ -32,9 +32,8 @@ export default function ArtikelCTA() {
       </p>
 
       <a
-        href={CALENDLY_URL}
-        target="_blank"
-        rel="noopener noreferrer"
+        href={KALENDER_ANKER}
+        data-open-kalender="true"
         className="cta-metal flex w-full items-center justify-center gap-2 px-5 py-3.5 rounded-xl font-inter font-semibold text-sm transition-transform"
       >
         Performance-Analyse buchen

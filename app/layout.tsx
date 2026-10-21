@@ -6,6 +6,7 @@ import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import ScrollReveal from '@/components/ScrollReveal'
 import AnfrageFormular from '@/components/AnfrageFormular'
+import CalendlyFenster from '@/components/CalendlyFenster'
 import ConsentBanner from '@/components/consent/ConsentBanner'
 import Analytics from '@/components/consent/Analytics'
 import MetaPixel from '@/components/consent/MetaPixel'
@@ -70,6 +71,7 @@ export default function RootLayout({
       <body className="antialiased">
         <ScrollReveal />
         <AnfrageFormular />
+        <CalendlyFenster />
         <NurAufSeiten ausser={OHNE_NAVIGATION}>
           <Header />
         </NurAufSeiten>

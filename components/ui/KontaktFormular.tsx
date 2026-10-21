@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { CALENDLY_URL } from '@/lib/constants'
+import { metaEreignisNachWeiterleitung } from '@/lib/meta'
 
 /**
  * Die eigentliche Eingabemaske: Vorname, E-Mail, Telefon, Einwilligung.
@@ -61,11 +62,12 @@ export default function KontaktFormular({
     setFehler(null)
     setSendet(true)
     try {
-      await fetch('/api/contact', {
+      const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, email, telefon, schwerpunkt: quelle }),
       })
+      if (res.ok) metaEreignisNachWeiterleitung('Lead')
     } catch {
       // bewusst ignoriert — der Termin ist wichtiger, siehe Kommentar oben
     }

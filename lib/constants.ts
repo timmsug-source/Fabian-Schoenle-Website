@@ -39,6 +39,14 @@ export const CALENDLY_URL = process.env.NEXT_PUBLIC_CALENDLY_URL ?? 'https://cal
  */
 export const ANFRAGE_ANKER = '#anfrage'
 
+/**
+ * Ziel der Calendly-Schaltflächen (`data-open-kalender`): öffnet den Kalender
+ * im Fenster auf der Seite statt calendly.com. Nur so lässt sich eine Buchung
+ * an den Meta-Pixel melden, ohne den kostenpflichtigen Calendly-Tarif.
+ * Nicht `#termin`, das ist auf /danke der Anker zur Kalender-Sektion.
+ */
+export const KALENDER_ANKER = '#kalender'
+
 /** Profile der Marke. Werden auch als `sameAs` in den strukturierten Daten ausgegeben. */
 export const LINKEDIN_URL = 'https://www.linkedin.com/in/fabian-sch%C3%B6nle-a273a8363/'
 /** Meta-Pixel fuer die Facebook-/Instagram-Werbung. Laedt nur mit Einwilligung „Marketing“. */

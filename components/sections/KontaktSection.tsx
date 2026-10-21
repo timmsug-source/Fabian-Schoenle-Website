@@ -2,7 +2,7 @@
 
 import { cms, txt } from '@/lib/cms-text'
 import { useEffect, useRef, useState } from 'react'
-import { CALENDLY_URL } from '@/lib/constants'
+import { KALENDER_ANKER } from '@/lib/constants'
 import { Rich } from '@/components/Rich'
 import CalendlyEinbettung from '@/components/ui/CalendlyEinbettung'
 
@@ -124,9 +124,8 @@ export default function KontaktSection({
 
             {/* CTA Button */}
             <a
-              href={CALENDLY_URL}
-              target="_blank"
-              rel="noopener noreferrer"
+              href={KALENDER_ANKER}
+              data-open-kalender="true"
               className="cta-metal inline-flex items-center gap-3 px-7 py-4 rounded-xl font-inter font-semibold text-sm transition-transform mb-4"
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -210,9 +209,8 @@ export default function KontaktSection({
               />
               <div style={{ marginTop: '0.5%' }} className="flex justify-center">
                 <a
-                  href={CALENDLY_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href={KALENDER_ANKER}
+                  data-open-kalender="true"
                   className="cta-metal inline-flex items-center gap-3 px-7 py-4 rounded-xl font-inter font-semibold text-sm transition-transform"
                 >
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

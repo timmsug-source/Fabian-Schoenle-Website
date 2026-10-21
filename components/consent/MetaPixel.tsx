@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { CONSENT_EVENT, leseEinwilligung } from '@/lib/consent'
 import { META_PIXEL_ID } from '@/lib/constants'
+import { META_AUSSTEHEND, metaEreignis } from '@/lib/meta'
 
 declare global {
   interface Window {
@@ -26,6 +27,10 @@ declare global {
  * Widerruf: Das einmal geladene Skript laesst sich nicht entladen. Deshalb
  * `fbq('consent', 'revoke')` — danach sendet der Pixel nichts mehr. Die
  * Cookies loescht der Banner (loescheMetaCookies).
+ *
+ * Ereignisse: Buchungen in Calendly meldet der Kalender per postMessage an
+ * die Seite, egal ob im Fenster oder eingebettet. Hier wird daraus „Schedule“.
+ * Die Formulare melden „Lead“ bzw. „Contact“ selbst, siehe lib/meta.ts.
  */
 export default function MetaPixel() {
   const [erlaubt, setErlaubt] = useState(false)
@@ -40,6 +45,15 @@ export default function MetaPixel() {
     pruefen()
     window.addEventListener(CONSENT_EVENT, pruefen)
     return () => window.removeEventListener(CONSENT_EVENT, pruefen)
+  }, [])
+
+  useEffect(() => {
+    function onMessage(e: MessageEvent) {
+      if (e.origin !== 'https://calendly.com') return
+      if (e.data?.event === 'calendly.event_scheduled') metaEreignis('Schedule')
+    }
+    window.addEventListener('message', onMessage)
+    return () => window.removeEventListener('message', onMessage)
   }, [])
 
   useEffect(() => {
@@ -62,6 +76,11 @@ export default function MetaPixel() {
         fbq('init', '${META_PIXEL_ID}');
         fbq('track', 'PageView');
         window.__fsPixelPfad = location.pathname;
+        try {
+          var ausstehend = JSON.parse(sessionStorage.getItem('${META_AUSSTEHEND}') || '[]');
+          sessionStorage.removeItem('${META_AUSSTEHEND}');
+          ausstehend.forEach(function (n) { fbq('track', n); });
+        } catch (e) {}
       `}
     </Script>
   )
