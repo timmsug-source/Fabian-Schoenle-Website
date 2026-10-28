@@ -23,7 +23,7 @@ export const UNTERSEITEN_NOINDEX = true
  * Sitemap stehen. So lassen sich Seiten einzeln freigeben, sobald sie fertig
  * sind, statt alle auf einmal. Eingetragen wird der `slug` aus buildMetadata.
  */
-export const FREIGEGEBENE_UNTERSEITEN: readonly string[] = ['ueber-mich']
+export const FREIGEGEBENE_UNTERSEITEN: readonly string[] = ['ueber-mich', 'personal-coaching-online']
 
 // Frueher calendly.com/fuelbyfabian/30min, das liefert inzwischen 404.
 export const CALENDLY_URL = process.env.NEXT_PUBLIC_CALENDLY_URL ?? 'https://calendly.com/fsperformancelab/30min'
